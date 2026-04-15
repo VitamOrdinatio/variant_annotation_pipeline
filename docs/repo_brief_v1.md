@@ -116,7 +116,6 @@ Gene sets must be integrated as **post-annotation overlays**.
 ## Required Gene Sets
 
 * MitoCarta → mitochondrial-associated genes
-* SAGAS → epilepsy-associated genes
 * Genes4Epilepsy → epilepsy-associated genes
 
 ---

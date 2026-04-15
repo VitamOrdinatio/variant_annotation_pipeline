@@ -76,7 +76,6 @@ Beyond standard annotation, this pipeline introduces a **gene-set overlay layer*
 Included gene sets:
 
 * **MitoCarta** → nuclear-encoded mitochondrial genes
-* **SAGAS** → epilepsy-associated genes
 * **Genes4Epilepsy** → epilepsy-associated genes
 
 Each variant is annotated with gene-set membership flags, enabling downstream filtering and interpretation.

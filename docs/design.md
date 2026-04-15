@@ -179,7 +179,6 @@ Gene sets are used as **annotation overlays**, not primary datasets.
 ## Included Gene Sets
 
 * MitoCarta → mitochondrial genes
-* SAGAS → epilepsy genes
 * Genes4Epilepsy → epilepsy genes
 
 ---

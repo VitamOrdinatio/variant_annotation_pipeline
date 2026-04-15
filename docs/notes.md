@@ -31,7 +31,7 @@ into annotated and prioritized variants suitable for biological interpretation.
 
 ```text
 Identify and annotate variants occurring in mitochondrial-associated genes
-(MitoCarta) and/or epilepsy-related genes (SAGAS and Genes4Epilepsy), permitting comparisons of variant sets for downstream analysis.
+(MitoCarta) and/or epilepsy-related genes (enes4Epilepsy), permitting comparisons of variant sets for downstream analysis.
 ```
 
 ---
@@ -89,8 +89,7 @@ These are required tools or datasets for this repository. Alternatives can be su
 **v1.0 gene lists**
 - gene-set overlay layer (used for post-annotation variant prioritization): 
 1. MitoCarta (gene list of nuclear-encoded mitochondrial genes)
-2. SAGAS (gene list of epilepsy genes)
-3. Genes4Epilepsy (gene list of epilepsy genes) 
+2. Genes4Epilepsy (gene list of epilepsy genes) 
 
 **v1.0 tools**
 - tool: BWA (mapping, alignment)
@@ -102,7 +101,7 @@ These are required tools or datasets for this repository. Alternatives can be su
 
 **v1.1 enhanced analytical toolkit**
 - tool: bcftools (VCF manipulation)
-- tool: BEDTools (interval logic, genome arithmetic, intersect gene-lists like MitoCarta, SAGAS, and Genes4Epilepsy)
+- tool: BEDTools (interval logic, genome arithmetic, intersect gene-lists like MitoCarta and Genes4Epilepsy)
 - tool: VCFtools (summary statistics, filtering, richer VCF-analysis toolkit)
 - tool: SnpEff (alternative / comparison annotation engine)
 
@@ -167,7 +166,7 @@ FASTQ
 → variant annotation (VEP)
 → filtering and prioritization
 → mitochondrial gene overlay (MitoCarta)
-→ epilepsy gene set overlay (SAGAS + Genes4Epilepsy)
+→ epilepsy gene set overlay (Genes4Epilepsy)
 → reporting
 ```
 
@@ -245,7 +244,7 @@ Each variant includes:
 * coding consequences (missense, nonsense, splice-region)
 * non-coding variants retained for future interpretation
 * coding variants in mitochondrial-associated genes flagged (MitoCarta)
-* coding variants in epilepsy-associated genes flagged (SAGAS / Genes4Epilepsy)
+* coding variants in epilepsy-associated genes flagged (Genes4Epilepsy)
 
 ---
 

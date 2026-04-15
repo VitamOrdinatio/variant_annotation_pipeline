@@ -1,0 +1,120 @@
+project:
+  name: variant_annotation_pipeline
+  pipeline_name: variant_annotation_pipeline
+  version: v1.0
+
+mode:
+  execution_mode: full_pipeline
+
+input:
+  bioproject_accession: PRJNA200694
+  sample_id: HG002
+  sample_alias: NA24385
+  sra_accession: SRR12898354
+
+  fastq:
+    r1: /mnt/storage/fastq/SRR12898354_1.fastq.gz
+    r2: /mnt/storage/fastq/SRR12898354_2.fastq.gz
+    compressed: true
+    paired_end: true
+
+  sra:
+    enabled: false
+    sra_dir: null
+    sra_file: null
+
+  vcf:
+    input_vcf: null
+
+reference:
+  genome_build: GRCh38
+  fasta_path: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa
+  fasta_index: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa.fai
+  bwa_index_prefix: /mnt/storage/reference/grch38/bwa/GRCh38.primary_assembly.genome
+  sequence_dictionary: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.dict
+
+validation:
+  enable_validation: true
+  giab_benchmark_vcf: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz
+  giab_benchmark_index: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi
+  giab_benchmark_bed: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.bed
+  require_benchmark_for_v1: false
+  enable_manual_igv_review_prep: true
+
+tools:
+  bwa:
+    executable: bwa
+    mode: mem
+    threads: 8
+
+  samtools:
+    executable: samtools
+    threads: 8
+
+  gatk:
+    executable: gatk
+    java_options: "-Xmx16g"
+    haplotypecaller_emit_mode: discovery
+
+  vep:
+    executable: vep
+    cache_dir: /mnt/storage/reference/vep/cache
+    assembly: GRCh38
+    offline: true
+    fork: 4
+
+annotation:
+  engine: vep
+  include_clinvar: true
+  include_population_frequencies: true
+  population_sources:
+    - gnomAD
+    - ExAC
+    - 1000Genomes
+
+gene_sets:
+  mitocarta_path: /mnt/storage/gene_sets/MitoCarta3.0_human_genes.tsv
+  genes4epilepsy_path: /mnt/storage/gene_sets/Genes4Epilepsy.tsv
+  required_flags:
+    - mito_flag
+    - epilepsy_flag
+
+filtering:
+  max_af_gnomad: 0.01
+  max_af_exac: 0.01
+  max_af_1000genomes: 0.01
+  allowed_coding_consequences:
+    - missense_variant
+    - stop_gained
+    - frameshift_variant
+    - splice_donor_variant
+    - splice_acceptor_variant
+  noncoding_priority_terms:
+    - intron_variant
+    - regulatory_region_variant
+    - upstream_gene_variant
+    - downstream_gene_variant
+
+prioritization:
+  enable_gene_set_overlays: true
+  prioritize_clinvar_pathogenic: true
+  prioritize_high_impact_consequences: true
+  prioritize_mito_genes: true
+  prioritize_epilepsy_genes: true
+
+output:
+  base_results_dir: results
+  write_interim: true
+  write_processed: true
+  write_reports: true
+  compress_vcf_outputs: false
+
+logging:
+  level: INFO
+  log_to_file: true
+  log_filename: pipeline.log
+
+runtime:
+  fail_fast: true
+  record_tool_versions: true
+  deterministic_mode: true
