@@ -604,7 +604,7 @@ stage_07: Annotation (No Filtering)
     - input: normalized VCF
     - goal: annotate variants (ANNOVAR or equivalent)
 
-stage_8: Global Filtering and Partitioning into Dual Tracks
+stage_08: Global Filtering and Partitioning into Dual Tracks
     - input: annotated variant table
     - goal: generate filtered variant table
     - goal: generate coding-track table

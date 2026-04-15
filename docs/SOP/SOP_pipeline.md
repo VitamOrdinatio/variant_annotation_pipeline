@@ -165,7 +165,7 @@ This v1 implementation currently models the following tool classes:
 - BWA-MEM or equivalent for alignment
 - samtools for BAM processing and QC
 - GATK or equivalent for variant calling and normalization
-- ANNOVAR or equivalent for annotation
+- VEP or equivalent for annotation
 - IGV for optional manual review
 
 The current v1 implementation uses lightweight or placeholder logic for several of these steps so that the repository remains runnable without heavy external setup.
@@ -370,7 +370,7 @@ Repository mapping:
 - normalized VCF
 
 **Tool classes / resources:**
-- ANNOVAR or equivalent
+- Ensembl VEP (primary annotation engine; ANNOVAR acceptable alternative if needed)
 - gnomAD
 - ExAC
 - 1000 Genomes
@@ -510,6 +510,11 @@ Examples:
 **Evidence integration:**
 - SpliceAI
 - limited ClinVar signal
+- optional AlphaGenome-style logic
+
+**Evidence integration:**
+- limited ClinVar signal
+- optional future: SpliceAI
 - optional AlphaGenome-style logic
 
 **Interpretation logic:**
