@@ -21,6 +21,7 @@ Runtime-scoped artifacts:
 - <fastq_dir>/logs/<run_id>.prep.json
 - <tmp_dir>/<run_id>/
 - <fastq_dir>/quarantine/<run_id>/
+
 """
 
 from __future__ import annotations
