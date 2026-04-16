@@ -1,0 +1,202 @@
+{
+  "annotations": {
+    "annotation_completed": false,
+    "annotation_engine": "vep",
+    "clinvar_enabled": true,
+    "population_frequency_sources": [
+      "gnomAD",
+      "ExAC",
+      "1000Genomes"
+    ],
+    "resources_used": []
+  },
+  "artifacts": {
+    "aligned_bam": null,
+    "aligned_bam_index": null,
+    "aligned_qc_report": null,
+    "annotated_table": null,
+    "annotated_vcf": null,
+    "coding_table": null,
+    "filtered_table": null,
+    "gene_summary_table": null,
+    "igv_review_candidates": null,
+    "interpreted_coding_table": null,
+    "interpreted_noncoding_table": null,
+    "noncoding_table": null,
+    "normalized_vcf": null,
+    "prioritized_table": null,
+    "raw_vcf": null,
+    "run_summary_report": null,
+    "sorted_bam": null,
+    "sorted_bam_index": null,
+    "validation_notes": null
+  },
+  "errors": [
+    "Required upstream artifact not found for reference.fasta_path: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa"
+  ],
+  "gene_sets": {
+    "flags_added": [
+      "mito_flag",
+      "epilepsy_flag"
+    ],
+    "genes4epilepsy_path": "/mnt/storage/gene_sets/Genes4Epilepsy.tsv",
+    "mitocarta_path": "/mnt/storage/gene_sets/MitoCarta3.0_human_genes.tsv",
+    "overlay_completed": false
+  },
+  "inputs": {
+    "compressed_fastq": true,
+    "fastq_1": "/mnt/storage/fastq/SRR12898354_1.fastq.gz",
+    "fastq_2": "/mnt/storage/fastq/SRR12898354_2.fastq.gz",
+    "input_vcf": null,
+    "paired_end": true,
+    "sra_dir": null,
+    "sra_file": null
+  },
+  "qc": {
+    "alignment_qc": {},
+    "annotation_qc": {},
+    "bam_processing_qc": {},
+    "filtering_qc": {},
+    "input_qc": {
+      "execution_mode": "full_pipeline",
+      "file_count": 2,
+      "files_checked": [
+        {
+          "compressed": true,
+          "exists": true,
+          "label": "input.fastq.r1",
+          "path": "/mnt/storage/fastq/SRR12898354_1.fastq.gz",
+          "size_bytes": 28166013415
+        },
+        {
+          "compressed": true,
+          "exists": true,
+          "label": "input.fastq.r2",
+          "path": "/mnt/storage/fastq/SRR12898354_2.fastq.gz",
+          "size_bytes": 15640935625
+        }
+      ],
+      "gene_set_check_count": 2,
+      "gene_sets_checked": [
+        {
+          "exists": true,
+          "label": "gene_sets.mitocarta_path",
+          "path": "/mnt/storage/gene_sets/MitoCarta3.0_human_genes.tsv",
+          "size_bytes": 13807
+        },
+        {
+          "exists": true,
+          "label": "gene_sets.genes4epilepsy_path",
+          "path": "/mnt/storage/gene_sets/Genes4Epilepsy.tsv",
+          "size_bytes": 12643
+        }
+      ],
+      "input_validation_passed": true,
+      "provenance_check_count": 0,
+      "provenance_checked": [],
+      "validation_check_count": 3,
+      "validation_checked": [
+        {
+          "exists": true,
+          "label": "validation.giab_benchmark_vcf",
+          "path": "/mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz",
+          "size_bytes": 156252944
+        },
+        {
+          "exists": true,
+          "label": "validation.giab_benchmark_index",
+          "path": "/mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi",
+          "size_bytes": 1657747
+        },
+        {
+          "exists": true,
+          "label": "validation.giab_benchmark_bed",
+          "path": "/mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.bed",
+          "size_bytes": 11494021
+        }
+      ]
+    },
+    "interpretation_qc": {},
+    "normalization_qc": {},
+    "validation_qc": {},
+    "variant_calling_qc": {}
+  },
+  "reports": {
+    "gene_summary_table": null,
+    "report_line_count": null,
+    "run_summary_report": null,
+    "summary_table": null
+  },
+  "run": {
+    "config_path": "config/config.yaml",
+    "config_snapshot_path": "results/run_2026_04_15_142940/config_used.yaml",
+    "end_time": "2026-04-15T14:29:40",
+    "execution_mode": "full_pipeline",
+    "machine_id": "pop-os",
+    "pipeline_name": "variant_annotation_pipeline",
+    "pipeline_version": "v1.0",
+    "run_id": "run_2026_04_15_142940",
+    "start_time": "2026-04-15T14:29:40",
+    "status": "failed",
+    "tool_versions_recorded": false
+  },
+  "sample": {
+    "assay_type": "WGS",
+    "bioproject_accession": "PRJNA200694",
+    "reference_genome": "GRCh38",
+    "sample_alias": "NA24385",
+    "sample_id": "HG002",
+    "sra_accession": "SRR12898354"
+  },
+  "stage_outputs": {
+    "stage_01_load_data": {
+      "execution_mode": "full_pipeline",
+      "file_count": 2,
+      "gene_set_check_count": 2,
+      "reference_genome": "GRCh38",
+      "sample_id": "HG002",
+      "sra_accession": "SRR12898354",
+      "status": "success",
+      "validation_check_count": 3,
+      "warning_count": 0
+    },
+    "stage_02_align_data": {
+      "error": "Required upstream artifact not found for reference.fasta_path: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa",
+      "status": "failed"
+    },
+    "stage_03_process_bam": {
+      "status": "not_started"
+    },
+    "stage_04_qc_aligned_reads": {
+      "status": "not_started"
+    },
+    "stage_05_call_variants": {
+      "status": "not_started"
+    },
+    "stage_06_normalize_vcf": {
+      "status": "not_started"
+    },
+    "stage_07_annotate_variants": {
+      "status": "not_started"
+    },
+    "stage_08_filter_and_partition": {
+      "status": "not_started"
+    },
+    "stage_09_interpret_coding": {
+      "status": "not_started"
+    },
+    "stage_10_interpret_noncoding": {
+      "status": "not_started"
+    },
+    "stage_11_prioritize_variants": {
+      "status": "not_started"
+    },
+    "stage_12_validate_variants": {
+      "status": "not_started"
+    },
+    "stage_13_write_summary": {
+      "status": "not_started"
+    }
+  },
+  "warnings": []
+}
