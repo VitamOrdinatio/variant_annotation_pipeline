@@ -1,5 +1,7 @@
 # Roadmap
 
+This roadmap reflects planned development priorities and may evolve as repositories mature and framework standards improve.
+
 ## Overview
 
 This repository is part of a broader effort to build a **modular, reproducible, and clinically-relevant bioinformatics ecosystem** for variant analysis, gene prioritization, and disease-focused interpretation.

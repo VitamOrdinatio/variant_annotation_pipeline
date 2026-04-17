@@ -1,5 +1,11 @@
 # Variant Annotation Pipeline
 
+# variant_annotation_pipeline
+
+`variant_annotation_pipeline` is a modular bioinformatics pipeline for reproducible variant processing, annotation, and downstream prioritization. It is designed as part of a broader ecosystem of interoperable repositories focused on clinical genomics, rare disease analysis, and disease-relevant interpretation workflows.
+
+This repository emphasizes clear pipeline structure, reproducibility, and framework-driven development. Planned extensions and its relationship to adjacent repositories are described in [ROADMAP.md](ROADMAP.md).
+
 ---
 
 ## Overview
