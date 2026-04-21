@@ -19,8 +19,16 @@ set -euo pipefail
 #   - validate
 #   - provision
 
+
+## VARIABLES
+
 TARGET_ENV="${TARGET_ENV:-sys76}"
 MODE="${MODE:-status}"
+
+VEP_EXECUTABLE="${VEP_EXECUTABLE:-}"
+ANNOVAR_EXECUTABLE="${ANNOVAR_EXECUTABLE:-}"
+
+## HELPER FUNCTIONS
 
 log() {
   echo "[INFO] $*"
@@ -60,6 +68,8 @@ log "STORAGE_BASE: $STORAGE_BASE"
 log "Delegating to scripts/resources/setup_annotation_resources.sh"
 
 MODE="$MODE" \
+VEP_EXECUTABLE="$VEP_EXECUTABLE" \
 VEP_CACHE_DIR="$VEP_CACHE_DIR" \
 ANNOVAR_HUMANDB_DIR="$ANNOVAR_HUMANDB_DIR" \
+ANNOVAR_EXECUTABLE="$ANNOVAR_EXECUTABLE" \
 bash scripts/resources/setup_annotation_resources.sh
