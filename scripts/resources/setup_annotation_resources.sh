@@ -101,6 +101,41 @@ check_vep_executable() {
   return 1
 }
 
+ensure_directory() {
+  local label="$1"
+  local dir_path="$2"
+
+  if [[ -d "$dir_path" ]]; then
+    log "$label directory already exists: $dir_path"
+    return 0
+  fi
+
+  mkdir -p "$dir_path"
+  log "Created $label directory: $dir_path"
+}
+
+inspect_directory_state() {
+  local label="$1"
+  local dir_path="$2"
+
+  if [[ -d "$dir_path" ]]; then
+    if [[ -n "$(ls -A "$dir_path" 2>/dev/null)" ]]; then
+      echo "[INFO] $label directory exists and is non-empty." >&2
+      echo "present"
+      return 0
+    else
+      warn "$label directory exists but is empty."
+      echo "empty"
+      return 0
+    fi
+  fi
+
+  warn "$label directory does not exist."
+  echo "missing"
+}
+
+
+
 # MAIN LOGIC
 
 
@@ -139,36 +174,14 @@ fi
 
 
 # --- VEP cache inspection ---
-if [[ -d "$VEP_CACHE_DIR" ]]; then
-  if [[ -n "$(ls -A "$VEP_CACHE_DIR" 2>/dev/null)" ]]; then
-    log "VEP cache directory exists and is non-empty."
-    VEP_STATUS="present"
-  else
-    warn "VEP cache directory exists but is empty."
-    VEP_STATUS="empty"
-  fi
-else
-  warn "VEP cache directory does not exist."
-  VEP_STATUS="missing"
-fi
+VEP_STATUS="$(inspect_directory_state "VEP cache" "$VEP_CACHE_DIR")"
 
 # --- ANNOVAR humandb inspection ---
-if [[ -d "$ANNOVAR_HUMANDB_DIR" ]]; then
-  if [[ -n "$(ls -A "$ANNOVAR_HUMANDB_DIR" 2>/dev/null)" ]]; then
-    log "ANNOVAR humandb directory exists and is non-empty."
-    ANNOVAR_STATUS="present"
-  else
-    warn "ANNOVAR humandb directory exists but is empty."
-    ANNOVAR_STATUS="empty"
-  fi
-else
-  warn "ANNOVAR humandb directory does not exist."
-  ANNOVAR_STATUS="missing"
-fi
+ANNOVAR_STATUS="$(inspect_directory_state "ANNOVAR humandb" "$ANNOVAR_HUMANDB_DIR")"
 
 # --- validation enforcement ---
 if [[ "$MODE" == "validate" ]]; then
-  [[ "$VEP_TOOL_STATUS" == "present" ]] || die "VEP executable not available on PATH."
+  [[ "$VEP_TOOL_STATUS" == "present" ]] || die "VEP executable not properly configured."
   [[ "$PERL_TOOL_STATUS" == "present" ]] || die "Perl executable not available on PATH."
   [[ "$ANNOVAR_TOOL_STATUS" == "present" ]] || die "ANNOVAR executable not properly configured."
   [[ "$VEP_STATUS" == "present" ]] || die "VEP cache not properly provisioned."
@@ -181,13 +194,19 @@ fi
 if [[ "$MODE" == "provision" ]]; then
   log "Provision mode selected."
 
+  ensure_directory "VEP cache" "$VEP_CACHE_DIR"
+  ensure_directory "ANNOVAR humandb" "$ANNOVAR_HUMANDB_DIR"
+
+  VEP_STATUS="$(inspect_directory_state "VEP cache" "$VEP_CACHE_DIR")"
+  ANNOVAR_STATUS="$(inspect_directory_state "ANNOVAR humandb" "$ANNOVAR_HUMANDB_DIR")"
+
   if [[ "$VEP_STATUS" != "present" ]]; then
-    warn "VEP cache provisioning not yet implemented."
+    warn "VEP cache content provisioning not yet implemented."
   fi
 
   if [[ "$ANNOVAR_STATUS" != "present" ]]; then
-    warn "ANNOVAR humandb provisioning not yet implemented."
+    warn "ANNOVAR humandb content provisioning not yet implemented."
   fi
 
-  log "Provision step completed (scaffold only)."
+  log "Provision step completed (directory scaffold only)."
 fi
