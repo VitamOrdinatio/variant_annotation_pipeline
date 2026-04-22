@@ -319,9 +319,9 @@ if check_executable_path "ANNOVAR" "$ANNOVAR_EXECUTABLE"; then
 fi
 
 TOOLS_BASE_STATUS="$(inspect_directory_state "Tools base" "$TOOLS_BASE")"
-GATK_DIR_STATUS="$(inspect_directory_state "GATK directory" "$GATK_DIR")"
-VEP_DIR_STATUS="$(inspect_directory_state "VEP directory" "$VEP_DIR")"
-ANNOVAR_DIR_STATUS="$(inspect_directory_state "ANNOVAR directory" "$ANNOVAR_DIR")"
+GATK_DIR_STATUS="$(inspect_directory_state "GATK" "$GATK_DIR")"
+VEP_DIR_STATUS="$(inspect_directory_state "VEP" "$VEP_DIR")"
+ANNOVAR_DIR_STATUS="$(inspect_directory_state "ANNOVAR" "$ANNOVAR_DIR")"
 
 if [[ "$MODE" == "validate" ]]; then
   [[ "$PERL_TOOL_STATUS" == "present" ]] || die "Perl executable not available on PATH."
@@ -335,9 +335,9 @@ if [[ "$MODE" == "provision" ]]; then
   log "Provision mode selected."
 
   ensure_directory "Tools base" "$TOOLS_BASE"
-  ensure_directory "GATK directory" "$GATK_DIR"
-  ensure_directory "VEP directory" "$VEP_DIR"
-  ensure_directory "ANNOVAR directory" "$ANNOVAR_DIR"
+  ensure_directory "GATK" "$GATK_DIR"
+  ensure_directory "VEP" "$VEP_DIR"
+  ensure_directory "ANNOVAR" "$ANNOVAR_DIR"
 
   ensure_gatk_canonical_symlink || true
 
@@ -364,9 +364,9 @@ if [[ "$MODE" == "provision" ]]; then
   fi
 
   TOOLS_BASE_STATUS="$(inspect_directory_state "Tools base" "$TOOLS_BASE")"
-  GATK_DIR_STATUS="$(inspect_directory_state "GATK directory" "$GATK_DIR")"
-  VEP_DIR_STATUS="$(inspect_directory_state "VEP directory" "$VEP_DIR")"
-  ANNOVAR_DIR_STATUS="$(inspect_directory_state "ANNOVAR directory" "$ANNOVAR_DIR")"
+  GATK_DIR_STATUS="$(inspect_directory_state "GATK" "$GATK_DIR")"
+  VEP_DIR_STATUS="$(inspect_directory_state "VEP" "$VEP_DIR")"
+  ANNOVAR_DIR_STATUS="$(inspect_directory_state "ANNOVAR" "$ANNOVAR_DIR")"
 
   if [[ "$VEP_TOOL_STATUS" != "present" ]]; then
     warn "VEP executable provisioning not yet complete."
