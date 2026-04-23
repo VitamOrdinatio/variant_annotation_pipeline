@@ -76,6 +76,8 @@ def _validate_vep_runtime_requirements(config: dict[str, Any]) -> dict[str, str]
 
     executable = str(vep_cfg["executable"]).strip()
     cache_dir = Path(str(vep_cfg["cache_dir"]).strip())
+    assembly = str(vep_cfg.get("assembly", "")).strip()
+
 
     resolved_executable = shutil.which(executable)
     if resolved_executable is None:
@@ -101,9 +103,16 @@ def _validate_vep_runtime_requirements(config: dict[str, Any]) -> dict[str, str]
             f"Provision the offline cache before running Stage 07."
         )
 
+    if not assembly:
+        raise ValueError(
+            "VEP assembly not specified in config.tools.vep.assembly. "
+            "Required value is typically GRCh38."
+        )
+
     return {
         "vep_executable_resolved": resolved_executable,
         "vep_cache_dir": str(cache_dir),
+        "vep_assembly": assembly,
     }
 
 def _validate_annovar_runtime_requirements(config: dict[str, Any]) -> dict[str, str]:
@@ -304,6 +313,10 @@ def _build_annotation_command(
 
 def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path) -> list[str]:
     vep_cfg = config["tools"]["vep"]
+    assembly = str(vep_cfg.get("assembly", "")).strip()
+    if not assembly:
+        raise ValueError("VEP assembly missing in config.tools.vep.assembly")
+
     command = [
         vep_cfg["executable"],
         "--input_file",
@@ -317,7 +330,7 @@ def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path
         "--species",
         "homo_sapiens",
         "--assembly",
-        vep_cfg["assembly"],
+        assembly,
         "--cache",
         "--offline",
         "--dir_cache",
