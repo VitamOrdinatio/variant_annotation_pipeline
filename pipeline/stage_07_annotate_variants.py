@@ -349,7 +349,8 @@ def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path
     ]
 
     if config["annotation"]["include_clinvar"]:
-        command.append("--clin_sig_allele")
+        # ClinVar flag wiring is deferred pending VEP option compatibility validation on target runtime.
+        pass
 
     if config["annotation"]["include_population_frequencies"]:
         command.extend(["--af", "--af_1kg", "--af_gnomad", "--max_af"])
