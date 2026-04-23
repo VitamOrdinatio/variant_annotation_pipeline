@@ -519,6 +519,29 @@ def _validate_annotation_output_exists(
     if annotation_engine == "vep":
         if not annotated_vcf.exists():
             raise FileNotFoundError(f"Annotated VCF was not created: {annotated_vcf}")
+
+        if not annotated_vcf.is_file():
+            raise FileNotFoundError(
+                f"Annotated VCF path exists but is not a file: {annotated_vcf}"
+            )
+
+        if annotated_vcf.stat().st_size == 0:
+            raise ValueError(f"Annotated VCF is empty: {annotated_vcf}")
+
+        csq_header_found = False
+        with annotated_vcf.open("r", encoding="utf-8", errors="replace") as handle:
+            for line in handle:
+                if line.startswith("##INFO=<ID=CSQ"):
+                    csq_header_found = True
+                    break
+                if line.startswith("#CHROM"):
+                    break
+
+        if not csq_header_found:
+            raise ValueError(
+                f"Annotated VCF does not contain a VEP CSQ header: {annotated_vcf}"
+            )
+
         return
 
     if annotation_engine == "annovar":
