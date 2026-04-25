@@ -1,23 +1,62 @@
-# Variant Annotation Pipeline
+# Variant Annotation Pipeline (VAP)
 
-# variant_annotation_pipeline
+Built from raw WGS data (HG002, GIAB) with full pipeline execution through variant annotation.
 
-`variant_annotation_pipeline` is a modular bioinformatics pipeline for reproducible variant processing, annotation, and downstream prioritization. It is designed as part of a broader ecosystem of interoperable repositories focused on clinical genomics, rare disease analysis, and disease-relevant interpretation workflows.
-
-This repository emphasizes clear pipeline structure, reproducibility, and framework-driven development. Planned extensions and its relationship to adjacent repositories are described in [ROADMAP.md](ROADMAP.md).
+A reproducible, end-to-end whole-genome sequencing (WGS) pipeline that transforms raw FASTQ data into annotated and biologically interpretable variant sets.
 
 ---
 
-## Overview
+## 🚀 Current Status
 
-The **variant_annotation_pipeline** is a reproducible, end-to-end bioinformatics workflow that transforms **raw whole-genome sequencing (WGS) data** into **annotated and biologically interpretable variant sets**.
+VAP successfully executes end-to-end through **Stage 07 (VEP annotation)** on HG002 (GIAB benchmark dataset).
 
-This project is designed to demonstrate how modern genomics pipelines can be built from first principles with an emphasis on:
+**Completed pipeline stages:**
+- FASTQ ingestion
+- BWA alignment
+- BAM sorting and indexing
+- aligned-read QC
+- GATK HaplotypeCaller
+- VCF normalization
+- VEP annotation (offline mode)
+- annotated VCF and TSV generation
 
-* reproducibility
-* biological interpretability
-* modular pipeline design
-* scalability from single-sample to cohort-level analysis
+Large genomic outputs (FASTQ, BAM, VCF, full TSV) are intentionally excluded from version control.  
+Representative outputs and run summaries are provided below.
+
+---
+
+## 🔬 Execution Evidence (Stage 01–07)
+
+These artifacts demonstrate successful pipeline execution on real WGS data:
+
+### Output Manifest
+- [Stage 07 Output Manifest](docs/examples/stage_07_output_manifest.md)
+
+### Quality Control
+- [Aligned-Read QC Report](docs/examples/stage_04_qc_report.md)
+
+### Representative Outputs
+- [Annotated Variant Columns](docs/examples/stage_07_columns.tsv)
+- [Example Annotated Variants](docs/examples/stage_07_example_rows.tsv)
+- [Missense Variant Examples](docs/examples/stage_07_missense_examples.tsv)
+- [Stop-Gained Variant Examples](docs/examples/stage_07_stop_gained_examples.tsv)
+
+### Annotation Evidence
+- [VEP Summary Report](docs/examples/stage_07_vep_summary.html)
+- [VEP Warnings Log](docs/examples/stage_07_vep_variants_vcf_warnings.txt)
+
+---
+
+## 🧠 Overview
+
+The **variant_annotation_pipeline** is a reproducible workflow that transforms **raw WGS FASTQ data** into **annotated and biologically interpretable variant sets**.
+
+It is designed to demonstrate how modern genomics pipelines can be built from first principles with emphasis on:
+
+- reproducibility  
+- biological interpretability  
+- modular pipeline design  
+- scalability from single-sample to cohort-level analysis  
 
 ---
 
@@ -179,11 +218,29 @@ This project demonstrates not only how such a pipeline is built, but how it can 
 
 ---
 
-## Status
+## Ecosystem Context (Planned Integration)
 
-```text
-Active development — v1.0 implementation in progress
-```
+VAP is designed as part of a broader computational genomics system.
+
+Planned downstream components include:
+
+- **variant_database (VDB)**  
+  Centralized storage and structured access layer for annotated variant data.
+
+- **rnaseq_pipeline (RSP)**  
+  Functional genomics pipeline for transcriptomic evidence integration.
+
+- **rare_disease_gene_prioritization (RDGP)**  
+  Gene-level prioritization using aggregated variant and functional evidence.
+
+These components are currently under active design and will integrate with VAP outputs through defined system contracts.
+
+---
+
+## Sequence Data and Git
+
+Large genomic outputs (FASTQ, BAM, VCF, full TSV) are intentionally excluded from version control due to size constraints.  
+This repository instead tracks reproducible code, configuration, and representative outputs.
 
 ---
 
