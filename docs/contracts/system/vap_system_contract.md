@@ -21,10 +21,7 @@ It specifies:
 - invariants
 - cross-repo compatibility requirements
 
-This contract governs all data passed from VAP to:
-
-- Variant Database (VDB)
-- Rare Disease Gene Prioritization (RDGP)
+This contract governs VAP outputs intended for VDB ingestion and downstream compatibility with RDGP-facing aggregation.
 
 ---
 
@@ -184,6 +181,10 @@ contributing_variant_ids
 
 This seed is not a complete RDGP input record. Missing RDGP aggregation fields are generated later by VDB/interface aggregation or marked NULL when unavailable.
 
+The RDGP seed output is an optional early aggregation helper and must not be treated as the authoritative RDGP input contract.
+
+The authoritative RDGP-facing aggregation contract is defined by the VDB ↔ RDGP interface specification.
+
 # 🔒 System Invariants
 
 ## 1. Losslessness
@@ -236,6 +237,23 @@ VAP must NOT:
     • collapse transcript annotations 
     • perform gene-level scoring 
 
+
+---
+
+## Handoff Expectations
+
+Future VDB system_contract.md should define:
+- ingestion of `stage_08_vdb_ready_variants.tsv`
+- normalized storage of variant, annotation, gene, and provenance records
+- preservation of all raw annotation rows
+
+Future RDGP system_contract.md should define:
+- final gene-level aggregation requirements
+- scoring inputs
+- prioritization outputs
+- interpretation/reporting expectations
+
+VAP does not define VDB storage schema or RDGP scoring logic.
 
 ---
 

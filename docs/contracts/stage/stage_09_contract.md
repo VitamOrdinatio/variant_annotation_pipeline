@@ -53,7 +53,7 @@ without performing final prioritization.
 ```text
 coding_candidates.tsv
 stage_08_variant_summary.tsv
-stage_08_transcript_consequences.tsv
+stage_08_selected_transcript_consequences.tsv
 ```
 
 ---
@@ -76,6 +76,15 @@ stage_08_transcript_consequences.tsv
 * quality_flag
 * annotation_source
 * annotation_version
+* frequency_status
+* clinical_status
+* gene_mapping_status
+* variant_effect_severity
+
+If gene_mapping_status = unmapped:
+  - preserve variant
+  - set coding_interpretation_label = coding_uninterpretable
+  - exclude from any gene-linked downstream handoff
 
 ---
 
@@ -148,6 +157,7 @@ rarity_flag ∈ {
   rare,
   low_frequency,
   common,
+  missing,
   unknown
 }
 ```
@@ -161,6 +171,7 @@ clinical_evidence ∈ {
   pathogenic,
   likely_pathogenic,
   vus,
+  likely_benign,
   benign,
   conflicting,
   missing
@@ -223,6 +234,10 @@ is_high_quality =
 
 is_potential_artifact =
   qc_reliability == low_confidence
+
+frequency_status = missing → rarity_flag = missing
+
+frequency_status = unknown → rarity_flag = unknown
 ```
 
 ---
@@ -232,11 +247,11 @@ is_potential_artifact =
 Assign:
 
 ```text
-interpretation_tier ∈ {
-  strong_candidate,
-  moderate_candidate,
-  weak_candidate,
-  uninterpretable
+coding_interpretation_label ∈ {
+  lof_rare_clinically_supported
+  lof_or_missense_rare
+  coding_common_or_low_support
+  coding_uninterpretable
 }
 ```
 
@@ -277,12 +292,19 @@ Must include ALL Stage 08 fields PLUS:
 * rarity_flag
 * clinical_evidence
 * qc_reliability
-* interpretation_tier
+* coding_interpretation_label
 * is_lof_candidate
 * is_rare_candidate
 * is_clinically_supported
 * is_high_quality
 * is_potential_artifact
+
+Stage 09 outputs should preserve:
+- annotation_source
+- annotation_version
+- source_pipeline
+- run_id
+- sample_id
 
 ---
 
@@ -296,6 +318,11 @@ Must include:
 * clinically_supported_count
 * tier_distribution
 * qc_distribution
+
+
+**Deduplication rule**
+Stage 09 should not inflate counts if Stage 08 later becomes multi-transcript:
+  - summary counts must be based on distinct variant_id values unless explicitly labeled transcript-level.
 
 ---
 
