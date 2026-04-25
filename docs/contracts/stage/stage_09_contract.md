@@ -118,9 +118,12 @@ functional_impact ∈ {
   missense,
   synonymous,
   splice_relevant,
-  other_coding
+  other_coding,
+  unknown
 }
 ```
+
+
 
 ### Mapping
 
@@ -148,6 +151,9 @@ functional_impact ∈ {
   - incomplete_terminal_codon_variant
   - coding_sequence_variant
   - any unmatched coding consequence
+
+- unknown   
+    * any unmatched consequence
 
 ### Multiple Consequence Rule
 
@@ -191,6 +197,11 @@ frequency_status = unknown → rarity_flag = unknown
 ---
 
 ## Step 4 — Assign Clinical Evidence Flag
+
+`clinical_evidence` is the Stage 09 coding-interpretation copy of Stage 08 `clinical_status`.
+
+Stage 09 must not reinterpret raw `clinvar_significance` directly unless `clinical_status` is missing or invalid.
+
 
 ```text
 clinical_evidence ∈ {
@@ -260,10 +271,6 @@ is_high_quality =
 
 is_potential_artifact =
   qc_reliability == low_confidence
-
-frequency_status = missing → rarity_flag = missing
-
-frequency_status = unknown → rarity_flag = unknown
 ```
 
 ---
@@ -307,7 +314,7 @@ coding_uninterpretable:
   OR missing key fields required for interpretation
 ```
 
-**Guardrail:**
+### Guardrail
 
 ```text
 A HIGH-impact or loss-of-function variant that is common or benign/likely_benign
@@ -387,7 +394,76 @@ Must include:
 - functional_impact_distribution
 - clinical_evidence_distribution
 
-### Deduplication rule
+### Summary Count Rules
+
+Unless explicitly labeled transcript-level, all summary counts must be based on distinct `variant_id` values.
+
+### Required Distribution Definitions
+
+`coding_interpretation_label_distribution` must count distinct `variant_id` values by:
+
+```text
+lof_rare_clinically_supported
+lof_or_missense_rare
+coding_common_or_low_support
+coding_uninterpretable
+```
+
+`rarity_flag_distribution` must count distinct variant_id values by:
+
+```text
+rare
+low_frequency
+common
+missing
+unknown
+```
+
+`qc_distribution` must count distinct variant_id values by:
+
+```text
+high_confidence
+caution
+low_confidence
+```
+
+`functional_impact_distribution` must count distinct variant_id values by:
+
+```text
+loss_of_function
+missense
+synonymous
+splice_relevant
+other_coding
+```
+
+`clinical_evidence_distribution` must count distinct variant_id values by:
+
+```text
+pathogenic
+likely_pathogenic
+vus
+likely_benign
+benign
+conflicting
+missing
+```
+
+### Scalar Count Definitions
+
+- `total_coding_variants`: distinct variant_id count in Stage 09 input
+- `lof_variant_count`: distinct variant_id count where functional_impact = loss_of_function
+- `missense_variant_count`: distinct variant_id count where functional_impact = missense
+- `rare_variant_count`: distinct variant_id count where rarity_flag = rare
+- `low_frequency_variant_count`: distinct variant_id count where rarity_flag = low_frequency
+- `common_variant_count`: distinct variant_id count where rarity_flag = common
+- `clinically_supported_count`: distinct variant_id count where clinical_evidence ∈ {pathogenic, likely_pathogenic}
+- `benign_or_likely_benign_count`: distinct variant_id count where clinical_evidence ∈ {benign, likely_benign}
+- `uninterpretable_count`: distinct variant_id count where coding_interpretation_label = coding_uninterpretable
+
+
+
+## Deduplication rule
 
 Stage 09 should not inflate counts if Stage 08 later becomes multi-transcript:
 
