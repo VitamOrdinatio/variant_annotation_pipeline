@@ -428,6 +428,26 @@ prioritize variants (coding + noncoding together)
 
 ---
 
+# Future Extension — AlphaGenome Support
+
+Stage 10 v1 does not run AlphaGenome.
+
+A future Stage 10 version may optionally add AlphaGenome-derived fields for noncoding variants, including:
+
+- alphagenome_available
+- alphagenome_model_version
+- alphagenome_score
+- alphagenome_predicted_effect
+- alphagenome_target_gene
+- alphagenome_tissue_or_cell_context
+- alphagenome_provenance
+
+AlphaGenome-derived fields must be treated as predictive evidence, not deterministic truth.
+
+Stage 11 may consume these fields if present, but Stage 11 must not call AlphaGenome directly.
+
+---
+
 # 🎯 Bottom Line
 
 Stage 10 transforms:
