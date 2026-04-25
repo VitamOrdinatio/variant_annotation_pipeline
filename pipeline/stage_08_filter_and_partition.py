@@ -308,6 +308,31 @@ def _normalize_variant_type(value: Any) -> str:
     return mapping.get(text, "unknown")
 
 
+def _derive_variant_type_from_alleles(ref: Any, alt: Any) -> str:
+    ref_text = _clean(ref, "").strip()
+    alt_text = _clean(alt, "").strip()
+
+    if not ref_text or not alt_text or ref_text in MISSING_TOKENS or alt_text in MISSING_TOKENS:
+        return "unknown"
+
+    if "," in alt_text:
+        return "complex"
+
+    if len(ref_text) == 1 and len(alt_text) == 1:
+        return "snv"
+
+    if len(ref_text) < len(alt_text):
+        return "insertion"
+
+    if len(ref_text) > len(alt_text):
+        return "deletion"
+
+    if len(ref_text) == len(alt_text):
+        return "complex"
+
+    return "unknown"
+
+
 def _normalize_variant_class(value: Any, variant_context: str) -> str:
     text = _clean(value, "unknown").strip().lower().replace("_", "-")
     if text in {"coding"}:
