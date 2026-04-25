@@ -2,6 +2,7 @@
 Stage 08: Apply global filtering and partition variants into coding / non-coding tracks.
 
 Repo 2 v1.0 design notes:
+
 - input:
   - annotated_variants.tsv from Stage 07
 - outputs:
