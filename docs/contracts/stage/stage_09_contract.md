@@ -78,11 +78,15 @@ stage_08_selected_transcript_consequences.tsv
 * clinical_status
 * gene_mapping_status
 * variant_effect_severity
+* source_pipeline
+* run_id
 
 If gene_mapping_status = unmapped:
   - preserve variant
   - set coding_interpretation_label = coding_uninterpretable
   - exclude from any gene-linked downstream handoff
+
+Gene-linked downstream handoff includes any future VDB/RDGP aggregation seed or gene-level evidence table.
 
 ---
 
@@ -310,6 +314,23 @@ A HIGH-impact or loss-of-function variant that is common or benign/likely_benign
 must not receive lof_rare_clinically_supported.
 ```
 
+### Label Assignment Precedence
+
+If multiple label rules apply, assign labels in this order:
+
+```text
+coding_uninterpretable
+→ coding_common_or_low_support
+→ lof_rare_clinically_supported
+→ lof_or_missense_rare
+```
+
+Rationale:
+
+- failed QC or missing required fields overrides interpretation
+- benign/common evidence prevents strong candidate labeling
+- clinically supported rare LOF is the highest-confidence coding label
+
 ---
 
 # 📤 Outputs
@@ -361,8 +382,10 @@ Must include:
 - benign_or_likely_benign_count
 - uninterpretable_count
 - coding_interpretation_label_distribution
+- rarity_flag_distribution
 - qc_distribution
 - functional_impact_distribution
+- clinical_evidence_distribution
 
 ### Deduplication rule
 
