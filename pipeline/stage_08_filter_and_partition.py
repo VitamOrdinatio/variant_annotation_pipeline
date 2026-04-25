@@ -553,13 +553,19 @@ def _coerce_stage08_row(
     variant_context = _assign_variant_context(row["consequence"])
     partition_contexts = _assign_partition_contexts(row["consequence"])
     explicit_variant_type = input_row.get("variant_type")
-    if _is_missing(explicit_variant_type):
-        variant_type = _derive_variant_type_from_alleles(
-            row["reference_allele"],
-            row["alternate_allele"],
-        )
+    normalized_explicit_variant_type = _normalize_variant_type(explicit_variant_type)
+
+    if normalized_explicit_variant_type == "unknown":
+        stage07_variant_class_as_type = _normalize_variant_type(input_row.get("variant_class"))
+        if stage07_variant_class_as_type != "unknown":
+            variant_type = stage07_variant_class_as_type
+        else:
+            variant_type = _derive_variant_type_from_alleles(
+                row["reference_allele"],
+                row["alternate_allele"],
+            )
     else:
-        variant_type = _normalize_variant_type(explicit_variant_type)   
+        variant_type = normalized_explicit_variant_type
     variant_class = _normalize_variant_class(row["variant_class"], variant_context)
     variant_effect_severity = _assign_effect_severity(row["impact_class"], row["consequence"])
     population_frequency, population_frequency_value = _compute_population_frequency(row)
