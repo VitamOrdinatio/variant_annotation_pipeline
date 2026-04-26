@@ -50,6 +50,7 @@ without performing final prioritization.
 
 ```text
 coding_candidates.tsv
+splice_region_candidates.tsv
 stage_08_variant_summary.tsv
 stage_08_selected_transcript_consequences.tsv
 ```

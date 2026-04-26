@@ -117,7 +117,12 @@ Exclude:
 coding, splice_region (handled in Stage 09)
 ```
 
+Stage 10 must not consume `splice_region_candidates.tsv`.
+
+Splice-region variants are routed to Stage 09 because they may affect coding transcript structure through splicing.
+
 ---
+
 
 ## Step 2 — Assign Functional Context Class
 

@@ -599,6 +599,15 @@ stage_08_rdgp_gene_evidence_seed.tsv
 
 ---
 
+## Downstream Routing Rule
+
+- `coding_candidates.tsv` → Stage 09
+- `splice_region_candidates.tsv` → Stage 09 for coding interpretation (splice events are considered coding adjacent)
+- `noncoding_candidates.tsv` → Stage 10
+- `qc_flagged.tsv` → retained for validation/reporting and may be referenced by Stages 09–12
+
+---
+
 ## stage_08_summary.json
 
 Must include:
