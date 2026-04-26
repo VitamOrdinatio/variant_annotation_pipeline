@@ -1,14 +1,18 @@
 # Variant Annotation Pipeline (VAP)
 
-Built from raw WGS data (HG002, GIAB) with full pipeline execution through variant annotation.
-
-A reproducible, end-to-end whole-genome sequencing (WGS) pipeline that transforms raw FASTQ data into annotated and biologically interpretable variant sets.
+End-to-end whole-genome sequencing (WGS) pipeline executed on real data (HG002, GIAB), transforming raw FASTQ files into annotated variant datasets and structured, downstream-ready outputs.
 
 ---
 
 ## 🚀 Current Status
 
-VAP successfully executes end-to-end through **Stage 07 (VEP annotation)** on HG002 (GIAB benchmark dataset).
+### Key Metrics
+
+- Variants processed: `~4.6 million`  
+- Irreparably malformed rows: `0`  
+- QC pass rate: `>99%`
+
+VAP successfully executes end-to-end through **Stage 08 (filtering and partitioning annotated variants)** on HG002 (GIAB benchmark dataset), with successful checkpoint execution on full dataset (~4.6M variants processed).
 
 **Completed pipeline stages:**
 - FASTQ ingestion
@@ -19,44 +23,163 @@ VAP successfully executes end-to-end through **Stage 07 (VEP annotation)** on HG
 - VCF normalization
 - VEP annotation (offline mode)
 - annotated VCF and TSV generation
+- filtering and partitioning annotated variants
 
 Large genomic outputs (FASTQ, BAM, VCF, full TSV) are intentionally excluded from version control.  
 Representative outputs and run summaries are provided below.
 
 ---
 
-## 🔬 Execution Evidence (Stage 01–07)
+## 🔬 Execution Evidence (Proven Pipeline Run)
 
-These artifacts demonstrate successful pipeline execution on real WGS data:
+These artifacts provide direct evidence of successful end-to-end execution on real WGS data (HG002).
 
 ### Output Manifest
-- [Stage 07 Output Manifest](docs/examples/stage_07_output_manifest.md)
+- [Stage 08 Output Manifest](docs/examples/stage_08_filter_partition/stage_08_output_manifest.md)
 
 ### Quality Control
-- [Aligned-Read QC Report](docs/examples/stage_04_qc_report.md)
+- [Aligned-Read QC Report](docs/examples/stage_04_qc/stage_04_qc_report.md)
 
 ### Representative Outputs
-- [Annotated Variant Columns](docs/examples/stage_07_columns.tsv)
-- [Example Annotated Variants](docs/examples/stage_07_example_rows.tsv)
-- [Missense Variant Examples](docs/examples/stage_07_missense_examples.tsv)
-- [Stop-Gained Variant Examples](docs/examples/stage_07_stop_gained_examples.tsv)
+- [Annotated Variant Columns](docs/examples/stage_07_vep_annotation/stage_07_columns.tsv)
+- [Example Annotated Variants](docs/examples/stage_07_vep_annotation/stage_07_example_rows.tsv)
+- [Missense Variant Examples](docs/examples/stage_07_vep_annotation/stage_07_missense_examples.tsv)
+- [Stop-Gained Variant Examples](docs/examples/stage_07_vep_annotation/stage_07_stop_gained_examples.tsv)
 
 ### Annotation Evidence
-- [VEP Summary Report](docs/examples/stage_07_vep_summary.html)
-- [VEP Warnings Log](docs/examples/stage_07_vep_variants_vcf_warnings.txt)
+- [VEP Summary Report](docs/examples/stage_07_vep_annotation/stage_07_vep_summary.html)
+- [VEP Warnings Log](docs/examples/stage_07_vep_annotation/stage_07_vep_variants_vcf_warnings.txt)
+
+
+📁 All artifacts are organized by pipeline stage under `docs/examples/`.
+
+---
+
+## 🔬 End-to-End Pipeline Narrative
+
+**Summary:**
+- **Input → Output:** FASTQ → BAM → VCF → annotated variants → structured data products  
+- **System transition:** bioinformatics pipeline → data engineering system  
+- **Downstream readiness:** VDB (storage), RDGP (prioritization)
+
+---
+
+The Variant Annotation Pipeline (VAP) is designed to demonstrate how raw sequencing data can be transformed into structured, interpretable genomic evidence through a reproducible, contract-driven workflow.
+
+### From Raw Data to Biological Context
+
+The pipeline begins with raw whole-genome sequencing (WGS) data (FASTQ) and progresses through alignment, quality control, variant calling, and normalization.
+
+- **Stage 04 (QC)** validates that sequencing reads are accurately aligned to the reference genome, ensuring downstream analyses are reliable.
+- **Stage 07 (VEP Annotation)** enriches detected variants with gene, transcript, consequence, and population frequency information, producing structured variant-level records.
+
+At this point, the pipeline has converted raw sequencing data into biologically meaningful annotations.
+
+---
+
+### From Annotation to Structured Data Products
+
+Stage 08 represents a key architectural transition:
+
+> the pipeline shifts from tool-driven processing to data engineering.
+
+In this stage:
+
+- ~4.6 million annotated variants are processed  
+- 0 irreparably malformed records are observed  
+- outputs are transformed into **schema-aligned, downstream-ready datasets**
+
+Stage 08 produces:
+
+- **VDB-ready variant records**  
+  → normalized, lossless representations suitable for structured storage  
+
+- **RDGP gene evidence seeds**  
+  → aggregated gene-level summaries for prioritization workflows  
+
+This stage demonstrates deterministic transformation of large-scale genomic data into structured outputs aligned with system contracts.
+
+---
+
+### Separation of Concerns (Design Philosophy)
+
+VAP is intentionally designed to separate:
+
+- **data generation (VAP)**  
+- **data storage (VDB — planned)**  
+- **data interpretation (RDGP — planned)**  
+
+Stage 08 enforces this boundary by:
+
+- preserving all annotation fields  
+- avoiding irreversible filtering  
+- deferring prioritization decisions  
+
+This ensures that downstream systems operate on complete, unbiased data.
+
+---
+
+### Why This Matters
+
+Most bioinformatics pipelines stop at annotation.
+
+VAP goes further by demonstrating:
+
+- how to structure variant data for database ingestion  
+- how to aggregate variant signals into gene-level evidence  
+- how to maintain reproducibility and traceability at scale  
+
+This approach mirrors real-world clinical and research workflows, where:
+
+- raw sequencing data must be transformed into reliable evidence  
+- data must remain auditable and reproducible  
+- interpretation must be layered on top of well-defined data contracts  
+
+---
+
+### Bottom Line
+
+VAP demonstrates an end-to-end transformation:
+
+`FASTQ → BAM → VCF → Annotated Variants → Structured Data Products → Gene-Level Evidence`
+
+
+This pipeline is not just a collection of tools—it is a **coherent system for generating, structuring, and preparing genomic data for downstream analysis and clinical reasoning**.
+
+It demonstrates how genomic data pipelines can be designed as **modular, contract-driven systems** rather than linear toolchains.
+
+---
+
+## Stage 08 Evidence (Filtering & Partitioning)
+
+Key results:
+
+- ~4.6 million variants processed  
+- 0 irreparably malformed rows  
+- >99% QC pass rate  
+
+### Representative Outputs
+
+- [Stage 08 Summary](docs/examples/stage_08_filter_partition/stage_08_summary.json)
+- [Coding Candidate Examples](docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md)
+- [Noncoding Candidate Examples](docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md)
+- [RDGP Gene Evidence (Seed)](docs/examples/stage_08_filter_partition/rdgp_gene_evidence/rdgp_seed_overview.md)
+- [RDGP Summary Counts](docs/examples/stage_08_filter_partition/rdgp_gene_evidence/rdgp_summary_counts_only.md)
+
+🔗 [Explore all Stage 08 outputs](docs/examples/stage_08_filter_partition/)
 
 ---
 
 ## 🧠 Overview
 
-The **variant_annotation_pipeline** is a reproducible workflow that transforms **raw WGS FASTQ data** into **annotated and biologically interpretable variant sets**.
+The **variant_annotation_pipeline** is a reproducible workflow that transforms **raw WGS FASTQ data** into **annotated and structured variant datasets** suitable for downstream analysis.
 
-It is designed to demonstrate how modern genomics pipelines can be built from first principles with emphasis on:
+It emphasizes:
 
 - reproducibility  
-- biological interpretability  
 - modular pipeline design  
-- scalability from single-sample to cohort-level analysis  
+- biological interpretability  
+- scalable architecture  
 
 ---
 

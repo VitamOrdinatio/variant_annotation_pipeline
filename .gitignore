@@ -1,9 +1,16 @@
-# Keep lightweight docs/examples
+# Keep lightweight docs/examples recursively
+!docs/
 !docs/examples/
-!docs/examples/*.tsv
-!docs/examples/*.md
+!docs/examples/**/
+!docs/examples/**/*.md
+!docs/examples/**/*.tsv
+!docs/examples/**/*.json
+!docs/examples/**/*.html
+!docs/examples/**/*.txt
+
 !docs/status/
-!docs/status/*.md
+!docs/status/**/
+!docs/status/**/*.md
 
 # notes foler contains mark probes
 _notes/
