@@ -1,0 +1,72 @@
+{
+  "annotation_source": "VEP",
+  "annotation_version": "115",
+  "assumptions": [
+    "VAP v1 treats Stage 07 annotated_variants.tsv as canonical selected-transcript truth.",
+    "Full CSQ expansion from annotated_variants.vcf is deferred to a future VAP v2 mode.",
+    "canonical_present is emitted as False because Stage 07 TSV does not expose CANONICAL in v1.",
+    "RDGP gene evidence seed groups by gene_id when available, otherwise by gene_symbol when gene_id is missing but gene_symbol is mapped.",
+    "population_frequency is recomputed as max(non-missing gnomad_af, exac_af, thousand_genomes_af)."
+  ],
+  "clinical_status": {
+    "benign": 38317,
+    "conflicting": 74,
+    "likely_benign": 1809,
+    "likely_pathogenic": 18,
+    "missing": 4595778,
+    "pathogenic": 48,
+    "vus": 540
+  },
+  "frequency_status": {
+    "common": 4230918,
+    "low_frequency": 158207,
+    "missing": 117655,
+    "rare": 129804
+  },
+  "interpretability_counts": {
+    "interpretable_now": 27486,
+    "needs_external_annotation": 4564638,
+    "unsupported_currently": 44460
+  },
+  "irreparably_malformed_rows": 0,
+  "partition_counts": {
+    "coding_candidates": 24278,
+    "noncoding_candidates": 4612207,
+    "qc_flagged": 44460,
+    "splice_region_candidates": 3733
+  },
+  "qc_status_counts": {
+    "caution": 44460,
+    "pass": 4592124
+  },
+  "rdgp_gene_evidence_seed_rows": 49826,
+  "total_variants": 4636584,
+  "variant_summary_rows": 4636584,
+  "variants_by_context": {
+    "coding": 23753,
+    "intergenic": 1107793,
+    "intronic": 2819766,
+    "noncoding_transcript": 49108,
+    "regulatory": 587971,
+    "splice_region": 3733,
+    "unknown": 44460
+  },
+  "variants_by_severity": {
+    "HIGH": 791,
+    "LOW": 18525,
+    "MODERATE": 11946,
+    "MODIFIER": 4605322
+  },
+  "variants_by_variant_class": {
+    "coding": 27486,
+    "noncoding": 4564638,
+    "unknown": 44460
+  },
+  "variants_by_variant_type": {
+    "complex": 25273,
+    "deletion": 348849,
+    "indel": 3016,
+    "insertion": 319210,
+    "snv": 3940236
+  }
+}
