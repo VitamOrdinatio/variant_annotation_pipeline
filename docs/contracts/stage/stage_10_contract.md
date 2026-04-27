@@ -154,7 +154,7 @@ Derive:
 noncoding_functional_context ∈ {
   regulatory,
   transcript_associated,
-  intronic
+  intronic,
   intergenic,
   unknown
 }
@@ -430,7 +430,7 @@ Follow the same rules as Stage 09, using:
 - `total_noncoding_variants`: distinct variant_id count in Stage 10 input
 - `regulatory_variant_count`: distinct variant_id count where noncoding_functional_context = regulatory
 - `transcript_associated_variant_count`: distinct variant_id count where noncoding_functional_context = transcript_associated
-- - `intronic_variant_count`: distinct variant_id count where noncoding_functional_context = intronic
+- `intronic_variant_count`: distinct variant_id count where noncoding_functional_context = intronic
 - `intergenic_variant_count`: distinct variant_id count where noncoding_functional_context = intergenic
 - `rare_variant_count`: distinct variant_id count where rarity_flag = rare
 - `low_frequency_variant_count`: distinct variant_id count where rarity_flag = low_frequency

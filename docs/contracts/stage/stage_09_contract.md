@@ -103,7 +103,7 @@ If gene_mapping_status = unmapped:
 This rule affects only the final interpretation label and gene-linked downstream handoff.
 
 Stage 09 must still compute and preserve:
-- functional_impact or noncoding_functional_context
+- functional_impact
 - rarity_flag
 - clinical_evidence
 - qc_reliability
