@@ -317,6 +317,19 @@ v3.0 → centralized aggregation and cross-sample comparative analysis
 
 ---
 
+## Version Status
+
+**Current milestone:** `v0.5.0`
+
+VAP is operational through Stage 08, including:
+- FASTQ → BAM → VCF → VEP annotation
+- filtering and partitioning of annotated variants
+- corrected gene ID mapping
+- VDB-ready variant outputs
+- RDGP gene evidence seed outputs
+
+---
+
 ## Why This Matters
 
 Variant annotation pipelines are foundational to:
