@@ -28,6 +28,7 @@ scripts/
   resources/       # Reference genomes, benchmarks, annotation datasets
   data_prep/       # Sample-specific preprocessing (e.g., SRA → FASTQ)
   orchestration/   # High-level setup entrypoints
+  mark/            # Execution testing and validation on HPC
   README.md        # This file
 ```
 
@@ -70,6 +71,7 @@ Each subdirectory owns a distinct layer:
 | resources     | Large datasets and references |
 | data_prep     | Sample-specific preprocessing |
 | orchestration | Workflow coordination         |
+| mark          | Pipeline testing / validation |
 
 Scripts must not cross boundaries.
 
@@ -235,6 +237,31 @@ Owns high-level coordination.
   * optional top-level setup entrypoint
   * calls scripts in correct order
   * should remain thin (no heavy logic)
+
+---
+
+### `mark/`
+
+Owns probes to HPC, pipeline checkpoint validation, and testing.
+
+#### Scripts
+
+* `mark_test_setup_pipeline_tools.sh`
+
+  * first checks for existing pipeline tools (bash or python)
+  * then sets up missing pipeline tools (bash or python)
+
+* `mark_stage07_vep_smoketest_v2.sh`
+
+  * performs a trial run smoketest of the vep annotation layer
+
+* `mark_run_stage07_checkpoint.sh`
+
+  * executes a stage 07 (annotate variants) run on real world data
+
+* `mark_run_stage08_checkpoint.sh`
+
+  * executes a stage 08 (filter and partition variants into coding + noncoding) run on real world data
 
 ---
 

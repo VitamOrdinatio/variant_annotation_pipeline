@@ -111,6 +111,10 @@ Stage 09 must still compute and preserve:
 
 Gene-linked downstream handoff includes any future VDB/RDGP aggregation seed or gene-level evidence table.
 
+Unmapped variants:
+  - ARE included in summary counts
+  - ARE excluded from gene-level downstream aggregation (RDGP)
+
 ---
 
 # 🔄 Processing Logic
@@ -184,6 +188,9 @@ functional_impact ∈ {
 
 If `consequence` contains multiple terms for the same selected transcript, Stage 09 must assign the most severe applicable `functional_impact`.
 
+If multiple consequences:
+- apply functional_impact precedence AFTER consequence normalization.
+
 Precedence:
 
 ```text
@@ -245,6 +252,19 @@ Derived from:
 * clinical_significance
 * clinvar_significance
 
+
+If `clinical_status` is missing:
+
+derive `clinical_evidence` from `clinvar_significance` using:
+
+- Pathogenic → pathogenic
+- Likely_pathogenic → likely_pathogenic
+- VUS → vus
+- Likely_benign → likely_benign
+- Benign → benign
+- conflicting_interpretations → conflicting
+- missing/empty → missing
+
 ---
 
 ## Step 5 — Assign QC Reliability Flag
@@ -262,6 +282,24 @@ Mapping:
 * qc_status = pass → high_confidence
 * qc_status = caution → caution
 * qc_status = fail → low_confidence
+
+### QC Override Rule
+
+QC override is applied before label assignment precedence.
+
+`qc_reliability = low_confidence` is an interpretation-label override.
+
+If `qc_reliability = low_confidence`:
+
+- Stage 09 must set `coding_interpretation_label = coding_uninterpretable`
+- all other derived fields must still be computed and preserved
+- the variant must remain in the output table
+- the variant must remain in summary counts
+- the variant must be excluded only from gene-linked downstream handoff tables, if such handoffs are created later
+
+Rationale:
+
+Low-confidence QC does not erase biological annotation, but it prevents the variant from receiving a supported interpretation label in v1.
 
 ---
 
@@ -331,7 +369,7 @@ lof_or_missense_rare:
 coding_common_or_low_support:
   coding variant that is common
   OR clinical_evidence ∈ {benign, likely_benign}
-  OR lacks rare/clinical support
+  OR (no stronger label rule applies)
 
 coding_uninterpretable:
   gene_mapping_status = unmapped
@@ -357,12 +395,12 @@ coding_uninterpretable
 → lof_or_missense_rare
 ```
 
-`*_common_or_low_support` is a negative or catch-all label.
-
-It applies only when:
-- rarity_flag = common, OR
-- clinical_evidence ∈ {benign, likely_benign}, OR
-- no stronger supported-label rule applies.
+`coding_common_or_low_support` applies only if:
+  - rarity_flag = common
+OR
+  - clinical_evidence ∈ {benign, likely_benign}
+OR
+  - no stronger label rule matched
 
 It must not preempt a stronger label unless common frequency or benign/likely_benign clinical evidence is present.
 

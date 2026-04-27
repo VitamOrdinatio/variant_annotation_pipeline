@@ -116,6 +116,10 @@ Stage 10 must still compute and preserve:
 
 Gene-linked downstream handoff includes any future VDB/RDGP aggregation seed or gene-level evidence table.
 
+Unmapped variants:
+  - ARE included in summary counts
+  - ARE excluded from gene-level downstream aggregation (RDGP)
+
 ---
 
 # 🔄 Processing Logic
@@ -153,6 +157,7 @@ Derive:
 ```text
 noncoding_functional_context ∈ {
   regulatory,
+  proximal,
   transcript_associated,
   intronic,
   intergenic,
@@ -163,14 +168,14 @@ noncoding_functional_context ∈ {
 ### Mapping
 
 * regulatory:
-
   * regulatory_region_variant
   * TF_binding_site_variant
+
+* proximal:
   * upstream_gene_variant
   * downstream_gene_variant
 
 * transcript_associated:
-
   * non_coding_transcript_exon_variant
   * non_coding_transcript_variant
   * NMD_transcript_variant
@@ -179,12 +184,12 @@ noncoding_functional_context ∈ {
   * intron_variant
 
 * intergenic:
-
   * intergenic_variant
 
 * unknown:
-
-  * any unmatched consequence
+  * missing consequence
+  * invalid consequence
+  * any unmatched noncoding consequence
 
 
 ### Multiple Consequence Rule
@@ -195,7 +200,7 @@ Stage 10 must assign the most specific applicable `noncoding_functional_context`
 Precedence:
 
 ```text
-regulatory > transcript_associated > intronic > intergenic > unknown
+regulatory > proximal > transcript_associated > intronic > intergenic > unknown
 ```
 
 
@@ -248,6 +253,18 @@ clinical_evidence ∈ {
 Stage 10 must not reinterpret raw `clinvar_significance` directly unless `clinical_status` is missing or invalid.
 
 
+If `clinical_status` is missing:
+
+derive `clinical_evidence` from `clinvar_significance` using:
+
+- Pathogenic → pathogenic
+- Likely_pathogenic → likely_pathogenic
+- VUS → vus
+- Likely_benign → likely_benign
+- Benign → benign
+- conflicting_interpretations → conflicting
+- missing/empty → missing
+
 ---
 
 ## Step 5 — Assign QC Reliability Flag
@@ -261,6 +278,24 @@ qc_reliability ∈ {
 ```
 
 Same mapping as Stage 09.
+
+### QC Override Rule
+
+QC override is applied before label assignment precedence.
+
+`qc_reliability = low_confidence` is an interpretation-label override.
+
+If `qc_reliability = low_confidence`:
+
+- Stage 10 must set `noncoding_interpretation_label = noncoding_uninterpretable`
+- all other derived fields must still be computed and preserved
+- the variant must remain in the output table
+- the variant must remain in summary counts
+- the variant must be excluded only from gene-linked downstream handoff tables, if such handoffs are created later
+
+Rationale:
+
+Low-confidence QC does not erase biological annotation, but it prevents the variant from receiving a supported interpretation label in v1.
 
 ---
 
@@ -321,7 +356,7 @@ regulatory_rare_supported:
   AND qc_reliability = high_confidence
 
 regulatory_or_transcript_rare:
-  noncoding_functional_context ∈ {regulatory, transcript_associated}
+  noncoding_functional_context ∈ {regulatory, proximal, transcript_associated}
   AND rarity_flag ∈ {rare, low_frequency}
   AND qc_reliability = high_confidence
   AND clinical_evidence NOT IN {benign, likely_benign}
@@ -329,7 +364,7 @@ regulatory_or_transcript_rare:
 noncoding_common_or_low_support:
   common variants
   OR benign/likely_benign
-  OR lacking strong support
+  OR (no stronger label rule applies)
 ```
 
 ### Guardrail
@@ -350,12 +385,12 @@ noncoding_uninterpretable
 → regulatory_or_transcript_rare
 ```
 
-`*_common_or_low_support` is a negative or catch-all label.
-
-It applies only when:
-- rarity_flag = common, OR
-- clinical_evidence ∈ {benign, likely_benign}, OR
-- no stronger supported-label rule applies.
+`noncoding_common_or_low_support` applies only if:
+  - rarity_flag = common
+OR
+  - clinical_evidence ∈ {benign, likely_benign}
+OR
+  - no stronger label rule matched
 
 It must not preempt a stronger label unless common frequency or benign/likely_benign clinical evidence is present.
 
@@ -397,6 +432,7 @@ Must include:
 
 - total_noncoding_variants
 - regulatory_variant_count
+- proximal_variant_count
 - transcript_associated_variant_count
 - intronic_variant_count
 - intergenic_variant_count
@@ -429,6 +465,7 @@ Follow the same rules as Stage 09, using:
 
 - `total_noncoding_variants`: distinct variant_id count in Stage 10 input
 - `regulatory_variant_count`: distinct variant_id count where noncoding_functional_context = regulatory
+- `proximal_variant_count`: distinct variant_id count where noncoding_functional_context = proximal
 - `transcript_associated_variant_count`: distinct variant_id count where noncoding_functional_context = transcript_associated
 - `intronic_variant_count`: distinct variant_id count where noncoding_functional_context = intronic
 - `intergenic_variant_count`: distinct variant_id count where noncoding_functional_context = intergenic
