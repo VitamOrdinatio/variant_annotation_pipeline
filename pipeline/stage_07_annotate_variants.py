@@ -403,7 +403,8 @@ def _parse_annotated_variant_record(
             consequence_record = dict(zip(csq_fields, csq_values))
 
         return {
-            "gene_symbol": _safe_get(consequence_record, "SYMBOL", "Gene").upper(),
+            "gene_id": _safe_get(consequence_record, "Gene"),
+            "gene_symbol": _safe_get(consequence_record, "SYMBOL").upper(),
             "transcript_id": _safe_get(consequence_record, "Feature"),
             "consequence": _safe_get(consequence_record, "Consequence"),
             "impact": _safe_get(consequence_record, "IMPACT"),
@@ -447,6 +448,7 @@ def _build_annotation_output_row(
     epilepsy_gene_ids: set[str],
     allowed_coding_terms: list[str],
 ) -> tuple[dict[str, str], int]:
+    gene_id = parsed_record.get("gene_id", "NA")
     gene_symbol = parsed_record["gene_symbol"]
     transcript_id = parsed_record["transcript_id"]
     consequence = parsed_record["consequence"]
@@ -467,14 +469,23 @@ def _build_annotation_output_row(
 
     variant_id = f"{chrom}:{pos}:{ref}:{alt}"
 
-    resolved_gene_id = union_symbol_to_gene_id.get(gene_symbol, "NA")
+    overlay_gene_id = union_symbol_to_gene_id.get(gene_symbol, "NA")
+    resolved_gene_id = gene_id if gene_id not in {"", ".", "-", "NA"} else overlay_gene_id
 
     unresolved_increment = 0
     if gene_symbol != "NA" and resolved_gene_id == "NA":
         unresolved_increment = 1
 
-    mito_flag = "True" if resolved_gene_id in mito_gene_ids else "False"
-    epilepsy_flag = "True" if resolved_gene_id in epilepsy_gene_ids else "False"
+    mito_flag = (
+        "True"
+        if resolved_gene_id in mito_gene_ids or overlay_gene_id in mito_gene_ids
+        else "False"
+    )
+    epilepsy_flag = (
+        "True"
+        if resolved_gene_id in epilepsy_gene_ids or overlay_gene_id in epilepsy_gene_ids
+        else "False"
+    )
 
     variant_type = (
         "coding"
