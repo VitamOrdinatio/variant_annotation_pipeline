@@ -47,6 +47,19 @@ without performing final prioritization.
    * Noncoding interpretation is inherently lower confidence than coding
    * Missing or weak annotation must not be overinterpreted
 
+6. **Stage 08 ownership boundary**
+
+Stage 10 must consume Stage 08 structural fields as authoritative:
+- variant_context
+- variant_type
+- variant_class
+- frequency_status
+- clinical_status
+- variant_effect_severity
+- qc_status
+
+Stage 10 may validate allowed values but must not recompute Stage 08 classifications.
+
 ---
 
 # 📥 Inputs
@@ -92,6 +105,15 @@ If gene_mapping_status = unmapped:
 * set noncoding_interpretation_label = noncoding_uninterpretable
 * exclude from gene-linked downstream handoff
 
+This rule affects only the final interpretation label and gene-linked downstream handoff.
+
+Stage 10 must still compute and preserve:
+- functional_impact or noncoding_functional_context
+- rarity_flag
+- clinical_evidence
+- qc_reliability
+- all raw Stage 08 evidence fields
+
 Gene-linked downstream handoff includes any future VDB/RDGP aggregation seed or gene-level evidence table.
 
 ---
@@ -132,6 +154,7 @@ Derive:
 noncoding_functional_context ∈ {
   regulatory,
   transcript_associated,
+  intronic
   intergenic,
   unknown
 }
@@ -152,6 +175,9 @@ noncoding_functional_context ∈ {
   * non_coding_transcript_variant
   * NMD_transcript_variant
 
+* intronic:
+  * intron_variant
+
 * intergenic:
 
   * intergenic_variant
@@ -169,7 +195,7 @@ Stage 10 must assign the most specific applicable `noncoding_functional_context`
 Precedence:
 
 ```text
-regulatory > transcript_associated > intergenic > unknown
+regulatory > transcript_associated > intronic > intergenic > unknown
 ```
 
 
@@ -324,6 +350,15 @@ noncoding_uninterpretable
 → regulatory_or_transcript_rare
 ```
 
+`*_common_or_low_support` is a negative or catch-all label.
+
+It applies only when:
+- rarity_flag = common, OR
+- clinical_evidence ∈ {benign, likely_benign}, OR
+- no stronger supported-label rule applies.
+
+It must not preempt a stronger label unless common frequency or benign/likely_benign clinical evidence is present.
+
 ---
 
 # 📤 Outputs
@@ -363,6 +398,7 @@ Must include:
 - total_noncoding_variants
 - regulatory_variant_count
 - transcript_associated_variant_count
+- intronic_variant_count
 - intergenic_variant_count
 - rare_variant_count
 - low_frequency_variant_count
@@ -380,6 +416,8 @@ Must include:
 
 Unless explicitly labeled transcript-level, all summary counts must be based on distinct `variant_id`.
 
+Implement summary counting with sets of `variant_id`, not row counters.
+
 ### Distribution Definitions
 
 Follow the same rules as Stage 09, using:
@@ -392,6 +430,7 @@ Follow the same rules as Stage 09, using:
 - `total_noncoding_variants`: distinct variant_id count in Stage 10 input
 - `regulatory_variant_count`: distinct variant_id count where noncoding_functional_context = regulatory
 - `transcript_associated_variant_count`: distinct variant_id count where noncoding_functional_context = transcript_associated
+- - `intronic_variant_count`: distinct variant_id count where noncoding_functional_context = intronic
 - `intergenic_variant_count`: distinct variant_id count where noncoding_functional_context = intergenic
 - `rare_variant_count`: distinct variant_id count where rarity_flag = rare
 - `low_frequency_variant_count`: distinct variant_id count where rarity_flag = low_frequency

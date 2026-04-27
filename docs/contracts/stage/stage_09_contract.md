@@ -42,6 +42,19 @@ without performing final prioritization.
    * Each variant is interpreted independently
    * Gene-level reasoning occurs later (RDGP)
 
+5. **Stage 08 ownership boundary**
+
+Stage 09 must consume Stage 08 structural fields as authoritative:
+- variant_context
+- variant_type
+- variant_class
+- frequency_status
+- clinical_status
+- variant_effect_severity
+- qc_status
+
+Stage 09 may validate allowed values but must not recompute Stage 08 classifications.
+
 ---
 
 # 📥 Inputs
@@ -86,6 +99,15 @@ If gene_mapping_status = unmapped:
   - preserve variant
   - set coding_interpretation_label = coding_uninterpretable
   - exclude from any gene-linked downstream handoff
+
+This rule affects only the final interpretation label and gene-linked downstream handoff.
+
+Stage 09 must still compute and preserve:
+- functional_impact or noncoding_functional_context
+- rarity_flag
+- clinical_evidence
+- qc_reliability
+- all raw Stage 08 evidence fields
 
 Gene-linked downstream handoff includes any future VDB/RDGP aggregation seed or gene-level evidence table.
 
@@ -333,6 +355,15 @@ coding_uninterpretable
 → lof_or_missense_rare
 ```
 
+`*_common_or_low_support` is a negative or catch-all label.
+
+It applies only when:
+- rarity_flag = common, OR
+- clinical_evidence ∈ {benign, likely_benign}, OR
+- no stronger supported-label rule applies.
+
+It must not preempt a stronger label unless common frequency or benign/likely_benign clinical evidence is present.
+
 Rationale:
 
 - failed QC or missing required fields overrides interpretation
@@ -398,6 +429,8 @@ Must include:
 ### Summary Count Rules
 
 Unless explicitly labeled transcript-level, all summary counts must be based on distinct `variant_id` values.
+
+Implement summary counting with sets of `variant_id`, not row counters.
 
 ### Required Distribution Definitions
 
