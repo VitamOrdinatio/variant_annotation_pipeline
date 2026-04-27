@@ -1,1 +1,25 @@
-sample_id	run_id	source_pipeline	variant_id	chromosome	position	reference_allele	alternate_allele	quality_flag	gene_id	gene_symbol	transcript_id	consequence	impact_class	impact	variant_class	variant_type	clinical_significance	clinvar_significance	population_frequency	gnomad_af	exac_af	thousand_genomes_af	mito_flag	epilepsy_flag
+1	sample_id
+2	run_id
+3	source_pipeline
+4	variant_id
+5	chromosome
+6	position
+7	reference_allele
+8	alternate_allele
+9	quality_flag
+10	gene_id
+11	gene_symbol
+12	transcript_id
+13	consequence
+14	impact_class
+15	impact
+16	variant_class
+17	variant_type
+18	clinical_significance
+19	clinvar_significance
+20	population_frequency
+21	gnomad_af
+22	exac_af
+23	thousand_genomes_af
+24	mito_flag
+25	epilepsy_flag

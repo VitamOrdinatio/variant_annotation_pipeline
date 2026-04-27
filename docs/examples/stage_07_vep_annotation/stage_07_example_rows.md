@@ -1,0 +1,34 @@
+# stage_07_example_rows.md
+
+## folder path:
+
+`steelsparrow@pop-os:/mnt/storage/delme/stage_07_out_HG002_run/`
+
+
+
+## bash cmd:
+
+```bash
+TSV="HG002_run_2026_04_17_082417.annotated_variants.tsv"
+OUTDIR="docs/examples/stage_07_vep_annotation"
+head -n 11 "$TSV" > "$OUTDIR/stage_07_example_rows.tsv"
+head -n 11 "$TSV" > "$OUTDIR/stage_07_example_rows.md"
+```
+
+
+
+## output:
+
+```text
+sample_id	run_id	source_pipeline	variant_id	chromosome	position	reference_allele	alternate_allele	quality_flag	gene_id	gene_symbol	transcript_id	consequence	impact_class	impact	variant_class	variant_type	clinical_significance	clinvar_significance	population_frequency	gnomad_af	exac_af	thousand_genomes_af	mito_flag	epilepsy_flag
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14522:G:A	1	14522	G	A	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.1893	0.1893	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14542:A:G	1	14542	A	G	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.3406	0.3406	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14574:A:G	1	14574	A	G	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.4207	0.4207	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14590:G:A	1	14590	G	A	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.2387	0.2387	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14599:T:A	1	14599	T	A	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.1476	0.1476	NA	0.121	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14604:A:G	1	14604	A	G	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.1476	0.1476	NA	0.121	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14653:C:T	1	14653	C	T	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.4693	0.4693	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:16257:G:C	1	16257	G	C	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	intron_variant&non_coding_transcript_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.1326	0.1326	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:16298:C:T	1	16298	C	T	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	intron_variant&non_coding_transcript_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.6096	0.6096	NA	NA	False	False
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:16378:T:C	1	16378	T	C	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	intron_variant&non_coding_transcript_variant	MODIFIER	MODIFIER	SNV	non-coding	NA	NA	0.5289	0.5289	NA	NA	False	False
+```
