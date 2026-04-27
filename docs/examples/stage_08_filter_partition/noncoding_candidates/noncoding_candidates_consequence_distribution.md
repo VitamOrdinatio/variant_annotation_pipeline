@@ -10,7 +10,7 @@ Pivot table view of consequence calls of noncoding_candiates.tsv run on HG002
 ## bash cmd:
 
 ```bash
-cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep consequence | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c | sort -nr | head > docs/examples/noncoding_candidates_consequence_distribution.md
+cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep consequence | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c | sort -nr | head > docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
 ```
 
 

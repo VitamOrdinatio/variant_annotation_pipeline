@@ -12,7 +12,7 @@ The vast majority of detected variant candidates are noncoding variant candidate
 ## bash cmd:
 
 ```bash
-awk -F'\t' 'NR==1 {for(i=1;i<=NF;i++) if($i=="coding_flag") col=i} NR>1 {print $col}' stage_08_variant_summary.tsv | sort | uniq -c > docs/examples/variant_summary_coding_vs_noncoding_flags.md
+awk -F'\t' 'NR==1 {for(i=1;i<=NF;i++) if($i=="coding_flag") col=i} NR>1 {print $col}' stage_08_variant_summary.tsv | sort | uniq -c > docs/examples/stage_08_filter_partition/variant_summary/variant_summary_coding_vs_noncoding_flags.md
 ```
 
 

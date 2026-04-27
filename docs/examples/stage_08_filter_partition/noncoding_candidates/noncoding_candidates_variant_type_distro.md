@@ -10,7 +10,7 @@ Distribution of variant types in the noncoding candidates category for HG002 run
 ## bash cmd:
 
 ```bash
-cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep variant_type | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c > docs/examples/noncoding_candidates_variant_type_distro.md
+cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep variant_type | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c > docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distro.md
 ```
 
 

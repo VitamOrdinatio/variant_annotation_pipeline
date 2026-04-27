@@ -48,7 +48,7 @@ These artifacts provide direct evidence of successful end-to-end execution on re
 
 ### Annotation Evidence
 - [VEP Summary Report](docs/examples/stage_07_vep_annotation/stage_07_vep_summary.html)
-- [VEP Warnings Log](docs/examples/stage_07_vep_annotation/stage_07_vep_variants_vcf_warnings.txt)
+- [VEP Warnings Log](docs/examples/stage_07_vep_annotation/stage_07_vep_variants_vcf_example_warnings.txt)
 
 
 📁 All artifacts are organized by pipeline stage under `docs/examples/`.

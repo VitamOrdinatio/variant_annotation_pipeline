@@ -11,7 +11,7 @@ Pivot table view of consequence calls of coding_candiates.tsv run on HG002
 ## cmd to gen pivot table:
 
 ```bash
-cut -f $(head -n1 coding_candidates.tsv | tr '\t' '\n' | nl | grep consequence | awk '{print $1}') coding_candidates.tsv | sort | uniq -c | sort -nr | head > docs/examples/coding_candidates_consequence_distribution.md
+cut -f $(head -n1 coding_candidates.tsv | tr '\t' '\n' | nl | grep consequence | awk '{print $1}') coding_candidates.tsv | sort | uniq -c | sort -nr | head > docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
 ```
 
 

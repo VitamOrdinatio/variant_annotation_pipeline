@@ -21,7 +21,7 @@ Stage 07 performs **variant annotation using Ensembl VEP**, converting normalize
 - [Missense Examples](stage_07_missense_examples.tsv)  
 - [Stop-Gained Examples](stage_07_stop_gained_examples.tsv)  
 - [VEP Summary Report](stage_07_vep_summary.html)  
-- [VEP Warnings Log](stage_07_vep_variants_vcf_warnings.txt)
+- [VEP Warnings Log](stage_07_vep_variants_vcf_example_warnings.txt)
 
 ---
 

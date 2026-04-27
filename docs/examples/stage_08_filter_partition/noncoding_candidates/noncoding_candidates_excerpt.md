@@ -9,20 +9,20 @@
 
 ```bash
 alias tsvhead='head -n 5'
-tsvhead < noncoding_candidates.tsv > docs/examples/noncoding_candidates_excerpt.md
+tsvhead < noncoding_candidates.tsv > docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+tsvhead < noncoding_candidates.tsv > docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.tsv
 ```
 
 ## output
 
 ```text
 sample_id	run_id	source_pipeline	variant_id	chromosome	position	reference_allele	alternate_allele	variant_type	variant_class	quality_flag	gene_id	gene_symbol	transcript_id	consequence	impact_class	clinical_significance	clinvar_significance	population_frequency	gnomad_af	exac_af	thousand_genomes_af	mito_flag	epilepsy_flag	annotation_source	annotation_version	gene_mapping_status	variant_context	variant_effect_severity	qc_status	interpretability_status	frequency_status	clinical_status
-HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14522:G:A	1	14522	G	A	snv	noncoding	PASS	NA	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.1893	0.1893	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
-HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14542:A:G	1	14542	A	G	snv	noncoding	PASS	NA	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.3406	0.3406	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
-HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14574:A:G	1	14574	A	G	snv	noncoding	PASS	NA	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.4207	0.4207	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
-HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14590:G:A	1	14590	G	A	snv	noncoding	PASS	NA	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.2387	0.2387	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14522:G:A	1	14522	G	A	snv	noncoding	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.1893	0.1893	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14542:A:G	1	14542	A	G	snv	noncoding	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.3406	0.3406	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14574:A:G	1	14574	A	G	snv	noncoding	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.4207	0.4207	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
+HG002	run_2026_04_17_082417	variant_annotation_pipeline	1:14590:G:A	1	14590	G	A	snv	noncoding	PASS	ENSG00000310526	WASH7P	ENST00000831140.1	non_coding_transcript_exon_variant	MODIFIER	NA	NA	0.2387	0.2387	NA	NA	False	False	VEP	115	mapped	noncoding_transcript	MODIFIER	pass	needs_external_annotation	common	missing
 ```
 
 Notes:
 
-- `gene_id` may be NA for certain records due to mapping limitations or annotation source constraints.
 - `low_quality` indicates presence of QC flags in contributing variants (e.g., caution flags from Stage 08).

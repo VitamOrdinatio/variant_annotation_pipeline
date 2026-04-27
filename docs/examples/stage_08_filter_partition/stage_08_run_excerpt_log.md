@@ -7,7 +7,8 @@ Summary: vep annotation (stage 08) successfully processed ~4.6 million variants 
 ## Run Excerpt:
 
 ```text
-[INFO] Mark Stage 08 checkpoint probe started at Sat Apr 25 09:44:29 AM EDT 2026
+[INFO] Mark Stage 08 checkpoint run started at Sun Apr 26 10:42:27 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage08_checkpoint_20260426_224227.log
 [INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
 [INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
 
@@ -29,6 +30,6 @@ Summary: vep annotation (stage 08) successfully processed ~4.6 million variants 
 
 
 
-[INFO] Mark Stage 08 checkpoint probe completed at Sat Apr 25 09:53:42 AM EDT 2026
-[INFO] Log file saved to: /root/Desktop/mark_run_stage08_checkpoint_probe_20260425_094429.log
+[INFO] Mark Stage 08 checkpoint run completed at Sun Apr 26 10:51:42 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage08_checkpoint_20260426_224227.log
 ```

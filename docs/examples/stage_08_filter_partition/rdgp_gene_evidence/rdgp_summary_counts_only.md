@@ -27,8 +27,7 @@ END {
   print "genes_with_max_HIGH\t" high_genes
   print "genes_with_low_quality_evidence\t" lowq_genes
 }
-' stage_08_rdgp_gene_evidence_seed.tsv | column -t -s $'\t' > docs/examples/rdgp_gene_evidence/rdgp_summary_counts_only.md
-
+' stage_08_rdgp_gene_evidence_seed.tsv | column -t -s $'\t' > docs/examples/stage_08_filter_partition/rdgp_gene_evidence/rdgp_summary_counts_only.md
 ```
 
 ## output:
@@ -38,7 +37,7 @@ END {
 
 === RDGP seed summary ===
 
-gene_rows                         49826
+gene_rows                         50230
 summed_variant_count              3528791
 summed_high_impact_variant_count  791
 summed_rare_variant_count         99427
@@ -46,7 +45,6 @@ summed_pathogenic_variant_count   66
 genes_with_max_HIGH               614
 genes_with_low_quality_evidence   10723
 ```
-
 
 Notes:
 

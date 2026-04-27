@@ -8,11 +8,11 @@ Sample: HG002
 - `sra_accession`: "SRR12898354"
     `reference_genome`: "GRCh38"
 
-`TEST` Environment: MARK (40-core HPC)
+`TEST` environment: MARK (40-core HPC)
 
 `DEV` environment: Sys76
 
-Pipeline completed through Stage 08: filter and prartiation
+Pipeline completed through Stage 08: filter and partition
 
 Generated outputs:
 
@@ -45,15 +45,3 @@ Generated outputs:
 ```
 
 Large genomic outputs are excluded from Git by `.gitignore` and thus not tracked by Git.
-
-
-
-### Stage 08 Outputs
-
-| Output | Description |
-|--------|-------------|
-| stage_08_vdb_ready_variants.tsv | normalized variant-level records |
-| stage_08_rdgp_gene_evidence_seed.tsv | gene-level aggregation seed |
-| stage_08_variant_summary.tsv | per-variant summary |
-| stage_08_selected_transcript_consequences.tsv | transcript filtering layer |
-| stage_08_summary.json | QC + run summary |

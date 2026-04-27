@@ -12,7 +12,7 @@
 
 
 ```bash
-cut -f $(head -n1 stage_08_variant_summary.tsv | tr '\t' '\n' | nl | grep frequency_status | awk '{print $1}') stage_08_variant_summary.tsv | sort | uniq -c | sort -nr > docs/examples/variant_summary_frequency_distribution.md
+cut -f $(head -n1 stage_08_variant_summary.tsv | tr '\t' '\n' | nl | grep frequency_status | awk '{print $1}') stage_08_variant_summary.tsv | sort | uniq -c | sort -nr > docs/examples/stage_08_filter_partition/variant_summary/variant_summary_frequency_distribution.md
 ```
 
 

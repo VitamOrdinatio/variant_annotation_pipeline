@@ -11,7 +11,7 @@ Most noncoding variant candidates should have an interpretability value of "need
 ## bash cmd:
 
 ```bash
-cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep interpretability_status | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c > docs/examples/noncoding_candidates_interpretability.md
+cut -f $(head -n1 noncoding_candidates.tsv | tr '\t' '\n' | nl | grep interpretability_status | awk '{print $1}') noncoding_candidates.tsv | sort | uniq -c > docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_interpretability.md
 ```
 
 
