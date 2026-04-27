@@ -150,6 +150,14 @@ It demonstrates how genomic data pipelines can be designed as **modular, contrac
 
 ---
 
+## 🔁 Pipeline Architecture
+
+![VAP Pipeline](assets/vap_pipeline_architecture.png)
+
+This architecture highlights the separation between variant generation, data engineering, and interpretation layers, with explicit bifurcation for coding and noncoding analysis.
+
+---
+
 ## Stage 08 Evidence (Filtering & Partitioning)
 
 Key results:
