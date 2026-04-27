@@ -175,8 +175,10 @@ functional_impact ∈ {
   - coding_sequence_variant
   - any unmatched coding consequence
 
-- unknown   
-    * any unmatched consequence
+- unknown:
+  - missing consequence
+  - invalid consequence
+  - consequence not recognized as coding or splice-related
 
 ### Multiple Consequence Rule
 
@@ -469,6 +471,7 @@ missense
 synonymous
 splice_relevant
 other_coding
+unknown
 ```
 
 `clinical_evidence_distribution` must count distinct variant_id values by:
