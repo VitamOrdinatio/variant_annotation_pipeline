@@ -1,195 +1,397 @@
 """
-Stage 10: Interpret non-coding variants.
+Stage 10: Interpret noncoding variants.
 
-Repo 2 v1.0 design notes:
-- input:
-  - noncoding_variants.tsv from Stage 08
-- output:
-  - interpreted_noncoding.tsv
-- interpretation is rule-based and intentionally conservative
-- no AI tools are used in v1
+Stage 10 consumes Stage 08 structured noncoding outputs and assigns deterministic,
+non-ranking noncoding interpretation flags.
+
+Contract notes:
+- interpretation only; no ranking or prioritization
+- preserve all Stage 08 fields
+- consume Stage 08 structural fields as authoritative
+- no external database queries
+- no biological inference from missingness
 """
 
 from __future__ import annotations
 
+import csv
+import json
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
+
+MISSING_TOKENS = {"", "NA", "N/A", ".", "-", "NULL", "None", "none", "nan", "NaN"}
+
+REQUIRED_FIELDS = [
+    "sample_id", "variant_id", "gene_id", "gene_symbol", "consequence", "impact_class",
+    "variant_context", "variant_type", "variant_class", "population_frequency",
+    "gnomad_af", "exac_af", "thousand_genomes_af", "clinical_significance",
+    "clinvar_significance", "qc_status", "quality_flag", "annotation_source",
+    "annotation_version", "frequency_status", "clinical_status", "gene_mapping_status",
+    "variant_effect_severity", "source_pipeline", "run_id",
+]
+
+ADDED_FIELDS = [
+    "noncoding_functional_context", "rarity_flag", "clinical_evidence", "qc_reliability",
+    "noncoding_interpretation_label", "is_regulatory_candidate", "is_rare_candidate",
+    "is_clinically_supported", "is_high_quality", "is_potential_artifact",
+]
+
+FUNCTIONAL_CONTEXT_VALUES = ["regulatory", "proximal", "transcript_associated", "intronic", "intergenic", "unknown"]
+RARITY_VALUES = ["rare", "low_frequency", "common", "missing", "unknown"]
+QC_VALUES = ["high_confidence", "caution", "low_confidence"]
+CLINICAL_VALUES = ["pathogenic", "likely_pathogenic", "vus", "likely_benign", "benign", "conflicting", "missing"]
+LABEL_VALUES = ["regulatory_rare_supported", "regulatory_or_transcript_rare", "noncoding_common_or_low_support", "noncoding_uninterpretable"]
+
+REGULATORY_TERMS = {"regulatory_region_variant", "TF_binding_site_variant"}
+PROXIMAL_TERMS = {"upstream_gene_variant", "downstream_gene_variant"}
+TRANSCRIPT_ASSOCIATED_TERMS = {"non_coding_transcript_exon_variant", "non_coding_transcript_variant", "NMD_transcript_variant"}
+INTRONIC_TERMS = {"intron_variant"}
+INTERGENIC_TERMS = {"intergenic_variant"}
 
 
-def _validate_required_artifact(path_str: str | None, label: str) -> Path:
-    """
-    Validate that a required upstream artifact exists.
+def _log(logger, level: str, message: str) -> None:
+    method = getattr(logger, level, None)
+    if method is None:
+        print(f"[{level.upper()}] {message}")
+    else:
+        method(message)
 
-    Parameters
-    ----------
-    path_str : str | None
-        Path string.
-    label : str
-        Human-readable label.
 
-    Returns
-    -------
-    Path
-        Validated path.
+def _is_missing(value: Any) -> bool:
+    if value is None:
+        return True
+    return str(value).strip() in MISSING_TOKENS
 
-    Raises
-    ------
-    ValueError
-        If missing.
-    FileNotFoundError
-        If path does not exist.
-    """
+
+def _clean(value: Any, null_value: str = "NA") -> str:
+    if value is None:
+        return null_value
+    text = str(value).strip()
+    return text if text else null_value
+
+
+def _bool_text(value: bool) -> str:
+    return "True" if value else "False"
+
+
+def _split_consequence_terms(consequence: Any) -> set[str]:
+    if _is_missing(consequence):
+        return set()
+    text = str(consequence).replace(",", "&")
+    return {term.strip() for term in text.split("&") if term.strip()}
+
+
+def _assign_noncoding_functional_context(consequence: Any) -> str:
+    terms = _split_consequence_terms(consequence)
+    if not terms:
+        return "unknown"
+    if terms & REGULATORY_TERMS:
+        return "regulatory"
+    if terms & PROXIMAL_TERMS:
+        return "proximal"
+    if terms & TRANSCRIPT_ASSOCIATED_TERMS:
+        return "transcript_associated"
+    if terms & INTRONIC_TERMS:
+        return "intronic"
+    if terms & INTERGENIC_TERMS:
+        return "intergenic"
+    return "unknown"
+
+
+def _assign_rarity_flag(frequency_status: Any) -> str:
+    value = _clean(frequency_status, "unknown").lower()
+    return value if value in RARITY_VALUES else "unknown"
+
+
+def _normalize_clinical_text(value: Any) -> str:
+    if _is_missing(value):
+        return ""
+    return str(value).strip().lower().replace(" ", "_").replace("-", "_")
+
+
+def _clinical_from_raw_clinvar(clinvar_significance: Any) -> str:
+    text = _normalize_clinical_text(clinvar_significance)
+    if not text:
+        return "missing"
+    if "conflicting" in text or "conflict" in text:
+        return "conflicting"
+    if "likely_pathogenic" in text:
+        return "likely_pathogenic"
+    if "pathogenic" in text:
+        return "pathogenic"
+    if "uncertain_significance" in text or text == "vus" or "uncertain" in text:
+        return "vus"
+    if "likely_benign" in text:
+        return "likely_benign"
+    if "benign" in text:
+        return "benign"
+    return "missing"
+
+
+def _assign_clinical_evidence(clinical_status: Any, clinvar_significance: Any) -> str:
+    status = _normalize_clinical_text(clinical_status)
+    if status in CLINICAL_VALUES:
+        return status
+    return _clinical_from_raw_clinvar(clinvar_significance)
+
+
+def _assign_qc_reliability(qc_status: Any) -> str:
+    value = _clean(qc_status, "unknown").lower()
+    if value == "pass":
+        return "high_confidence"
+    if value == "caution":
+        return "caution"
+    if value == "fail":
+        return "low_confidence"
+    return "low_confidence"
+
+
+def _has_missing_key_fields(row: dict[str, str], noncoding_functional_context: str, rarity_flag: str, clinical_evidence: str) -> bool:
+    key_fields = [
+        "sample_id", "run_id", "source_pipeline", "variant_id", "gene_id", "gene_symbol",
+        "consequence", "variant_context", "frequency_status", "clinical_status", "qc_status",
+    ]
+    if any(_is_missing(row.get(field)) for field in key_fields):
+        return True
+    if noncoding_functional_context == "unknown":
+        return True
+    if rarity_flag == "unknown":
+        return True
+    if clinical_evidence not in CLINICAL_VALUES:
+        return True
+    return False
+
+
+def _assign_noncoding_interpretation_label(
+    row: dict[str, str],
+    noncoding_functional_context: str,
+    rarity_flag: str,
+    clinical_evidence: str,
+    qc_reliability: str,
+) -> str:
+    gene_mapping_status = _clean(row.get("gene_mapping_status"), "unknown").lower()
+
+    if (
+        gene_mapping_status == "unmapped"
+        or qc_reliability == "low_confidence"
+        or _has_missing_key_fields(row, noncoding_functional_context, rarity_flag, clinical_evidence)
+    ):
+        return "noncoding_uninterpretable"
+
+    if rarity_flag == "common" or clinical_evidence in {"benign", "likely_benign"}:
+        return "noncoding_common_or_low_support"
+
+    if (
+        noncoding_functional_context == "regulatory"
+        and rarity_flag == "rare"
+        and clinical_evidence in {"pathogenic", "likely_pathogenic"}
+        and qc_reliability == "high_confidence"
+    ):
+        return "regulatory_rare_supported"
+
+    if (
+        noncoding_functional_context in {"regulatory", "proximal", "transcript_associated"}
+        and rarity_flag in {"rare", "low_frequency"}
+        and qc_reliability == "high_confidence"
+        and clinical_evidence not in {"benign", "likely_benign"}
+    ):
+        return "regulatory_or_transcript_rare"
+
+    return "noncoding_common_or_low_support"
+
+
+def _validate_file(path_str: str | None, label: str) -> Path:
     if not path_str:
-        raise ValueError(f"Missing required upstream artifact for {label}")
+        raise ValueError(f"Missing required Stage 10 input artifact: {label}")
     path = Path(path_str)
     if not path.exists():
-        raise FileNotFoundError(f"Required upstream artifact not found for {label}: {path}")
+        raise FileNotFoundError(f"Required Stage 10 input does not exist: {path}")
     if not path.is_file():
-        raise FileNotFoundError(f"Expected file for {label}, but found non-file path: {path}")
+        raise FileNotFoundError(f"Required Stage 10 input is not a file: {path}")
+    if path.stat().st_size == 0:
+        raise ValueError(f"Required Stage 10 input is empty: {path}")
     return path
 
 
-def _normalize_af(value: object) -> float | None:
-    """
-    Convert an allele-frequency-like value to float.
-
-    Returns None for NA-like values.
-    """
-    if value is None:
-        return None
-    text = str(value).strip()
-    if text in {"", "NA", ".", "-", "nan", "None"}:
-        return None
-    try:
-        return float(text)
-    except ValueError:
-        return None
+def _validate_header(fieldnames: list[str] | None, path: Path) -> list[str]:
+    if fieldnames is None:
+        raise ValueError(f"Could not read header from Stage 10 input: {path}")
+    missing = [field for field in REQUIRED_FIELDS if field not in fieldnames]
+    if missing:
+        raise ValueError(f"Stage 10 input missing required fields {missing}: {path}")
+    return list(fieldnames)
 
 
-def _classify_rarity(row: pd.Series) -> str:
-    """
-    Assign a rarity label using available population frequency columns.
-    """
-    af_values = [
-        _normalize_af(row.get("gnomad_af")),
-        _normalize_af(row.get("exac_af")),
-        _normalize_af(row.get("thousand_genomes_af")),
-    ]
-    observed = [v for v in af_values if v is not None]
-
-    if not observed:
-        return "unknown"
-    max_af = max(observed)
-
-    if max_af == 0:
-        return "ultra_rare"
-    if max_af <= 0.001:
-        return "rare"
-    if max_af <= 0.01:
-        return "low_frequency"
-    return "common"
+def _get_stage08_inputs(state: dict[str, Any]) -> tuple[Path, Path, Path]:
+    artifacts = state.get("artifacts", {})
+    noncoding = _validate_file(artifacts.get("noncoding_candidates"), "noncoding_candidates")
+    variant_summary = _validate_file(artifacts.get("stage_08_variant_summary"), "stage_08_variant_summary")
+    selected = _validate_file(
+        artifacts.get("stage_08_selected_transcript_consequences"),
+        "stage_08_selected_transcript_consequences",
+    )
+    return noncoding, variant_summary, selected
 
 
-def _classify_noncoding_class(consequence: str) -> str:
-    """
-    Map VEP consequence strings to a simplified non-coding functional class.
-    """
-    if not consequence or consequence == "NA":
-        return "unknown"
-
-    terms = {term.strip() for term in str(consequence).split("&") if term.strip()}
-
-    if "splice_region_variant" in terms:
-        return "splice_region"
-    if "regulatory_region_variant" in terms:
-        return "regulatory_region"
-    if "upstream_gene_variant" in terms:
-        return "upstream"
-    if "downstream_gene_variant" in terms:
-        return "downstream"
-    if "intron_variant" in terms:
-        return "intronic"
-    if "intergenic_variant" in terms:
-        return "intergenic"
-
-    return "other_noncoding"
+def _prepare_output_paths(processed_dir: Path) -> dict[str, Path]:
+    return {
+        "noncoding_interpreted": processed_dir / "stage_10_noncoding_interpreted.tsv",
+        "summary_json": processed_dir / "stage_10_summary.json",
+    }
 
 
-def _classify_clinvar(significance: str) -> str:
-    """
-    Simplify ClinVar significance into coarse buckets.
-    """
-    if not significance or significance == "NA":
-        return "unknown"
-
-    text = str(significance).strip().lower()
-
-    if "pathogenic" in text and "likely" in text:
-        return "likely_pathogenic"
-    if text == "pathogenic" or " pathogenic" in text or text.startswith("pathogenic"):
-        return "pathogenic"
-    if "uncertain" in text or "vus" in text:
-        return "vus"
-    if "benign" in text and "likely" in text:
-        return "likely_benign"
-    if text == "benign" or text.startswith("benign"):
-        return "benign"
-    return "other"
-
-
-def _classify_priority_context(
-    noncoding_class: str,
-    clinvar_bucket: str,
-    rarity: str,
-    mito_flag: str,
-    epilepsy_flag: str,
-) -> tuple[str, str]:
-    """
-    Assign a conservative non-coding severity label and rationale.
-    """
-    in_target_gene_set = mito_flag == "True" or epilepsy_flag == "True"
-
-    if clinvar_bucket in {"pathogenic", "likely_pathogenic"}:
-        return "high", "ClinVar pathogenic_or_likely_pathogenic"
-
-    if noncoding_class == "splice_region" and rarity in {"ultra_rare", "rare", "unknown"}:
-        return "medium", "rare_splice_region_variant"
-
-    if noncoding_class == "regulatory_region" and rarity in {"ultra_rare", "rare"} and in_target_gene_set:
-        return "medium", "rare_regulatory_variant_in_target_gene_set"
-
-    if noncoding_class in {"upstream", "downstream", "intronic"} and rarity in {"ultra_rare", "rare"} and in_target_gene_set:
-        return "low", "rare_noncoding_variant_in_target_gene_set"
-
-    if clinvar_bucket == "vus":
-        return "low", "vus_noncoding_variant"
-
-    return "low", "limited_noncoding_evidence"
+def _init_summary_sets() -> dict[str, dict[str, set[str]]]:
+    return {
+        "noncoding_functional_context_distribution": {key: set() for key in FUNCTIONAL_CONTEXT_VALUES},
+        "rarity_flag_distribution": {key: set() for key in RARITY_VALUES},
+        "qc_distribution": {key: set() for key in QC_VALUES},
+        "clinical_evidence_distribution": {key: set() for key in CLINICAL_VALUES},
+        "noncoding_interpretation_label_distribution": {key: set() for key in LABEL_VALUES},
+        "scalar_sets": {
+            "total_noncoding_variants": set(),
+            "regulatory_variant_count": set(),
+            "proximal_variant_count": set(),
+            "transcript_associated_variant_count": set(),
+            "intronic_variant_count": set(),
+            "intergenic_variant_count": set(),
+            "rare_variant_count": set(),
+            "low_frequency_variant_count": set(),
+            "common_variant_count": set(),
+            "clinically_supported_count": set(),
+            "benign_or_likely_benign_count": set(),
+            "uninterpretable_count": set(),
+        },
+    }
 
 
-def _build_interpretation_notes(row: pd.Series) -> str:
-    """
-    Build a compact semicolon-delimited interpretation note string.
-    """
-    notes: list[str] = []
+def _update_summary_sets(summary_sets: dict[str, dict[str, set[str]]], row: dict[str, str]) -> None:
+    variant_id = row["variant_id"]
+    context = row["noncoding_functional_context"]
+    rarity_flag = row["rarity_flag"]
+    qc_reliability = row["qc_reliability"]
+    clinical_evidence = row["clinical_evidence"]
+    label = row["noncoding_interpretation_label"]
 
-    if str(row.get("mito_flag", "False")) == "True":
-        notes.append("mitochondrial_gene")
-    if str(row.get("epilepsy_flag", "False")) == "True":
-        notes.append("epilepsy_gene")
+    summary_sets["scalar_sets"]["total_noncoding_variants"].add(variant_id)
+    summary_sets["noncoding_functional_context_distribution"].setdefault(context, set()).add(variant_id)
+    summary_sets["rarity_flag_distribution"].setdefault(rarity_flag, set()).add(variant_id)
+    summary_sets["qc_distribution"].setdefault(qc_reliability, set()).add(variant_id)
+    summary_sets["clinical_evidence_distribution"].setdefault(clinical_evidence, set()).add(variant_id)
+    summary_sets["noncoding_interpretation_label_distribution"].setdefault(label, set()).add(variant_id)
 
-    clinvar_bucket = row.get("clinvar_bucket", "unknown")
-    if clinvar_bucket not in {"unknown", "other"}:
-        notes.append(f"clinvar={clinvar_bucket}")
+    if context == "regulatory":
+        summary_sets["scalar_sets"]["regulatory_variant_count"].add(variant_id)
+    if context == "proximal":
+        summary_sets["scalar_sets"]["proximal_variant_count"].add(variant_id)
+    if context == "transcript_associated":
+        summary_sets["scalar_sets"]["transcript_associated_variant_count"].add(variant_id)
+    if context == "intronic":
+        summary_sets["scalar_sets"]["intronic_variant_count"].add(variant_id)
+    if context == "intergenic":
+        summary_sets["scalar_sets"]["intergenic_variant_count"].add(variant_id)
+    if rarity_flag == "rare":
+        summary_sets["scalar_sets"]["rare_variant_count"].add(variant_id)
+    if rarity_flag == "low_frequency":
+        summary_sets["scalar_sets"]["low_frequency_variant_count"].add(variant_id)
+    if rarity_flag == "common":
+        summary_sets["scalar_sets"]["common_variant_count"].add(variant_id)
+    if clinical_evidence in {"pathogenic", "likely_pathogenic"}:
+        summary_sets["scalar_sets"]["clinically_supported_count"].add(variant_id)
+    if clinical_evidence in {"benign", "likely_benign"}:
+        summary_sets["scalar_sets"]["benign_or_likely_benign_count"].add(variant_id)
+    if label == "noncoding_uninterpretable":
+        summary_sets["scalar_sets"]["uninterpretable_count"].add(variant_id)
 
-    rarity = row.get("rarity_label", "unknown")
-    notes.append(f"rarity={rarity}")
 
-    notes.append(f"noncoding_class={row.get('noncoding_class', 'unknown')}")
+def _sets_to_counts(summary_sets: dict[str, dict[str, set[str]]]) -> dict[str, Any]:
+    summary: dict[str, Any] = {}
 
-    return ";".join(notes)
+    for key, value in summary_sets["scalar_sets"].items():
+        summary[key] = len(value)
+
+    for distribution_name in [
+        "noncoding_interpretation_label_distribution",
+        "rarity_flag_distribution",
+        "qc_distribution",
+        "noncoding_functional_context_distribution",
+        "clinical_evidence_distribution",
+    ]:
+        summary[distribution_name] = {
+            key: len(value)
+            for key, value in summary_sets[distribution_name].items()
+        }
+
+    return summary
+
+
+def _write_summary_json(path: Path, summary_sets: dict[str, dict[str, set[str]]], metadata: dict[str, Any]) -> None:
+    summary = _sets_to_counts(summary_sets)
+    summary.update(metadata)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(summary, handle, indent=2, sort_keys=True)
+        handle.write("\n")
+
+
+def _interpret_row(input_row: dict[str, str]) -> dict[str, str]:
+    row = dict(input_row)
+
+    context = _assign_noncoding_functional_context(row.get("consequence"))
+    rarity_flag = _assign_rarity_flag(row.get("frequency_status"))
+    clinical_evidence = _assign_clinical_evidence(row.get("clinical_status"), row.get("clinvar_significance"))
+    qc_reliability = _assign_qc_reliability(row.get("qc_status"))
+
+    row["noncoding_functional_context"] = context
+    row["rarity_flag"] = rarity_flag
+    row["clinical_evidence"] = clinical_evidence
+    row["qc_reliability"] = qc_reliability
+    row["is_regulatory_candidate"] = _bool_text(context == "regulatory")
+    row["is_rare_candidate"] = _bool_text(rarity_flag == "rare")
+    row["is_clinically_supported"] = _bool_text(clinical_evidence in {"pathogenic", "likely_pathogenic"})
+    row["is_high_quality"] = _bool_text(qc_reliability == "high_confidence")
+    row["is_potential_artifact"] = _bool_text(qc_reliability == "low_confidence")
+    row["noncoding_interpretation_label"] = _assign_noncoding_interpretation_label(
+        row=row,
+        noncoding_functional_context=context,
+        rarity_flag=rarity_flag,
+        clinical_evidence=clinical_evidence,
+        qc_reliability=qc_reliability,
+    )
+
+    return row
+
+
+def _iter_stage10_candidate_rows(path: Path, logger):
+    allowed_contexts = {"regulatory", "intronic", "intergenic", "noncoding_transcript"}
+
+    _log(logger, "info", f"Reading Stage 10 input: {path}")
+    with path.open("r", encoding="utf-8", errors="replace", newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        fieldnames = _validate_header(reader.fieldnames, path)
+
+        seen_keys: set[tuple[str, str, str]] = set()
+        for row in reader:
+            variant_context = _clean(row.get("variant_context"), "unknown")
+            if variant_context not in allowed_contexts:
+                _log(
+                    logger,
+                    "warning",
+                    f"Skipping non-noncoding row found in Stage 10 input: "
+                    f"{path}; variant_id={row.get('variant_id')}; variant_context={variant_context}",
+                )
+                continue
+
+            key = (
+                _clean(row.get("variant_id"), "NA"),
+                _clean(row.get("transcript_id"), "NA"),
+                _clean(row.get("consequence"), "NA"),
+            )
+            if key in seen_keys:
+                _log(logger, "warning", f"Skipping duplicate Stage 10 candidate row: {key}")
+                continue
+
+            seen_keys.add(key)
+            yield row, fieldnames
 
 
 def run_stage(
@@ -198,99 +400,96 @@ def run_stage(
     logger,
     state: dict[str, Any],
 ) -> dict[str, Any]:
-    """
-    Execute Stage 10.
+    _log(logger, "info", "Stage 10: interpreting noncoding variants.")
 
-    Responsibilities
-    ----------------
-    - read noncoding_variants.tsv
-    - apply conservative rule-based non-coding interpretation
-    - write interpreted_noncoding.tsv
-    - update artifacts, QC, and stage outputs
-    """
-    logger.info("Stage 10: interpreting non-coding variants.")
+    noncoding_path, variant_summary_path, selected_path = _get_stage08_inputs(state)
+    processed_dir = Path(paths["processed_dir"])
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    output_paths = _prepare_output_paths(processed_dir)
 
-    noncoding_table = _validate_required_artifact(
-        state["artifacts"].get("noncoding_table"),
-        "non-coding variant table",
-    )
+    _log(logger, "info", f"Stage 10 noncoding input: {noncoding_path}")
+    _log(logger, "info", f"Stage 10 Stage 08 variant summary validation input: {variant_summary_path}")
+    _log(logger, "info", f"Stage 10 selected transcript validation input: {selected_path}")
 
-    interpreted_noncoding_table = Path(paths["final_dir"]) / "interpreted_noncoding.tsv"
+    summary_sets = _init_summary_sets()
+    input_rows = 0
+    interpreted_rows = 0
+    output_fieldnames: list[str] | None = None
 
-    df = pd.read_csv(noncoding_table, sep="\t", dtype=str).fillna("NA")
+    with output_paths["noncoding_interpreted"].open("w", encoding="utf-8", newline="") as out_handle:
+        writer: csv.DictWriter | None = None
 
-    if df.empty:
-        logger.warning("Non-coding variant table is empty. Writing empty interpreted non-coding table.")
+        for input_row, fieldnames in _iter_stage10_candidate_rows(noncoding_path, logger):
+            input_rows += 1
 
-    required_columns = [
-        "gene_symbol",
-        "consequence",
-        "clinvar_significance",
-        "mito_flag",
-        "epilepsy_flag",
-        "gnomad_af",
-        "exac_af",
-        "thousand_genomes_af",
-    ]
-    missing_columns = [col for col in required_columns if col not in df.columns]
-    if missing_columns:
-        raise ValueError(
-            "Non-coding variant table is missing required columns: " + ", ".join(missing_columns)
-        )
+            if output_fieldnames is None:
+                output_fieldnames = fieldnames + ADDED_FIELDS
+                writer = csv.DictWriter(out_handle, fieldnames=output_fieldnames, delimiter="\t")
+                writer.writeheader()
 
-    df["noncoding_class"] = df["consequence"].apply(_classify_noncoding_class)
-    df["clinvar_bucket"] = df["clinvar_significance"].apply(_classify_clinvar)
-    df["rarity_label"] = df.apply(_classify_rarity, axis=1)
+            interpreted_row = _interpret_row(input_row)
+            assert writer is not None
+            writer.writerow({field: interpreted_row.get(field, "NA") for field in output_fieldnames})
+            _update_summary_sets(summary_sets, interpreted_row)
+            interpreted_rows += 1
 
-    severity_results = df.apply(
-        lambda row: _classify_priority_context(
-            noncoding_class=row["noncoding_class"],
-            clinvar_bucket=row["clinvar_bucket"],
-            rarity=row["rarity_label"],
-            mito_flag=str(row.get("mito_flag", "False")),
-            epilepsy_flag=str(row.get("epilepsy_flag", "False")),
-        ),
-        axis=1,
-    )
-    df["predicted_severity"] = [item[0] for item in severity_results]
-    df["severity_basis"] = [item[1] for item in severity_results]
-    df["interpretation_notes"] = df.apply(_build_interpretation_notes, axis=1)
+        if writer is None:
+            output_fieldnames = REQUIRED_FIELDS + ADDED_FIELDS
+            writer = csv.DictWriter(out_handle, fieldnames=output_fieldnames, delimiter="\t")
+            writer.writeheader()
 
-    output_columns = list(df.columns)
-    df.to_csv(interpreted_noncoding_table, sep="\t", index=False, columns=output_columns)
-
-    noncoding_variant_count = int(len(df))
-    noncoding_gene_count = int(df["gene_symbol"].replace("NA", pd.NA).dropna().nunique())
-
-    interpretation_class_counts = (
-        df["predicted_severity"].value_counts(dropna=False).to_dict()
-        if not df.empty
-        else {}
-    )
-
-    state["artifacts"]["interpreted_noncoding_table"] = str(interpreted_noncoding_table)
-
-    interpretation_qc = state["qc"].setdefault("interpretation_qc", {})
-    interpretation_qc.update(
-        {
-            "noncoding_interpretation_completed": True,
-            "noncoding_variant_count": noncoding_variant_count,
-            "noncoding_gene_count": noncoding_gene_count,
-            "noncoding_interpretation_class_counts": interpretation_class_counts,
-        }
-    )
-
-    state["stage_outputs"]["stage_10_interpret_noncoding"] = {
+    metadata = {
+        "stage": "stage_10_interpret_noncoding",
         "status": "success",
-        "input_noncoding_table": str(noncoding_table),
-        "interpreted_noncoding_table": str(interpreted_noncoding_table),
-        "noncoding_variant_count": noncoding_variant_count,
-        "noncoding_gene_count": noncoding_gene_count,
-        "noncoding_interpretation_class_counts": interpretation_class_counts,
+        "input_rows": input_rows,
+        "interpreted_rows": interpreted_rows,
+        "input_files": {
+            "noncoding_candidates": str(noncoding_path),
+            "stage_08_variant_summary": str(variant_summary_path),
+            "stage_08_selected_transcript_consequences": str(selected_path),
+        },
+        "output_files": {
+            "stage_10_noncoding_interpreted": str(output_paths["noncoding_interpreted"]),
+            "stage_10_summary_json": str(output_paths["summary_json"]),
+        },
+        "assumptions": [
+            "Stage 10 consumes Stage 08 structural fields as authoritative.",
+            "Stage 10 performs cautious noncoding interpretation flagging only; it does not rank variants.",
+            "Summary counts are distinct variant_id counts implemented with sets.",
+            "Upstream/downstream variants are classified as proximal, not regulatory.",
+            "AlphaGenome is not run in Stage 10 v1.",
+        ],
+    }
+    _write_summary_json(output_paths["summary_json"], summary_sets, metadata)
+
+    state.setdefault("artifacts", {})
+    state["artifacts"]["stage_10_noncoding_interpreted"] = str(output_paths["noncoding_interpreted"])
+    state["artifacts"]["stage_10_summary_json"] = str(output_paths["summary_json"])
+
+    state.setdefault("qc", {})
+    summary_counts = _sets_to_counts(summary_sets)
+    state["qc"]["stage_10_qc"] = {
+        "input_rows": input_rows,
+        "interpreted_rows": interpreted_rows,
+        "total_noncoding_variants": summary_counts["total_noncoding_variants"],
+        "uninterpretable_count": summary_counts["uninterpretable_count"],
+        "output_exists": output_paths["noncoding_interpreted"].exists(),
+        "summary_exists": output_paths["summary_json"].exists(),
     }
 
-    logger.info(f"Interpreted non-coding table written to: {interpreted_noncoding_table}")
-    logger.info(f"Non-coding variants interpreted: {noncoding_variant_count}")
-    logger.info(f"Unique non-coding genes interpreted: {noncoding_gene_count}")
+    state.setdefault("stage_outputs", {})
+    state["stage_outputs"]["stage_10_interpret_noncoding"] = {
+        "status": "success",
+        "input_noncoding_candidates": str(noncoding_path),
+        "noncoding_interpreted": str(output_paths["noncoding_interpreted"]),
+        "summary_json": str(output_paths["summary_json"]),
+        "input_rows": input_rows,
+        "interpreted_rows": interpreted_rows,
+    }
+
+    _log(logger, "info", f"Stage 10 interpreted noncoding variants written to: {output_paths['noncoding_interpreted']}")
+    _log(logger, "info", f"Stage 10 summary JSON written to: {output_paths['summary_json']}")
+    _log(logger, "info", f"Stage 10 input rows processed: {input_rows}")
+    _log(logger, "info", f"Stage 10 interpreted rows written: {interpreted_rows}")
 
     return state
