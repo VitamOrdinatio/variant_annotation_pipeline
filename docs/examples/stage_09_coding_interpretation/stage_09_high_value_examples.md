@@ -1,13 +1,18 @@
-# === HIGH-VALUE EXAMPLES ===
+# HIGH-VALUE EXAMPLES
 
+## Biological Sanity Check
 
-## --- loss_of_function examples ---
+Observed variant distributions are consistent with published human genome studies:
 
-## Loss-of-Function Examples
+- ~10–12k missense variants per individual
+- hundreds of predicted loss-of-function variants
+- presence of ClinVar “pathogenic” annotations in healthy individuals
 
-These variants demonstrate high-impact coding disruptions (e.g., frameshift, stop_lost), which are strong candidates for downstream prioritization.
+These patterns are expected and reflect natural human genetic variation rather than disease.
 
-### Highlight Example: PIK3CD (frameshift_variant)
+---
+
+## Highlight Example: PIK3CD (frameshift_variant)
 
 - Impact: HIGH (loss_of_function)
 - Frequency: 0 (rare)
@@ -15,6 +20,10 @@ These variants demonstrate high-impact coding disruptions (e.g., frameshift, sto
 - QC: high_confidence
 
 This represents a canonical high-priority candidate variant.
+
+## Loss-of-Function Examples:
+
+These variants demonstrate high-impact coding disruptions (e.g., frameshift, stop_lost), which are strong candidates for downstream prioritization.
 
 ```text
 sample_id  run_id                 source_pipeline              variant_id                                        chromosome  position  reference_allele                     alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id       consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
@@ -25,7 +34,7 @@ HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:26345047:AGCAC:
 HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:26345053:GGGGCCCTTCACGACCTCTTTCCAGGTGGGGAACA:G  1           26345053  GGGGCCCTTCACGACCTCTTTCCAGGTGGGGAACA  G                 deletion      coding         PASS          ENSG00000176092  CRYBG2       ENST00000308182.10  frameshift_variant  HIGH          NA                     NA                    0.7374                0.7374     NA       NA                   False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        common            missing          loss_of_function   common       missing            high_confidence  coding_common_or_low_support  True              False              False                    True             False
 ```
 
-## --- lof_or_missense_rare examples ---
+## Missense / Rare Examples:
 
 ```text
 sample_id  run_id                 source_pipeline              variant_id     chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id       consequence       impact_class  clinical_significance   clinvar_significance    population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag    clinical_evidence  qc_reliability   coding_interpretation_label  is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
@@ -37,7 +46,7 @@ HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:6645884:C:T  1 
 ```
 
 
-## --- clinically supported examples ---
+## Clinically Supported Examples:
 
 ```text
 sample_id  run_id                 source_pipeline              variant_id       chromosome  position   reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance                                                                                   clinvar_significance                                                                                    population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
