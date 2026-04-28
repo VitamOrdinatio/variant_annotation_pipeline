@@ -114,18 +114,26 @@ def _clinical_from_raw_clinvar(clinvar_significance: Any) -> str:
     text = _normalize_clinical_text(clinvar_significance)
     if not text:
         return "missing"
-    if "conflicting" in text or "conflict" in text:
+
+    tokens = {
+        token.strip()
+        for token in text.replace("/", "_").replace("&", "|").replace(";", "|").replace(",", "|").split("|")
+        if token.strip()
+    }
+
+    if any("conflicting" in token or "conflict" in token for token in tokens):
         return "conflicting"
-    if "likely_pathogenic" in text:
+    if "likely_pathogenic" in tokens:
         return "likely_pathogenic"
-    if "pathogenic" in text:
+    if "pathogenic" in tokens:
         return "pathogenic"
-    if "uncertain_significance" in text or text == "vus" or "uncertain" in text:
+    if "vus" in tokens or "uncertain_significance" in tokens or "uncertain" in tokens:
         return "vus"
-    if "likely_benign" in text:
+    if "likely_benign" in tokens:
         return "likely_benign"
-    if "benign" in text:
+    if "benign" in tokens:
         return "benign"
+
     return "missing"
 
 
@@ -144,7 +152,7 @@ def _assign_qc_reliability(qc_status: Any) -> str:
         return "caution"
     if value == "fail":
         return "low_confidence"
-    return "low_confidence"
+    return "caution"
 
 
 def _has_missing_key_fields(row: dict[str, str], noncoding_functional_context: str, rarity_flag: str, clinical_evidence: str) -> bool:
@@ -171,10 +179,12 @@ def _assign_noncoding_interpretation_label(
     qc_reliability: str,
 ) -> str:
     gene_mapping_status = _clean(row.get("gene_mapping_status"), "unknown").lower()
+    variant_context = _clean(row.get("variant_context"), "unknown").lower()
 
     if (
         gene_mapping_status == "unmapped"
         or qc_reliability == "low_confidence"
+        or (variant_context == "intergenic" and gene_mapping_status != "mapped")
         or _has_missing_key_fields(row, noncoding_functional_context, rarity_flag, clinical_evidence)
     ):
         return "noncoding_uninterpretable"
@@ -362,7 +372,15 @@ def _interpret_row(input_row: dict[str, str]) -> dict[str, str]:
 
 
 def _iter_stage10_candidate_rows(path: Path, logger):
-    allowed_contexts = {"regulatory", "intronic", "intergenic", "noncoding_transcript"}
+    allowed_contexts = {
+        "regulatory",
+        "intronic",
+        "intergenic",
+        "noncoding_transcript",
+        "proximal",
+        "transcript_associated",
+        "unknown",
+    }
 
     _log(logger, "info", f"Reading Stage 10 input: {path}")
     with path.open("r", encoding="utf-8", errors="replace", newline="") as handle:
@@ -381,11 +399,16 @@ def _iter_stage10_candidate_rows(path: Path, logger):
                 )
                 continue
 
+            variant_id = _clean(row.get("variant_id"), "NA")
+            transcript_id = _clean(row.get("transcript_id"), f"missing_tx_{variant_id}")
+            consequence = _clean(row.get("consequence"), "NA")
+
             key = (
-                _clean(row.get("variant_id"), "NA"),
-                _clean(row.get("transcript_id"), "NA"),
-                _clean(row.get("consequence"), "NA"),
+                variant_id,
+                transcript_id,
+                consequence,
             )
+
             if key in seen_keys:
                 _log(logger, "warning", f"Skipping duplicate Stage 10 candidate row: {key}")
                 continue
