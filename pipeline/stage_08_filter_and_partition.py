@@ -160,6 +160,14 @@ CONTEXT_PRIORITY = [
     "unknown",
 ]
 
+NONCODING_PARTITION_CONTEXTS = {
+    "regulatory",
+    "intronic",
+    "intergenic",
+    "noncoding_transcript",
+    "unknown",
+}
+
 CODING_CONSEQUENCE_TERMS = {
     "missense_variant",
     "synonymous_variant",
@@ -858,6 +866,7 @@ def run_stage(
     total_rows = 0
     irreparably_malformed_rows = 0
     partition_counts = Counter()
+    partition_qc_counts = Counter()
 
     variant_aggregates: dict[str, dict[str, Any]] = {}
     rdgp_aggregates: dict[tuple[str, str, str], dict[str, Any]] = {}
@@ -908,13 +917,33 @@ def run_stage(
                 splice_writer.writerow({column: row[column] for column in SELECTED_TRANSCRIPT_COLUMNS})
                 partition_counts["splice_region_candidates"] += 1
 
-            if partition_contexts & {"regulatory", "intronic", "intergenic", "noncoding_transcript", "unknown"}:
+            write_noncoding_candidate = (
+                row["variant_context"] in NONCODING_PARTITION_CONTEXTS
+                and "coding" not in partition_contexts
+                and "splice_region" not in partition_contexts
+            )
+
+            if write_noncoding_candidate:
                 noncoding_writer.writerow({column: row[column] for column in SELECTED_TRANSCRIPT_COLUMNS})
                 partition_counts["noncoding_candidates"] += 1
 
             if row["qc_status"] != "pass":
                 qc_writer.writerow({column: row[column] for column in SELECTED_TRANSCRIPT_COLUMNS})
                 partition_counts["qc_flagged"] += 1
+
+            partition_qc_counts[f"selected_context::{row['variant_context']}"] += 1
+
+            if "coding" in partition_contexts:
+                partition_qc_counts[f"coding_candidates_context::{row['variant_context']}"] += 1
+
+            if "splice_region" in partition_contexts:
+                partition_qc_counts[f"splice_region_candidates_context::{row['variant_context']}"] += 1
+
+            if write_noncoding_candidate:
+                partition_qc_counts[f"noncoding_candidates_context::{row['variant_context']}"] += 1
+
+            if row["qc_status"] != "pass":
+                partition_qc_counts[f"qc_flagged_context::{row['variant_context']}"] += 1
 
             summary_counts["variants_by_context"][row["variant_context"]] += 1
             summary_counts["variants_by_severity"][row["variant_effect_severity"]] += 1
@@ -949,6 +978,7 @@ def run_stage(
         "variants_by_variant_type": dict(sorted(summary_counts["variants_by_variant_type"].items())),
         "variants_by_variant_class": dict(sorted(summary_counts["variants_by_variant_class"].items())),
         "partition_counts": dict(sorted(partition_counts.items())),
+        "partition_qc_counts": dict(sorted(partition_qc_counts.items())),
         "variant_summary_rows": variant_summary_count,
         "rdgp_gene_evidence_seed_rows": rdgp_seed_count,
         "annotation_source": annotation_source,
