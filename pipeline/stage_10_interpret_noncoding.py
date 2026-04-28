@@ -156,20 +156,36 @@ def _assign_qc_reliability(qc_status: Any) -> str:
 
 
 def _has_missing_key_fields(row: dict[str, str], noncoding_functional_context: str, rarity_flag: str, clinical_evidence: str) -> bool:
-    key_fields = [
-        "sample_id", "run_id", "source_pipeline", "variant_id", "gene_id", "gene_symbol",
-        "consequence", "variant_context", "frequency_status", "clinical_status", "qc_status",
+    required_non_gene_fields = [
+        "sample_id",
+        "run_id",
+        "source_pipeline",
+        "variant_id",
+        "consequence",
+        "variant_context",
+        "frequency_status",
+        "qc_status",
     ]
-    if any(_is_missing(row.get(field)) for field in key_fields):
+
+    if any(_is_missing(row.get(field)) for field in required_non_gene_fields):
         return True
+
+    gene_id_missing = _is_missing(row.get("gene_id"))
+    gene_symbol_missing = _is_missing(row.get("gene_symbol"))
+
+    if gene_id_missing and gene_symbol_missing:
+        return True
+
     if noncoding_functional_context == "unknown":
         return True
+
     if rarity_flag == "unknown":
         return True
+
     if clinical_evidence not in CLINICAL_VALUES:
         return True
-    return False
 
+    return False
 
 def _assign_noncoding_interpretation_label(
     row: dict[str, str],
