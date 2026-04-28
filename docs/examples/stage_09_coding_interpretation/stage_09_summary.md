@@ -193,6 +193,51 @@ See supporting artifacts:
 
 ---
 
+## Biological Sanity Check
+
+Observed variant distributions from this Stage 09 run (HG002) are consistent with established human genome studies.
+
+Typical per-individual expectations from large-scale population datasets include:
+
+- ~20,000–25,000 coding variants  
+- ~10,000–12,000 missense variants  
+- hundreds of predicted loss-of-function (LoF) variants  
+
+Published studies supporting these ranges include:
+
+- Hanchard NA, Choudhury A. 1000 Genomes Project phase 4: The gift that keeps on giving. Cell. 2022;185(18):3286-3289. doi:10.1016/j.cell.2022.08.001
+
+- Gustafson JA, Gibson SB, Damaraju N, et al. High-coverage nanopore sequencing of samples from the 1000 Genomes Project to build a comprehensive catalog of human genetic variation. Genome Res. 2024;34(11):2061-2073. Published 2024 Nov 20. doi:10.1101/gr.279273.124
+
+- Chen S, Francioli LC, Goodrich JK, et al. A genomic mutational constraint map using variation in 76,156 human genomes. Nature. 2024;625(7993):92-100. doi:10.1038/s41586-023-06045-0
+
+- Karczewski KJ, Francioli LC, Tiao G, et al. The mutational constraint spectrum quantified from variation in 141,456 humans. Nature. 2020;581(7809):434-443. doi:10.1038/s41586-020-2308-7
+
+- MacArthur DG, Balasubramanian S, Frankish A, et al. A systematic survey of loss-of-function variants in human protein-coding genes. Science. 2012;335(6070):823-828. doi:10.1126/science.1215040
+
+- 1000 Genomes Project Consortium, Auton A, Brooks LD, et al. A global reference for human genetic variation. Nature. 2015;526(7571):68-74. doi:10.1038/nature15393
+
+
+### Interpretation Context
+
+HG002 represents a healthy reference individual and is not expected to exhibit disease phenotypes.
+
+The presence of:
+
+- missense variants  
+- predicted loss-of-function variants  
+- ClinVar-annotated “pathogenic” variants  
+
+reflects:
+
+- natural human genetic variation  
+- context-dependent pathogenicity  
+- limitations and inconsistencies in clinical annotation databases  
+
+Stage 09 identifies candidate variants based on structural and statistical criteria and does **not perform clinical diagnosis**.
+
+---
+
 ## Summary
 
 Stage 09 demonstrates that VAP is not only capable of:
