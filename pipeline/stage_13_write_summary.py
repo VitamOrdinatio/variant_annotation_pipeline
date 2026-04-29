@@ -404,6 +404,13 @@ def run_stage(
 
     _write_json(output_paths["final_summary"], final_summary)
 
+    preliminary_manifest_records = [
+        _artifact_record(name, path, required=True)
+        for name, path in required_inputs.items()
+    ]
+
+    _write_run_report(output_paths["run_report"], final_summary, preliminary_manifest_records)
+
     manifest_records = _write_artifact_manifest(
         path=output_paths["artifact_manifest"],
         required_inputs=required_inputs,
