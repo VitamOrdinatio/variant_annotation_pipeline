@@ -162,6 +162,7 @@ def _validate_header(fieldnames: list[str] | None, path: Path, origin: str) -> l
 def _prepare_output_paths(processed_dir: Path) -> dict[str, Path]:
     return {
         "prioritized_variants": processed_dir / "stage_11_prioritized_variants.tsv",
+        "gene_variant_counts": processed_dir / "stage_11_gene_variant_counts.tsv",
         "summary_json": processed_dir / "stage_11_summary.json",
     }
 
@@ -298,13 +299,19 @@ def _update_summary(summary: dict[str, Any], row: dict[str, str], malformed: boo
 
 def _summary_to_jsonable(summary: dict[str, Any], metadata: dict[str, Any]) -> dict[str, Any]:
     result = dict(metadata)
+
     for key, value in summary.items():
-        if isinstance(value, Counter):
+        if key == "counts_by_gene_id":
+            result["gene_id_count_unique"] = len(value)
+            result["counts_by_gene_id_top_50"] = dict(
+                sorted(value.items(), key=lambda item: (-item[1], item[0]))[:50]
+            )
+        elif isinstance(value, Counter):
             result[key] = dict(sorted(value.items()))
         else:
             result[key] = value
-    return result
 
+    return result
 
 def _write_summary_json(path: Path, summary: dict[str, Any], metadata: dict[str, Any]) -> None:
     payload = _summary_to_jsonable(summary, metadata)
@@ -312,6 +319,16 @@ def _write_summary_json(path: Path, summary: dict[str, Any], metadata: dict[str,
         json.dump(payload, handle, indent=2, sort_keys=True)
         handle.write("\n")
 
+def _write_gene_variant_counts_tsv(path: Path, counts_by_gene_id: Counter) -> None:
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(
+            handle,
+            fieldnames=["gene_id", "variant_count"],
+            delimiter="\t",
+        )
+        writer.writeheader()
+        for gene_id, count in sorted(counts_by_gene_id.items(), key=lambda item: (-item[1], item[0])):
+            writer.writerow({"gene_id": gene_id, "variant_count": count})
 
 def _iter_input_rows(path: Path, origin: str, logger):
     _log(logger, "info", f"Reading Stage 11 {origin} input: {path}")
@@ -373,6 +390,7 @@ def run_stage(
         },
         "output_files": {
             "stage_11_prioritized_variants": str(output_paths["prioritized_variants"]),
+            "stage_11_gene_variant_counts": str(output_paths["gene_variant_counts"]),
             "stage_11_summary_json": str(output_paths["summary_json"]),
         },
         "assumptions": [
@@ -382,10 +400,12 @@ def run_stage(
             "Rows with unrecognized interpretation labels are routed to Tier 4.",
         ],
     }
+    _write_gene_variant_counts_tsv(output_paths["gene_variant_counts"], summary["counts_by_gene_id"])
     _write_summary_json(output_paths["summary_json"], summary, metadata)
 
     state.setdefault("artifacts", {})
     state["artifacts"]["stage_11_prioritized_variants"] = str(output_paths["prioritized_variants"])
+    state["artifacts"]["stage_11_gene_variant_counts"] = str(output_paths["gene_variant_counts"])
     state["artifacts"]["stage_11_summary_json"] = str(output_paths["summary_json"])
 
     state.setdefault("qc", {})
@@ -398,8 +418,9 @@ def run_stage(
         "low_priority_candidate_count": summary["low_priority_candidate_count"],
         "uninterpretable_count": summary["uninterpretable_count"],
         "output_exists": output_paths["prioritized_variants"].exists(),
+        "gene_variant_counts_exists": output_paths["gene_variant_counts"].exists(),
         "summary_exists": output_paths["summary_json"].exists(),
-    }
+}
 
     state.setdefault("stage_outputs", {})
     state["stage_outputs"]["stage_11_prioritize_variants"] = {
@@ -407,6 +428,7 @@ def run_stage(
         "input_coding_interpreted": str(coding_path),
         "input_noncoding_interpreted": str(noncoding_path),
         "prioritized_variants": str(output_paths["prioritized_variants"]),
+        "gene_variant_counts": str(output_paths["gene_variant_counts"]),
         "summary_json": str(output_paths["summary_json"]),
         "input_rows": summary["input_rows"],
         "output_rows": summary["output_rows"],
@@ -414,6 +436,7 @@ def run_stage(
     }
 
     _log(logger, "info", f"Stage 11 prioritized variants written to: {output_paths['prioritized_variants']}")
+    _log(logger, "info", f"Stage 11 gene variant counts written to: {output_paths['gene_variant_counts']}")
     _log(logger, "info", f"Stage 11 summary JSON written to: {output_paths['summary_json']}")
     _log(logger, "info", f"Stage 11 input rows processed: {summary['input_rows']}")
     _log(logger, "info", f"Stage 11 output rows written: {summary['output_rows']}")
