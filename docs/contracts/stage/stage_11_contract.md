@@ -44,16 +44,21 @@ Each row retains origin:
 
 ### Core prioritization fields
 
+- `variant_origin`
+- `source_interpretation_label`
 - `priority_tier`
+- `priority_rank`
 - `priority_reason`
-- `is_high_priority_candidate` (True/False)
-- `is_moderate_priority_candidate` - (True/False)
-- `is_low_priority_candidate` (True/False)
-- `is_uninterpretable` (True/False)
+- `is_high_priority_candidate`
+- `is_moderate_priority_candidate`
+- `is_low_priority_candidate`
+- `is_uninterpretable`
 
 ---
 
 ## Priority Tier Definitions
+
+Each variant must receive exactly one `priority_tier`.
 
 ### Tier 1 — High Confidence Candidate
 
@@ -61,11 +66,12 @@ Criteria:
 
 ```text
 coding:
-  interpretation_label == "lof_or_missense_rare"
-  AND qc_reliability == high_confidence
+  coding_interpretation_label == "lof_rare_clinically_supported"
+
+OR
 
 noncoding:
-  interpretation_label == "regulatory_rare_supported"
+  noncoding_interpretation_label == "regulatory_rare_supported"
 ```
 
 
@@ -75,11 +81,12 @@ Criteria:
 
 ```text
 coding:
-  interpretation_label == "lof_or_missense_rare"
-  AND qc_reliability == caution
+  coding_interpretation_label == "lof_or_missense_rare"
+
+OR
 
 noncoding:
-  interpretation_label == "regulatory_or_transcript_rare"
+  noncoding_interpretation_label == "regulatory_or_transcript_rare"
 ```
 
 
@@ -89,10 +96,10 @@ Criteria:
 
 ```text
 coding:
-  interpretation_label == "coding_common_or_low_support"
+  coding_interpretation_label == "coding_common_or_low_support"
 
 noncoding:
-  interpretation_label == "noncoding_common_or_low_support"
+  noncoding_interpretation_label == "noncoding_common_or_low_support"
 ```
 
 ### Tier 4 — Uninterpretable / QC Limited
@@ -101,17 +108,17 @@ Criteria:
 
 ```text
 coding:
-  interpretation_label == "coding_uninterpretable"
+  coding_interpretation_label == "coding_uninterpretable"
 
 noncoding:
-  interpretation_label == "noncoding_uninterpretable"
+  noncoding_interpretation_label == "noncoding_uninterpretable"
 ```
 
 ---
 
 ## Priority Assignment Rules
 
-Each variant must receive exactly one priority_tier
+Each variant must receive exactly one `priority_tier`.
 
 Tier precedence:
 `Tier 1 > Tier 2 > Tier 3 > Tier 4`
@@ -138,6 +145,9 @@ Must include:
 - counts by variant_origin
 - counts by gene_id
 - counts of high-priority candidates
+- counts by priority_rank
+- counts by source_interpretation_label
+- `unassigned_or_malformed_rows`
 
 ---
 
@@ -154,6 +164,7 @@ Must include:
 - No phenotype matching
 - No gene scoring
 - No machine learning
+- No gene-level aggregation; gene-level ranking belongs to RDGP, not VAP Stage 11.
 
 
 ---
