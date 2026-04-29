@@ -1,155 +1,325 @@
 """
-Stage 11: Prioritize variants across coding and non-coding tracks.
+Stage 11: Prioritize interpreted variants.
 
-Repo 2 v1.0 design notes:
-- inputs:
-  - interpreted_coding.tsv
-  - interpreted_noncoding.tsv
-- outputs:
-  - prioritized_variants.tsv
-  - gene_summary.tsv
-- prioritization is rule-based and uses:
-  - predicted severity
-  - ClinVar bucket
-  - rarity
-  - mito/epilepsy overlays
-- no AI tools are used in v1
+Stage 11 integrates Stage 09 coding and Stage 10 noncoding interpreted variants
+into one unified variant-level candidate table and assigns deterministic priority
+tiers.
+
+Contract notes:
+- prioritization only
+- no new annotation
+- no gene-level aggregation
+- no probabilistic scoring
+- preserve upstream fields
 """
 
 from __future__ import annotations
 
+import csv
+import json
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
+
+MISSING_TOKENS = {"", "NA", "N/A", ".", "-", "NULL", "None", "none", "nan", "NaN"}
+
+ADDED_FIELDS = [
+    "variant_origin",
+    "source_interpretation_label",
+    "priority_tier",
+    "priority_rank",
+    "priority_reason",
+    "is_high_priority_candidate",
+    "is_moderate_priority_candidate",
+    "is_low_priority_candidate",
+    "is_uninterpretable",
+]
+
+CODING_LABEL_FIELD = "coding_interpretation_label"
+NONCODING_LABEL_FIELD = "noncoding_interpretation_label"
+
+CODING_LABELS = {
+    "lof_rare_clinically_supported",
+    "lof_or_missense_rare",
+    "coding_common_or_low_support",
+    "coding_uninterpretable",
+}
+
+NONCODING_LABELS = {
+    "regulatory_rare_supported",
+    "regulatory_or_transcript_rare",
+    "noncoding_common_or_low_support",
+    "noncoding_uninterpretable",
+}
+
+COMMON_REQUIRED_FIELDS = [
+    "sample_id",
+    "run_id",
+    "source_pipeline",
+    "variant_id",
+    "chromosome",
+    "position",
+    "reference_allele",
+    "alternate_allele",
+    "variant_type",
+    "variant_class",
+    "quality_flag",
+    "gene_id",
+    "gene_symbol",
+    "transcript_id",
+    "consequence",
+    "impact_class",
+    "clinical_significance",
+    "clinvar_significance",
+    "population_frequency",
+    "gnomad_af",
+    "exac_af",
+    "thousand_genomes_af",
+    "mito_flag",
+    "epilepsy_flag",
+    "annotation_source",
+    "annotation_version",
+    "gene_mapping_status",
+    "variant_context",
+    "variant_effect_severity",
+    "qc_status",
+    "interpretability_status",
+    "frequency_status",
+    "clinical_status",
+    "rarity_flag",
+    "clinical_evidence",
+    "qc_reliability",
+]
 
 
-def _validate_required_artifact(path_str: str | None, label: str) -> Path:
-    """
-    Validate that a required upstream artifact exists.
+def _log(logger, level: str, message: str) -> None:
+    method = getattr(logger, level, None)
+    if method is None:
+        print(f"[{level.upper()}] {message}")
+    else:
+        method(message)
 
-    Parameters
-    ----------
-    path_str : str | None
-        Path string.
-    label : str
-        Human-readable label.
 
-    Returns
-    -------
-    Path
-        Validated path.
+def _is_missing(value: Any) -> bool:
+    if value is None:
+        return True
+    return str(value).strip() in MISSING_TOKENS
 
-    Raises
-    ------
-    ValueError
-        If missing.
-    FileNotFoundError
-        If path does not exist.
-    """
+
+def _clean(value: Any, null_value: str = "NA") -> str:
+    if value is None:
+        return null_value
+    text = str(value).strip()
+    return text if text else null_value
+
+
+def _bool_text(value: bool) -> str:
+    return "True" if value else "False"
+
+
+def _validate_file(path_str: str | None, label: str) -> Path:
     if not path_str:
-        raise ValueError(f"Missing required upstream artifact for {label}")
+        raise ValueError(f"Missing required Stage 11 input artifact: {label}")
     path = Path(path_str)
     if not path.exists():
-        raise FileNotFoundError(f"Required upstream artifact not found for {label}: {path}")
+        raise FileNotFoundError(f"Required Stage 11 input does not exist: {path}")
     if not path.is_file():
-        raise FileNotFoundError(f"Expected file for {label}, but found non-file path: {path}")
+        raise FileNotFoundError(f"Required Stage 11 input is not a file: {path}")
+    if path.stat().st_size == 0:
+        raise ValueError(f"Required Stage 11 input is empty: {path}")
     return path
 
 
-def _severity_score(value: str) -> int:
-    """
-    Map predicted severity to a numeric base score.
-    """
-    mapping = {
-        "high": 3,
-        "medium": 2,
-        "low": 1,
+def _get_stage_inputs(state: dict[str, Any]) -> tuple[Path, Path]:
+    artifacts = state.get("artifacts", {})
+    coding = _validate_file(
+        artifacts.get("stage_09_coding_interpreted"),
+        "stage_09_coding_interpreted",
+    )
+    noncoding = _validate_file(
+        artifacts.get("stage_10_noncoding_interpreted"),
+        "stage_10_noncoding_interpreted",
+    )
+    return coding, noncoding
+
+
+def _validate_header(fieldnames: list[str] | None, path: Path, origin: str) -> list[str]:
+    if fieldnames is None:
+        raise ValueError(f"Could not read header from Stage 11 input: {path}")
+
+    missing_common = [field for field in COMMON_REQUIRED_FIELDS if field not in fieldnames]
+    if missing_common:
+        raise ValueError(f"Stage 11 {origin} input missing required fields {missing_common}: {path}")
+
+    label_field = CODING_LABEL_FIELD if origin == "coding" else NONCODING_LABEL_FIELD
+    if label_field not in fieldnames:
+        raise ValueError(f"Stage 11 {origin} input missing interpretation label field {label_field}: {path}")
+
+    return list(fieldnames)
+
+
+def _prepare_output_paths(processed_dir: Path) -> dict[str, Path]:
+    return {
+        "prioritized_variants": processed_dir / "stage_11_prioritized_variants.tsv",
+        "summary_json": processed_dir / "stage_11_summary.json",
     }
-    return mapping.get(str(value).strip().lower(), 0)
 
 
-def _clinvar_bonus(value: str) -> int:
-    """
-    Map ClinVar bucket to a prioritization bonus.
-    """
-    mapping = {
-        "pathogenic": 3,
-        "likely_pathogenic": 2,
-        "vus": 1,
-        "unknown": 0,
-        "other": 0,
-        "likely_benign": -1,
-        "benign": -2,
+def _assign_priority(origin: str, source_label: str) -> tuple[str, str, str]:
+    if origin == "coding":
+        if source_label == "lof_rare_clinically_supported":
+            return (
+                "tier_1_high_confidence_candidate",
+                "1",
+                "coding label lof_rare_clinically_supported",
+            )
+        if source_label == "lof_or_missense_rare":
+            return (
+                "tier_2_moderate_candidate",
+                "2",
+                "coding label lof_or_missense_rare",
+            )
+        if source_label == "coding_common_or_low_support":
+            return (
+                "tier_3_low_support_or_common",
+                "3",
+                "coding label coding_common_or_low_support",
+            )
+        if source_label == "coding_uninterpretable":
+            return (
+                "tier_4_uninterpretable_or_qc_limited",
+                "4",
+                "coding label coding_uninterpretable",
+            )
+
+    if origin == "noncoding":
+        if source_label == "regulatory_rare_supported":
+            return (
+                "tier_1_high_confidence_candidate",
+                "1",
+                "noncoding label regulatory_rare_supported",
+            )
+        if source_label == "regulatory_or_transcript_rare":
+            return (
+                "tier_2_moderate_candidate",
+                "2",
+                "noncoding label regulatory_or_transcript_rare",
+            )
+        if source_label == "noncoding_common_or_low_support":
+            return (
+                "tier_3_low_support_or_common",
+                "3",
+                "noncoding label noncoding_common_or_low_support",
+            )
+        if source_label == "noncoding_uninterpretable":
+            return (
+                "tier_4_uninterpretable_or_qc_limited",
+                "4",
+                "noncoding label noncoding_uninterpretable",
+            )
+
+    return (
+        "tier_4_uninterpretable_or_qc_limited",
+        "4",
+        f"unrecognized {origin} interpretation label: {source_label}",
+    )
+
+
+def _interpret_row(row: dict[str, str], origin: str) -> tuple[dict[str, str], bool]:
+    out = dict(row)
+    label_field = CODING_LABEL_FIELD if origin == "coding" else NONCODING_LABEL_FIELD
+    source_label = _clean(row.get(label_field), "NA")
+
+    malformed = False
+    if _is_missing(row.get("variant_id")) or _is_missing(source_label):
+        malformed = True
+
+    priority_tier, priority_rank, priority_reason = _assign_priority(origin, source_label)
+
+    out["variant_origin"] = origin
+    out["source_interpretation_label"] = source_label
+    out["priority_tier"] = priority_tier
+    out["priority_rank"] = priority_rank
+    out["priority_reason"] = priority_reason
+    out["is_high_priority_candidate"] = _bool_text(priority_rank == "1")
+    out["is_moderate_priority_candidate"] = _bool_text(priority_rank == "2")
+    out["is_low_priority_candidate"] = _bool_text(priority_rank == "3")
+    out["is_uninterpretable"] = _bool_text(priority_rank == "4")
+
+    return out, malformed
+
+
+def _init_summary() -> dict[str, Any]:
+    return {
+        "input_rows": 0,
+        "output_rows": 0,
+        "unassigned_or_malformed_rows": 0,
+        "counts_by_priority_tier": Counter(),
+        "counts_by_priority_rank": Counter(),
+        "counts_by_variant_origin": Counter(),
+        "counts_by_gene_id": Counter(),
+        "counts_by_source_interpretation_label": Counter(),
+        "high_priority_candidate_count": 0,
+        "moderate_priority_candidate_count": 0,
+        "low_priority_candidate_count": 0,
+        "uninterpretable_count": 0,
     }
-    return mapping.get(str(value).strip().lower(), 0)
 
 
-def _rarity_bonus(value: str) -> int:
-    """
-    Map rarity label to a prioritization bonus.
-    """
-    mapping = {
-        "ultra_rare": 2,
-        "rare": 2,
-        "unknown": 1,
-        "low_frequency": 0,
-        "common": -2,
-    }
-    return mapping.get(str(value).strip().lower(), 0)
+def _update_summary(summary: dict[str, Any], row: dict[str, str], malformed: bool) -> None:
+    summary["input_rows"] += 1
+    summary["output_rows"] += 1
+
+    if malformed:
+        summary["unassigned_or_malformed_rows"] += 1
+
+    priority_tier = row["priority_tier"]
+    priority_rank = row["priority_rank"]
+    variant_origin = row["variant_origin"]
+    gene_id = _clean(row.get("gene_id"), "NA")
+    source_label = row["source_interpretation_label"]
+
+    summary["counts_by_priority_tier"][priority_tier] += 1
+    summary["counts_by_priority_rank"][priority_rank] += 1
+    summary["counts_by_variant_origin"][variant_origin] += 1
+    summary["counts_by_gene_id"][gene_id] += 1
+    summary["counts_by_source_interpretation_label"][source_label] += 1
+
+    if priority_rank == "1":
+        summary["high_priority_candidate_count"] += 1
+    elif priority_rank == "2":
+        summary["moderate_priority_candidate_count"] += 1
+    elif priority_rank == "3":
+        summary["low_priority_candidate_count"] += 1
+    elif priority_rank == "4":
+        summary["uninterpretable_count"] += 1
 
 
-def _flag_bonus(value: str) -> int:
-    """
-    Convert boolean-like overlay flags to score contribution.
-    """
-    return 1 if str(value).strip() == "True" else 0
+def _summary_to_jsonable(summary: dict[str, Any], metadata: dict[str, Any]) -> dict[str, Any]:
+    result = dict(metadata)
+    for key, value in summary.items():
+        if isinstance(value, Counter):
+            result[key] = dict(sorted(value.items()))
+        else:
+            result[key] = value
+    return result
 
 
-def _final_priority_label(score: int) -> str:
-    """
-    Convert numeric score to final priority label.
-    """
-    if score >= 7:
-        return "high"
-    if score >= 4:
-        return "medium"
-    return "low"
+def _write_summary_json(path: Path, summary: dict[str, Any], metadata: dict[str, Any]) -> None:
+    payload = _summary_to_jsonable(summary, metadata)
+    with path.open("w", encoding="utf-8") as handle:
+        json.dump(payload, handle, indent=2, sort_keys=True)
+        handle.write("\n")
 
 
-def _build_prioritization_basis(row: pd.Series) -> str:
-    """
-    Build a compact semicolon-delimited prioritization rationale.
-    """
-    parts: list[str] = []
-
-    parts.append(f"track={row.get('track', 'unknown')}")
-    parts.append(f"severity={row.get('predicted_severity', 'unknown')}")
-
-    clinvar_bucket = str(row.get("clinvar_bucket", "unknown"))
-    if clinvar_bucket not in {"unknown", "other"}:
-        parts.append(f"clinvar={clinvar_bucket}")
-
-    rarity = str(row.get("rarity_label", "unknown"))
-    parts.append(f"rarity={rarity}")
-
-    if str(row.get("mito_flag", "False")) == "True":
-        parts.append("mitochondrial_gene")
-    if str(row.get("epilepsy_flag", "False")) == "True":
-        parts.append("epilepsy_gene")
-
-    parts.append(f"score={row.get('priority_score', 'NA')}")
-
-    return ";".join(parts)
-
-
-def _ensure_column(df: pd.DataFrame, column: str, default: str = "NA") -> pd.DataFrame:
-    """
-    Ensure a column exists in a DataFrame.
-    """
-    if column not in df.columns:
-        df[column] = default
-    return df
+def _iter_input_rows(path: Path, origin: str, logger):
+    _log(logger, "info", f"Reading Stage 11 {origin} input: {path}")
+    with path.open("r", encoding="utf-8", errors="replace", newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        fieldnames = _validate_header(reader.fieldnames, path, origin)
+        for row in reader:
+            yield row, fieldnames
 
 
 def run_stage(
@@ -158,157 +328,95 @@ def run_stage(
     logger,
     state: dict[str, Any],
 ) -> dict[str, Any]:
-    """
-    Execute Stage 11.
+    _log(logger, "info", "Stage 11: prioritizing interpreted variants.")
 
-    Responsibilities
-    ----------------
-    - read interpreted coding and non-coding tables
-    - assign unified cross-track priority scores
-    - emit prioritized_variants.tsv
-    - emit gene_summary.tsv
-    - update artifacts, QC, and stage outputs
-    """
-    logger.info("Stage 11: prioritizing variants across tracks.")
+    coding_path, noncoding_path = _get_stage_inputs(state)
+    processed_dir = Path(paths["processed_dir"])
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    output_paths = _prepare_output_paths(processed_dir)
 
-    interpreted_coding_table = _validate_required_artifact(
-        state["artifacts"].get("interpreted_coding_table"),
-        "interpreted coding table",
-    )
-    interpreted_noncoding_table = _validate_required_artifact(
-        state["artifacts"].get("interpreted_noncoding_table"),
-        "interpreted non-coding table",
-    )
+    _log(logger, "info", f"Stage 11 coding input: {coding_path}")
+    _log(logger, "info", f"Stage 11 noncoding input: {noncoding_path}")
 
-    prioritized_table = Path(paths["final_dir"]) / "prioritized_variants.tsv"
-    gene_summary_table = Path(paths["final_dir"]) / "gene_summary.tsv"
+    summary = _init_summary()
+    output_fieldnames: list[str] | None = None
 
-    coding_df = pd.read_csv(interpreted_coding_table, sep="\t", dtype=str).fillna("NA")
-    noncoding_df = pd.read_csv(interpreted_noncoding_table, sep="\t", dtype=str).fillna("NA")
+    with output_paths["prioritized_variants"].open("w", encoding="utf-8", newline="") as out_handle:
+        writer: csv.DictWriter | None = None
 
-    coding_df["track"] = "coding"
-    noncoding_df["track"] = "non-coding"
+        for origin, input_path in [("coding", coding_path), ("noncoding", noncoding_path)]:
+            for input_row, fieldnames in _iter_input_rows(input_path, origin, logger):
+                prioritized_row, malformed = _interpret_row(input_row, origin)
 
-    combined_df = pd.concat([coding_df, noncoding_df], ignore_index=True)
+                if output_fieldnames is None:
+                    output_fieldnames = fieldnames + [
+                        field for field in ADDED_FIELDS if field not in fieldnames
+                    ]
+                    writer = csv.DictWriter(
+                        out_handle,
+                        fieldnames=output_fieldnames,
+                        delimiter="\t",
+                        extrasaction="ignore",
+                    )
+                    writer.writeheader()
 
-    if combined_df.empty:
-        logger.warning("Both interpreted variant tables are empty. Writing empty prioritization outputs.")
+                assert writer is not None
+                writer.writerow({field: prioritized_row.get(field, "NA") for field in output_fieldnames})
+                _update_summary(summary, prioritized_row, malformed)
 
-    required_columns = [
-        "gene_symbol",
-        "predicted_severity",
-        "clinvar_bucket",
-        "rarity_label",
-        "mito_flag",
-        "epilepsy_flag",
-        "track",
-    ]
-    missing_columns = [col for col in required_columns if col not in combined_df.columns]
-    if missing_columns:
-        raise ValueError(
-            "Combined interpreted variant table is missing required columns: "
-            + ", ".join(missing_columns)
-        )
-
-    optional_defaults = {
-        "gene_id": "NA",
-        "interpretation_notes": "NA",
-        "severity_basis": "NA",
-        "consequence": "NA",
-        "variant_type": "NA",
-        "chromosome": "NA",
-        "position": "NA",
-        "reference_allele": "NA",
-        "alternate_allele": "NA",
-    }
-    for col, default in optional_defaults.items():
-        combined_df = _ensure_column(combined_df, col, default=default)
-
-    combined_df["priority_score"] = (
-        combined_df["predicted_severity"].apply(_severity_score)
-        + combined_df["clinvar_bucket"].apply(_clinvar_bonus)
-        + combined_df["rarity_label"].apply(_rarity_bonus)
-        + combined_df["mito_flag"].apply(_flag_bonus)
-        + combined_df["epilepsy_flag"].apply(_flag_bonus)
-    )
-
-    combined_df["priority_label"] = combined_df["priority_score"].apply(_final_priority_label)
-    combined_df["prioritization_basis"] = combined_df.apply(_build_prioritization_basis, axis=1)
-
-    combined_df = combined_df.sort_values(
-        by=[
-            "priority_score",
-            "predicted_severity",
-            "gene_symbol",
-            "chromosome",
-            "position",
+    metadata = {
+        "stage": "stage_11_prioritize_variants",
+        "status": "success",
+        "input_files": {
+            "stage_09_coding_interpreted": str(coding_path),
+            "stage_10_noncoding_interpreted": str(noncoding_path),
+        },
+        "output_files": {
+            "stage_11_prioritized_variants": str(output_paths["prioritized_variants"]),
+            "stage_11_summary_json": str(output_paths["summary_json"]),
+        },
+        "assumptions": [
+            "Stage 11 consumes Stage 09 and Stage 10 interpretation labels as authoritative.",
+            "Stage 11 performs deterministic variant-level prioritization only.",
+            "Stage 11 does not perform gene-level aggregation or ranking.",
+            "Rows with unrecognized interpretation labels are routed to Tier 4.",
         ],
-        ascending=[False, False, True, True, True],
-        kind="mergesort",
-    ).reset_index(drop=True)
+    }
+    _write_summary_json(output_paths["summary_json"], summary, metadata)
 
-    prioritized_columns = list(combined_df.columns)
-    combined_df.to_csv(prioritized_table, sep="\t", index=False, columns=prioritized_columns)
+    state.setdefault("artifacts", {})
+    state["artifacts"]["stage_11_prioritized_variants"] = str(output_paths["prioritized_variants"])
+    state["artifacts"]["stage_11_summary_json"] = str(output_paths["summary_json"])
 
-    gene_df = combined_df.copy()
-    gene_df["is_prioritized"] = gene_df["priority_label"].isin(["high", "medium"]).astype(int)
+    state.setdefault("qc", {})
+    state["qc"]["stage_11_qc"] = {
+        "input_rows": summary["input_rows"],
+        "output_rows": summary["output_rows"],
+        "unassigned_or_malformed_rows": summary["unassigned_or_malformed_rows"],
+        "high_priority_candidate_count": summary["high_priority_candidate_count"],
+        "moderate_priority_candidate_count": summary["moderate_priority_candidate_count"],
+        "low_priority_candidate_count": summary["low_priority_candidate_count"],
+        "uninterpretable_count": summary["uninterpretable_count"],
+        "output_exists": output_paths["prioritized_variants"].exists(),
+        "summary_exists": output_paths["summary_json"].exists(),
+    }
 
-    grouped = (
-        gene_df.groupby(["gene_symbol", "gene_id"], dropna=False)
-        .agg(
-            variant_count=("gene_symbol", "size"),
-            prioritized_variant_count=("is_prioritized", "sum"),
-            mito_flag=("mito_flag", lambda s: "True" if "True" in set(map(str, s)) else "False"),
-            epilepsy_flag=("epilepsy_flag", lambda s: "True" if "True" in set(map(str, s)) else "False"),
-        )
-        .reset_index()
-    )
-
-    grouped = grouped.sort_values(
-        by=["prioritized_variant_count", "variant_count", "gene_symbol"],
-        ascending=[False, False, True],
-        kind="mergesort",
-    ).reset_index(drop=True)
-
-    grouped.to_csv(gene_summary_table, sep="\t", index=False)
-
-    prioritized_variant_count = int(len(combined_df))
-    prioritized_gene_count = int(
-        combined_df["gene_symbol"].replace("NA", pd.NA).dropna().nunique()
-    )
-    track_counts = combined_df["track"].value_counts(dropna=False).to_dict()
-    priority_label_counts = combined_df["priority_label"].value_counts(dropna=False).to_dict()
-
-    state["artifacts"]["prioritized_table"] = str(prioritized_table)
-    state["artifacts"]["gene_summary_table"] = str(gene_summary_table)
-    state["reports"]["gene_summary_table"] = str(gene_summary_table)
-
-    interpretation_qc = state["qc"].setdefault("interpretation_qc", {})
-    interpretation_qc.update(
-        {
-            "prioritization_completed": True,
-            "prioritized_variant_count": prioritized_variant_count,
-            "prioritized_gene_count": prioritized_gene_count,
-            "track_counts": track_counts,
-            "priority_label_counts": priority_label_counts,
-        }
-    )
-
+    state.setdefault("stage_outputs", {})
     state["stage_outputs"]["stage_11_prioritize_variants"] = {
         "status": "success",
-        "input_interpreted_coding_table": str(interpreted_coding_table),
-        "input_interpreted_noncoding_table": str(interpreted_noncoding_table),
-        "prioritized_table": str(prioritized_table),
-        "gene_summary_table": str(gene_summary_table),
-        "prioritized_variant_count": prioritized_variant_count,
-        "prioritized_gene_count": prioritized_gene_count,
-        "track_counts": track_counts,
-        "priority_label_counts": priority_label_counts,
+        "input_coding_interpreted": str(coding_path),
+        "input_noncoding_interpreted": str(noncoding_path),
+        "prioritized_variants": str(output_paths["prioritized_variants"]),
+        "summary_json": str(output_paths["summary_json"]),
+        "input_rows": summary["input_rows"],
+        "output_rows": summary["output_rows"],
+        "unassigned_or_malformed_rows": summary["unassigned_or_malformed_rows"],
     }
 
-    logger.info(f"Prioritized variant table written to: {prioritized_table}")
-    logger.info(f"Gene summary table written to: {gene_summary_table}")
-    logger.info(f"Prioritized variants: {prioritized_variant_count}")
-    logger.info(f"Unique genes represented: {prioritized_gene_count}")
+    _log(logger, "info", f"Stage 11 prioritized variants written to: {output_paths['prioritized_variants']}")
+    _log(logger, "info", f"Stage 11 summary JSON written to: {output_paths['summary_json']}")
+    _log(logger, "info", f"Stage 11 input rows processed: {summary['input_rows']}")
+    _log(logger, "info", f"Stage 11 output rows written: {summary['output_rows']}")
+    _log(logger, "info", f"Stage 11 malformed/unassigned rows: {summary['unassigned_or_malformed_rows']}")
 
     return state
