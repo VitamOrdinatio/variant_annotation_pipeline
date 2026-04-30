@@ -381,6 +381,19 @@ These components are currently under active design and will integrate with VAP o
 
 ---
 
+### 🔧 Artifact Generation
+
+Pipeline artifacts are generated deterministically using an internal toolchain ("Artificer") that extracts:
+
+- stage summaries  
+- label distributions  
+- high-value examples  
+- reproducibility comparisons  
+
+This ensures consistent, reproducible documentation across pipeline runs.
+
+---
+
 ## Sequence Data and Git
 
 Large genomic outputs (FASTQ, BAM, VCF, full TSV) are intentionally excluded from version control due to size constraints.  

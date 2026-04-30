@@ -12,8 +12,12 @@
 !docs/status/**/
 !docs/status/**/*.md
 
-# notes foler contains mark probes
+# notes folder contains mark probes and test ideas
 _notes/
+
+# Keep the manual backup of examples, which is large but useful for testing and debugging. This folder is not updated regularly, so it won't cause large diffs in commits.  
+docs/examples_manual_backup_2026_04_30/
+
 
 # Local machine configs:
 config/config.sys76.local.yaml
