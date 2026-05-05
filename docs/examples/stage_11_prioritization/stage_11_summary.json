@@ -1,0 +1,101 @@
+{
+  "assumptions": [
+    "Stage 11 consumes Stage 09 and Stage 10 interpretation labels as authoritative.",
+    "Stage 11 performs deterministic variant-level prioritization only.",
+    "Stage 11 does not perform gene-level aggregation or ranking.",
+    "Rows with unrecognized interpretation labels are routed to Tier 4."
+  ],
+  "counts_by_gene_id_top_50": {
+    "ENSG00000021645": 2315,
+    "ENSG00000066032": 2060,
+    "ENSG00000077092": 2013,
+    "ENSG00000078328": 7094,
+    "ENSG00000130226": 2169,
+    "ENSG00000140945": 3237,
+    "ENSG00000144451": 1990,
+    "ENSG00000144619": 2218,
+    "ENSG00000146555": 2123,
+    "ENSG00000149972": 3236,
+    "ENSG00000150275": 3371,
+    "ENSG00000150672": 2590,
+    "ENSG00000151789": 2009,
+    "ENSG00000153707": 4738,
+    "ENSG00000154162": 2041,
+    "ENSG00000155093": 2493,
+    "ENSG00000164796": 1996,
+    "ENSG00000168702": 3963,
+    "ENSG00000172264": 2857,
+    "ENSG00000173406": 2108,
+    "ENSG00000174469": 4577,
+    "ENSG00000174473": 2118,
+    "ENSG00000174482": 2099,
+    "ENSG00000175497": 2175,
+    "ENSG00000177694": 2456,
+    "ENSG00000178568": 2288,
+    "ENSG00000179399": 2071,
+    "ENSG00000183098": 2142,
+    "ENSG00000183117": 8781,
+    "ENSG00000183230": 3024,
+    "ENSG00000185008": 2848,
+    "ENSG00000185053": 3473,
+    "ENSG00000185345": 2754,
+    "ENSG00000185532": 2267,
+    "ENSG00000185565": 2382,
+    "ENSG00000185774": 2277,
+    "ENSG00000186153": 3249,
+    "ENSG00000187323": 2388,
+    "ENSG00000187391": 2850,
+    "ENSG00000188107": 3452,
+    "ENSG00000189283": 2981,
+    "ENSG00000189337": 1985,
+    "ENSG00000196126": 2113,
+    "ENSG00000198010": 2092,
+    "ENSG00000228262": 2303,
+    "ENSG00000229618": 2383,
+    "ENSG00000248752": 2007,
+    "ENSG00000254101": 2447,
+    "ENSG00000259905": 2523,
+    "NA": 1107793
+  },
+  "counts_by_priority_rank": {
+    "2": 113363,
+    "3": 3369755,
+    "4": 1153466
+  },
+  "counts_by_priority_tier": {
+    "tier_2_moderate_candidate": 113363,
+    "tier_3_low_support_or_common": 3369755,
+    "tier_4_uninterpretable_or_qc_limited": 1153466
+  },
+  "counts_by_source_interpretation_label": {
+    "coding_common_or_low_support": 25169,
+    "coding_uninterpretable": 1196,
+    "lof_or_missense_rare": 1121,
+    "noncoding_common_or_low_support": 3344586,
+    "noncoding_uninterpretable": 1152270,
+    "regulatory_or_transcript_rare": 112242
+  },
+  "counts_by_variant_origin": {
+    "coding": 27486,
+    "noncoding": 4609098
+  },
+  "gene_id_count_unique": 50231,
+  "high_priority_candidate_count": 0,
+  "input_files": {
+    "stage_09_coding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv",
+    "stage_10_noncoding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv"
+  },
+  "input_rows": 4636584,
+  "low_priority_candidate_count": 3369755,
+  "moderate_priority_candidate_count": 113363,
+  "output_files": {
+    "stage_11_gene_variant_counts": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv",
+    "stage_11_prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv",
+    "stage_11_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json"
+  },
+  "output_rows": 4636584,
+  "stage": "stage_11_prioritize_variants",
+  "status": "success",
+  "unassigned_or_malformed_rows": 0,
+  "uninterpretable_count": 1153466
+}

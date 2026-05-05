@@ -1,0 +1,37 @@
+{
+  "assumptions": [
+    "Stage 12 prepares validation actions only.",
+    "Stage 12 does not execute IGV, parse BAM files, filter variants, or reinterpret evidence.",
+    "Tier 1 and Tier 2 variants are assigned IGV as the suggested validation method.",
+    "manual_review is reserved for future edge-case workflows and is not used in v1."
+  ],
+  "counts_by_priority_tier": {
+    "tier_2_moderate_candidate": 113363,
+    "tier_3_low_support_or_common": 3369755,
+    "tier_4_uninterpretable_or_qc_limited": 1153466
+  },
+  "counts_by_suggested_validation_method": {
+    "IGV": 113363,
+    "none": 4523221
+  },
+  "counts_by_validation_priority": {
+    "low": 4523221,
+    "medium": 113363
+  },
+  "counts_by_validation_required": {
+    "False": 4523221,
+    "True": 113363
+  },
+  "input_files": {
+    "stage_11_prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv"
+  },
+  "input_rows": 4636584,
+  "output_files": {
+    "stage_12_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json",
+    "stage_12_validation_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv"
+  },
+  "output_rows": 4636584,
+  "stage": "stage_12_validate_variants",
+  "status": "success",
+  "unrecognized_priority_rows": 0
+}

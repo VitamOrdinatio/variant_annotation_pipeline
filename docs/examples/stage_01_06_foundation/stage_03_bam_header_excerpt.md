@@ -1,0 +1,80 @@
+# stage_03_bam_header_excerpt
+
+## Source
+
+- Source file: `/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.aligned.sorted.bam`
+- Run ID: `run_2026_04_17_082417`
+- Sample/Dataset: `HG002`
+
+## Method
+
+Artifacts are generated using a config-driven extraction system ("Artificer") and curated for clarity.
+
+## Output
+
+```text
+@HD	VN:1.6	SO:coordinate
+@SQ	SN:1	LN:248956422
+@SQ	SN:10	LN:133797422
+@SQ	SN:11	LN:135086622
+@SQ	SN:12	LN:133275309
+@SQ	SN:13	LN:114364328
+@SQ	SN:14	LN:107043718
+@SQ	SN:15	LN:101991189
+@SQ	SN:16	LN:90338345
+@SQ	SN:17	LN:83257441
+@SQ	SN:18	LN:80373285
+@SQ	SN:19	LN:58617616
+@SQ	SN:2	LN:242193529
+@SQ	SN:20	LN:64444167
+@SQ	SN:21	LN:46709983
+@SQ	SN:22	LN:50818468
+@SQ	SN:3	LN:198295559
+@SQ	SN:4	LN:190214555
+@SQ	SN:5	LN:181538259
+@SQ	SN:6	LN:170805979
+@SQ	SN:7	LN:159345973
+@SQ	SN:8	LN:145138636
+@SQ	SN:9	LN:138394717
+@SQ	SN:MT	LN:16569
+@SQ	SN:X	LN:156040895
+@SQ	SN:Y	LN:57227415
+@SQ	SN:KI270728.1	LN:1872759
+@SQ	SN:KI270727.1	LN:448248
+@SQ	SN:KI270442.1	LN:392061
+@SQ	SN:KI270729.1	LN:280839
+@SQ	SN:GL000225.1	LN:211173
+@SQ	SN:KI270743.1	LN:210658
+@SQ	SN:GL000008.2	LN:209709
+@SQ	SN:GL000009.2	LN:201709
+@SQ	SN:KI270747.1	LN:198735
+@SQ	SN:KI270722.1	LN:194050
+@SQ	SN:GL000194.1	LN:191469
+@SQ	SN:KI270742.1	LN:186739
+@SQ	SN:GL000205.2	LN:185591
+@SQ	SN:GL000195.1	LN:182896
+@SQ	SN:KI270736.1	LN:181920
+@SQ	SN:KI270733.1	LN:179772
+@SQ	SN:GL000224.1	LN:179693
+@SQ	SN:GL000219.1	LN:179198
+@SQ	SN:KI270719.1	LN:176845
+@SQ	SN:GL000216.2	LN:176608
+@SQ	SN:KI270712.1	LN:176043
+@SQ	SN:KI270706.1	LN:175055
+@SQ	SN:KI270725.1	LN:172810
+@SQ	SN:KI270744.1	LN:168472
+```
+
+## Interpretation
+
+Whitelisted, read-only command/file excerpt for pipeline evidence.
+
+## Notes
+
+- No additional notes.
+
+## Limitations
+
+- Excerpt or summary only.
+- Not the full dataset unless explicitly stated.
+- No new inference performed.

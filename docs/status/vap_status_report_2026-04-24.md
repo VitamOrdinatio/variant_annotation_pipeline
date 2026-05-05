@@ -51,12 +51,12 @@ Representative artifacts are stored in `docs/examples/`.
 
 - `stage_07_output_manifest.md` — summary of generated outputs and file sizes
 - `stage_04_qc_report.md` — aligned-read QC metrics
-- `stage_07_columns.tsv` — annotated TSV column names
-- `stage_07_example_rows.tsv` — representative annotated output rows
-- `stage_07_missense_examples.tsv` — representative missense variants
-- `stage_07_stop_gained_examples.tsv` — representative stop-gained variants
+- `stage_07_columns.md` — annotated TSV column names
+- `stage_07_example_rows.md` — representative annotated output rows
+- `stage_07_missense_examples.md` — representative missense variants
+- `stage_07_stop_gained_examples.md` — representative stop-gained variants
 - `stage_07_vep_summary.html` — VEP summary report
-- `stage_07_vep_variants_vcf_warnings.txt` — VEP warnings captured from full run
+- `stage_07_vep_variants_vcf_warnings.md` — VEP warnings captured from full run
 
 ---
 
