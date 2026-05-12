@@ -260,3 +260,10 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+# Lightweight deterministic fixture assets
+!data/example/
+!data/example/README.md
+!data/example/*.tsv
+!data/example/*.vcf
