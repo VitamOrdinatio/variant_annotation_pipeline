@@ -291,6 +291,24 @@ def elapsed_seconds(start_iso: str, end_iso: str) -> float:
     return round((end - start).total_seconds(), 3)
 
 
+def write_stage_summary(stage_name: str, stage_data: dict[str, Any], stage_summaries_dir: str) -> None:
+    stage_number = stage_name.split("_")[1]
+    output_path = Path(stage_summaries_dir) / f"stage_{stage_number}_summary.json"
+    summary = {
+        "stage": stage_name,
+        "status": stage_data.get("status", "not_started"),
+        "start_time": stage_data.get("start_time"),
+        "end_time": stage_data.get("end_time"),
+        "elapsed_seconds": stage_data.get("elapsed_seconds"),
+        "input_artifacts": stage_data.get("input_artifacts", []),
+        "output_artifacts": stage_data.get("output_artifacts", []),
+        "warning_count": stage_data.get("warning_count", 0),
+        "error_count": stage_data.get("error_count", 0),
+    }
+    with output_path.open("w", encoding="utf-8") as handle:
+        json.dump(summary, handle, indent=2, sort_keys=True)
+
+
 def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:
     fieldnames = ["stage", "status", "start_time", "end_time", "elapsed_seconds"]
     output_path = Path(runtime_profile_path)
@@ -430,6 +448,11 @@ def run_pipeline(
                     "end_time": skip_time,
                     "elapsed_seconds": 0.0,
                 }
+                write_stage_summary(
+                    stage_name=stage_name,
+                    stage_data=state["stage_outputs"][stage_name],
+                    stage_summaries_dir=run_paths["stage_summaries_dir"],
+                )                
                 continue
 
             stage_start = utc_now_iso()
@@ -465,7 +488,11 @@ def run_pipeline(
                 "elapsed_seconds": elapsed_seconds(stage_start, stage_end),
             })
             logger.info(f"Completed stage: {stage_name}")
-
+            write_stage_summary(
+                stage_name=stage_name,
+                stage_data=state["stage_outputs"][stage_name],
+                stage_summaries_dir=run_paths["stage_summaries_dir"],
+            )
             if config["runtime"]["record_tool_versions"]:
                 state.setdefault("run", {})
                 state["run"].setdefault("tool_versions_recorded", False)
@@ -514,6 +541,11 @@ def run_pipeline(
                 "elapsed_seconds": elapsed_seconds(prior_start, fail_time),
                 "error": str(exc),
             }
+            write_stage_summary(
+                stage_name=last_started,
+                stage_data=state["stage_outputs"][last_started],
+                stage_summaries_dir=run_paths["stage_summaries_dir"],
+            )            
 
     finally:
         state["run"]["end_time"] = utc_now_iso()
