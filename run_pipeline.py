@@ -14,7 +14,7 @@ from src.pipeline_runner import run_pipeline
 
 def initialize_logger(log_path: str, level: str = "INFO"):
     """
-    Initialize console + file logger.
+    Initialize or reconfigure console + file logger.
 
     Parameters
     ----------
@@ -32,9 +32,14 @@ def initialize_logger(log_path: str, level: str = "INFO"):
 
     logger = logging.getLogger("variant_annotation_pipeline")
     logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+
+    # Remove previous handlers so bootstrap logger can transition
+    # cleanly into the canonical run logger.
     logger.handlers.clear()
 
-    formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(message)s"
+    )
 
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setFormatter(formatter)
@@ -120,6 +125,15 @@ def main() -> int:
             config_path=args.config,
             logger=logger,
         )
+
+        # Rebind logger from bootstrap log to canonical run log.
+        logger = initialize_logger(
+            log_path=run_paths["log_path"],
+            level=config["logging"]["level"],
+        )
+
+        logger.info("Canonical run logger initialized.")
+        logger.info(f"Canonical log path: {run_paths['log_path']}")
 
         print("Pipeline execution complete.")
         print(f"Run status: {state['run']['status']}")

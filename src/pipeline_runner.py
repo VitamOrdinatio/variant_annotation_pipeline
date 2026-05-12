@@ -19,6 +19,7 @@ from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+import logging
 
 
 STAGE_ORDER = [
@@ -67,6 +68,48 @@ def ensure_directory(path: str | Path) -> Path:
     directory = Path(path)
     directory.mkdir(parents=True, exist_ok=True)
     return directory
+
+
+def reconfigure_run_logger(
+    logger,
+    log_path: str,
+    level: str = "INFO",
+):
+    """
+    Rebind an existing logger to the canonical run log path.
+
+    Parameters
+    ----------
+    logger : logging.Logger
+        Existing bootstrap logger.
+    log_path : str
+        Canonical run log path.
+    level : str
+        Logging level.
+
+    Returns
+    -------
+    logging.Logger
+        Reconfigured logger.
+    """
+    logger.handlers.clear()
+
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(message)s"
+    )
+
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+
+    file_handler = logging.FileHandler(log_path)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+    logger.propagate = False
+
+    return logger
 
 
 def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
@@ -322,6 +365,14 @@ def run_pipeline(
     """
     run_id = generate_run_id()
     run_paths = initialize_run_paths(config, run_id)
+    logger = reconfigure_run_logger(
+        logger=logger,
+        log_path=run_paths["log_path"],
+        level=config["logging"]["level"],
+    )
+
+    logger.info("Transitioned from bootstrap logger to canonical run logger.")
+    logger.info(f"Canonical log path: {run_paths['log_path']}")    
     save_config_snapshot(config, run_paths["config_snapshot_path"])
 
     state = initialize_state(
@@ -412,8 +463,11 @@ def run_pipeline(
 
     finally:
         state["run"]["end_time"] = datetime.now().isoformat(timespec="seconds")
-        write_metadata(state, run_paths["metadata_path"])
-        logger.info(f"Metadata written to: {run_paths['metadata_path']}")
+        write_metadata(state, run_paths["legacy_metadata_path"])
+        logger.info(
+            f"Legacy metadata written to: "
+            f"{run_paths['legacy_metadata_path']}"
+        )
         logger.info("Pipeline run finished.")
 
     return state, run_paths
