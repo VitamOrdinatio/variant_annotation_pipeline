@@ -313,5 +313,3 @@ Every stage produces structured, lossless, and aggregation-ready tabular data.
 ```
 
 ---
-
-# End of Data Schema

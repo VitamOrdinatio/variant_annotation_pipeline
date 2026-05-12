@@ -1,14 +1,8 @@
 # 📄 Stage 12 Contract (Validation — Light v1)
 
-Save as:
-
-```text
-docs/contracts/stage_12_contract.md
-```
-
-# Stage 12 — Validate Variants
-
 ## Purpose
+
+Stage 12 — Validate Variants:
 
 Prepare prioritized variants for manual or visual validation (e.g., IGV review).
 

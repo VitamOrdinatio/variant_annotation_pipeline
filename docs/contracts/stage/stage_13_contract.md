@@ -161,7 +161,8 @@ Missing optional artifacts must be recorded but must not fail Stage 13.
 
 ### QC Status By Stage
 
-`qc_status_by_stage`:
+```yaml
+qc_status_by_stage:
   stage_08:
     status: 
     input_rows:
@@ -182,6 +183,7 @@ Missing optional artifacts must be recorded but must not fail Stage 13.
     status: 
     input_rows:
     output_rows:
+```
 
 ---
 
@@ -218,3 +220,5 @@ Stage 13 succeeds when:
 - all required inputs are represented in the manifest
 - row-count consistency checks pass
 - final summary captures Stage 11 and Stage 12 results
+
+---

@@ -50,3 +50,5 @@ This manifest documents which source and output artifacts were present for the c
 
 - Paths are summarized for review.
 - Large source outputs are not copied into Git.
+
+---

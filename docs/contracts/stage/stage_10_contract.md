@@ -7,7 +7,7 @@
 
 ---
 
-# 🧭 Purpose
+## 🧭 Purpose
 
 Stage 10 performs **biological interpretation of noncoding variants** using structured outputs from Stage 08.
 
@@ -21,7 +21,7 @@ without performing final prioritization.
 
 ---
 
-# 🎯 Design Principles
+## 🎯 Design Principles
 
 1. **Interpretation, not prioritization**
 
@@ -62,9 +62,9 @@ Stage 10 may validate allowed values but must not recompute Stage 08 classificat
 
 ---
 
-# 📥 Inputs
+## 📥 Inputs
 
-## Required Files
+### Required Files
 
 ```text
 noncoding_candidates.tsv
@@ -74,7 +74,7 @@ stage_08_selected_transcript_consequences.tsv
 
 ---
 
-## Required Fields (must be present)
+### Required Fields (must be present)
 
 * sample_id
 * variant_id
@@ -122,9 +122,9 @@ Unmapped variants:
 
 ---
 
-# 🔄 Processing Logic
+## 🔄 Processing Logic
 
-## Step 1 — Select Noncoding Variants
+### Step 1 — Select Noncoding Variants
 
 Include only variants where:
 
@@ -150,7 +150,7 @@ Splice-region variants are routed to Stage 09 because they may affect coding tra
 ---
 
 
-## Step 2 — Assign Functional Context Class
+### Step 2 — Assign Functional Context Class
 
 Derive:
 
@@ -165,7 +165,7 @@ noncoding_functional_context ∈ {
 }
 ```
 
-### Mapping
+#### Mapping
 
 * regulatory:
   * regulatory_region_variant
@@ -192,7 +192,7 @@ noncoding_functional_context ∈ {
   * any unmatched noncoding consequence
 
 
-### Multiple Consequence Rule
+#### Multiple Consequence Rule
 
 If `consequence` contains multiple terms for the same selected transcript,
 Stage 10 must assign the most specific applicable `noncoding_functional_context`.
@@ -206,7 +206,7 @@ regulatory > proximal > transcript_associated > intronic > intergenic > unknown
 
 ---
 
-## Step 3 — Assign Rarity Flag
+### Step 3 — Assign Rarity Flag
 
 Using Stage 08 `frequency_status`:
 
@@ -234,7 +234,7 @@ Stage 10 must not infer rarity from missing frequency data.
 
 ---
 
-## Step 4 — Assign Clinical Evidence Flag
+### Step 4 — Assign Clinical Evidence Flag
 
 ```text
 clinical_evidence ∈ {
@@ -267,7 +267,7 @@ derive `clinical_evidence` from `clinvar_significance` using:
 
 ---
 
-## Step 5 — Assign QC Reliability Flag
+### Step 5 — Assign QC Reliability Flag
 
 ```text
 qc_reliability ∈ {
@@ -279,7 +279,7 @@ qc_reliability ∈ {
 
 Same mapping as Stage 09.
 
-### QC Override Rule
+#### QC Override Rule
 
 QC override is applied before label assignment precedence.
 
@@ -299,7 +299,7 @@ Low-confidence QC does not erase biological annotation, but it prevents the vari
 
 ---
 
-## Step 6 — Composite Interpretation Flags
+### Step 6 — Composite Interpretation Flags
 
 ```text
 is_regulatory_candidate
@@ -309,7 +309,7 @@ is_high_quality
 is_potential_artifact
 ```
 
-### Rules
+#### Rules
 
 ```text
 is_regulatory_candidate =
@@ -330,7 +330,7 @@ is_potential_artifact =
 
 ---
 
-## Step 7 — Assign Noncoding Interpretation Label
+### Step 7 — Assign Noncoding Interpretation Label
 
 ```text
 noncoding_interpretation_label ∈ {
@@ -341,7 +341,7 @@ noncoding_interpretation_label ∈ {
 }
 ```
 
-### Deterministic rules
+#### Deterministic rules
 
 ```text
 noncoding_uninterpretable:
@@ -367,14 +367,14 @@ noncoding_common_or_low_support:
   OR (no stronger label rule applies)
 ```
 
-### Guardrail
+#### Guardrail
 
 ```text
 A regulatory or transcript-associated variant that is common or benign/likely_benign
 must not receive `regulatory_rare_supported`.
 ```
 
-### Label Assignment Precedence
+#### Label Assignment Precedence
 
 If multiple label rules apply, assign labels in this order:
 
@@ -396,9 +396,9 @@ It must not preempt a stronger label unless common frequency or benign/likely_be
 
 ---
 
-# 📤 Outputs
+## 📤 Outputs
 
-## Required Files
+### Required Files
 
 ```text
 stage_10_noncoding_interpreted.tsv
@@ -407,7 +407,7 @@ stage_10_summary.json
 
 ---
 
-## stage_10_noncoding_interpreted.tsv
+### stage_10_noncoding_interpreted.tsv
 
 Must include ALL Stage 08 fields PLUS:
 
@@ -426,7 +426,7 @@ Preserve provenance fields.
 
 ---
 
-## stage_10_summary.json
+### stage_10_summary.json
 
 Must include:
 
@@ -448,20 +448,20 @@ Must include:
 - noncoding_functional_context_distribution
 - clinical_evidence_distribution
 
-### Summary Count Rules
+#### Summary Count Rules
 
 Unless explicitly labeled transcript-level, all summary counts must be based on distinct `variant_id`.
 
 Implement summary counting with sets of `variant_id`, not row counters.
 
-### Distribution Definitions
+#### Distribution Definitions
 
 Follow the same rules as Stage 09, using:
 
 - noncoding_interpretation_label
 - noncoding_functional_context
 
-### Scalar Count Definitions
+#### Scalar Count Definitions
 
 - `total_noncoding_variants`: distinct variant_id count in Stage 10 input
 - `regulatory_variant_count`: distinct variant_id count where noncoding_functional_context = regulatory
@@ -478,7 +478,7 @@ Follow the same rules as Stage 09, using:
 
 ---
 
-# 🔒 Invariants
+## 🔒 Invariants
 
 Same as Stage 09, including:
 
@@ -488,7 +488,7 @@ No biological inference from missingness
 
 ---
 
-# ⚠️ Explicit Non-Goals
+## ⚠️ Explicit Non-Goals
 
 Stage 10 MUST NOT:
 
@@ -499,7 +499,7 @@ Stage 10 MUST NOT:
 
 ---
 
-# 🧠 Handoff to Stage 11
+## 🧠 Handoff to Stage 11
 
 Stage 11 will:
 
@@ -509,7 +509,7 @@ prioritize variants (coding + noncoding together)
 
 ---
 
-# Future Extension — AlphaGenome Support
+## Future Extension — AlphaGenome Support
 
 Stage 10 v1 does not run AlphaGenome.
 
@@ -529,7 +529,7 @@ Stage 11 may consume these fields if present, but Stage 11 must not call AlphaGe
 
 ---
 
-# 🎯 Bottom Line
+## 🎯 Bottom Line
 
 Stage 10 transforms:
 
@@ -540,5 +540,3 @@ noncoding variants → structured, cautious biological interpretation
 without overclaiming functional impact.
 
 ---
-
-# END

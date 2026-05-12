@@ -457,7 +457,7 @@ Both `_1.fastq.gz` and `_2.fastq.gz` must exist after compression.
 ### Failure condition
 If either compressed file is missing, fail immediately.
 
-## FASTQ gzip naming rule:
+## FASTQ gzip naming rule
 
 ```text
 <SRR>_1.fastq.gz
@@ -520,13 +520,13 @@ This corrects the contradiction in the original notes.
 ## 19. Final State Verification Contract
 
 At the end of a successful run, the canonical retained data artifacts must be:
-- <sra_dir>/<SRR>/<SRR>.sra
-- <fastq_dir>/<SRR>_1.fastq.gz
-- <fastq_dir>/<SRR>_2.fastq.gz
+- `<sra_dir>/<SRR>/<SRR>.sra`
+- `<fastq_dir>/<SRR>_1.fastq.gz`
+- `<fastq_dir>/<SRR>_2.fastq.gz`
 
 Additional retained audit artifacts may include:
-- <fastq_dir>/logs/<run_id>.prep.log
-- <fastq_dir>/logs/<run_id>.prep.json
+- `<fastq_dir>/logs/<run_id>.prep.log`
+- `<fastq_dir>/logs/<run_id>.prep.json`
 
 ---
 
@@ -614,7 +614,7 @@ This rule is based on observed accession behavior:
 
 ---
 
-## 23. Checksum Recording:
+## 23. Checksum Recording
 
 Record SHA256 of:
 - .sra
@@ -650,7 +650,7 @@ A run is considered valid ONLY if:
 Any interruption before that point must be treated as a failed run.
 
 Default failure behavior:
-- move partial derived FASTQ artifacts to <fastq_dir>/quarantine/<run_id>/
+- move partial derived FASTQ artifacts to `<fastq_dir>/quarantine/<run_id>/`
 - do not quarantine the validated .sra
 - allow CLI/config override to delete instead of quarantine
 
@@ -667,7 +667,7 @@ On failure:
 - mark run as failed
 - do NOT treat partial outputs as valid
 
-Temporary extraction files under <tmp_dir>/<run_id>/ may be deleted directly and do not need quarantine.
+Temporary extraction files under `<tmp_dir>/<run_id>/` may be deleted directly and do not need quarantine.
 
 Quarantine directory:
 `<fastq_dir>/quarantine/<run_id>/`
@@ -684,5 +684,3 @@ Never let the main pipeline perform implicit acquisition or extraction.
 ```
 
 ---
-
-# End of SRR Preprocessing Behavior Contract

@@ -331,5 +331,3 @@ future versions replicate that pipeline across samples without changing its core
 ```
 
 ---
-
-# End of Distributed Execution Contract

@@ -53,3 +53,5 @@ This artifact summarizes how VAP behaves as a system when applied to a healthy r
 ## Bottom Line
 
 > VAP behaves as a calibrated, biologically informed variant prioritization system.
+
+---

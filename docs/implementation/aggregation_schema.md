@@ -371,5 +371,3 @@ future aggregation merges those runs without depending on raw sequencing files.
 ```
 
 ---
-
-# End of Aggregation Schema

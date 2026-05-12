@@ -363,5 +363,3 @@ Pipeline execution is a linear, state-driven sequence of transformations that pr
 ```
 
 ---
-
-# End of Workflow Specification

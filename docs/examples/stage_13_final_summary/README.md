@@ -51,3 +51,5 @@ These results reflect expected behavior for a healthy reference genome and confi
 - Excerpt/summary only.
 - Full multi-GB source TSVs are not copied into this repository.
 - Descriptive summaries are not authoritative analytical outputs unless produced by VAP itself.
+
+---

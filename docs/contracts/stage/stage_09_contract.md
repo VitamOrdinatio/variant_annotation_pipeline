@@ -7,7 +7,7 @@
 
 ---
 
-# 🧭 Purpose
+## 🧭 Purpose
 
 Stage 09 performs **biological interpretation of coding variants** using structured outputs from Stage 08.
 
@@ -21,7 +21,7 @@ without performing final prioritization.
 
 ---
 
-# 🎯 Design Principles
+## 🎯 Design Principles
 
 1. **Interpretation, not prioritization**
 
@@ -57,9 +57,9 @@ Stage 09 may validate allowed values but must not recompute Stage 08 classificat
 
 ---
 
-# 📥 Inputs
+## 📥 Inputs
 
-## Required Files
+### Required Files
 
 ```text
 coding_candidates.tsv
@@ -70,7 +70,7 @@ stage_08_selected_transcript_consequences.tsv
 
 ---
 
-## Required Fields (must be present)
+### Required Fields (must be present)
 
 * sample_id
 * variant_id
@@ -117,9 +117,9 @@ Unmapped variants:
 
 ---
 
-# 🔄 Processing Logic
+## 🔄 Processing Logic
 
-## Step 1 — Select Coding Variants
+### Step 1 — Select Coding Variants
 
 Include only variants where:
 
@@ -135,7 +135,7 @@ intronic, intergenic, regulatory (handled in Stage 10)
 
 ---
 
-## Step 2 — Assign Functional Impact Class
+### Step 2 — Assign Functional Impact Class
 
 Derive:
 
@@ -152,7 +152,7 @@ functional_impact ∈ {
 
 
 
-### Mapping
+#### Mapping
 
 - loss_of_function:
   - stop_gained
@@ -184,7 +184,7 @@ functional_impact ∈ {
   - invalid consequence
   - consequence not recognized as coding or splice-related
 
-### Multiple Consequence Rule
+#### Multiple Consequence Rule
 
 If `consequence` contains multiple terms for the same selected transcript, Stage 09 must assign the most severe applicable `functional_impact`.
 
@@ -199,7 +199,7 @@ loss_of_function > missense > splice_relevant > other_coding > synonymous
 
 ---
 
-## Step 3 — Assign Rarity Flag
+### Step 3 — Assign Rarity Flag
 
 Using Stage 08 `frequency_status`:
 
@@ -228,7 +228,7 @@ frequency_status = unknown → rarity_flag = unknown
 
 ---
 
-## Step 4 — Assign Clinical Evidence Flag
+### Step 4 — Assign Clinical Evidence Flag
 
 `clinical_evidence` is the Stage 09 coding-interpretation copy of Stage 08 `clinical_status`.
 
@@ -267,7 +267,7 @@ derive `clinical_evidence` from `clinvar_significance` using:
 
 ---
 
-## Step 5 — Assign QC Reliability Flag
+### Step 5 — Assign QC Reliability Flag
 
 ```text
 qc_reliability ∈ {
@@ -283,7 +283,7 @@ Mapping:
 * qc_status = caution → caution
 * qc_status = fail → low_confidence
 
-### QC Override Rule
+#### QC Override Rule
 
 QC override is applied before label assignment precedence.
 
@@ -303,7 +303,7 @@ Low-confidence QC does not erase biological annotation, but it prevents the vari
 
 ---
 
-## Step 6 — Composite Interpretation Flags
+### Step 6 — Composite Interpretation Flags
 
 Stage 09 must derive boolean flags:
 
@@ -317,7 +317,7 @@ is_potential_artifact
 
 ---
 
-### Rules
+#### Rules
 
 ```text
 is_lof_candidate =
@@ -338,7 +338,7 @@ is_potential_artifact =
 
 ---
 
-## Step 7 — Assign Coding Interpretation Label
+### Step 7 — Assign Coding Interpretation Label
 
 Assign a non-ranking interpretation label:
 
@@ -351,7 +351,7 @@ coding_interpretation_label ∈ {
 }
 ```
 
-### Deterministic rules
+#### Deterministic rules
 
 ```text
 lof_rare_clinically_supported:
@@ -377,14 +377,14 @@ coding_uninterpretable:
   OR missing key fields required for interpretation
 ```
 
-### Guardrail
+#### Guardrail
 
 ```text
 A HIGH-impact or loss-of-function variant that is common or benign/likely_benign
 must not receive lof_rare_clinically_supported.
 ```
 
-### Label Assignment Precedence
+#### Label Assignment Precedence
 
 If multiple label rules apply, assign labels in this order:
 
@@ -412,9 +412,9 @@ Rationale:
 
 ---
 
-# 📤 Outputs
+## 📤 Outputs
 
-## Required Files
+### Required Files
 
 ```text
 stage_09_coding_interpreted.tsv
@@ -423,7 +423,7 @@ stage_09_summary.json
 
 ---
 
-## stage_09_coding_interpreted.tsv
+### stage_09_coding_interpreted.tsv
 
 Must include ALL Stage 08 fields PLUS:
 
@@ -447,7 +447,7 @@ Stage 09 outputs should preserve:
 
 ---
 
-## stage_09_summary.json
+### stage_09_summary.json
 
 Must include:
 
@@ -466,13 +466,13 @@ Must include:
 - functional_impact_distribution
 - clinical_evidence_distribution
 
-### Summary Count Rules
+#### Summary Count Rules
 
 Unless explicitly labeled transcript-level, all summary counts must be based on distinct `variant_id` values.
 
 Implement summary counting with sets of `variant_id`, not row counters.
 
-### Required Distribution Definitions
+#### Required Distribution Definitions
 
 `coding_interpretation_label_distribution` must count distinct `variant_id` values by:
 
@@ -524,7 +524,7 @@ conflicting
 missing
 ```
 
-### Scalar Count Definitions
+#### Scalar Count Definitions
 
 - `total_coding_variants`: distinct variant_id count in Stage 09 input
 - `lof_variant_count`: distinct variant_id count where functional_impact = loss_of_function
@@ -538,7 +538,7 @@ missing
 
 
 
-## Deduplication rule
+### Deduplication rule
 
 Stage 09 should not inflate counts if Stage 08 later becomes multi-transcript:
 
@@ -548,7 +548,7 @@ summary counts must be based on distinct variant_id values unless explicitly lab
 
 ---
 
-# 🔒 Invariants
+## 🔒 Invariants
 
 1. No variants are removed
 2. All Stage 08 fields are preserved
@@ -561,7 +561,7 @@ Stage 09 must not treat missing frequency as rare and must not treat missing cli
 
 ---
 
-# ⚠️ Explicit Non-Goals
+## ⚠️ Explicit Non-Goals
 
 Stage 09 MUST NOT:
 
@@ -573,7 +573,7 @@ Stage 09 MUST NOT:
 
 ---
 
-# 🧠 Handoff to Stage 10
+## 🧠 Handoff to Stage 10
 
 Stage 10 will:
 
@@ -589,7 +589,7 @@ prioritize variants
 
 ---
 
-# 🎯 Bottom Line
+## 🎯 Bottom Line
 
 Stage 09 transforms:
 
@@ -606,5 +606,3 @@ human-readable variant meaning
 without making final decisions.
 
 ---
-
-# END

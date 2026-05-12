@@ -699,5 +699,3 @@ This v1 schema is intentionally designed to support future extension into:
 Those future features must extend this schema without breaking the single-sample invariant.
 
 ---
-
-# End of State Schema

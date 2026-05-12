@@ -42,7 +42,7 @@ Each row retains origin:
 
 ### Required Output Fields (additive)
 
-### Core prioritization fields
+Core prioritization fields
 
 - `variant_origin`
 - `source_interpretation_label`
