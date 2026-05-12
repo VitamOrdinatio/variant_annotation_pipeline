@@ -123,7 +123,7 @@ def write_run_fingerprint(
         "created_at": utc_now_iso(),
     }
     with Path(run_paths["run_fingerprint_path"]).open("w", encoding="utf-8") as handle:
-        json.dump(fingerprint, handle, indent=2, sort_keys=True)
+        handle.write(stable_json_dumps(fingerprint))
 
 
 def reconfigure_run_logger(
@@ -359,7 +359,7 @@ def write_stage_summary(stage_name: str, stage_data: dict[str, Any], stage_summa
         "error_count": stage_data.get("error_count", 0),
     }
     with output_path.open("w", encoding="utf-8") as handle:
-        json.dump(summary, handle, indent=2, sort_keys=True)
+        handle.write(stable_json_dumps(summary))
 
 
 def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:
@@ -377,6 +377,10 @@ def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> N
                 "end_time": stage_data.get("end_time", "NA"),
                 "elapsed_seconds": stage_data.get("elapsed_seconds", "NA"),
             })
+
+
+def stable_json_dumps(payload: dict[str, Any]) -> str:
+    return json.dumps(payload, indent=2, sort_keys=True)
 
 
 def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
@@ -415,7 +419,7 @@ def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
     }
 
     with Path(run_metadata_path).open("w", encoding="utf-8") as handle:
-        json.dump(run_metadata, handle, indent=2, sort_keys=True)
+        handle.write(stable_json_dumps(run_metadata))
 
 
 def write_metadata(state: dict[str, Any], metadata_path: str) -> None:
@@ -431,7 +435,7 @@ def write_metadata(state: dict[str, Any], metadata_path: str) -> None:
     """
     metadata_file = Path(metadata_path)
     with metadata_file.open("w", encoding="utf-8") as handle:
-        json.dump(state, handle, indent=2, sort_keys=True)
+        handle.write(stable_json_dumps(state))
 
 
 def save_config_snapshot(config: dict[str, Any], snapshot_path: str) -> None:
