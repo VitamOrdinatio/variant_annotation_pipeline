@@ -22,6 +22,10 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+import hashlib
+import platform
+import subprocess
+import sys
 
 
 
@@ -71,6 +75,55 @@ def ensure_directory(path: str | Path) -> Path:
     directory = Path(path)
     directory.mkdir(parents=True, exist_ok=True)
     return directory
+
+
+def sha256_file(path: str | Path) -> str:
+    file_path = Path(path)
+    digest = hashlib.sha256()
+    with file_path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+def get_git_commit(repo_root: str | Path = ".") -> str:
+    try:
+        result = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=repo_root,
+            check=True,
+            capture_output=True,
+            text=True,
+        )
+        return result.stdout.strip()
+    except Exception:
+        return "unknown"
+
+def write_run_fingerprint(
+    config: dict[str, Any],
+    config_path: str,
+    run_id: str,
+    run_paths: dict[str, str],
+) -> None:
+    reference_fasta = config["reference"]["fasta_path"]
+    fingerprint = {
+        "run_id": run_id,
+        "pipeline_name": config["project"]["pipeline_name"],
+        "pipeline_version": config["project"]["version"],
+        "git_commit": get_git_commit(),
+        "config_hash": sha256_file(config_path),
+        "config_path": str(config_path),
+        "reference_genome": config["reference"]["genome_build"],
+        "reference_fasta_path": reference_fasta,
+        "reference_fasta_hash_or_size": Path(reference_fasta).stat().st_size if Path(reference_fasta).exists() else "unavailable",
+        "hostname": socket.gethostname(),
+        "execution_mode": config["mode"]["execution_mode"],
+        "execution_profile": config.get("execution_profile", {}).get("name", "default"),
+        "python_version": sys.version,
+        "platform": platform.platform(),
+        "created_at": utc_now_iso(),
+    }
+    with Path(run_paths["run_fingerprint_path"]).open("w", encoding="utf-8") as handle:
+        json.dump(fingerprint, handle, indent=2, sort_keys=True)
 
 
 def reconfigure_run_logger(
@@ -422,7 +475,13 @@ def run_pipeline(
     logger.info("Transitioned from bootstrap logger to canonical run logger.")
     logger.info(f"Canonical log path: {run_paths['log_path']}")    
     save_config_snapshot(config, run_paths["config_snapshot_path"])
-
+    write_run_fingerprint(
+        config=config,
+        config_path=config_path,
+        run_id=run_id,
+        run_paths=run_paths,
+    )
+    logger.info(f"Run fingerprint written to: {run_paths['run_fingerprint_path']}")
     state = initialize_state(
         config=config,
         config_path=config_path,
