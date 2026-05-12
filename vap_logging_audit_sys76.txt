@@ -1,0 +1,982 @@
+]633;E;echo "===== run_pipeline.py =====";2fac50f9-a567-41a9-ba78-16012403f316]633;C===== run_pipeline.py =====
+"""
+CLI entrypoint for variant_annotation_pipeline v1.0.
+"""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+from src.config_loader import load_config, validate_config
+from src.pipeline_runner import run_pipeline
+
+
+def initialize_logger(log_path: str, level: str = "INFO"):
+    """
+    Initialize console + file logger.
+
+    Parameters
+    ----------
+    log_path : str
+        Path to log file.
+    level : str
+        Logging level.
+
+    Returns
+    -------
+    logging.Logger
+        Configured logger.
+    """
+    import logging
+
+    logger = logging.getLogger("variant_annotation_pipeline")
+    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+    logger.handlers.clear()
+
+    formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+
+    stream_handler = logging.StreamHandler(sys.stdout)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+
+    file_handler = logging.FileHandler(log_path)
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+
+    logger.propagate = False
+    return logger
+
+
+def parse_args() -> argparse.Namespace:
+    """
+    Parse CLI arguments.
+
+    Returns
+    -------
+    argparse.Namespace
+        Parsed CLI namespace.
+    """
+    parser = argparse.ArgumentParser(
+        description="Run variant_annotation_pipeline v1.0"
+    )
+    parser.add_argument(
+        "--config",
+        required=True,
+        help="Path to config/config.yaml",
+    )
+    return parser.parse_args()
+
+
+def bootstrap_log_path(config: dict) -> str:
+    """
+    Create an early deterministic bootstrap log path before run_id creation.
+
+    Parameters
+    ----------
+    config : dict
+        Parsed config.
+
+    Returns
+    -------
+    str
+        Bootstrap log path.
+    """
+    base_results_dir = Path(config["output"]["base_results_dir"])
+    bootstrap_dir = base_results_dir / "bootstrap_logs"
+    bootstrap_dir.mkdir(parents=True, exist_ok=True)
+    return str(bootstrap_dir / config["logging"]["log_filename"])
+
+
+def main() -> int:
+    """
+    Main CLI entrypoint.
+
+    Returns
+    -------
+    int
+        Process exit code.
+    """
+    args = parse_args()
+
+    try:
+        config = load_config(args.config)
+        validate_config(config)
+
+        bootstrap_log = bootstrap_log_path(config)
+        logger = initialize_logger(
+            log_path=bootstrap_log,
+            level=config["logging"]["level"],
+        )
+
+        logger.info("Config loaded successfully.")
+        logger.info(f"Using config: {args.config}")
+        logger.info(f"Execution mode: {config['mode']['execution_mode']}")
+        logger.info(f"Sample ID: {config['input']['sample_id']}")
+        logger.info(f"SRA accession: {config['input']['sra_accession']}")
+
+        state, run_paths = run_pipeline(
+            config=config,
+            config_path=args.config,
+            logger=logger,
+        )
+
+        print("Pipeline execution complete.")
+        print(f"Run status: {state['run']['status']}")
+        print(f"Run ID: {state['run']['run_id']}")
+        print(f"Run directory: {run_paths['run_dir']}")
+
+        return 0 if state["run"]["status"] == "completed" else 1
+
+    except Exception as exc:
+        print(f"Pipeline bootstrap failed: {exc}", file=sys.stderr)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+===== src/pipeline_runner.py =====
+"""
+Pipeline runner for variant_annotation_pipeline v1.0.
+
+Responsibilities:
+- initialize run metadata and state
+- resolve run directories
+- load stage modules
+- execute stages in strict order
+- record failures and final metadata
+"""
+
+from __future__ import annotations
+
+import importlib
+import json
+import socket
+import traceback
+from copy import deepcopy
+from datetime import datetime
+from pathlib import Path
+from typing import Any
+
+
+STAGE_ORDER = [
+    "stage_01_load_data",
+    "stage_02_align_data",
+    "stage_03_process_bam",
+    "stage_04_qc_aligned_reads",
+    "stage_05_call_variants",
+    "stage_06_normalize_vcf",
+    "stage_07_annotate_variants",
+    "stage_08_filter_and_partition",
+    "stage_09_interpret_coding",
+    "stage_10_interpret_noncoding",
+    "stage_11_prioritize_variants",
+    "stage_12_validate_variants",
+    "stage_13_write_summary",
+]
+
+
+def generate_run_id() -> str:
+    """
+    Generate a deterministic-format timestamp-based run identifier.
+
+    Returns
+    -------
+    str
+        Run identifier of the form run_YYYY_MM_DD_HHMMSS.
+    """
+    return datetime.now().strftime("run_%Y_%m_%d_%H%M%S")
+
+
+def ensure_directory(path: str | Path) -> Path:
+    """
+    Create a directory if it does not already exist.
+
+    Parameters
+    ----------
+    path : str | Path
+        Directory path.
+
+    Returns
+    -------
+    Path
+        Resolved Path object.
+    """
+    directory = Path(path)
+    directory.mkdir(parents=True, exist_ok=True)
+    return directory
+
+
+def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
+    """
+    Initialize the run directory structure for a single execution.
+
+    Parameters
+    ----------
+    config : dict[str, Any]
+        Parsed pipeline configuration.
+    run_id : str
+        Run identifier.
+
+    Returns
+    -------
+    dict[str, str]
+        Dictionary of resolved run paths.
+    """
+    base_results_dir = ensure_directory(config["output"]["base_results_dir"])
+    run_dir = ensure_directory(base_results_dir / run_id)
+    logs_dir = ensure_directory(run_dir / "logs")
+    interim_dir = ensure_directory(run_dir / "interim")
+    processed_dir = ensure_directory(run_dir / "processed")
+    reports_dir = ensure_directory(run_dir / "reports")
+    final_dir = ensure_directory(run_dir / "final")
+    validation_dir = ensure_directory(run_dir / "validation")
+
+    return {
+        "base_results_dir": str(base_results_dir),
+        "run_dir": str(run_dir),
+        "logs_dir": str(logs_dir),
+        "interim_dir": str(interim_dir),
+        "processed_dir": str(processed_dir),
+        "reports_dir": str(reports_dir),
+        "final_dir": str(final_dir),
+        "validation_dir": str(validation_dir),
+        "config_snapshot_path": str(run_dir / "config_used.yaml"),
+        "metadata_path": str(run_dir / "metadata.json"),
+        "log_path": str(logs_dir / config["logging"]["log_filename"]),
+    }
+
+
+def initialize_state(
+    config: dict[str, Any],
+    config_path: str,
+    run_id: str,
+    run_paths: dict[str, str],
+) -> dict[str, Any]:
+    """
+    Initialize the shared runtime state object.
+
+    Parameters
+    ----------
+    config : dict[str, Any]
+        Parsed pipeline configuration.
+    config_path : str
+        Original config path.
+    run_id : str
+        Run identifier.
+    run_paths : dict[str, str]
+        Resolved run paths.
+
+    Returns
+    -------
+    dict[str, Any]
+        Initialized state object.
+    """
+    now = datetime.now().isoformat(timespec="seconds")
+    execution_mode = config["mode"]["execution_mode"]
+    machine_id = socket.gethostname()
+
+    return {
+        "run": {
+            "run_id": run_id,
+            "status": "initialized",
+            "execution_mode": execution_mode,
+            "pipeline_name": config["project"]["pipeline_name"],
+            "pipeline_version": config["project"]["version"],
+            "config_path": config_path,
+            "config_snapshot_path": run_paths["config_snapshot_path"],
+            "start_time": now,
+            "end_time": None,
+            "machine_id": machine_id,
+        },
+        "sample": {},
+        "inputs": {},
+        "artifacts": {
+            "aligned_bam": None,
+            "aligned_bam_index": None,
+            "sorted_bam": None,
+            "sorted_bam_index": None,
+            "aligned_qc_report": None,
+            "raw_vcf": None,
+            "normalized_vcf": None,
+            "annotated_vcf": None,
+            "annotated_table": None,
+            "filtered_table": None,
+            "coding_table": None,
+            "noncoding_table": None,
+            "interpreted_coding_table": None,
+            "interpreted_noncoding_table": None,
+            "prioritized_table": None,
+            "validation_notes": None,
+            "igv_review_candidates": None,
+            "gene_summary_table": None,
+            "run_summary_report": None,
+        },
+        "annotations": {
+            "annotation_engine": config["annotation"]["engine"],
+            "annotation_completed": False,
+            "resources_used": [],
+            "clinvar_enabled": bool(config["annotation"]["include_clinvar"]),
+            "population_frequency_sources": list(config["annotation"]["population_sources"]),
+        },
+        "gene_sets": {
+            "mitocarta_path": config["gene_sets"]["mitocarta_path"],
+            "genes4epilepsy_path": config["gene_sets"]["genes4epilepsy_path"],
+            "overlay_completed": False,
+            "flags_added": list(config["gene_sets"]["required_flags"]),
+        },
+        "qc": {
+            "input_qc": {},
+            "alignment_qc": {},
+            "bam_processing_qc": {},
+            "variant_calling_qc": {},
+            "normalization_qc": {},
+            "annotation_qc": {},
+            "filtering_qc": {},
+            "interpretation_qc": {},
+            "validation_qc": {},
+        },
+        "stage_outputs": {stage_name: {"status": "not_started"} for stage_name in STAGE_ORDER},
+        "warnings": [],
+        "errors": [],
+        "reports": {
+            "run_summary_report": None,
+            "summary_table": None,
+            "gene_summary_table": None,
+            "report_line_count": None,
+        },
+    }
+
+
+def get_stage_module(stage_name: str):
+    """
+    Import a stage module dynamically.
+
+    Parameters
+    ----------
+    stage_name : str
+        Stage module base name.
+
+    Returns
+    -------
+    module
+        Imported Python module.
+    """
+    return importlib.import_module(f"pipeline.{stage_name}")
+
+
+def write_metadata(state: dict[str, Any], metadata_path: str) -> None:
+    """
+    Write the current state to metadata JSON.
+
+    Parameters
+    ----------
+    state : dict[str, Any]
+        Runtime state.
+    metadata_path : str
+        Metadata output path.
+    """
+    metadata_file = Path(metadata_path)
+    with metadata_file.open("w", encoding="utf-8") as handle:
+        json.dump(state, handle, indent=2, sort_keys=True)
+
+
+def save_config_snapshot(config: dict[str, Any], snapshot_path: str) -> None:
+    """
+    Save the config dictionary to the run directory.
+
+    Parameters
+    ----------
+    config : dict[str, Any]
+        Parsed pipeline configuration.
+    snapshot_path : str
+        Destination config snapshot path.
+    """
+    import yaml
+
+    with Path(snapshot_path).open("w", encoding="utf-8") as handle:
+        yaml.safe_dump(config, handle, sort_keys=False)
+
+
+def should_run_stage(config: dict[str, Any], stage_name: str) -> bool:
+    """
+    Determine whether a stage should execute for the current mode.
+
+    Parameters
+    ----------
+    config : dict[str, Any]
+        Parsed pipeline configuration.
+    stage_name : str
+        Stage name.
+
+    Returns
+    -------
+    bool
+        True if the stage should run.
+    """
+    execution_mode = config["mode"]["execution_mode"]
+
+    if execution_mode == "annotation_only":
+        skipped_stages = {
+            "stage_02_align_data",
+            "stage_03_process_bam",
+            "stage_04_qc_aligned_reads",
+            "stage_05_call_variants",
+        }
+        return stage_name not in skipped_stages
+
+    return True
+
+
+def run_pipeline(
+    config: dict[str, Any],
+    config_path: str,
+    logger,
+) -> tuple[dict[str, Any], dict[str, str]]:
+    """
+    Execute the full pipeline in strict stage order.
+
+    Parameters
+    ----------
+    config : dict[str, Any]
+        Parsed pipeline configuration.
+    config_path : str
+        Original config path.
+    logger : logging.Logger
+        Configured logger.
+
+    Returns
+    -------
+    tuple[dict[str, Any], dict[str, str]]
+        Final state and run path dictionary.
+    """
+    run_id = generate_run_id()
+    run_paths = initialize_run_paths(config, run_id)
+    save_config_snapshot(config, run_paths["config_snapshot_path"])
+
+    state = initialize_state(
+        config=config,
+        config_path=config_path,
+        run_id=run_id,
+        run_paths=run_paths,
+    )
+
+    state["run"]["status"] = "running"
+
+    logger.info("Pipeline run started.")
+    logger.info(f"Run ID: {run_id}")
+    logger.info(f"Execution mode: {config['mode']['execution_mode']}")
+    logger.info(f"Run directory: {run_paths['run_dir']}")
+
+    try:
+        for stage_name in STAGE_ORDER:
+            if not should_run_stage(config, stage_name):
+                logger.info(f"Skipping stage: {stage_name}")
+                state["stage_outputs"][stage_name] = {"status": "skipped"}
+                continue
+
+            logger.info(f"Starting stage: {stage_name}")
+            stage_module = get_stage_module(stage_name)
+
+            if not hasattr(stage_module, "run_stage"):
+                raise AttributeError(f"{stage_name} does not define run_stage().")
+
+            stage_state_before = deepcopy(state)
+            state = stage_module.run_stage(config, run_paths, logger, state)
+
+            if not isinstance(state, dict):
+                raise TypeError(f"{stage_name} returned non-dict state.")
+
+            if stage_name not in state.get("stage_outputs", {}):
+                state.setdefault("stage_outputs", {})
+                state["stage_outputs"][stage_name] = {"status": "success"}
+
+            if state["stage_outputs"][stage_name].get("status") == "not_started":
+                state["stage_outputs"][stage_name]["status"] = "success"
+
+            logger.info(f"Completed stage: {stage_name}")
+
+            if config["runtime"]["record_tool_versions"]:
+                state.setdefault("run", {})
+                state["run"].setdefault("tool_versions_recorded", False)
+
+            # Basic safeguard against accidental state erasure.
+            for required_key in [
+                "run",
+                "sample",
+                "inputs",
+                "artifacts",
+                "annotations",
+                "gene_sets",
+                "qc",
+                "stage_outputs",
+                "warnings",
+                "errors",
+                "reports",
+            ]:
+                if required_key not in state:
+                    state = stage_state_before
+                    raise KeyError(f"{stage_name} removed required top-level state key: {required_key}")
+
+        state["run"]["status"] = "completed"
+
+    except Exception as exc:
+        logger.error(f"Pipeline run failed: {exc}")
+        logger.error(traceback.format_exc())
+
+        state["errors"].append(str(exc))
+        state["run"]["status"] = "failed"
+
+        # Mark the currently failing stage if possible.
+        last_started = None
+        for stage_name in STAGE_ORDER:
+            if state["stage_outputs"].get(stage_name, {}).get("status") in {"success", "skipped"}:
+                continue
+            last_started = stage_name
+            break
+        if last_started is not None:
+            state["stage_outputs"][last_started] = {
+                "status": "failed",
+                "error": str(exc),
+            }
+
+    finally:
+        state["run"]["end_time"] = datetime.now().isoformat(timespec="seconds")
+        write_metadata(state, run_paths["metadata_path"])
+        logger.info(f"Metadata written to: {run_paths['metadata_path']}")
+        logger.info("Pipeline run finished.")
+
+    return state, run_paths
+===== src/config_loader.py =====
+"""
+Configuration loading and validation for variant_annotation_pipeline v1.0.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+
+def load_config(config_path: str) -> dict[str, Any]:
+    path = Path(config_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {path}")
+    if not path.is_file():
+        raise FileNotFoundError(f"Config path is not a file: {path}")
+
+    with path.open("r", encoding="utf-8") as handle:
+        config = yaml.safe_load(handle)
+
+    if not isinstance(config, dict) or not config:
+        raise ValueError(f"Config file is empty or invalid: {path}")
+
+    return config
+
+
+def _require_nested(config: dict[str, Any], path: list[str]) -> Any:
+    current: Any = config
+    dotted = ".".join(path)
+
+    for key in path:
+        if not isinstance(current, dict) or key not in current:
+            raise ValueError(f"Missing required config key: {dotted}")
+        current = current[key]
+
+    return current
+
+
+def validate_config(config: dict[str, Any]) -> None:
+    required_keys = [
+        ["project", "name"],
+        ["project", "pipeline_name"],
+        ["project", "version"],
+        ["mode", "execution_mode"],
+        ["input", "bioproject_accession"],
+        ["input", "sample_id"],
+        ["input", "sample_alias"],
+        ["input", "sra_accession"],
+        ["input", "fastq", "r1"],
+        ["input", "fastq", "r2"],
+        ["input", "fastq", "compressed"],
+        ["input", "fastq", "paired_end"],
+        ["reference", "genome_build"],
+        ["reference", "fasta_path"],
+        ["reference", "fasta_index"],
+        ["reference", "bwa_index_prefix"],
+        ["reference", "sequence_dictionary"],
+        ["validation", "enable_validation"],
+        ["validation", "enable_manual_igv_review_prep"],
+        ["validation", "giab_benchmark_vcf"],
+        ["validation", "giab_benchmark_index"],
+        ["validation", "giab_benchmark_bed"],
+        ["tools", "bwa", "executable"],
+        ["tools", "samtools", "executable"],
+        ["tools", "gatk", "executable"],
+        ["tools", "vep", "executable"],
+        ["annotation", "engine"],
+        ["annotation", "include_clinvar"],
+        ["annotation", "include_population_frequencies"],
+        ["annotation", "population_sources"],
+        ["gene_sets", "mitocarta_path"],
+        ["gene_sets", "genes4epilepsy_path"],
+        ["gene_sets", "required_flags"],
+        ["filtering", "max_af_gnomad"],
+        ["filtering", "max_af_exac"],
+        ["filtering", "max_af_1000genomes"],
+        ["prioritization", "enable_gene_set_overlays"],
+        ["output", "base_results_dir"],
+        ["logging", "level"],
+        ["logging", "log_to_file"],
+        ["logging", "log_filename"],
+        ["runtime", "fail_fast"],
+        ["runtime", "record_tool_versions"],
+        ["runtime", "deterministic_mode"],
+    ]
+
+    for key_path in required_keys:
+        _require_nested(config, key_path)
+
+    execution_mode = config["mode"]["execution_mode"]
+    if execution_mode not in {"full_pipeline", "annotation_only"}:
+        raise ValueError(
+            f"Unsupported mode.execution_mode: {execution_mode}. "
+            "Expected one of: full_pipeline, annotation_only"
+        )
+
+    if config["project"]["pipeline_name"] != "variant_annotation_pipeline":
+        raise ValueError(
+            "project.pipeline_name must be 'variant_annotation_pipeline' for Repo 2 v1.0"
+        )
+
+    if config["input"]["bioproject_accession"] != "PRJNA200694":
+        raise ValueError("Repo 2 v1.0 is locked to input.bioproject_accession = PRJNA200694")
+
+    if config["input"]["sample_id"] != "HG002":
+        raise ValueError("Repo 2 v1.0 is locked to input.sample_id = HG002")
+
+    if config["input"]["sra_accession"] != "SRR12898354":
+        raise ValueError("Repo 2 v1.0 is locked to input.sra_accession = SRR12898354")
+
+    if config["reference"]["genome_build"] != "GRCh38":
+        raise ValueError("Repo 2 v1.0 is locked to reference.genome_build = GRCh38")
+
+    if config["annotation"]["engine"].lower() != "vep":
+        raise ValueError("Repo 2 v1.0 requires annotation.engine = vep")
+
+    if sorted(config["gene_sets"]["required_flags"]) != ["epilepsy_flag", "mito_flag"]:
+        raise ValueError(
+            "gene_sets.required_flags must contain exactly: mito_flag, epilepsy_flag"
+        )
+
+    if not isinstance(config["annotation"]["population_sources"], list):
+        raise ValueError("annotation.population_sources must be a list")
+
+    if not isinstance(config["gene_sets"]["required_flags"], list):
+        raise ValueError("gene_sets.required_flags must be a list")
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Validate Repo 2 YAML configuration.")
+    parser.add_argument("--config", required=True, help="Path to config YAML")
+    args = parser.parse_args()
+
+    loaded = load_config(args.config)
+    validate_config(loaded)
+    print("Config loaded and validated successfully.")
+===== logging grep =====
+run_pipeline.py:15:def initialize_logger(log_path: str, level: str = "INFO"):
+run_pipeline.py:17:    Initialize console + file logger.
+run_pipeline.py:28:    logging.Logger
+run_pipeline.py:29:        Configured logger.
+run_pipeline.py:31:    import logging
+run_pipeline.py:33:    logger = logging.getLogger("variant_annotation_pipeline")
+run_pipeline.py:34:    logger.setLevel(getattr(logging, level.upper(), logging.INFO))
+run_pipeline.py:35:    logger.handlers.clear()
+run_pipeline.py:37:    formatter = logging.Formatter("%(asctime)s | %(levelname)s | %(message)s")
+run_pipeline.py:39:    stream_handler = logging.StreamHandler(sys.stdout)
+run_pipeline.py:41:    logger.addHandler(stream_handler)
+run_pipeline.py:43:    file_handler = logging.FileHandler(log_path)
+run_pipeline.py:45:    logger.addHandler(file_handler)
+run_pipeline.py:47:    logger.propagate = False
+run_pipeline.py:48:    return logger
+run_pipeline.py:73:    Create an early deterministic bootstrap log path before run_id creation.
+run_pipeline.py:86:    bootstrap_dir = base_results_dir / "bootstrap_logs"
+run_pipeline.py:88:    return str(bootstrap_dir / config["logging"]["log_filename"])
+run_pipeline.py:107:        logger = initialize_logger(
+run_pipeline.py:109:            level=config["logging"]["level"],
+run_pipeline.py:112:        logger.info("Config loaded successfully.")
+run_pipeline.py:113:        logger.info(f"Using config: {args.config}")
+run_pipeline.py:114:        logger.info(f"Execution mode: {config['mode']['execution_mode']}")
+run_pipeline.py:115:        logger.info(f"Sample ID: {config['input']['sample_id']}")
+run_pipeline.py:116:        logger.info(f"SRA accession: {config['input']['sra_accession']}")
+run_pipeline.py:121:            logger=logger,
+run_pipeline.py:126:        print(f"Run ID: {state['run']['run_id']}")
+src/config_loader.py:81:        ["logging", "level"],
+src/config_loader.py:82:        ["logging", "log_to_file"],
+src/config_loader.py:83:        ["logging", "log_filename"],
+src/pipeline_runner.py:41:def generate_run_id() -> str:
+src/pipeline_runner.py:72:def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
+src/pipeline_runner.py:80:    run_id : str
+src/pipeline_runner.py:89:    run_dir = ensure_directory(base_results_dir / run_id)
+src/pipeline_runner.py:107:        "metadata_path": str(run_dir / "metadata.json"),
+src/pipeline_runner.py:108:        "log_path": str(logs_dir / config["logging"]["log_filename"]),
+src/pipeline_runner.py:115:    run_id: str,
+src/pipeline_runner.py:127:    run_id : str
+src/pipeline_runner.py:143:            "run_id": run_id,
+src/pipeline_runner.py:296:    logger,
+src/pipeline_runner.py:307:    logger : logging.Logger
+src/pipeline_runner.py:308:        Configured logger.
+src/pipeline_runner.py:315:    run_id = generate_run_id()
+src/pipeline_runner.py:316:    run_paths = initialize_run_paths(config, run_id)
+src/pipeline_runner.py:322:        run_id=run_id,
+src/pipeline_runner.py:328:    logger.info("Pipeline run started.")
+src/pipeline_runner.py:329:    logger.info(f"Run ID: {run_id}")
+src/pipeline_runner.py:330:    logger.info(f"Execution mode: {config['mode']['execution_mode']}")
+src/pipeline_runner.py:331:    logger.info(f"Run directory: {run_paths['run_dir']}")
+src/pipeline_runner.py:336:                logger.info(f"Skipping stage: {stage_name}")
+src/pipeline_runner.py:340:            logger.info(f"Starting stage: {stage_name}")
+src/pipeline_runner.py:347:            state = stage_module.run_stage(config, run_paths, logger, state)
+src/pipeline_runner.py:359:            logger.info(f"Completed stage: {stage_name}")
+src/pipeline_runner.py:386:        logger.error(f"Pipeline run failed: {exc}")
+src/pipeline_runner.py:387:        logger.error(traceback.format_exc())
+src/pipeline_runner.py:408:        logger.info(f"Metadata written to: {run_paths['metadata_path']}")
+src/pipeline_runner.py:409:        logger.info("Pipeline run finished.")
+pipeline/stage_01_load_data.py:119:    logger,
+pipeline/stage_01_load_data.py:122:    logger.info("Stage 01: loading input data context.")
+pipeline/stage_01_load_data.py:125:    logger.info(f"Stage 01 operating in {mode} mode.")
+pipeline/stage_01_load_data.py:179:        logger.info(f"Validated FASTQ R1: {fastq_1_summary['path']}")
+pipeline/stage_01_load_data.py:180:        logger.info(f"Validated FASTQ R2: {fastq_2_summary['path']}")
+pipeline/stage_01_load_data.py:202:                    logger.info(f"Validated SRA directory: {sra_dir_summary['path']}")
+pipeline/stage_01_load_data.py:205:                    logger.warning(str(exc))
+pipeline/stage_01_load_data.py:212:                    logger.info(f"Validated SRA file: {sra_file_summary['path']}")
+pipeline/stage_01_load_data.py:215:                    logger.warning(str(exc))
+pipeline/stage_01_load_data.py:232:        logger.info(f"Validated input VCF: {input_vcf_summary['path']}")
+pipeline/stage_12_validate_variants.py:36:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_12_validate_variants.py:37:    method = getattr(logger, level, None)
+pipeline/stage_12_validate_variants.py:164:    logger,
+pipeline/stage_12_validate_variants.py:167:    _log(logger, "info", "Stage 12: preparing validation candidates.")
+pipeline/stage_12_validate_variants.py:174:    _log(logger, "info", f"Stage 12 prioritized variants input: {stage11_path}")
+pipeline/stage_12_validate_variants.py:249:    _log(logger, "info", f"Stage 12 validation candidates written to: {output_paths['validation_candidates']}")
+pipeline/stage_12_validate_variants.py:250:    _log(logger, "info", f"Stage 12 summary JSON written to: {output_paths['summary_json']}")
+pipeline/stage_12_validate_variants.py:251:    _log(logger, "info", f"Stage 12 input rows processed: {summary['input_rows']}")
+pipeline/stage_12_validate_variants.py:252:    _log(logger, "info", f"Stage 12 output rows written: {summary['output_rows']}")
+pipeline/stage_12_validate_variants.py:253:    _log(logger, "info", f"Stage 12 unrecognized priority rows: {summary['unrecognized_priority_rows']}")
+pipeline/stage_09_interpret_coding.py:51:    "run_id",
+pipeline/stage_09_interpret_coding.py:115:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_09_interpret_coding.py:116:    method = getattr(logger, level, None)
+pipeline/stage_09_interpret_coding.py:222:        "run_id",
+pipeline/stage_09_interpret_coding.py:433:def _iter_stage09_candidate_rows(paths: list[Path], logger):
+pipeline/stage_09_interpret_coding.py:438:        _log(logger, "info", f"Reading Stage 09 input: {path}")
+pipeline/stage_09_interpret_coding.py:455:                        logger,
+pipeline/stage_09_interpret_coding.py:468:                    _log(logger, "warning", f"Skipping duplicate Stage 09 candidate row: {key}")
+pipeline/stage_09_interpret_coding.py:481:    logger,
+pipeline/stage_09_interpret_coding.py:484:    _log(logger, "info", "Stage 09: interpreting coding and splice-region variants.")
+pipeline/stage_09_interpret_coding.py:491:    _log(logger, "info", f"Stage 09 coding input: {coding_path}")
+pipeline/stage_09_interpret_coding.py:492:    _log(logger, "info", f"Stage 09 splice-region input: {splice_path}")
+pipeline/stage_09_interpret_coding.py:493:    _log(logger, "info", f"Stage 09 Stage 08 variant summary validation input: {variant_summary_path}")
+pipeline/stage_09_interpret_coding.py:494:    _log(logger, "info", f"Stage 09 selected transcript validation input: {selected_path}")
+pipeline/stage_09_interpret_coding.py:504:        for input_row, fieldnames in _iter_stage09_candidate_rows([coding_path, splice_path], logger):
+pipeline/stage_09_interpret_coding.py:573:    _log(logger, "info", f"Stage 09 interpreted coding variants written to: {output_paths['coding_interpreted']}")
+pipeline/stage_09_interpret_coding.py:574:    _log(logger, "info", f"Stage 09 summary JSON written to: {output_paths['summary_json']}")
+pipeline/stage_09_interpret_coding.py:575:    _log(logger, "info", f"Stage 09 input rows processed: {input_rows}")
+pipeline/stage_09_interpret_coding.py:576:    _log(logger, "info", f"Stage 09 interpreted rows written: {interpreted_rows}")
+pipeline/stage_07_annotate_variants.py:42:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_07_annotate_variants.py:44:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_07_annotate_variants.py:54:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_07_annotate_variants.py:56:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_07_annotate_variants.py:153:def _record_vep_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+pipeline/stage_07_annotate_variants.py:173:            logger.info(f"Recorded VEP version: {first_version_line}")
+pipeline/stage_07_annotate_variants.py:176:        logger.warning(f"Unable to record VEP version: {exc}")
+pipeline/stage_07_annotate_variants.py:382:    logger,
+pipeline/stage_07_annotate_variants.py:392:            logger.warning(
+pipeline/stage_07_annotate_variants.py:438:    run_id: str,
+pipeline/stage_07_annotate_variants.py:498:        "run_id": run_id,
+pipeline/stage_07_annotate_variants.py:573:    logger,
+pipeline/stage_07_annotate_variants.py:576:    logger.info("Stage 07: annotating variants.")
+pipeline/stage_07_annotate_variants.py:579:    logger.info(f"Stage 07 annotation engine selected: {annotation_engine}")
+pipeline/stage_07_annotate_variants.py:601:        logger.info(
+pipeline/stage_07_annotate_variants.py:604:        logger.info(
+pipeline/stage_07_annotate_variants.py:608:        logger.info(
+pipeline/stage_07_annotate_variants.py:611:        logger.info(
+pipeline/stage_07_annotate_variants.py:616:    run_id = state["run"]["run_id"]
+pipeline/stage_07_annotate_variants.py:618:    annotated_vcf = Path(paths["processed_dir"]) / f"{sample_id}_{run_id}.annotated_variants.vcf"
+pipeline/stage_07_annotate_variants.py:619:    annotated_table = Path(paths["processed_dir"]) / f"{sample_id}_{run_id}.annotated_variants.tsv"
+pipeline/stage_07_annotate_variants.py:630:        logger,
+pipeline/stage_07_annotate_variants.py:671:        "run_id",
+pipeline/stage_07_annotate_variants.py:720:                logger.warning(f"Malformed annotated VCF record skipped: {line[:120]}")
+pipeline/stage_07_annotate_variants.py:734:                logger=logger,
+pipeline/stage_07_annotate_variants.py:739:                run_id=run_id,
+pipeline/stage_07_annotate_variants.py:816:        _record_vep_version(config, state, logger)
+pipeline/stage_07_annotate_variants.py:818:    logger.info(f"Annotated VCF written to: {annotated_vcf}")
+pipeline/stage_07_annotate_variants.py:819:    logger.info(f"Annotated variant table written to: {annotated_table}")
+pipeline/stage_07_annotate_variants.py:820:    logger.info(f"Annotated variant count: {annotated_variant_count}")
+pipeline/stage_07_annotate_variants.py:821:    logger.info(f"Unresolved gene symbols against overlay sets: {unresolved_symbol_count}")
+pipeline/stage_04_qc_aligned_reads.py:11:- writes outputs under results/<run_id>/reports/
+pipeline/stage_04_qc_aligned_reads.py:23:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_04_qc_aligned_reads.py:25:    Execute a subprocess command with logging.
+pipeline/stage_04_qc_aligned_reads.py:31:    logger : logging.Logger
+pipeline/stage_04_qc_aligned_reads.py:32:        Configured logger.
+pipeline/stage_04_qc_aligned_reads.py:47:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_04_qc_aligned_reads.py:57:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_04_qc_aligned_reads.py:59:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_04_qc_aligned_reads.py:174:    logger,
+pipeline/stage_04_qc_aligned_reads.py:187:    logger.info("Stage 04: QC aligned reads.")
+pipeline/stage_04_qc_aligned_reads.py:191:        logger.info("Stage 04 skipped internally because execution mode is not full_pipeline.")
+pipeline/stage_04_qc_aligned_reads.py:210:    result = _run_command(flagstat_command, logger, "samtools flagstat")
+pipeline/stage_04_qc_aligned_reads.py:219:    run_id = state["run"]["run_id"]
+pipeline/stage_04_qc_aligned_reads.py:220:    qc_report_path = Path(paths["reports_dir"]) / f"{sample_id}_{run_id}.aligned_read_qc_report.txt"
+pipeline/stage_04_qc_aligned_reads.py:226:        handle.write(f"run_id: {run_id}\n")
+pipeline/stage_04_qc_aligned_reads.py:272:    logger.info(f"Aligned-read QC report written to: {qc_report_path}")
+pipeline/stage_11_prioritize_variants.py:58:    "run_id",
+pipeline/stage_11_prioritize_variants.py:96:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_11_prioritize_variants.py:97:    method = getattr(logger, level, None)
+pipeline/stage_11_prioritize_variants.py:333:def _iter_input_rows(path: Path, origin: str, logger):
+pipeline/stage_11_prioritize_variants.py:334:    _log(logger, "info", f"Reading Stage 11 {origin} input: {path}")
+pipeline/stage_11_prioritize_variants.py:345:    logger,
+pipeline/stage_11_prioritize_variants.py:348:    _log(logger, "info", "Stage 11: prioritizing interpreted variants.")
+pipeline/stage_11_prioritize_variants.py:355:    _log(logger, "info", f"Stage 11 coding input: {coding_path}")
+pipeline/stage_11_prioritize_variants.py:356:    _log(logger, "info", f"Stage 11 noncoding input: {noncoding_path}")
+pipeline/stage_11_prioritize_variants.py:365:            for input_row, fieldnames in _iter_input_rows(input_path, origin, logger):
+pipeline/stage_11_prioritize_variants.py:438:    _log(logger, "info", f"Stage 11 prioritized variants written to: {output_paths['prioritized_variants']}")
+pipeline/stage_11_prioritize_variants.py:439:    _log(logger, "info", f"Stage 11 gene variant counts written to: {output_paths['gene_variant_counts']}")
+pipeline/stage_11_prioritize_variants.py:440:    _log(logger, "info", f"Stage 11 summary JSON written to: {output_paths['summary_json']}")
+pipeline/stage_11_prioritize_variants.py:441:    _log(logger, "info", f"Stage 11 input rows processed: {summary['input_rows']}")
+pipeline/stage_11_prioritize_variants.py:442:    _log(logger, "info", f"Stage 11 output rows written: {summary['output_rows']}")
+pipeline/stage_11_prioritize_variants.py:443:    _log(logger, "info", f"Stage 11 malformed/unassigned rows: {summary['unassigned_or_malformed_rows']}")
+pipeline/stage_08_filter_and_partition.py:36:    "run_id",
+pipeline/stage_08_filter_and_partition.py:62:    "run_id",
+pipeline/stage_08_filter_and_partition.py:105:    "run_id",
+pipeline/stage_08_filter_and_partition.py:212:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_08_filter_and_partition.py:213:    method = getattr(logger, level, None)
+pipeline/stage_08_filter_and_partition.py:467:        "run_id",
+pipeline/stage_08_filter_and_partition.py:620:            "run_id": row["run_id"],
+pipeline/stage_08_filter_and_partition.py:755:                    "run_id": record["run_id"],
+pipeline/stage_08_filter_and_partition.py:834:    logger,
+pipeline/stage_08_filter_and_partition.py:837:    _log(logger, "info", "Stage 08: filtering and partitioning annotated variants.")
+pipeline/stage_08_filter_and_partition.py:850:    _log(logger, "info", f"Stage 08 canonical input TSV: {input_tsv}")
+pipeline/stage_08_filter_and_partition.py:851:    _log(logger, "info", f"Stage 08 validation/provenance VCF: {input_vcf}")
+pipeline/stage_08_filter_and_partition.py:852:    _log(logger, "info", f"Stage 08 annotation_source: {annotation_source}")
+pipeline/stage_08_filter_and_partition.py:853:    _log(logger, "info", f"Stage 08 annotation_version: {annotation_version}")
+pipeline/stage_08_filter_and_partition.py:904:                _log(logger, "warning", f"Irreparably malformed Stage 08 row skipped: {exc}")
+pipeline/stage_08_filter_and_partition.py:1030:    _log(logger, "info", f"Stage 08 selected transcript consequences written to: {output_paths['selected_transcript_consequences']}")
+pipeline/stage_08_filter_and_partition.py:1031:    _log(logger, "info", f"Stage 08 variant summary written to: {output_paths['variant_summary']}")
+pipeline/stage_08_filter_and_partition.py:1032:    _log(logger, "info", f"Stage 08 VDB-ready variants written to: {output_paths['vdb_ready_variants']}")
+pipeline/stage_08_filter_and_partition.py:1033:    _log(logger, "info", f"Stage 08 RDGP gene evidence seed written to: {output_paths['rdgp_gene_evidence_seed']}")
+pipeline/stage_08_filter_and_partition.py:1034:    _log(logger, "info", f"Stage 08 summary JSON written to: {output_paths['summary_json']}")
+pipeline/stage_08_filter_and_partition.py:1035:    _log(logger, "info", f"Stage 08 total variants processed: {total_rows}")
+pipeline/stage_08_filter_and_partition.py:1036:    _log(logger, "info", f"Stage 08 irreparably malformed rows skipped: {irreparably_malformed_rows}")
+pipeline/stage_06_normalize_vcf.py:11:- writes outputs under results/<run_id>/interim/
+pipeline/stage_06_normalize_vcf.py:22:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_06_normalize_vcf.py:24:    Execute a subprocess command with logging.
+pipeline/stage_06_normalize_vcf.py:30:    logger : logging.Logger
+pipeline/stage_06_normalize_vcf.py:31:        Configured logger.
+pipeline/stage_06_normalize_vcf.py:46:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_06_normalize_vcf.py:56:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_06_normalize_vcf.py:58:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_06_normalize_vcf.py:154:    logger,
+pipeline/stage_06_normalize_vcf.py:168:    logger.info("Stage 06: normalizing VCF.")
+pipeline/stage_06_normalize_vcf.py:199:    run_id = state["run"]["run_id"]
+pipeline/stage_06_normalize_vcf.py:200:    normalized_vcf = Path(paths["interim_dir"]) / f"{sample_id}_{run_id}.normalized_variants.vcf"
+pipeline/stage_06_normalize_vcf.py:221:    _run_command(gatk_command, logger, "GATK LeftAlignAndTrimVariants")
+pipeline/stage_06_normalize_vcf.py:257:    logger.info(f"Normalized VCF written to: {normalized_vcf}")
+pipeline/stage_06_normalize_vcf.py:258:    logger.info(f"Normalized variant count: {normalized_variant_count}")
+pipeline/stage_06_normalize_vcf.py:259:    logger.info(f"Malformed records skipped: {malformed_records}")
+pipeline/stage_05_call_variants.py:13:- writes outputs under results/<run_id>/interim/
+pipeline/stage_05_call_variants.py:24:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_05_call_variants.py:26:    Execute a subprocess command with logging.
+pipeline/stage_05_call_variants.py:32:    logger : logging.Logger
+pipeline/stage_05_call_variants.py:33:        Configured logger.
+pipeline/stage_05_call_variants.py:48:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_05_call_variants.py:58:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_05_call_variants.py:60:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_05_call_variants.py:125:def _record_gatk_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+pipeline/stage_05_call_variants.py:141:            logger.info(f"Recorded GATK version: {version_text[0]}")
+pipeline/stage_05_call_variants.py:144:        logger.warning(f"Unable to record GATK version: {exc}")
+pipeline/stage_05_call_variants.py:150:    logger,
+pipeline/stage_05_call_variants.py:164:    logger.info("Stage 05: calling variants.")
+pipeline/stage_05_call_variants.py:168:        logger.info("Stage 05 skipped internally because execution mode is not full_pipeline.")
+pipeline/stage_05_call_variants.py:194:    run_id = state["run"]["run_id"]
+pipeline/stage_05_call_variants.py:195:    raw_vcf = Path(paths["interim_dir"]) / f"{sample_id}_{run_id}.raw_variants.vcf"
+pipeline/stage_05_call_variants.py:221:        logger.warning(
+pipeline/stage_05_call_variants.py:229:    _run_command(gatk_command, logger, "GATK HaplotypeCaller")
+pipeline/stage_05_call_variants.py:263:        _record_gatk_version(config, state, logger)
+pipeline/stage_05_call_variants.py:265:    logger.info(f"Raw VCF written to: {raw_vcf}")
+pipeline/stage_05_call_variants.py:266:    logger.info(f"Variant count: {variant_count}")
+pipeline/stage_10_interpret_noncoding.py:31:    "variant_effect_severity", "source_pipeline", "run_id",
+pipeline/stage_10_interpret_noncoding.py:53:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_10_interpret_noncoding.py:54:    method = getattr(logger, level, None)
+pipeline/stage_10_interpret_noncoding.py:161:        "run_id",
+pipeline/stage_10_interpret_noncoding.py:390:def _iter_stage10_candidate_rows(path: Path, logger):
+pipeline/stage_10_interpret_noncoding.py:401:    _log(logger, "info", f"Reading Stage 10 input: {path}")
+pipeline/stage_10_interpret_noncoding.py:411:                    logger,
+pipeline/stage_10_interpret_noncoding.py:429:                _log(logger, "warning", f"Skipping duplicate Stage 10 candidate row: {key}")
+pipeline/stage_10_interpret_noncoding.py:439:    logger,
+pipeline/stage_10_interpret_noncoding.py:442:    _log(logger, "info", "Stage 10: interpreting noncoding variants.")
+pipeline/stage_10_interpret_noncoding.py:449:    _log(logger, "info", f"Stage 10 noncoding input: {noncoding_path}")
+pipeline/stage_10_interpret_noncoding.py:450:    _log(logger, "info", f"Stage 10 Stage 08 variant summary validation input: {variant_summary_path}")
+pipeline/stage_10_interpret_noncoding.py:451:    _log(logger, "info", f"Stage 10 selected transcript validation input: {selected_path}")
+pipeline/stage_10_interpret_noncoding.py:461:        for input_row, fieldnames in _iter_stage10_candidate_rows(noncoding_path, logger):
+pipeline/stage_10_interpret_noncoding.py:529:    _log(logger, "info", f"Stage 10 interpreted noncoding variants written to: {output_paths['noncoding_interpreted']}")
+pipeline/stage_10_interpret_noncoding.py:530:    _log(logger, "info", f"Stage 10 summary JSON written to: {output_paths['summary_json']}")
+pipeline/stage_10_interpret_noncoding.py:531:    _log(logger, "info", f"Stage 10 input rows processed: {input_rows}")
+pipeline/stage_10_interpret_noncoding.py:532:    _log(logger, "info", f"Stage 10 interpreted rows written: {interpreted_rows}")
+pipeline/stage_03_process_bam.py:10:- writes outputs under results/<run_id>/interim/
+pipeline/stage_03_process_bam.py:21:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_03_process_bam.py:23:    Execute a subprocess command with logging.
+pipeline/stage_03_process_bam.py:29:    logger : logging.Logger
+pipeline/stage_03_process_bam.py:30:        Configured logger.
+pipeline/stage_03_process_bam.py:45:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_03_process_bam.py:55:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_03_process_bam.py:57:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_03_process_bam.py:98:def _record_samtools_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+pipeline/stage_03_process_bam.py:114:            logger.info(f"Recorded samtools version: {version_text[0]}")
+pipeline/stage_03_process_bam.py:117:        logger.warning(f"Unable to record samtools version: {exc}")
+pipeline/stage_03_process_bam.py:123:    logger,
+pipeline/stage_03_process_bam.py:136:    logger.info("Stage 03: processing aligned BAM.")
+pipeline/stage_03_process_bam.py:140:        logger.info("Stage 03 skipped internally because execution mode is not full_pipeline.")
+pipeline/stage_03_process_bam.py:153:    run_id = state["run"]["run_id"]
+pipeline/stage_03_process_bam.py:155:    sorted_bam = Path(paths["interim_dir"]) / f"{sample_id}_{run_id}.aligned.sorted.bam"
+pipeline/stage_03_process_bam.py:167:    _run_command(sort_command, logger, "samtools sort")
+pipeline/stage_03_process_bam.py:181:    _run_command(index_command, logger, "samtools index")
+pipeline/stage_03_process_bam.py:212:        _record_samtools_version(config, state, logger)
+pipeline/stage_03_process_bam.py:214:    logger.info(f"Sorted BAM written to: {sorted_bam}")
+pipeline/stage_03_process_bam.py:215:    logger.info(f"Sorted BAM index written to: {sorted_bam_index}")
+pipeline/stage_13_write_summary.py:28:def _log(logger, level: str, message: str) -> None:
+pipeline/stage_13_write_summary.py:29:    method = getattr(logger, level, None)
+pipeline/stage_13_write_summary.py:250:        "run_id": first_row.get("run_id", "NA"),
+pipeline/stage_13_write_summary.py:288:        f"- Run ID: `{final_summary.get('run_id')}`",
+pipeline/stage_13_write_summary.py:380:    logger,
+pipeline/stage_13_write_summary.py:383:    _log(logger, "info", "Stage 13: writing final summary and manifest.")
+pipeline/stage_13_write_summary.py:445:    _log(logger, "info", f"Stage 13 final summary written to: {output_paths['final_summary']}")
+pipeline/stage_13_write_summary.py:446:    _log(logger, "info", f"Stage 13 artifact manifest written to: {output_paths['artifact_manifest']}")
+pipeline/stage_13_write_summary.py:447:    _log(logger, "info", f"Stage 13 run report written to: {output_paths['run_report']}")
+pipeline/stage_02_align_data.py:7:- outputs are written under results/<run_id>/interim/
+pipeline/stage_02_align_data.py:20:def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+pipeline/stage_02_align_data.py:22:    Execute a subprocess command with logging.
+pipeline/stage_02_align_data.py:28:    logger : logging.Logger
+pipeline/stage_02_align_data.py:29:        Configured logger.
+pipeline/stage_02_align_data.py:44:    logger.info(f"{label} command: {rendered}")
+pipeline/stage_02_align_data.py:54:        logger.info(f"{label} stdout: {result.stdout.strip()}")
+pipeline/stage_02_align_data.py:56:        logger.info(f"{label} stderr: {result.stderr.strip()}")
+pipeline/stage_02_align_data.py:128:def _record_bwa_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+pipeline/stage_02_align_data.py:144:            logger.info(f"Recorded BWA version: {version_text[0]}")
+pipeline/stage_02_align_data.py:147:        logger.warning(f"Unable to record BWA version: {exc}")
+pipeline/stage_02_align_data.py:153:    logger,
+pipeline/stage_02_align_data.py:167:    logger.info("Stage 02: aligning sequencing reads.")
+pipeline/stage_02_align_data.py:171:        logger.info("Stage 02 skipped internally because execution mode is not full_pipeline.")
+pipeline/stage_02_align_data.py:211:    logger.info(f"FASTQ R1 reads detected: {read_count_r1}")
+pipeline/stage_02_align_data.py:212:    logger.info(f"FASTQ R2 reads detected: {read_count_r2}")
+pipeline/stage_02_align_data.py:214:    run_id = state["run"]["run_id"]
+pipeline/stage_02_align_data.py:216:    aligned_bam = Path(paths["interim_dir"]) / f"{sample_id}_{run_id}.aligned.bam"
+pipeline/stage_02_align_data.py:217:    sam_output = Path(paths["interim_dir"]) / f"{sample_id}_{run_id}.aligned.sam"
+pipeline/stage_02_align_data.py:240:    logger.info(f"Temporary SAM output path: {sam_output}")
+pipeline/stage_02_align_data.py:251:        logger.info(f"BWA stderr: {bwa_result.stderr.strip()}")
+pipeline/stage_02_align_data.py:266:    _run_command(view_command, logger, "samtools view")
+pipeline/stage_02_align_data.py:300:        _record_bwa_version(config, state, logger)
+pipeline/stage_02_align_data.py:302:    logger.info(f"Aligned BAM written to: {aligned_bam}")
