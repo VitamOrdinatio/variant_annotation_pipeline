@@ -88,6 +88,8 @@ def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
     base_results_dir = ensure_directory(config["output"]["base_results_dir"])
     run_dir = ensure_directory(base_results_dir / run_id)
     logs_dir = ensure_directory(run_dir / "logs")
+    metadata_dir = ensure_directory(run_dir / "metadata")
+    stage_summaries_dir = ensure_directory(metadata_dir / "stage_summaries")
     interim_dir = ensure_directory(run_dir / "interim")
     processed_dir = ensure_directory(run_dir / "processed")
     reports_dir = ensure_directory(run_dir / "reports")
@@ -98,13 +100,19 @@ def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
         "base_results_dir": str(base_results_dir),
         "run_dir": str(run_dir),
         "logs_dir": str(logs_dir),
+        "metadata_dir": str(metadata_dir),
+        "stage_summaries_dir": str(stage_summaries_dir),
         "interim_dir": str(interim_dir),
         "processed_dir": str(processed_dir),
         "reports_dir": str(reports_dir),
         "final_dir": str(final_dir),
         "validation_dir": str(validation_dir),
-        "config_snapshot_path": str(run_dir / "config_used.yaml"),
-        "metadata_path": str(run_dir / "metadata.json"),
+        "legacy_config_snapshot_path": str(run_dir / "config_used.yaml"),
+        "legacy_metadata_path": str(run_dir / "metadata.json"),
+        "config_snapshot_path": str(metadata_dir / "config_snapshot.yaml"),
+        "run_metadata_path": str(metadata_dir / "run_metadata.json"),
+        "run_fingerprint_path": str(metadata_dir / "run_fingerprint.json"),
+        "runtime_profile_path": str(metadata_dir / "runtime_profile.tsv"),
         "log_path": str(logs_dir / config["logging"]["log_filename"]),
     }
 
