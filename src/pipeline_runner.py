@@ -11,15 +11,18 @@ Responsibilities:
 
 from __future__ import annotations
 
+import csv
 import importlib
 import json
+import logging
 import socket
 import traceback
+
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-import logging
+
 
 
 STAGE_ORDER = [
@@ -48,7 +51,7 @@ def generate_run_id() -> str:
     str
         Run identifier of the form run_YYYY_MM_DD_HHMMSS.
     """
-    return datetime.now().strftime("run_%Y_%m_%d_%H%M%S")
+    return datetime.now(timezone.utc).strftime("run_%Y_%m_%d_%H%M%S")
 
 
 def ensure_directory(path: str | Path) -> Path:
@@ -185,7 +188,7 @@ def initialize_state(
     dict[str, Any]
         Initialized state object.
     """
-    now = datetime.now().isoformat(timespec="seconds")
+    now = utc_now_iso()
     execution_mode = config["mode"]["execution_mode"]
     machine_id = socket.gethostname()
 
@@ -276,6 +279,33 @@ def get_stage_module(stage_name: str):
         Imported Python module.
     """
     return importlib.import_module(f"pipeline.{stage_name}")
+
+
+def utc_now_iso() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+
+def elapsed_seconds(start_iso: str, end_iso: str) -> float:
+    start = datetime.fromisoformat(start_iso)
+    end = datetime.fromisoformat(end_iso)
+    return round((end - start).total_seconds(), 3)
+
+
+def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:
+    fieldnames = ["stage", "status", "start_time", "end_time", "elapsed_seconds"]
+    output_path = Path(runtime_profile_path)
+    with output_path.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, delimiter="\t")
+        writer.writeheader()
+        for stage_name in STAGE_ORDER:
+            stage_data = state.get("stage_outputs", {}).get(stage_name, {})
+            writer.writerow({
+                "stage": stage_name,
+                "status": stage_data.get("status", "not_started"),
+                "start_time": stage_data.get("start_time", "NA"),
+                "end_time": stage_data.get("end_time", "NA"),
+                "elapsed_seconds": stage_data.get("elapsed_seconds", "NA"),
+            })
 
 
 def write_metadata(state: dict[str, Any], metadata_path: str) -> None:
@@ -393,9 +423,22 @@ def run_pipeline(
         for stage_name in STAGE_ORDER:
             if not should_run_stage(config, stage_name):
                 logger.info(f"Skipping stage: {stage_name}")
-                state["stage_outputs"][stage_name] = {"status": "skipped"}
+                skip_time = utc_now_iso()
+                state["stage_outputs"][stage_name] = {
+                    "status": "skipped",
+                    "start_time": skip_time,
+                    "end_time": skip_time,
+                    "elapsed_seconds": 0.0,
+                }
                 continue
 
+            stage_start = utc_now_iso()
+            state["stage_outputs"][stage_name] = {
+                "status": "running",
+                "start_time": stage_start,
+                "end_time": None,
+                "elapsed_seconds": None,
+            }
             logger.info(f"Starting stage: {stage_name}")
             stage_module = get_stage_module(stage_name)
 
@@ -415,6 +458,12 @@ def run_pipeline(
             if state["stage_outputs"][stage_name].get("status") == "not_started":
                 state["stage_outputs"][stage_name]["status"] = "success"
 
+            stage_end = utc_now_iso()
+            state["stage_outputs"][stage_name].update({
+                "status": "success",
+                "end_time": stage_end,
+                "elapsed_seconds": elapsed_seconds(stage_start, stage_end),
+            })
             logger.info(f"Completed stage: {stage_name}")
 
             if config["runtime"]["record_tool_versions"]:
@@ -456,13 +505,20 @@ def run_pipeline(
             last_started = stage_name
             break
         if last_started is not None:
+            fail_time = utc_now_iso()
+            prior_start = state["stage_outputs"].get(last_started, {}).get("start_time", fail_time)
             state["stage_outputs"][last_started] = {
                 "status": "failed",
+                "start_time": prior_start,
+                "end_time": fail_time,
+                "elapsed_seconds": elapsed_seconds(prior_start, fail_time),
                 "error": str(exc),
             }
 
     finally:
-        state["run"]["end_time"] = datetime.now().isoformat(timespec="seconds")
+        state["run"]["end_time"] = utc_now_iso()
+        write_runtime_profile(state, run_paths["runtime_profile_path"])
+        logger.info(f"Runtime profile written to: {run_paths['runtime_profile_path']}")        
         write_metadata(state, run_paths["legacy_metadata_path"])
         logger.info(
             f"Legacy metadata written to: "
