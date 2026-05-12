@@ -379,6 +379,45 @@ def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> N
             })
 
 
+def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
+    stage_outputs = state.get("stage_outputs", {})
+    stage_status_counts: dict[str, int] = {}
+    for stage_data in stage_outputs.values():
+        status = stage_data.get("status", "unknown")
+        stage_status_counts[status] = stage_status_counts.get(status, 0) + 1
+
+    run = state.get("run", {})
+    run_metadata = {
+        "run": {
+            "run_id": run.get("run_id"),
+            "status": run.get("status"),
+            "pipeline_name": run.get("pipeline_name"),
+            "pipeline_version": run.get("pipeline_version"),
+            "execution_mode": run.get("execution_mode"),
+            "machine_id": run.get("machine_id"),
+            "start_time": run.get("start_time"),
+            "end_time": run.get("end_time"),
+            "config_path": run.get("config_path"),
+            "config_snapshot_path": run.get("config_snapshot_path"),
+        },
+        "summary": {
+            "stage_count": len(stage_outputs),
+            "stage_status_counts": stage_status_counts,
+            "warning_count": len(state.get("warnings", [])),
+            "error_count": len(state.get("errors", [])),
+        },
+        "artifacts": {
+            "run_summary_report": state.get("reports", {}).get("run_summary_report"),
+            "gene_summary_table": state.get("reports", {}).get("gene_summary_table"),
+            "prioritized_table": state.get("artifacts", {}).get("prioritized_table"),
+            "validation_notes": state.get("artifacts", {}).get("validation_notes"),
+        },
+    }
+
+    with Path(run_metadata_path).open("w", encoding="utf-8") as handle:
+        json.dump(run_metadata, handle, indent=2, sort_keys=True)
+
+
 def write_metadata(state: dict[str, Any], metadata_path: str) -> None:
     """
     Write the current state to metadata JSON.
@@ -610,6 +649,8 @@ def run_pipeline(
         state["run"]["end_time"] = utc_now_iso()
         write_runtime_profile(state, run_paths["runtime_profile_path"])
         logger.info(f"Runtime profile written to: {run_paths['runtime_profile_path']}")        
+        write_run_metadata(state, run_paths["run_metadata_path"])
+        logger.info(f"Run metadata written to: {run_paths['run_metadata_path']}")        
         write_metadata(state, run_paths["legacy_metadata_path"])
         logger.info(
             f"Legacy metadata written to: "
