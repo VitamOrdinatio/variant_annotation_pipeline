@@ -598,11 +598,14 @@ def run_pipeline(
                 state["stage_outputs"][stage_name]["status"] = "success"
 
             stage_end = utc_now_iso()
-            state["stage_outputs"][stage_name].update({
+            stage_output = state["stage_outputs"].get(stage_name, {})
+            stage_output.update({
                 "status": "success",
+                "start_time": stage_start,
                 "end_time": stage_end,
                 "elapsed_seconds": elapsed_seconds(stage_start, stage_end),
             })
+            state["stage_outputs"][stage_name] = stage_output
             logger.info(f"Completed stage: {stage_name}")
             write_stage_summary(
                 stage_name=stage_name,
