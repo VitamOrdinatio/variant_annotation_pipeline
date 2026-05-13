@@ -16,7 +16,9 @@ import hashlib
 import importlib
 import json
 import logging
+import os
 import platform
+import shutil
 import socket
 import subprocess
 import sys
@@ -210,6 +212,7 @@ def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
         "run_metadata_path": str(metadata_dir / "run_metadata.json"),
         "run_fingerprint_path": str(metadata_dir / "run_fingerprint.json"),
         "runtime_profile_path": str(metadata_dir / "runtime_profile.tsv"),
+        "stage_resource_snapshot_path": str(metadata_dir / "stage_resource_snapshots.tsv"),
         "log_path": str(logs_dir / config["logging"]["log_filename"]),
     }
 
@@ -342,6 +345,61 @@ def elapsed_seconds(start_iso: str, end_iso: str) -> float:
     return round((end - start).total_seconds(), 3)
 
 
+def collect_resource_snapshot(run_dir: str | Path) -> dict[str, Any]:
+    """
+    Collect lightweight runtime resource telemetry.
+
+    Parameters
+    ----------
+    run_dir : str | Path
+        Current run directory.
+
+    Returns
+    -------
+    dict[str, Any]
+        Lightweight runtime resource snapshot.
+    """
+    run_path = Path(run_dir)
+
+    try:
+        load1, load5, load15 = os.getloadavg()
+    except Exception:
+        load1, load5, load15 = ("NA", "NA", "NA")
+
+    try:
+        meminfo = {}
+        with open("/proc/meminfo", "r", encoding="utf-8") as handle:
+            for line in handle:
+                parts = line.split(":")
+                if len(parts) >= 2:
+                    meminfo[parts[0].strip()] = parts[1].strip()
+
+        mem_available = meminfo.get("MemAvailable", "NA")
+        mem_total = meminfo.get("MemTotal", "NA")
+
+    except Exception:
+        mem_available = "NA"
+        mem_total = "NA"
+
+    try:
+        disk = shutil.disk_usage(run_path)
+        disk_free_gb = round(disk.free / (1024 ** 3), 2)
+    except Exception:
+        disk_free_gb = "NA"
+
+    return {
+        "timestamp": utc_now_iso(),
+        "hostname": socket.gethostname(),
+        "cpu_count": os.cpu_count(),
+        "loadavg_1m": load1,
+        "loadavg_5m": load5,
+        "loadavg_15m": load15,
+        "mem_total": mem_total,
+        "mem_available": mem_available,
+        "disk_free_gb": disk_free_gb,
+    }
+
+
 def write_stage_summary(stage_name: str, stage_data: dict[str, Any], stage_summaries_dir: str) -> None:
     stage_number = stage_name.split("_")[1]
     output_path = Path(stage_summaries_dir) / f"stage_{stage_number}_summary.json"
@@ -375,6 +433,58 @@ def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> N
                 "end_time": stage_data.get("end_time", "NA"),
                 "elapsed_seconds": stage_data.get("elapsed_seconds", "NA"),
             })
+
+
+def append_stage_resource_snapshot(
+    stage_name: str,
+    phase: str,
+    snapshot: dict[str, Any],
+    output_path: str,
+) -> None:
+    """
+    Append lightweight stage resource telemetry snapshot.
+
+    Parameters
+    ----------
+    stage_name : str
+        Pipeline stage name.
+    phase : str
+        start or end.
+    snapshot : dict[str, Any]
+        Resource snapshot payload.
+    output_path : str
+        TSV output path.
+    """
+    fieldnames = [
+        "timestamp",
+        "stage",
+        "phase",
+        "hostname",
+        "cpu_count",
+        "loadavg_1m",
+        "loadavg_5m",
+        "loadavg_15m",
+        "mem_total",
+        "mem_available",
+        "disk_free_gb",
+    ]
+
+    output_file = Path(output_path)
+    write_header = not output_file.exists()
+
+    with output_file.open("a", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=fieldnames, delimiter="\t")
+
+        if write_header:
+            writer.writeheader()
+
+        row = {
+            "stage": stage_name,
+            "phase": phase,
+            **snapshot,
+        }
+
+        writer.writerow(row)
 
 
 def stable_json_dumps(payload: dict[str, Any]) -> str:
@@ -579,6 +689,14 @@ def run_pipeline(
                 "elapsed_seconds": None,
             }
             logger.info(f"Starting stage: {stage_name}")
+            start_snapshot = collect_resource_snapshot(run_paths["run_dir"])
+
+            append_stage_resource_snapshot(
+                stage_name=stage_name,
+                phase="start",
+                snapshot=start_snapshot,
+                output_path=run_paths["stage_resource_snapshot_path"],
+            )            
             stage_module = get_stage_module(stage_name)
 
             if not hasattr(stage_module, "run_stage"):
@@ -607,6 +725,14 @@ def run_pipeline(
             })
             state["stage_outputs"][stage_name] = stage_output
             logger.info(f"Completed stage: {stage_name}")
+            end_snapshot = collect_resource_snapshot(run_paths["run_dir"])
+
+            append_stage_resource_snapshot(
+                stage_name=stage_name,
+                phase="end",
+                snapshot=end_snapshot,
+                output_path=run_paths["stage_resource_snapshot_path"],
+            )            
             write_stage_summary(
                 stage_name=stage_name,
                 stage_data=state["stage_outputs"][stage_name],
