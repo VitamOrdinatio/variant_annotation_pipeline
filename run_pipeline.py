@@ -126,15 +126,6 @@ def main() -> int:
             logger=logger,
         )
 
-        # Rebind logger from bootstrap log to canonical run log.
-        logger = initialize_logger(
-            log_path=run_paths["log_path"],
-            level=config["logging"]["level"],
-        )
-
-        logger.info("Canonical run logger initialized.")
-        logger.info(f"Canonical log path: {run_paths['log_path']}")
-
         print("Pipeline execution complete.")
         print(f"Run status: {state['run']['status']}")
         print(f"Run ID: {state['run']['run_id']}")
