@@ -12,22 +12,20 @@ Responsibilities:
 from __future__ import annotations
 
 import csv
+import hashlib
 import importlib
 import json
 import logging
+import platform
 import socket
+import subprocess
+import sys
 import traceback
 
 from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
-import hashlib
-import platform
-import subprocess
-import sys
-
-
 
 STAGE_ORDER = [
     "stage_01_load_data",
@@ -482,6 +480,18 @@ def should_run_stage(config: dict[str, Any], stage_name: str) -> bool:
         }
         return stage_name not in skipped_stages
 
+    if execution_mode == "post_vep_fixture":
+        skipped_stages = {
+            "stage_01_load_data",
+            "stage_02_align_data",
+            "stage_03_process_bam",
+            "stage_04_qc_aligned_reads",
+            "stage_05_call_variants",
+            "stage_06_normalize_vcf",
+            "stage_07_annotate_variants",
+        }
+        return stage_name not in skipped_stages
+
     return True
 
 
@@ -531,6 +541,10 @@ def run_pipeline(
         run_id=run_id,
         run_paths=run_paths,
     )
+
+    if config["mode"]["execution_mode"] == "post_vep_fixture":
+        state["artifacts"]["annotated_table"] = config["input"]["annotated_tsv"]
+        state["artifacts"]["annotated_vcf"] = config["input"]["vcf"]["input_vcf"]
 
     state["run"]["status"] = "running"
 

@@ -90,10 +90,10 @@ def validate_config(config: dict[str, Any]) -> None:
         _require_nested(config, key_path)
 
     execution_mode = config["mode"]["execution_mode"]
-    if execution_mode not in {"full_pipeline", "annotation_only"}:
+    if execution_mode not in {"full_pipeline", "annotation_only", "post_vep_fixture"}:
         raise ValueError(
             f"Unsupported mode.execution_mode: {execution_mode}. "
-            "Expected one of: full_pipeline, annotation_only"
+            "Expected one of: full_pipeline, annotation_only, post_vep_fixture"
         )
 
     if config["project"]["pipeline_name"] != "variant_annotation_pipeline":
@@ -101,14 +101,15 @@ def validate_config(config: dict[str, Any]) -> None:
             "project.pipeline_name must be 'variant_annotation_pipeline' for Repo 2 v1.0"
         )
 
-    if config["input"]["bioproject_accession"] != "PRJNA200694":
-        raise ValueError("Repo 2 v1.0 is locked to input.bioproject_accession = PRJNA200694")
+    if execution_mode in {"full_pipeline", "annotation_only"}:
+        if config["input"]["bioproject_accession"] != "PRJNA200694":
+            raise ValueError("Repo 2 v1.0 is locked to input.bioproject_accession = PRJNA200694")
 
-    if config["input"]["sample_id"] != "HG002":
-        raise ValueError("Repo 2 v1.0 is locked to input.sample_id = HG002")
+        if config["input"]["sample_id"] != "HG002":
+            raise ValueError("Repo 2 v1.0 is locked to input.sample_id = HG002")
 
-    if config["input"]["sra_accession"] != "SRR12898354":
-        raise ValueError("Repo 2 v1.0 is locked to input.sra_accession = SRR12898354")
+        if config["input"]["sra_accession"] != "SRR12898354":
+            raise ValueError("Repo 2 v1.0 is locked to input.sra_accession = SRR12898354")
 
     if config["reference"]["genome_build"] != "GRCh38":
         raise ValueError("Repo 2 v1.0 is locked to reference.genome_build = GRCh38")

@@ -1,0 +1,117 @@
+project:
+  name: variant_annotation_pipeline
+  pipeline_name: variant_annotation_pipeline
+  version: v1.0
+
+mode:
+  execution_mode: post_vep_fixture
+
+input:
+  bioproject_accession: EXAMPLE
+  sample_id: EXAMPLE
+  sample_alias: EXAMPLE
+  sra_accession: EXAMPLE
+  annotated_tsv: data/example/example_annotated_variants.tsv
+
+  fastq:
+    r1: null
+    r2: null
+    compressed: false
+    paired_end: true
+
+  sra:
+    enabled: false
+    sra_dir: null
+    sra_file: null
+
+  vcf:
+    input_vcf: data/example/example_annotated_variants.vcf
+
+reference:
+  genome_build: GRCh38
+  fasta_path: data/example/example_reference.fa
+  fasta_index: null
+  bwa_index_prefix: null
+  sequence_dictionary: null
+
+validation:
+  enable_validation: false
+  enable_manual_igv_review_prep: false
+  giab_benchmark_vcf: null
+  giab_benchmark_index: null
+  giab_benchmark_bed: null
+
+tools:
+  bwa:
+    executable: bwa
+    mode: mem
+    threads: 1
+
+  samtools:
+    executable: samtools
+    threads: 1
+
+  gatk:
+    executable: gatk
+    java_options: "-Xmx1g"
+    haplotypecaller_emit_mode: discovery
+
+  vep:
+    executable: vep
+    cache_dir: null
+    assembly: GRCh38
+    offline: true
+    fork: 1
+
+annotation:
+  engine: vep
+  include_clinvar: false
+  include_population_frequencies: false
+  population_sources: []
+
+gene_sets:
+  mitocarta_path: data/example/example_gene_set_mito.tsv
+  genes4epilepsy_path: data/example/example_gene_set_epilepsy.tsv
+  required_flags:
+    - mito_flag
+    - epilepsy_flag
+
+filtering:
+  max_af_gnomad: 0.01
+  max_af_exac: 0.01
+  max_af_1000genomes: 0.01
+  allowed_coding_consequences:
+    - missense_variant
+    - stop_gained
+    - frameshift_variant
+    - splice_donor_variant
+    - splice_acceptor_variant
+  noncoding_priority_terms:
+    - intron_variant
+    - regulatory_region_variant
+    - upstream_gene_variant
+    - downstream_gene_variant
+
+prioritization:
+  enable_gene_set_overlays: true
+  prioritize_clinvar_pathogenic: true
+  prioritize_high_impact_consequences: true
+  prioritize_mito_genes: true
+  prioritize_epilepsy_genes: true
+
+output:
+  base_results_dir: results
+  write_interim: true
+  write_processed: true
+  write_reports: true
+  compress_vcf_outputs: false
+
+logging:
+  level: INFO
+  log_to_file: true
+  log_filename: pipeline.log
+
+runtime:
+  fail_fast: true
+  record_tool_versions: false
+  deterministic_mode: true
