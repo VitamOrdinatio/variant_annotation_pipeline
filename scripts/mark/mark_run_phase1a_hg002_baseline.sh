@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+source .venv/bin/activate
+
 TS="$(date -u +%Y%m%dT%H%M%SZ)"
 
 DESKTOP_DIR="/root/Desktop"
