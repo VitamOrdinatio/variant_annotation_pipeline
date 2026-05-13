@@ -16,7 +16,7 @@ echo "[INFO] Working directory: $(pwd)" | tee -a "$LOG"
 echo "[INFO] Git commit: $(git rev-parse HEAD)" | tee -a "$LOG"
 
 echo "[INFO] Running pytest preflight" | tee -a "$LOG"
-pytest -q 2>&1 | tee -a "$LOG"
+python -m pytest -q 2>&1 | tee -a "$LOG"
 
 echo "[INFO] Running post-VEP fixture preflight" | tee -a "$LOG"
 python run_pipeline.py --config config/config.example.post_vep.yaml 2>&1 | tee -a "$LOG"
