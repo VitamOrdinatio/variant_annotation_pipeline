@@ -101,7 +101,9 @@ def validate_config(config: dict[str, Any]) -> None:
             "project.pipeline_name must be 'variant_annotation_pipeline' for Repo 2 v1.0"
         )
 
-    if execution_mode in {"full_pipeline", "annotation_only"}:
+    allow_non_hg002 = config.get("execution_profile", {}).get("allow_non_hg002", False)
+
+    if execution_mode in {"full_pipeline", "annotation_only"} and not allow_non_hg002:
         if config["input"]["bioproject_accession"] != "PRJNA200694":
             raise ValueError("Repo 2 v1.0 is locked to input.bioproject_accession = PRJNA200694")
 
