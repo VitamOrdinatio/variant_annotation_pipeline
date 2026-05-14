@@ -3,8 +3,10 @@
 
 **Repository:** variant_annotation_pipeline  
 **Branch:** `phase0-logging-foundation`  
+
 **Phase:** Phase 1A  
-**Status:** IN PROGRESS  
+**Status:** PHASE 1A HG002 COMPLETE — WES EXTENSION ACTIVE
+
 **Date Started:** 2026-05-13  
 **Hardware:** MARK1 (`VandPyMolGPUResearch`)  
 
@@ -58,6 +60,31 @@ Phase 0 addressed this limitation by introducing:
 - operational execution harnesses
 
 Phase 1A now applies those systems to a real HG002 production rerun.
+
+The Phase 1A HG002 rerun completed successfully with an observed runtime of approximately:
+
+```text
+~22 h 44 m
+```
+
+This materially revised the earlier approximate:
+
+```text
+~36 h
+```
+
+historical runtime estimate.
+
+Primary observed runtime bottlenecks were:
+
+- Stage 05 — Variant Calling
+- Stage 02 — Alignment
+
+Critically:
+
+```text
+VEP annotation was NOT the dominant runtime bottleneck.
+```
 
 ---
 
@@ -138,6 +165,19 @@ However, this does NOT yet imply the overall pipeline is near-optimal.
 
 ---
 
+# Runtime Telemetry Tracking
+
+Telemetry observations are currently being collected prior to deliberate optimization efforts in order to preserve trustworthy pre-optimization runtime baselines.
+
+| Input Dataset | Assay Type | MARK Node | VAP Version | Runtime | Status | Notes |
+|---|---|---|---|---|---|---|
+| HG002 | WGS | MARK1 | v1 | ~22 h 44 m | Success | Instrumented production rerun |
+| ERR10619281 | WES | MARK1 | v1 | ~5 h 04 m | Success | Saudi epilepsy cohort baseline |
+| ERR10619300 | WES | MARK1 | v1 | Pending | Pending | Awaiting execution |
+| ERR10619281 (rerun) | WES | MARK1 | v1 | Pending | Planned | Reproducibility comparison rerun |
+
+---
+
 ## Emerging Strategic Consideration
 
 An important realization during Phase 1A is that the prior:
@@ -196,11 +236,17 @@ including:
 `ERR10619281`
 `ERR10619300`
 
-If runtime remains near:
+If WGS-scale runtime remains near:
 
-`~36 hours/SRA`
+`~22–23 hours/SRA`
 
-then horizontal scaling infrastructure becomes strategically important.
+then horizontal scaling infrastructure becomes strategically important for large WGS cohort execution.
+
+However, early Saudi epilepsy WES telemetry suggests substantially improved runtime economics:
+
+`~5 hours/SRA`
+
+This materially improves the feasibility of large-scale epilepsy cohort processing on MARK-class infrastructure.
 
 This includes:
 
@@ -289,13 +335,21 @@ This marks an important operational maturity milestone for the repository.
 
 ## Current Status
 
-### Phase 1A
+### Phase 1A HG002 Baseline
 
-`RUNNING`
+`COMPLETE`
 
-Current observed stage during drafting:
+### Phase 1A WES Extension
 
-`Stage 02 — Alignment`
+`ACTIVE`
+
+Current active execution focus:
+
+- Saudi epilepsy cohort baseline characterization
+- WES runtime telemetry collection
+- cohort reproducibility assessment
+- metadata model refinement
+- assay-type-aware provenance correction
 
 ---
 
@@ -320,6 +374,49 @@ These artifacts will drive:
 
 ---
 
+## Current Known Limitations
+
+Current known limitations identified during Phase 1A include:
+
+- residual HG002 assumptions remain in portions of the codebase
+- assay type reporting currently defaults to WGS
+- manifest-driven cohort execution has not yet been implemented
+- multi-node orchestration is not yet implemented
+- telemetry-driven optimization has not yet been performed
+- runtime economics remain influenced by virtualized MARK infrastructure
+
+These limitations are now being addressed incrementally as VAP transitions from HG002-centric validation toward generalized cohort-scale execution.
+
+---
+
+## Phase 1A Follow-Up Decisions
+
+Successful execution of the first Saudi epilepsy WES sample revealed that VAP has now progressed beyond HG002-only operational assumptions.
+
+As a result, the following strategic decisions were made:
+
+- retain HG002 locking behavior as the default v1 safety model
+- formalize controlled non-HG002 execution using:
+  - `execution_profile.allow_non_hg002=true`
+- transition assay type reporting toward config-driven provenance
+- execute additional WES telemetry baselines before optimization efforts
+- rerun ERR10619281 after metadata refinements to assess reproducibility behavior
+
+This strategy preserves:
+
+- reproducibility safeguards
+- provenance clarity
+- operational stability
+
+while enabling:
+
+- cohort-scale execution
+- generalized sample processing
+- future manifest-driven orchestration
+- downstream RDGP/GSC/VDB integration
+
+---
+
 ## Preliminary Assessment
 
 Phase 1A has already validated several important operational advances:
@@ -331,7 +428,7 @@ Phase 1A has already validated several important operational advances:
 - deterministic fixture preflight execution
 - real-time runtime observation workflows
 
-The final runtime analysis will determine whether future effort should prioritize:
+Ongoing telemetry analysis will help determine whether future effort should prioritize:
 
 `vertical optimization`
 
