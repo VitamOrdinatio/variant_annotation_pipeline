@@ -16,6 +16,7 @@ input:
   sample_id: HG002
   sample_alias: NA24385
   sra_accession: SRR12898354
+  assay_type: WGS
 
   fastq:
     r1: /data/storage/fastq/SRR12898354_1.fastq.gz

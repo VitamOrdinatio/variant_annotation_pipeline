@@ -146,6 +146,9 @@ def run_stage(
     sample_id = _validate_required_string(input_cfg.get("sample_id"), "input.sample_id")
     sample_alias = _validate_required_string(input_cfg.get("sample_alias"), "input.sample_alias")
     sra_accession = _validate_required_string(input_cfg.get("sra_accession"), "input.sra_accession")
+    assay_type = _validate_required_string(input_cfg.get("assay_type"), "input.assay_type").upper()
+    if assay_type not in {"WGS", "WES"}:
+        raise ValueError(f"Unsupported input.assay_type: {assay_type}. Expected one of: WGS, WES")    
     reference_genome = _validate_required_string(
         reference_cfg.get("genome_build"), "reference.genome_build"
     )
@@ -271,7 +274,7 @@ def run_stage(
         "bioproject_accession": bioproject_accession,
         "sra_accession": sra_accession,
         "reference_genome": reference_genome,
-        "assay_type": "WGS",
+        "assay_type": assay_type,
     }
 
     state["gene_sets"]["mitocarta_path"] = mitocarta_summary["path"]
@@ -297,6 +300,7 @@ def run_stage(
         "execution_mode": mode,
         "sample_id": sample_id,
         "sra_accession": sra_accession,
+        "assay_type": assay_type,
         "reference_genome": reference_genome,
         "file_count": len(files_checked),
         "validation_check_count": len(validation_checked),

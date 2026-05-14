@@ -17,6 +17,7 @@ input:
   sample_id: ERR10619300
   sample_alias: ERR10619300
   sra_accession: ERR10619300
+  assay_type: WES
 
   fastq:
     r1: /data/storage/fastq/ERR10619300_1.fastq.gz
