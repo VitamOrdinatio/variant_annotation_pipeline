@@ -91,7 +91,13 @@ def _check_locked_dataset_metadata(
     sra_accession: str,
     reference_genome: str,
     warnings: list[str],
+    allow_non_hg002: bool = False,
 ) -> None:
+    if allow_non_hg002:
+        warnings.append(
+            "HG002 dataset lock bypassed because execution_profile.allow_non_hg002=true."
+        )
+        return
     required_pairs = {
         "bioproject_accession": bioproject_accession,
         "sample_id": sample_id,
@@ -155,6 +161,9 @@ def run_stage(
         sra_accession=sra_accession,
         reference_genome=reference_genome,
         warnings=warnings,
+        allow_non_hg002=bool(
+            config.get("execution_profile", {}).get("allow_non_hg002", False)
+        ),
     )
 
     files_checked: list[dict[str, Any]] = []
