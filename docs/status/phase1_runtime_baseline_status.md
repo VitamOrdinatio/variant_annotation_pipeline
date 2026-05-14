@@ -417,6 +417,35 @@ while enabling:
 
 ---
 
+## Immediate Implementation Boundary
+
+Before additional Saudi WES baseline runs, VAP will receive only minimal provenance-correctness updates.
+
+Allowed near-term changes:
+
+- make `input.assay_type` config-driven
+- propagate assay type into Stage 01 sample state
+- ensure WES configs report `assay_type: WES`
+- preserve `execution_profile.allow_non_hg002=true` as the explicit controlled bypass for non-HG002 execution
+- add only narrowly scoped tests needed to protect assay-type provenance behavior
+
+Deferred until after telemetry collection:
+
+- runtime optimization
+- thread/fork tuning
+- Java/GATK tuning
+- manifest-driven cohort execution
+- multi-node orchestration
+- broad refactoring
+- downstream interpretation redesign
+- AlphaGenome integration
+
+Rationale:
+
+The immediate priority is to collect trustworthy baseline telemetry for Saudi WES samples while preventing metadata/provenance violations. Broader VAP optimization should wait until HG002 and Saudi WES telemetry have been collected and compared.
+
+---
+
 ## Preliminary Assessment
 
 Phase 1A has already validated several important operational advances:

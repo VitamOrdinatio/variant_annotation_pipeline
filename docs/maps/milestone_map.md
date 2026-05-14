@@ -42,6 +42,7 @@ VAP produces sample-linked variant-level evidence suitable for ingestion into VD
 
 Fields:
 - sample_id
+- assay_type
 - chrom
 - pos
 - ref
@@ -61,11 +62,13 @@ Fields:
 - run_id
 - source_pipeline
 
+
 ---
 
 ### Example Record (v1)
 
 - sample_id: SAMPLE_001
+- assay_type: WGS
 - chrom: chr15
 - pos: 89875948
 - ref: A
@@ -95,11 +98,15 @@ variant_id is deterministically derived from (chrom, pos, ref, alt) in v1.
 VAP must produce variant-level evidence in a form that can be ingested into VDB without ambiguity or lossy transformation.
 
 At minimum, VAP outputs must preserve:
+
 - sample identity
+- assay type (WGS/WES)
 - variant identity (chrom, pos, ref, alt)
 - annotation metadata
 - provenance metadata
 - quality flags
+- execution mode
+- run-level provenance metadata
 
 ---
 
@@ -173,6 +180,7 @@ Goal: Output begins to resemble clinical interpretation inputs
     - VCF / table outputs preserve fields required by VDB ingestion
     - low-quality vs passing calls are distinguishable
     - candidate variant filtering behaves consistently under fixed thresholds
+    - repeated execution on identical datasets produces structurally stable outputs and provenance-consistent metadata
 - Document: 
     - implementation details (file formats, tools, compute constraints) 
 
@@ -208,3 +216,8 @@ VAP is considered portfolio-ready when:
 - direct ingestion into VDB
 - compatibility with GSC-derived overlay workflows via VDB
 - richer annotation sources for downstream RDGP support
+- manifest-driven cohort execution orchestration
+- multi-node distributed execution support
+- cohort-scale telemetry-aware scheduling
+
+---

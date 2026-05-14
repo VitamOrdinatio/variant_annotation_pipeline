@@ -406,16 +406,50 @@ These are deferred to Phase 1+.
 
 # Recommended Next Phase
 
-## Phase 1 — MARK Runtime Profiling and Optimization
+# Phase 0 Strategic Validation
+
+Subsequent Phase 1A execution validated the strategic value of the Phase 0 observability-first approach.
+
+Successful outcomes enabled by the Phase 0 architecture included:
+
+- instrumented HG002 production reruns
+- runtime telemetry collection
+- stage-level bottleneck identification
+- tmux-managed operational execution
+- real-world epilepsy WES execution
+- provenance-rich runtime characterization
+- deterministic metadata comparison across reruns
+
+Most importantly, Phase 0 enabled VAP development to transition from:
+
+```text
+speculative optimization
+```
+
+toward:
+
+```text
+evidence-driven operational engineering
+```
+
+This materially reduced future optimization uncertainty.
+
+---
+
+## Phase 1 — Runtime Profiling, Cohort Operationalization, and Optimization
 
 Primary objectives:
 
 - identify runtime bottlenecks
 - profile Stage 01–07 execution
+- characterize WGS vs WES runtime economics
 - increase core utilization
 - optimize I/O behavior
-- reduce HG002 runtime
-- prepare for large-scale epilepsy cohort execution
+- reduce production runtime
+- generalize beyond HG002-only execution assumptions
+- implement assay-aware provenance handling
+- prepare for manifest-driven cohort execution
+- prepare for large-scale epilepsy cohort operationalization
 
 Target workloads include:
 
@@ -433,6 +467,15 @@ MARK1
 MARK2
 MARK3
 ```
+
+Initial successful workloads now include:
+
+```text
+HG002 (WGS)
+ERR10619281 (WES)
+```
+
+with additional WES reproducibility baselines planned.
 
 ---
 
