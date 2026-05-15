@@ -172,9 +172,26 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 | Input Dataset | Assay Type | MARK Node | VAP Version | Runtime | Status | Notes |
 |---|---|---|---|---|---|---|
 | HG002 | WGS | MARK1 | v1 | ~22 h 44 m | Success | Instrumented production rerun |
-| ERR10619281 | WES | MARK1 | v1 | ~5 h 04 m | Success | Saudi epilepsy cohort baseline |
-| ERR10619300 | WES | MARK1 | v1 | Pending | Pending | Awaiting execution |
-| ERR10619281 (rerun) | WES | MARK1 | v1 | Pending | Planned | Reproducibility comparison rerun |
+| ERR10619281 (pre-provenance patch) | WES* | MARK1 | v1 | ~5 h 04 m | Success | First Saudi epilepsy cohort baseline; completed before assay-type provenance patch; runtime valid, metadata partially superseded |
+| ERR10619300 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m | Success | Saudi epilepsy cohort baseline; run_id `run_2026_05_14_164444`; 736,468 prioritized rows |
+| ERR10619281 (post-provenance patch) | WES        | MARK1     | v1          | ~4 h 56 m 30 s | Success | Provenance-corrected rerun completed successfully; run_id `run_2026_05_14_231247`; FASTQ pair counts stable at 83,696,516 reads each; Stage 11/12 rows stable at 811,554; reproducibility comparison candidate established |
+
+**Notes:**
+- ERR10619300 completed successfully after the assay-type provenance patch. This run therefore represents the first Saudi WES baseline with corrected WES-aware metadata/provenance behavior.
+
+- ERR10619281 also completed successfully before the assay-type provenance patch. That first run remains valid as a runtime baseline, but its metadata should be treated as partially superseded for assay-type provenance. A provenance-corrected ERR10619281 rerun is now in progress to support same-sample reproducibility comparison.
+
+---
+
+## Initial Replication Insights
+
+| Dataset     | Run Context                 | FASTQ Pair Counts       | Stage 11/12 Stable Rows |
+| ----------- | --------------------------- | ----------------------- | ----------------------- |
+| ERR10619281 | pre-provenance patch        | 83,696,516 / 83,696,516 | 811,554                 |
+| ERR10619281 | post-provenance patch rerun | 83,696,516 / 83,696,516 | 811,554                 |
+| ERR10619300 | post-provenance patch       | 83,673,287 / 83,673,287 | 736,468                 |
+
+> Deterministic output established for both ERR10619281 VAP runs.
 
 ---
 
@@ -349,7 +366,7 @@ Current active execution focus:
 - WES runtime telemetry collection
 - cohort reproducibility assessment
 - metadata model refinement
-- assay-type-aware provenance correction
+- assay-type-aware provenance correction and same-sample WES rerun validation
 
 ---
 
