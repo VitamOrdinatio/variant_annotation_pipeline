@@ -174,12 +174,24 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 | HG002 | WGS | MARK1 | v1 | ~22 h 44 m | Success | Instrumented production rerun |
 | ERR10619281 (pre-provenance patch) | WES* | MARK1 | v1 | ~5 h 04 m | Success | First Saudi epilepsy cohort baseline; completed before assay-type provenance patch; runtime valid, metadata partially superseded |
 | ERR10619300 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m | Success | Saudi epilepsy cohort baseline; run_id `run_2026_05_14_164444`; 736,468 prioritized rows |
-| ERR10619281 (post-provenance patch) | WES        | MARK1     | v1          | ~4 h 56 m 30 s | Success | Provenance-corrected rerun completed successfully; run_id `run_2026_05_14_231247`; FASTQ pair counts stable at 83,696,516 reads each; Stage 11/12 rows stable at 811,554; reproducibility comparison candidate established |
+| ERR10619281 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m 30 s | Success | Provenance-corrected rerun completed successfully; run_id `run_2026_05_14_231247`; FASTQ pair counts stable at 83,696,516 reads each; Stage 11/12 rows stable at 811,554; reproducibility comparison candidate established |
 
 **Notes:**
 - ERR10619300 completed successfully after the assay-type provenance patch. This run therefore represents the first Saudi WES baseline with corrected WES-aware metadata/provenance behavior.
 
-- ERR10619281 also completed successfully before the assay-type provenance patch. That first run remains valid as a runtime baseline, but its metadata should be treated as partially superseded for assay-type provenance. A provenance-corrected ERR10619281 rerun is now in progress to support same-sample reproducibility comparison.
+- ERR10619281 also completed successfully before the assay-type provenance patch. That first run remains valid as a runtime baseline, but its metadata should be treated as partially superseded for assay-type provenance.
+
+- The provenance-corrected ERR10619281 rerun completed successfully and now serves as the first same-sample reproducibility comparison baseline within the Saudi epilepsy WES telemetry campaign.
+
+## Stage-specific telemetry for ERR10619281
+
+| Stage                      |  Run A | Run B |
+| -------------------------- | -----: | ----: |
+| stage_02_align_data        |  6290s | 6084s |
+| stage_05_call_variants     | 10189s | 9947s |
+| stage_07_annotate_variants |  1232s | 1215s |
+
+> Both runs on ERR10619281 exhibit similar telemetry metrics
 
 ---
 
@@ -202,6 +214,39 @@ The following telemetry snapshot was harvested directly from MARK1 pipeline logs
 - Early evidence suggests strong deterministic stability at the biological-result layer for WES-scale Saudi cohort runs.
 
 This snapshot represents observational telemetry only. Formal reproducibility comparison tooling has not yet been implemented.
+
+---
+
+### Early Reproducibility Interpretation
+
+Initial lightweight reproducibility probing revealed:
+
+- stable FASTQ pair counts (identical)
+- stable Stage 11 prioritized row counts (identical)
+- stable Stage 12 validation row counts (identical)
+- stable Stage 11/12 biological distributions (identical)
+- stable large-output file sizes and line counts (identical)
+- similar stage-runtime behavior across repeated runs
+
+Observed variability was limited primarily to:
+
+- run IDs
+- timestamps
+- git commits
+- config hashes
+- runtime telemetry
+- provenance metadata
+- small JSON/Markdown artifact hashes
+
+Importantly, byte-level hash instability did NOT imply biological-result instability.
+
+This distinction is operationally important because VAP reproducibility is currently being evaluated primarily at the:
+
+- structural-output layer
+- biological-distribution layer
+- cohort-interpretation layer
+
+rather than strict byte-identical artifact reproduction.
 
 ---
 
@@ -263,7 +308,7 @@ including:
 `ERR10619281`
 `ERR10619300`
 
-If WGS-scale runtime remains near:
+If production-scale WGS runtime remains near:
 
 `~22–23 hours/SRA`
 
@@ -307,7 +352,7 @@ Expected stable outputs include:
 - stage summary metrics
 - artifact manifests
 
-Expected variable outputs include:
+Expected operationally variable outputs include:
 
 - run IDs
 - timestamps
@@ -483,6 +528,7 @@ Phase 1A has already validated several important operational advances:
 - provenance infrastructure
 - deterministic fixture preflight execution
 - real-time runtime observation workflows
+- early biological-result-layer reproducibility stability
 
 Ongoing telemetry analysis will help determine whether future effort should prioritize:
 
