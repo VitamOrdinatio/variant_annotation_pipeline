@@ -53,7 +53,7 @@ Phase 0 addressed this limitation by introducing:
 - runtime profiling
 - stage summaries
 - run fingerprints
-- deterministic metadata emission
+- structured metadata emission
 - regression testing
 - lightweight fixture execution
 - stage resource telemetry
@@ -80,11 +80,20 @@ Primary observed runtime bottlenecks were:
 - Stage 05 — Variant Calling
 - Stage 02 — Alignment
 
-Critically:
+---
 
-```text
-VEP annotation was NOT the dominant runtime bottleneck.
-```
+## Early Bottleneck Findings
+
+Contrary to initial expectations, early telemetry suggests that:
+
+- Stage 05 (variant calling)
+- Stage 02 (alignment)
+
+dominate runtime behavior.
+
+VEP annotation was not observed to be the primary runtime bottleneck during current WES telemetry collection.
+
+This finding may substantially influence future optimization priorities.
 
 ---
 
@@ -195,6 +204,31 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 
 ---
 
+## Current Reproducibility Coverage
+
+Current WES reproducibility telemetry includes:
+
+### ERR10619281
+- 1 pre-assay-provenance patch execution
+- 2 post-assay-provenance patch reruns
+
+This dataset currently functions as:
+
+- a metadata-transition reproducibility assessment
+- a biological-result stability assessment across provenance-model evolution
+
+### ERR10619300
+- 2 post-assay-provenance patch executions
+
+This dataset currently functions as:
+
+- a same-patch rerun reproducibility assessment
+- a repeated operational telemetry baseline
+
+Together, these runs provide multiple independent WES-scale reproducibility observations on MARK1 infrastructure.
+
+---
+
 ## Reproducibility Evidence Snapshot
 
 The following telemetry snapshot was harvested directly from MARK1 pipeline logs during the initial Saudi epilepsy cohort execution campaign.
@@ -211,9 +245,49 @@ The following telemetry snapshot was harvested directly from MARK1 pipeline logs
 - ERR10619281 reproduced identical Stage 11 prioritized row counts across both runs.
 - ERR10619281 reproduced identical Stage 12 validation candidate row counts across both runs.
 - The assay-type provenance patch did not perturb downstream Stage 11/12 biological output structure.
-- Early evidence suggests strong deterministic stability at the biological-result layer for WES-scale Saudi cohort runs.
+- Early evidence suggests strong biological-result reproducibility across repeated WES-scale Saudi cohort runs.
 
 This snapshot represents observational telemetry only. Formal reproducibility comparison tooling has not yet been implemented.
+
+Current conclusions remain observational rather than statistically modeled.
+
+---
+
+## Reproducibility Layers
+
+VAP reproducibility is currently evaluated across multiple operational layers:
+
+1. Byte-level reproducibility
+   - exact file hash equivalence
+   - highly sensitive to timestamps, metadata, ordering, and provenance artifacts
+   - sensitive to timestamps, provenance hashes, runtime telemetry, and artifact ordering
+
+2. Structural reproducibility
+   - stable schemas
+   - stable row counts
+   - stable artifact organization
+   - stable stage outputs
+
+3. Biological reproducibility
+   - stable prioritized variant distributions
+   - stable validation candidate distributions
+   - stable cohort interpretation behavior
+
+Current evidence demonstrates strong structural and biological reproducibility across repeated WES-scale execution on MARK1.
+
+---
+
+| Metric | Stable Across Reruns |
+|---|---|
+| FASTQ pair counts | Yes |
+| Stage 11 row counts | Yes |
+| Stage 12 row counts | Yes |
+| Large TSV line counts | Yes |
+| Biological distributions | Yes |
+| Runtime telemetry | Similar but variable |
+| Run IDs | No (expected) |
+| Timestamps | No (expected) |
+| Provenance hashes | No (expected) |
 
 ---
 
@@ -294,6 +368,22 @@ In this scenario, strategic emphasis may shift toward:
 - transitioning to manifest-driven execution
 - scaling horizontally via MARK2/MARK3
 - prioritizing cohort execution over further optimization
+
+---
+
+## Infrastructure Strategy Revision
+
+Early WES telemetry materially revised the expected runtime economics for epilepsy-cohort processing.
+
+Historical assumptions based on HG002-scale WGS runtime (~36h) initially implied that large cohort execution would require aggressive horizontal scaling infrastructure.
+
+However, observed Saudi epilepsy WES runtime (~5h/sample) substantially improved projected cohort feasibility on MARK-class infrastructure.
+
+This revised:
+- execution scheduling expectations
+- cohort throughput assumptions
+- hardware allocation strategy
+- manifest orchestration feasibility
 
 ---
 
@@ -405,6 +495,21 @@ This marks an important operational maturity milestone for the repository.
 
 ---
 
+## Operational Maturity Milestones
+
+Phase 1A introduced several operational maturity improvements:
+
+- detached execution management via tmux
+- MARK-class production execution
+- telemetry harvesting
+- runtime profiling
+- assay-aware provenance correction
+- same-sample rerun reproducibility assessment
+- production-grade run fingerprinting
+- structured metadata artifact generation
+
+---
+
 ## Current Status
 
 ### Phase 1A HG002 Baseline
@@ -456,6 +561,7 @@ Current known limitations identified during Phase 1A include:
 - multi-node orchestration is not yet implemented
 - telemetry-driven optimization has not yet been performed
 - runtime economics remain influenced by virtualized MARK infrastructure
+- byte-identical artifact reproducibility has not yet been formally evaluated
 
 These limitations are now being addressed incrementally as VAP transitions from HG002-centric validation toward generalized cohort-scale execution.
 
@@ -539,3 +645,27 @@ or:
 `horizontal execution scaling`
 
 for large-scale epilepsy cohort processing.
+
+---
+
+## Current Unknowns
+
+The following questions remain under active investigation:
+
+- cross-node reproducibility (MARK1 vs MARK2/3)
+- WGS reproducibility stability
+- long-term cache effects
+- filesystem I/O scaling behavior
+- interval-sharded GATK behavior
+- high-fork VEP scaling
+- manifest-driven parallel orchestration behavior
+
+---
+
+## Next Steps
+
+The reruns on HG002, ERR10619281 and ERR10619300 justify a dedicated reproducibility report module.
+
+
+
+---
