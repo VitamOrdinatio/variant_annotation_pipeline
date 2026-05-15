@@ -1,3 +1,5 @@
+# docs/status/phase1_runtime_baseline_status.md
+
 # Phase 1 Runtime Baseline Status
 ## MARK1 HG002 Instrumented Baseline Rerun
 
@@ -12,20 +14,19 @@
 
 ---
 
+## Related Documents
+
+- `docs/status/phase1_runtime_baseline_status.md`
+- `docs/status/phase1_reproducibility_assessment.md`
+- `docs/status/phase1_operational_findings.md`
+
+---
+
 # Purpose
 
-This document tracks the live operational status and strategic interpretation of the Phase 1A instrumented HG002 rerun on MARK1.
+This document tracks runtime telemetry, execution economics, scaling interpretation, and optimization-oriented observations for Phase 1A VAP production execution on MARK1 infrastructure.
 
-The primary goal of this rerun is NOT merely to rerun HG002, but rather to establish the first fully instrumented runtime baseline for VAP under production-scale execution conditions.
-
-This run serves as:
-
-- a runtime profiling baseline
-- a telemetry validation run
-- an observability validation run
-- a reproducibility checkpoint
-- a scaling economics assessment
-- a future optimization reference point
+The primary goal is to establish trustworthy pre-optimization runtime baselines prior to deliberate tuning or orchestration expansion.
 
 ---
 
@@ -89,88 +90,11 @@ Contrary to initial expectations, early telemetry suggests that:
 - Stage 05 (variant calling)
 - Stage 02 (alignment)
 
-dominate runtime behavior.
+ dominate runtime behavior.
 
 VEP annotation was not observed to be the primary runtime bottleneck during current WES telemetry collection.
 
 This finding may substantially influence future optimization priorities.
-
----
-
-## Current Execution Context
-
-### Active Execution Harness
-
-`scripts/mark/mark_run_phase1a_hg002_baseline.sh`
-
-### Active Configuration
-
-`config/config.mark.baseline.yaml`
-
-This rerun intentionally preserves near-original runtime settings in order to establish a trustworthy pre-optimization baseline.
-
-### Execution Mode
-
-`full_pipeline`
-
-### Current Operational Workflow
-
-Execution is being managed via:
-
-`tmux`
-
-Session:
-
-`vap_phase1a`
-
-This provides:
-
-- detached long-running execution safety
-- session persistence
-- reconnection capability
-- operational resilience against browser disconnects
-
----
-
-## Early Runtime Observations
-
-### Stage 02 Alignment
-
-Observed:
-
-`bwa mem`
-
-actively aligning reads into:
-
-`results/run_<run_id>/interim/*.aligned.sam`
-
-This confirms:
-
-- Stage 02 is functioning correctly
-- write paths are healthy
-- interim artifact emission is active
-- large-scale alignment execution is progressing
-
-
-### CPU Utilization Observation
-
-Observed CPU utilization:
-
-`~1440% CPU`
-
-on a 40-core MARK node.
-
-Approximate interpretation:
-
-`~14–15 logical cores worth of compute activity observed during alignment.`
-
-This observation is operationally important because it suggests:
-
-- the pipeline is capable of meaningful parallelism
-- BWA alignment is not purely single-threaded
-- actual runtime behavior may differ from simplistic thread-count assumptions
-
-However, this does NOT yet imply the overall pipeline is near-optimal.
 
 ---
 
@@ -192,6 +116,8 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 
 - The provenance-corrected ERR10619281 rerun completed successfully and now serves as the first same-sample reproducibility comparison baseline within the Saudi epilepsy WES telemetry campaign.
 
+---
+
 ## Stage-specific telemetry for ERR10619281
 
 | Stage                      |  Run A | Run B |
@@ -201,126 +127,6 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 | stage_07_annotate_variants |  1232s | 1215s |
 
 > Both runs on ERR10619281 exhibit similar telemetry metrics
-
----
-
-## Current Reproducibility Coverage
-
-Current WES reproducibility telemetry includes:
-
-### ERR10619281
-- 1 pre-assay-provenance patch execution
-- 2 post-assay-provenance patch reruns
-
-This dataset currently functions as:
-
-- a metadata-transition reproducibility assessment
-- a biological-result stability assessment across provenance-model evolution
-
-### ERR10619300
-- 2 post-assay-provenance patch executions
-
-This dataset currently functions as:
-
-- a same-patch rerun reproducibility assessment
-- a repeated operational telemetry baseline
-
-Together, these runs provide multiple independent WES-scale reproducibility observations on MARK1 infrastructure.
-
----
-
-## Reproducibility Evidence Snapshot
-
-The following telemetry snapshot was harvested directly from MARK1 pipeline logs during the initial Saudi epilepsy cohort execution campaign.
-
-| Run ID | Dataset | FASTQ Counts | Stage 11 Rows | Stage 12 Rows |
-|---|---|---:|---:|---:|
-| run_2026_05_14_083044 | ERR10619281 pre-assay-provenance patch | 83,696,516 / 83,696,516 | 811,554 | 811,554 |
-| run_2026_05_14_164444 | ERR10619300 post-assay-provenance patch | 83,673,287 / 83,673,287 | 736,468 | 736,468 |
-| run_2026_05_14_231247 | ERR10619281 post-assay-provenance patch rerun | 83,696,516 / 83,696,516 | 811,554 | 811,554 |
-
-### Initial Observations
-
-- ERR10619281 reproduced identical FASTQ pair counts across both runs.
-- ERR10619281 reproduced identical Stage 11 prioritized row counts across both runs.
-- ERR10619281 reproduced identical Stage 12 validation candidate row counts across both runs.
-- The assay-type provenance patch did not perturb downstream Stage 11/12 biological output structure.
-- Early evidence suggests strong biological-result reproducibility across repeated WES-scale Saudi cohort runs.
-
-This snapshot represents observational telemetry only. Formal reproducibility comparison tooling has not yet been implemented.
-
-Current conclusions remain observational rather than statistically modeled.
-
----
-
-## Reproducibility Layers
-
-VAP reproducibility is currently evaluated across multiple operational layers:
-
-1. Byte-level reproducibility
-   - exact file hash equivalence
-   - highly sensitive to timestamps, metadata, ordering, and provenance artifacts
-   - sensitive to timestamps, provenance hashes, runtime telemetry, and artifact ordering
-
-2. Structural reproducibility
-   - stable schemas
-   - stable row counts
-   - stable artifact organization
-   - stable stage outputs
-
-3. Biological reproducibility
-   - stable prioritized variant distributions
-   - stable validation candidate distributions
-   - stable cohort interpretation behavior
-
-Current evidence demonstrates strong structural and biological reproducibility across repeated WES-scale execution on MARK1.
-
----
-
-| Metric | Stable Across Reruns |
-|---|---|
-| FASTQ pair counts | Yes |
-| Stage 11 row counts | Yes |
-| Stage 12 row counts | Yes |
-| Large TSV line counts | Yes |
-| Biological distributions | Yes |
-| Runtime telemetry | Similar but variable |
-| Run IDs | No (expected) |
-| Timestamps | No (expected) |
-| Provenance hashes | No (expected) |
-
----
-
-### Early Reproducibility Interpretation
-
-Initial lightweight reproducibility probing revealed:
-
-- stable FASTQ pair counts (identical)
-- stable Stage 11 prioritized row counts (identical)
-- stable Stage 12 validation row counts (identical)
-- stable Stage 11/12 biological distributions (identical)
-- stable large-output file sizes and line counts (identical)
-- similar stage-runtime behavior across repeated runs
-
-Observed variability was limited primarily to:
-
-- run IDs
-- timestamps
-- git commits
-- config hashes
-- runtime telemetry
-- provenance metadata
-- small JSON/Markdown artifact hashes
-
-Importantly, byte-level hash instability did NOT imply biological-result instability.
-
-This distinction is operationally important because VAP reproducibility is currently being evaluated primarily at the:
-
-- structural-output layer
-- biological-distribution layer
-- cohort-interpretation layer
-
-rather than strict byte-identical artifact reproduction.
 
 ---
 
@@ -421,95 +227,6 @@ Phase 1A therefore informs not only optimization strategy, but also infrastructu
 
 ---
 
-## Determinism Consideration
-
-Phase 1A also functions as a reproducibility checkpoint.
-
-Because this rerun uses:
-
-- same machine
-- same dataset
-- same general configuration class
-
-the resulting outputs should remain biologically and structurally stable.
-
-Expected stable outputs include:
-
-- variant counts
-- Stage 08–13 row counts
-- prioritized variant structure
-- validation candidate structure
-- stage summary metrics
-- artifact manifests
-
-Expected operationally variable outputs include:
-
-- run IDs
-- timestamps
-- runtime profiles
-- telemetry snapshots
-- absolute paths
-
-This rerun therefore also evaluates VAP determinism under repeated production execution.
-
----
-
-## Operational Lessons Already Observed
-
-### Multi-Repo VENV Ambiguity
-
-An important operational issue was identified during execution setup:
-
-Multiple repositories using:
-
-`.venv/`
-
-can create ambiguous shell prompts.
-
-Observed issue:
-
-`(.venv)`
-
-alone was insufficient to determine which repository environment was active.
-
-Correct validation methods include:
-
-```bash
-which python
-echo $VIRTUAL_ENV
-```
-
-This operational lesson is important for future multi-repo workflow management.
-
-### `tmux` Operational Adoption
-
-This workflow introduces persistent detached execution management for long-running VAP production workloads.
-
-Phase 1A represents the first formal adoption of:
-
-`tmux`
-
-for long-running VAP production execution.
-
-This marks an important operational maturity milestone for the repository.
-
----
-
-## Operational Maturity Milestones
-
-Phase 1A introduced several operational maturity improvements:
-
-- detached execution management via tmux
-- MARK-class production execution
-- telemetry harvesting
-- runtime profiling
-- assay-aware provenance correction
-- same-sample rerun reproducibility assessment
-- production-grade run fingerprinting
-- structured metadata artifact generation
-
----
-
 ## Current Status
 
 ### Phase 1A HG002 Baseline
@@ -551,88 +268,13 @@ These artifacts will drive:
 
 ---
 
-## Current Known Limitations
-
-Current known limitations identified during Phase 1A include:
-
-- residual HG002 assumptions remain in portions of the codebase
-- assay type reporting currently defaults to WGS
-- manifest-driven cohort execution has not yet been implemented
-- multi-node orchestration is not yet implemented
-- telemetry-driven optimization has not yet been performed
-- runtime economics remain influenced by virtualized MARK infrastructure
-- byte-identical artifact reproducibility has not yet been formally evaluated
-
-These limitations are now being addressed incrementally as VAP transitions from HG002-centric validation toward generalized cohort-scale execution.
-
----
-
-## Phase 1A Follow-Up Decisions
-
-Successful execution of the first Saudi epilepsy WES sample revealed that VAP has now progressed beyond HG002-only operational assumptions.
-
-As a result, the following strategic decisions were made:
-
-- retain HG002 locking behavior as the default v1 safety model
-- formalize controlled non-HG002 execution using:
-  - `execution_profile.allow_non_hg002=true`
-- transition assay type reporting toward config-driven provenance
-- execute additional WES telemetry baselines before optimization efforts
-- rerun ERR10619281 after metadata refinements to assess reproducibility behavior
-
-This strategy preserves:
-
-- reproducibility safeguards
-- provenance clarity
-- operational stability
-
-while enabling:
-
-- cohort-scale execution
-- generalized sample processing
-- future manifest-driven orchestration
-- downstream RDGP/GSC/VDB integration
-
----
-
-## Immediate Implementation Boundary
-
-Before additional Saudi WES baseline runs, VAP will receive only minimal provenance-correctness updates.
-
-Allowed near-term changes:
-
-- make `input.assay_type` config-driven
-- propagate assay type into Stage 01 sample state
-- ensure WES configs report `assay_type: WES`
-- preserve `execution_profile.allow_non_hg002=true` as the explicit controlled bypass for non-HG002 execution
-- add only narrowly scoped tests needed to protect assay-type provenance behavior
-
-Deferred until after telemetry collection:
-
-- runtime optimization
-- thread/fork tuning
-- Java/GATK tuning
-- manifest-driven cohort execution
-- multi-node orchestration
-- broad refactoring
-- downstream interpretation redesign
-- AlphaGenome integration
-
-Rationale:
-
-The immediate priority is to collect trustworthy baseline telemetry for Saudi WES samples while preventing metadata/provenance violations. Broader VAP optimization should wait until HG002 and Saudi WES telemetry have been collected and compared.
-
----
-
 ## Preliminary Assessment
 
 Phase 1A has already validated several important operational advances:
 
 - MARK operational harness functionality
-- tmux-managed execution
 - telemetry emission
 - provenance infrastructure
-- deterministic fixture preflight execution
 - real-time runtime observation workflows
 - early biological-result-layer reproducibility stability
 
@@ -648,24 +290,10 @@ for large-scale epilepsy cohort processing.
 
 ---
 
-## Current Unknowns
-
-The following questions remain under active investigation:
-
-- cross-node reproducibility (MARK1 vs MARK2/3)
-- WGS reproducibility stability
-- long-term cache effects
-- filesystem I/O scaling behavior
-- interval-sharded GATK behavior
-- high-fork VEP scaling
-- manifest-driven parallel orchestration behavior
-
----
-
 ## Next Steps
 
-The reruns on HG002, ERR10619281 and ERR10619300 justify a dedicated reproducibility report module.
-
-
+```text
+The reruns on HG002, ERR10619281, and ERR10619300 now justify dedicated reproducibility assessment documentation and lightweight comparison tooling.
+```
 
 ---
