@@ -23,7 +23,7 @@ The primary goals of this execution campaign were:
 - assess downstream biological-result stability
 - establish reusable reproducibility comparison infrastructure
 
-This case study represents one of the first operationally instrumented metadata-transition reproducibility assessment within the VAP ecosystem.
+This case study represents one of the first operationally instrumented metadata-transition reproducibility assessments within the VAP ecosystem.
 
 ---
 
@@ -53,7 +53,7 @@ The following executions were performed:
 
 The first run completed prior to introduction of explicit assay-aware provenance handling.
 
-The post-patch reruns incorporated:
+The post-patch rerun incorporated:
 
 - config-driven assay typing
 - explicit `WES` propagation
@@ -237,7 +237,7 @@ This materially improved projected feasibility for future epilepsy cohort-scale 
 
 # Biological / Interpretive Observations
 
-Exploratory post-run probing identified variants intersecting several biologically relevant loci, including:
+Exploratory post-run probing identified variants intersecting several loci with established epilepsy or mitochondrial relevance, including:
 
 - `SYNGAP1`
 - `NPRL3`

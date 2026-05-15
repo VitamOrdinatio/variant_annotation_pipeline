@@ -1,4 +1,4 @@
-# Case Studies
+# Case Studies (WIP)
 
 ## Directory Structure (per SRA):
 
@@ -11,3 +11,11 @@ docs/case_studies/
     variant_highlights.md
     interpretation_notes.md
 ```
+
+
+
+| Reproducibility Type                   | Dataset     | Meaning                                      |
+| -------------------------------------- | ----------- | -------------------------------------------- |
+| Historical operational comparison      | HG002       | pre-observability vs telemetry-enabled rerun |
+| Metadata-transition reproducibility    | ERR10619281 | provenance evolution stability               |
+| Same-patch operational reproducibility | ERR10619300 | repeated execution stability                 |
