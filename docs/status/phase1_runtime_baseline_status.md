@@ -106,15 +106,17 @@ Telemetry observations are currently being collected prior to deliberate optimiz
 |---|---|---|---|---|---|---|
 | HG002 | WGS | MARK1 | v1 | ~22 h 44 m | Success | Instrumented production rerun |
 | ERR10619281 (pre-provenance patch) | WES* | MARK1 | v1 | ~5 h 04 m | Success | First Saudi epilepsy cohort baseline; completed before assay-type provenance patch; runtime valid, metadata partially superseded |
-| ERR10619300 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m | Success | Saudi epilepsy cohort baseline; run_id `run_2026_05_14_164444`; 736,468 prioritized rows |
 | ERR10619281 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m 30 s | Success | Provenance-corrected rerun completed successfully; run_id `run_2026_05_14_231247`; FASTQ pair counts stable at 83,696,516 reads each; Stage 11/12 rows stable at 811,554; reproducibility comparison candidate established |
+| ERR10619300 (post-provenance patch) | WES | MARK1 | v1 | ~4 h 56 m | Success | Saudi epilepsy cohort baseline; run_id `run_2026_05_14_164444`; 736,468 prioritized rows |
+| ERR10619300 (same-patch rerun) | WES | MARK1 | v1 | ~4 h 59 m 27 s | Success | Same-patch reproducibility rerun; run_id `run_2026_05_15_063040`; FASTQ and Stage 11/12 metrics stable |
+
 
 **Notes:**
 - ERR10619300 completed successfully after the assay-type provenance patch. This run therefore represents the first Saudi WES baseline with corrected WES-aware metadata/provenance behavior.
 
 - ERR10619281 also completed successfully before the assay-type provenance patch. That first run remains valid as a runtime baseline, but its metadata should be treated as partially superseded for assay-type provenance.
 
-- The provenance-corrected ERR10619281 rerun completed successfully and now serves as the first same-sample reproducibility comparison baseline within the Saudi epilepsy WES telemetry campaign.
+The provenance-corrected ERR10619281 rerun completed successfully and now serves as the metadata-transition reproducibility comparison pair within the Saudi epilepsy WES telemetry campaign.
 
 ---
 
@@ -293,7 +295,7 @@ for large-scale epilepsy cohort processing.
 ## Next Steps
 
 ```text
-The reruns on HG002, ERR10619281, and ERR10619300 now justify dedicated reproducibility assessment documentation and lightweight comparison tooling.
+The repeated telemetry campaigns on ERR10619281 and ERR10619300 now justify dedicated reproducibility assessment documentation and lightweight comparison tooling.
 ```
 
 ---

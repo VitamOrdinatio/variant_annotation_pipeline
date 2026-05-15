@@ -193,7 +193,7 @@ As a result, the following strategic decisions were made:
   - `execution_profile.allow_non_hg002=true`
 - transition assay type reporting toward config-driven provenance
 - execute additional WES telemetry baselines before optimization efforts
-- rerun ERR10619281 after metadata refinements to assess reproducibility behavior
+- reran ERR10619281 after metadata refinements to assess metadata-transition reproducibility behavior
 
 This strategy preserves:
 

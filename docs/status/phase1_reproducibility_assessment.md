@@ -39,7 +39,7 @@ Current WES reproducibility telemetry includes:
 
 ### ERR10619281
 - 1 pre-assay-provenance patch execution
-- 2 post-assay-provenance patch reruns
+- 1 post-assay-provenance patch rerun
 
 This dataset currently functions as:
 
@@ -65,16 +65,27 @@ The following telemetry snapshot was harvested directly from MARK1 pipeline logs
 | Run ID | Dataset | FASTQ Counts | Stage 11 Rows | Stage 12 Rows |
 |---|---|---:|---:|---:|
 | run_2026_05_14_083044 | ERR10619281 pre-assay-provenance patch | 83,696,516 / 83,696,516 | 811,554 | 811,554 |
-| run_2026_05_14_164444 | ERR10619300 post-assay-provenance patch | 83,673,287 / 83,673,287 | 736,468 | 736,468 |
 | run_2026_05_14_231247 | ERR10619281 post-assay-provenance patch rerun | 83,696,516 / 83,696,516 | 811,554 | 811,554 |
+| run_2026_05_14_164444 | ERR10619300 post-assay-provenance patch | 83,673,287 / 83,673,287 | 736,468 | 736,468 |
+| run_2026_05_15_063040 | ERR10619300 same-patch rerun | 83,673,287 / 83,673,287 | 736,468 | 736,468 |
 
 ### Initial Observations
+
+**General observations:**
+
+- The assay-type provenance patch did not perturb downstream Stage 11/12 biological output structure.
+- Early evidence suggests strong biological-result reproducibility across repeated WES-scale Saudi cohort runs.
+
+**ERR10619281 observations:**
 
 - ERR10619281 reproduced identical FASTQ pair counts across both runs.
 - ERR10619281 reproduced identical Stage 11 prioritized row counts across both runs.
 - ERR10619281 reproduced identical Stage 12 validation candidate row counts across both runs.
-- The assay-type provenance patch did not perturb downstream Stage 11/12 biological output structure.
-- Early evidence suggests strong biological-result reproducibility across repeated WES-scale Saudi cohort runs.
+
+**ERR10619300 observations:**
+- ERR10619300 reproduced identical FASTQ pair counts across both same-patch executions.
+- ERR10619300 reproduced identical Stage 11 prioritized row counts across both same-patch executions.
+- ERR10619300 reproduced identical Stage 12 validation candidate row counts across both same-patch executions.
 
 This snapshot represents observational telemetry only. Formal reproducibility comparison tooling has not yet been implemented.
 
@@ -157,7 +168,7 @@ rather than strict byte-identical artifact reproduction.
 
 Phase 1A also functions as a reproducibility checkpoint.
 
-Because this rerun uses:
+Because these repeated executions use:
 
 - same machine
 - same dataset
