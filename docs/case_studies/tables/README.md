@@ -197,6 +197,132 @@ This table is central to the VAP v1 claim that VAP preserves transparent executi
 
 ---
 
+## `interpretation_label_summary.tsv`
+
+### Purpose
+
+Summarizes how VAP-organized biological evidence is distributed across interpretation categories and evidence-origin pathways.
+
+### Highlights
+
+Tracks:
+
+- coding vs noncoding interpretation-origin distributions
+- interpretation-label class structure
+- retained low-support evidence distributions
+- rare candidate evidence structures
+- deterministic interpretation reproducibility across reruns
+
+### Why It Matters
+
+Demonstrates:
+
+- biologically structured evidence organization
+- stable interpretation-layer reproducibility
+- separation of evidence-routing pathways
+- preservation of interpretation lineage
+- lightweight Stage 13-derived biological abstraction harvesting
+
+This table summarizes VAP interpretation ontology rather than raw molecular consequence ontology.
+
+The `summary_axis` field distinguishes between:
+
+- `source_interpretation_label`
+- `variant_origin`
+
+summary categories.
+
+`variant_origin` represents the interpretation pathway through which evidence flowed within VAP:
+
+- `coding`
+  - evidence interpreted through the Stage 09 coding interpretation framework
+- `noncoding`
+  - evidence interpreted through the Stage 10 noncoding interpretation framework
+
+This distinction preserves interpretation lineage and supports future extensibility of downstream interpretation systems.
+
+Examples of future noncoding-oriented interpretation extensions could include:
+- AlphaGenome
+- SpliceAI
+- regulatory-impact modeling
+- chromatin-aware interpretation workflows
+
+This table should not be interpreted as direct pathogenicity classification or diagnostic interpretation output.
+
+Instead, it documents how VAP organizes and preserves biologically contextualized evidence substrate across distinct interpretation pathways.
+
+---
+
+---
+
+## `gene_burden_summary.tsv`
+
+### Purpose
+
+Summarizes deterministic per-gene variant burden structure across harvested VAP runs using Stage 11 gene-count abstraction outputs.
+
+### Highlights
+
+Tracks:
+
+- per-gene retained variant burden
+- cross-run burden reproducibility
+- coding/noncoding substrate preservation effects
+- unresolved gene-association burden
+- developmental-era vs telemetry-era burden consistency
+
+### Why It Matters
+
+This table exposes how retained genomic substrate distributes across gene-associated evidence structures after Stage 11 prioritization and interpretation convergence.
+
+Importantly, VAP intentionally preserves substantial noncoding substrate rather than aggressively collapsing evidence to exon-only candidate sets.
+
+This design philosophy favors:
+
+```text
+reversible downstream interpretation
+```
+
+over:
+
+```text
+irreversible early information loss.
+```
+
+As a result:
+
+- WGS runs may retain very large noncoding and unresolved-gene burden structure
+- WES runs are expected to exhibit proportionally more coding-associated burden
+- future regulatory interpretation systems can later revisit preserved evidence substrate
+
+Examples of future noncoding-oriented interpretation systems could include:
+- AlphaGenome
+- SpliceAI
+- enhancer/promoter modeling
+- chromatin-aware interpretation workflows
+- transcript-regulatory modeling
+
+The `gene_id_status` field distinguishes:
+
+- `resolved_gene_id`
+- `unresolved_gene_id`
+
+categories.
+
+Large unresolved-gene burden is expected in substrate-preserving WGS workflows because:
+- the majority of the human genome is noncoding
+- much genomic activity occurs outside protein-coding sequence
+- regulatory interpretation remains an evolving scientific frontier
+
+This table should therefore not be interpreted as:
+- finalized clinical interpretation
+- pathogenicity ranking
+- causal-gene assignment
+
+Instead, it documents deterministic retained evidence structure suitable for future downstream interpretation workflows.
+
+---
+
 # Planned Harvester Artifacts
 
 ## `coding_noncoding_consequence_summary.tsv`

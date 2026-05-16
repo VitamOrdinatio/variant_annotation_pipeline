@@ -41,6 +41,16 @@ RUN_ANNOTATIONS = {
     },
 }
 
+def load_gene_burden(path):
+    rows=[]
+    if not path.exists():return rows
+    with open(path,newline="") as fh:
+        reader=csv.DictReader(fh,delimiter="\t")
+        for i,row in enumerate(reader,start=1):
+            gene_id=row.get("gene_id","NA")
+            variant_count=int(row.get("variant_count",0))
+            rows.append({"gene_burden_rank":i,"gene_id":gene_id,"gene_id_status":"unresolved_gene_id" if gene_id=="NA" else "resolved_gene_id","variant_count":variant_count})
+    return rows
 def run_base(rd):
     legacy_base=rd/"raw_mark_outputs"
     return legacy_base if legacy_base.exists() else rd
@@ -67,7 +77,7 @@ def n(d,*keys,default="NA"):
     return x
 def main():
     OUTDIR.mkdir(parents=True,exist_ok=True)
-    funnel=[];runtime=[];priority=[];validation=[];prov=[]
+    funnel=[];runtime=[];priority=[];validation=[];prov=[];interpretation=[];gene_burden=[]
     for rd in RUN_DIRS:
         base=run_base(rd)
         meta=load_json(base/"metadata/run_metadata.json")
@@ -91,6 +101,14 @@ def main():
         config_hash_override=ann.get("config_hash_override")
         reference_fasta_hash_or_size_override=ann.get("reference_fasta_hash_or_size_override")
         execution_profile_override=ann.get("execution_profile_override")                
+        # Interpretations by source_interpretation_label and variant_origin are harvested from the final summary to capture the most complete and up-to-date interpretation counts, which may be updated in the final summary after stage 12 based on the most recent interpretation logic and any late-breaking fixes.
+        for label,count in sorted(s13.get("counts_by_source_interpretation_label",{}).items()):
+            interpretation.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"summary_axis":"source_interpretation_label","interpretation_label":label,"count":count})
+        for origin,count in sorted(s13.get("counts_by_variant_origin",{}).items()):
+            interpretation.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"summary_axis":"variant_origin","interpretation_label":origin,"count":count})
+        gene_burden_path=base/"processed/stage_11_gene_variant_counts.tsv"
+        for row in load_gene_burden(gene_burden_path):
+            gene_burden.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"gene_burden_rank":row["gene_burden_rank"],"gene_id":row["gene_id"],"gene_id_status":row["gene_id_status"],"variant_count":row["variant_count"]})        
         runtime+=read_runtime_profile(base/"metadata/runtime_profile.tsv",run_id,sample_id)
         funnel.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"assay_metadata_status":assay_metadata_status,"run_notes":run_notes,"raw_variant_count":n(legacy,"qc","variant_calling_qc","variant_count"),"normalized_variant_count":n(legacy,"qc","normalization_qc","normalized_variant_count"),"annotated_variant_count":n(legacy,"qc","annotation_qc","annotated_variant_count",default=s13.get("total_variants_processed",s8.get("total_variants","NA"))),"stage08_total_variants":s8.get("total_variants","NA"),"coding_candidates":n(s8,"partition_counts","coding_candidates"),"noncoding_candidates":n(s8,"partition_counts","noncoding_candidates"),"splice_region_candidates":n(s8,"partition_counts","splice_region_candidates"),"qc_flagged":n(s8,"partition_counts","qc_flagged"),"stage09_coding_interpreted":s9.get("interpreted_rows","NA"),"stage10_noncoding_interpreted":s10.get("interpreted_rows","NA"),"stage11_prioritized_rows":s11.get("output_rows","NA"),"stage12_validation_rows":s12.get("output_rows","NA"),"rdgp_gene_evidence_seed_rows":s8.get("rdgp_gene_evidence_seed_rows","NA"),"unique_gene_ids":s11.get("gene_id_count_unique",s13.get("gene_id_count_unique","NA"))})
         for tier,count in sorted(s11.get("counts_by_priority_tier",{}).items()):
@@ -107,5 +125,7 @@ def main():
     write_tsv(OUTDIR/"priority_tier_summary.tsv",["sample_id","run_id","priority_tier","count"],sorted(priority,key=lambda r:(r["sample_id"],r["run_id"],r["priority_tier"])))
     write_tsv(OUTDIR/"candidate_reviewability_readiness.tsv",["sample_id","run_id","metric","category","count"],sorted(validation,key=lambda r:(r["sample_id"],r["run_id"],r["metric"],r["category"])))
     write_tsv(OUTDIR/"provenance_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","pipeline_version","status","machine_id","config_path","git_commit","config_hash","reference_genome","reference_fasta_hash_or_size","execution_profile"],sorted(prov,key=lambda r:(r["sample_id"],r["run_id"])))
+    write_tsv(OUTDIR/"interpretation_label_summary.tsv",["sample_id","run_id","assay_type","run_classification","summary_axis","interpretation_label","count"],sorted(interpretation,key=lambda r:(r["sample_id"],r["run_id"],r["summary_axis"],r["interpretation_label"])))
+    write_tsv(OUTDIR/"gene_burden_summary.tsv",["sample_id","run_id","assay_type","run_classification","gene_burden_rank","gene_id","gene_id_status","variant_count"],sorted(gene_burden,key=lambda r:(r["sample_id"],r["run_id"],r["gene_burden_rank"])))
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()
