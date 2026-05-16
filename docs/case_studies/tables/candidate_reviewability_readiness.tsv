@@ -27,3 +27,15 @@ ERR10619300	run_2026_05_15_063040	validation_priority	low	709272
 ERR10619300	run_2026_05_15_063040	validation_priority	medium	27192
 ERR10619300	run_2026_05_15_063040	validation_required	False	709272
 ERR10619300	run_2026_05_15_063040	validation_required	True	27196
+HG002	run_2026_04_17_082417	suggested_validation_method	IGV	113363
+HG002	run_2026_04_17_082417	suggested_validation_method	none	4523221
+HG002	run_2026_04_17_082417	validation_priority	low	4523221
+HG002	run_2026_04_17_082417	validation_priority	medium	113363
+HG002	run_2026_04_17_082417	validation_required	False	4523221
+HG002	run_2026_04_17_082417	validation_required	True	113363
+HG002	run_2026_05_13_060859	suggested_validation_method	IGV	113363
+HG002	run_2026_05_13_060859	suggested_validation_method	none	4523221
+HG002	run_2026_05_13_060859	validation_priority	low	4523221
+HG002	run_2026_05_13_060859	validation_priority	medium	113363
+HG002	run_2026_05_13_060859	validation_required	False	4523221
+HG002	run_2026_05_13_060859	validation_required	True	113363
