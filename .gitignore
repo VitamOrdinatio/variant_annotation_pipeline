@@ -44,6 +44,7 @@ config/config.sys76.local.yaml
 
 # Large outputs
 results/
+results_repo_evolution_archive/
 data/raw/
 data/interim/
 data/processed/
