@@ -365,31 +365,33 @@ Instead, it documents how VAP organizes and preserves biologically contextualize
 
 ---
 
+## `gene_burden_summary.tsv.gz`
+
 ---
 
-## `gene_burden_summary.tsv`
+## `gene_burden_summary.tsv.gz`
 
 ### Purpose
 
-Summarizes deterministic per-gene variant burden structure across harvested VAP runs using Stage 11 gene-count abstraction outputs.
+Summarizes deterministic per-gene retained variant burden across harvested VAP runs using Stage 11 gene-count outputs.
 
 ### Highlights
 
 Tracks:
 
 - per-gene retained variant burden
+- gene burden rank within each run
+- resolved vs unresolved gene identifier status
 - cross-run burden reproducibility
-- coding/noncoding substrate preservation effects
-- unresolved gene-association burden
-- developmental-era vs telemetry-era burden consistency
+- WGS vs WES substrate-retention differences
 
 ### Why It Matters
 
-This table exposes how retained genomic substrate distributes across gene-associated evidence structures after Stage 11 prioritization and interpretation convergence.
+This table documents how VAP-retained evidence distributes across gene-associated and unresolved-gene substrate after Stage 11 interpretation convergence.
 
-Importantly, VAP intentionally preserves substantial noncoding substrate rather than aggressively collapsing evidence to exon-only candidate sets.
+VAP intentionally preserves broad genomic substrate rather than aggressively filtering to exon-only or frequency-restricted calls.
 
-This design philosophy favors:
+This design favors:
 
 ```text
 reversible downstream interpretation
@@ -398,42 +400,12 @@ reversible downstream interpretation
 over:
 
 ```text
-irreversible early information loss.
+irreversible early information loss
 ```
 
-As a result:
+This is especially important for WGS runs, where large noncoding and unresolved-gene burden is biologically expected because most human genomic sequence is noncoding and regulatory interpretation remains an evolving frontier.
 
-- WGS runs may retain very large noncoding and unresolved-gene burden structure
-- WES runs are expected to exhibit proportionally more coding-associated burden
-- future regulatory interpretation systems can later revisit preserved evidence substrate
-
-Examples of future noncoding-oriented interpretation systems could include:
-- AlphaGenome
-- SpliceAI
-- enhancer/promoter modeling
-- chromatin-aware interpretation workflows
-- transcript-regulatory modeling
-
-The `gene_id_status` field distinguishes:
-
-- `resolved_gene_id`
-- `unresolved_gene_id`
-
-categories.
-
-Large unresolved-gene burden is expected in substrate-preserving WGS workflows because:
-- the majority of the human genome is noncoding
-- much genomic activity occurs outside protein-coding sequence
-- regulatory interpretation remains an evolving scientific frontier
-
-This table should therefore not be interpreted as:
-- finalized clinical interpretation
-- pathogenicity ranking
-- causal-gene assignment
-
-Instead, it documents deterministic retained evidence structure suitable for future downstream interpretation workflows.
-
----
+The full uncompressed TSV is ignored by Git, while the compressed .tsv.gz version is retained as the versioned artifact.
 
 ---
 
