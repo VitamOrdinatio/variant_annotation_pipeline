@@ -40,7 +40,10 @@ RUN_ANNOTATIONS = {
         "notes": "Same-patch ERR10619300 reproducibility rerun."
     },
 }
-
+def project_rows(rows,keys):
+    return sorted([{k:r[k] for k in keys} for r in rows],key=lambda r:tuple(r[k] for k in keys))
+def rows_for_run(rows,run_id):
+    return [r for r in rows if r["run_id"]==run_id]
 def load_gene_burden(path):
     rows=[]
     if not path.exists():return rows
@@ -78,6 +81,7 @@ def n(d,*keys,default="NA"):
 def main():
     OUTDIR.mkdir(parents=True,exist_ok=True)
     funnel=[];runtime=[];priority=[];validation=[];prov=[];interpretation=[];gene_burden=[]
+    repro=[]
     for rd in RUN_DIRS:
         base=run_base(rd)
         meta=load_json(base/"metadata/run_metadata.json")
@@ -120,6 +124,48 @@ def main():
         for req,count in sorted(s12.get("counts_by_validation_required",{}).items()):
             validation.append({"sample_id":sample_id,"run_id":run_id,"metric":"validation_required","category":req,"count":count})
         prov.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"assay_metadata_status":assay_metadata_status,"run_notes":run_notes,"pipeline_version":n(meta,"run","pipeline_version",default=n(legacy,"run","pipeline_version")),"status":status_override or n(meta,"run","status",default=n(legacy,"run","status")),"machine_id":n(meta,"run","machine_id",default=n(legacy,"run","machine_id")),"config_path":n(meta,"run","config_path",default=n(legacy,"run","config_path")),"git_commit":git_commit_override or fp.get("git_commit","NA"),"config_hash":config_hash_override or fp.get("config_hash","NA"),"reference_genome":fp.get("reference_genome",n(legacy,"sample","reference_genome")),"reference_fasta_hash_or_size":reference_fasta_hash_or_size_override or fp.get("reference_fasta_hash_or_size","NA"),"execution_profile":execution_profile_override or fp.get("execution_profile",n(legacy,"run","execution_mode"))})
+    comparisons=[
+        {"comparison_id":"HG002_developmental_epoch","sample_id":"HG002","run_id_a":"run_2026_04_17_082417","run_id_b":"run_2026_05_13_060859","comparison_type":"developmental_epoch_transition","assay_transition":"WGS→WGS","notes":"Checkpoint-era developmental run compared against telemetry-era stabilized run."},
+        {"comparison_id":"ERR10619281_metadata_transition","sample_id":"ERR10619281","run_id_a":"run_2026_05_14_083044","run_id_b":"run_2026_05_14_231247","comparison_type":"metadata_normalization_transition","assay_transition":"WGS→WES","notes":"Assay metadata normalization transition; biological evidence structure expected to remain stable."},
+        {"comparison_id":"ERR10619300_standard_rerun","sample_id":"ERR10619300","run_id_a":"run_2026_05_14_164444","run_id_b":"run_2026_05_15_063040","comparison_type":"standard_rerun_reproducibility","assay_transition":"WES→WES","notes":"Telemetry-era rerun reproducibility assessment."}
+    ]
+
+    for c in comparisons:
+        pa=project_rows(rows_for_run(priority,c["run_id_a"]),["priority_tier","count"])
+        pb=project_rows(rows_for_run(priority,c["run_id_b"]),["priority_tier","count"])
+        va=project_rows(rows_for_run(validation,c["run_id_a"]),["metric","category","count"])
+        vb=project_rows(rows_for_run(validation,c["run_id_b"]),["metric","category","count"])
+
+        ia=project_rows(rows_for_run(interpretation,c["run_id_a"]),["summary_axis","interpretation_label","count"])
+        ib=project_rows(rows_for_run(interpretation,c["run_id_b"]),["summary_axis","interpretation_label","count"])
+
+        ga=project_rows(rows_for_run(gene_burden,c["run_id_a"]),["gene_burden_rank","gene_id","gene_id_status","variant_count"])
+        gb=project_rows(rows_for_run(gene_burden,c["run_id_b"]),["gene_burden_rank","gene_id","gene_id_status","variant_count"])
+
+        priority_match=pa==pb
+        validation_match=va==vb
+        interpretation_match=ia==ib
+        gene_burden_match=ga==gb
+
+        overall="reproducible" if all([priority_match,validation_match,interpretation_match,gene_burden_match]) else "biological_divergence_detected"
+
+        if overall=="reproducible" and c["comparison_type"]=="metadata_normalization_transition":
+            overall="reproducible_with_provenance_evolution"
+
+        repro.append({
+            "comparison_id":c["comparison_id"],
+            "sample_id":c["sample_id"],
+            "run_id_a":c["run_id_a"],
+            "run_id_b":c["run_id_b"],
+            "comparison_type":c["comparison_type"],
+            "assay_transition":c["assay_transition"],
+            "priority_summary_match":priority_match,
+            "validation_summary_match":validation_match,
+            "interpretation_summary_match":interpretation_match,
+            "gene_burden_match":gene_burden_match,
+            "overall_reproducibility_status":overall,
+            "notes":c["notes"]
+        })    
     write_tsv(OUTDIR/"stage_funnel_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","raw_variant_count","normalized_variant_count","annotated_variant_count","stage08_total_variants","coding_candidates","noncoding_candidates","splice_region_candidates","qc_flagged","stage09_coding_interpreted","stage10_noncoding_interpreted","stage11_prioritized_rows","stage12_validation_rows","rdgp_gene_evidence_seed_rows","unique_gene_ids"],sorted(funnel,key=lambda r:(r["sample_id"],r["run_id"])))
     write_tsv(OUTDIR/"runtime_stage_summary.tsv",["sample_id","run_id","stage","elapsed_seconds","status","start_time","end_time"],sorted(runtime,key=lambda r:(r.get("sample_id",""),r.get("run_id",""),r.get("stage",""))))
     write_tsv(OUTDIR/"priority_tier_summary.tsv",["sample_id","run_id","priority_tier","count"],sorted(priority,key=lambda r:(r["sample_id"],r["run_id"],r["priority_tier"])))
@@ -127,5 +173,6 @@ def main():
     write_tsv(OUTDIR/"provenance_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","pipeline_version","status","machine_id","config_path","git_commit","config_hash","reference_genome","reference_fasta_hash_or_size","execution_profile"],sorted(prov,key=lambda r:(r["sample_id"],r["run_id"])))
     write_tsv(OUTDIR/"interpretation_label_summary.tsv",["sample_id","run_id","assay_type","run_classification","summary_axis","interpretation_label","count"],sorted(interpretation,key=lambda r:(r["sample_id"],r["run_id"],r["summary_axis"],r["interpretation_label"])))
     write_tsv(OUTDIR/"gene_burden_summary.tsv",["sample_id","run_id","assay_type","run_classification","gene_burden_rank","gene_id","gene_id_status","variant_count"],sorted(gene_burden,key=lambda r:(r["sample_id"],r["run_id"],r["gene_burden_rank"])))
+    write_tsv(OUTDIR/"run_reproducibility_summary.tsv",["comparison_id","sample_id","run_id_a","run_id_b","comparison_type","assay_transition","priority_summary_match","validation_summary_match","interpretation_summary_match","gene_burden_match","overall_reproducibility_status","notes"],repro)
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()

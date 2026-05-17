@@ -323,6 +323,84 @@ Instead, it documents deterministic retained evidence structure suitable for fut
 
 ---
 
+---
+
+## `run_reproducibility_summary.tsv`
+
+### Purpose
+
+Summarizes cross-run reproducibility of harvested biological evidence structures across developmental-era, metadata-transition, and telemetry-era VAP executions.
+
+### Highlights
+
+Tracks reproducibility agreement across:
+
+- prioritization structure
+- validation/reviewability structure
+- interpretation-layer structure
+- gene-burden structure
+
+### Why It Matters
+
+This table evaluates whether VAP preserves stable biological evidence organization across reruns and infrastructure evolution events.
+
+The current comparisons include:
+
+- developmental-era vs telemetry-era HG002 execution
+- metadata-normalization reruns
+- same-patch telemetry-era reruns
+
+Importantly, reproducibility assessment is based on:
+
+```text
+semantic biological payload equality
+```
+
+rather than raw row equality.
+
+This means comparisons intentionally ignore:
+- run identifiers
+- provenance metadata
+- execution annotations
+- run classification labels
+
+and instead focus on whether the underlying biological evidence structures remained stable.
+
+Examples of compared biological abstractions include:
+
+- priority-tier distributions
+- reviewability summaries
+- interpretation-label distributions
+- gene-burden structure
+
+### Reproducibility Status Categories
+
+- `reproducible`
+  - biological evidence structures matched completely
+- `reproducible_with_provenance_evolution`
+  - biological evidence structures matched while provenance metadata evolved
+- `biological_divergence_detected`
+  - biological evidence structures diverged between compared runs
+
+### Important Scope Boundary
+
+This table documents:
+
+```text
+deterministic evidence-organization reproducibility
+```
+
+It does NOT evaluate:
+- clinical concordance
+- causal inference
+- phenotype matching
+- molecular mechanism
+- diagnostic interpretation
+
+Instead, it assesses whether VAP consistently organizes retained evidence substrate across reruns and infrastructure transitions.
+
+---
+
 # Planned Harvester Artifacts
 
 ## `coding_noncoding_consequence_summary.tsv`
