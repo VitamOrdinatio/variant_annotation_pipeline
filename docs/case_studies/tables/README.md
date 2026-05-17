@@ -500,3 +500,48 @@ It does NOT:
 Instead, it documents how retained genomic substrate is partitioned and interpreted within current VAP interpretation frameworks.
 
 ---
+
+---
+
+## `variant_consequence_summary.tsv`
+
+### Purpose
+
+Summarizes molecular and contextual consequence composition across harvested VAP runs.
+
+### Highlights
+
+Tracks:
+
+- coding molecular consequence classes
+- noncoding contextual consequence classes
+- WGS vs WES substrate differences
+- coding/noncoding asymmetry
+- reproducibility of consequence composition across reruns
+
+### Why It Matters
+
+This table provides a compact biological view of retained VAP substrate.
+
+Coding consequences include categories such as:
+
+- missense
+- synonymous
+- loss_of_function
+- splice_relevant
+- other_coding
+
+Noncoding contextual categories include:
+
+- intergenic
+- intronic
+- proximal
+- transcript_associated
+- regulatory
+- unknown
+
+This table helps distinguish molecular/contextual substrate composition from downstream prioritization, clinical annotation, or reviewability status.
+
+It should not be interpreted as pathogenicity classification or clinical interpretation output.
+
+---

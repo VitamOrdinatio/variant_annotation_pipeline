@@ -92,7 +92,8 @@ def n(d,*keys,default="NA"):
 def main():
     OUTDIR.mkdir(parents=True,exist_ok=True)
     # Collectors
-    funnel=[];runtime=[];priority=[];validation=[];prov=[];interpretation=[];gene_burden=[];consequence=[];repro=[]
+    funnel=[];runtime=[];priority=[];validation=[];prov=[]
+    interpretation=[];gene_burden=[];consequence=[];variant_consequence=[];repro=[]
     for rd in RUN_DIRS:
         # Path resolution with legacy support for runs that have raw_mark_outputs as the base, and loading of all relevant metadata and summary files to capture the full provenance and results landscape of each run. The harvest captures both the raw outputs and the interpreted summaries to enable comprehensive analysis of each run's performance, interpretation outcomes, and provenance details in the context of the evolving pipeline development and metadata normalization efforts. 
         base=run_base(rd)
@@ -183,6 +184,31 @@ def main():
                     "consequence_label":label,
                     "count":count
                 })
+        # Molecular consequence abstraction harvesting
+
+        # Coding molecular consequences (Stage 09)
+        for label,count in sorted(s9.get("functional_impact_distribution",{}).items()):
+            variant_consequence.append({
+                "sample_id":sample_id,
+                "run_id":run_id,
+                "assay_type":assay,
+                "run_classification":run_classification,
+                "interpretation_domain":"coding",
+                "molecular_consequence":label,
+                "count":count
+            })
+
+        # Noncoding contextual consequences (Stage 10)
+        for label,count in sorted(s10.get("noncoding_functional_context_distribution",{}).items()):
+            variant_consequence.append({
+                "sample_id":sample_id,
+                "run_id":run_id,
+                "assay_type":assay,
+                "run_classification":run_classification,
+                "interpretation_domain":"noncoding",
+                "molecular_consequence":label,
+                "count":count
+            })
     # Define the comparisons to be made between runs, with annotations to explain the rationale for each comparison and the expected outcomes based on the known development status and metadata issues of each run. These comparisons are designed to capture key transitions in the pipeline development and metadata normalization efforts, allowing for nuanced analysis of how these factors may impact the reproducibility of results and the detection of biological divergence. By systematically comparing the outputs of different runs across key metrics, the harvest can provide insights into the stability and reliability of the pipeline's performance and interpretation outcomes in the context of its ongoing development and evolution.
     comparisons=[
         {"comparison_id":"HG002_developmental_epoch","sample_id":"HG002","run_id_a":"run_2026_04_17_082417","run_id_b":"run_2026_05_13_060859","comparison_type":"developmental_epoch_transition","assay_transition":"WGS→WGS","notes":"Checkpoint-era developmental run compared against telemetry-era stabilized run."},
@@ -237,6 +263,19 @@ def main():
     write_tsv(OUTDIR/"gene_burden_summary.tsv",["sample_id","run_id","assay_type","run_classification","gene_burden_rank","gene_id","gene_id_status","variant_count"],sorted(gene_burden,key=lambda r:(r["sample_id"],r["run_id"],r["gene_burden_rank"])))
     write_tsv(OUTDIR/"run_reproducibility_summary.tsv",["comparison_id","sample_id","run_id_a","run_id_b","comparison_type","assay_transition","priority_summary_match","validation_summary_match","interpretation_summary_match","gene_burden_match","overall_reproducibility_status","notes"],repro)
     write_tsv(OUTDIR/"coding_noncoding_consequence_summary.tsv",["sample_id","run_id","assay_type","run_classification","interpretation_domain","summary_axis","consequence_label","count"],sorted(consequence,key=lambda r:(r["sample_id"],r["run_id"],r["interpretation_domain"],r["summary_axis"],r["consequence_label"])))
+    write_tsv(
+    OUTDIR/"variant_consequence_summary.tsv",
+    ["sample_id","run_id","assay_type","run_classification","interpretation_domain","molecular_consequence","count"],
+    sorted(
+        variant_consequence,
+        key=lambda r:(
+            r["sample_id"],
+            r["run_id"],
+            r["interpretation_domain"],
+            r["molecular_consequence"]
+        )
+    )
+)
     # Print a message indicating that the harvest tables have been written to the output directory, providing feedback to the user and confirming the completion of the data harvesting and writing process. This message serves as a simple confirmation that the script has executed successfully and that the resulting tables are available in the specified location for further analysis and use in case studies. 
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()
