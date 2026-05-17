@@ -1,6 +1,15 @@
 #!/usr/bin/env python3
+#
+#
+# This script harvests metrics and provenance details from multiple runs of the variant annotation pipeline, capturing a comprehensive set of data for analysis and comparison across runs with different classifications and metadata statuses. The harvested data includes funnel metrics, runtime profiles, priority tier summaries, validation summaries, interpretation label summaries, gene burden summaries, and reproducibility comparisons. The script is designed to handle the evolving structure of the pipeline's outputs and metadata during development, with annotations to provide critical context for interpreting the provenance and results of each run in light of known issues and development status. By systematically harvesting and comparing these metrics across runs, the script enables nuanced analysis of the pipeline's performance and interpretation outcomes in the context of its ongoing development and evolution. 
+#
+#
+
+# Library declarations
 from pathlib import Path
 import csv,json
+
+# Initialize variables
 RUN_DIRS=[Path("results/run_2026_04_17_082417"),Path("results/run_2026_05_13_060859"),Path("results/run_2026_05_14_083044"),Path("results/run_2026_05_14_231247"),Path("results/run_2026_05_14_164444"),Path("results/run_2026_05_15_063040")]
 OUTDIR=Path("docs/case_studies/tables")
 RUN_ANNOTATIONS = {
@@ -40,6 +49,8 @@ RUN_ANNOTATIONS = {
         "notes": "Same-patch ERR10619300 reproducibility rerun."
     },
 }
+
+# Utility functions for loading, processing, and writing the harvested data, with annotations to explain their purpose and how they contribute to the overall data harvesting and analysis process. These functions enable the harvest to capture a comprehensive set of metrics and provenance details from each run, while also providing the necessary tools to process and compare these metrics across runs in a structured and consistent manner. By defining these utility functions, the script can maintain clarity and modularity in its data processing logic, making it easier to understand and modify as needed during the ongoing development of the pipeline and its associated metadata structures.    
 def project_rows(rows,keys):
     return sorted([{k:r[k] for k in keys} for r in rows],key=lambda r:tuple(r[k] for k in keys))
 def rows_for_run(rows,run_id):
@@ -80,10 +91,12 @@ def n(d,*keys,default="NA"):
     return x
 def main():
     OUTDIR.mkdir(parents=True,exist_ok=True)
-    funnel=[];runtime=[];priority=[];validation=[];prov=[];interpretation=[];gene_burden=[]
-    repro=[]
+    # Collectors
+    funnel=[];runtime=[];priority=[];validation=[];prov=[];interpretation=[];gene_burden=[];consequence=[];repro=[]
     for rd in RUN_DIRS:
+        # Path resolution with legacy support for runs that have raw_mark_outputs as the base, and loading of all relevant metadata and summary files to capture the full provenance and results landscape of each run. The harvest captures both the raw outputs and the interpreted summaries to enable comprehensive analysis of each run's performance, interpretation outcomes, and provenance details in the context of the evolving pipeline development and metadata normalization efforts. 
         base=run_base(rd)
+        # Load metadata and summaries with fallbacks to ensure that the harvest captures as much information as possible from each run, even if some files are missing or if the structure has evolved during development. The use of n() with defaults allows the harvest to gracefully handle missing fields while still capturing available data, and the annotations provide critical context for interpreting the provenance and results of each run in light of known issues and development status. Interpretation summaries are harvested from the final summary to reflect the most up-to-date interpretation logic and fixes that may have been applied after stage 12, ensuring that the interpretation metrics in the harvest represent the final state of each run's interpretations.  
         meta=load_json(base/"metadata/run_metadata.json")
         legacy=load_json(base/"metadata.json")
         fp=load_json(base/"metadata/run_fingerprint.json")
@@ -93,13 +106,19 @@ def main():
         s11=load_json(base/"processed/stage_11_summary.json")
         s12=load_json(base/"processed/stage_12_summary.json")
         s13=load_json(base/"processed/stage_13_final_summary.json")
+        # Metadata interpretation with annotations to classify runs and provide context for interpreting the provenance and results. The harvest captures both the raw metadata fields and the annotated classifications and notes to enable nuanced analysis of each run's performance and outcomes in the context of the evolving pipeline development and metadata normalization efforts.    
         run_id=n(meta,"run","run_id",default=rd.name)
+        # Sample ID and assay type are harvested with fallbacks to capture the intended sample and assay information for each run, even in cases where the metadata may be incomplete or evolving. The use of n() with defaults allows the harvest to capture available information while gracefully handling missing fields, and the annotations provide critical context for interpreting the sample and assay information in light of known issues and development status. This ensures that the harvest can accurately reflect the sample and assay context of each run, which is essential for analyzing performance and interpretation outcomes across different runs and conditions. 
         sample_id=n(legacy,"sample","sample_id",default=s13.get("sample_id","NA"))
+        # Assay type is harvested with a fallback to the final summary and then the legacy metadata to capture the intended assay information for each run, even in cases where the metadata may be incomplete or evolving. The annotations provide critical context for interpreting the assay information in light of known issues and development status, ensuring that the harvest can accurately reflect the assay context of each run for nuanced analysis of performance and interpretation outcomes across different runs and conditions.   
         assay=n(legacy,"sample","assay_type",default="NA")
+        # Run annotations are used to classify runs and provide context for interpreting the provenance and results, capturing both the raw metadata fields and the annotated classifications and notes to enable nuanced analysis of each run's performance and outcomes in the context of the evolving pipeline development and metadata normalization efforts. The annotations allow the harvest to capture critical context for each run, such as known issues, development status, and expected nuances in the provenance data, which is essential for accurately interpreting the results and performance of each run in light of its unique circumstances.   
         ann=RUN_ANNOTATIONS.get(run_id,{})
         run_classification=ann.get("run_classification","unclassified")
+        # Assay metadata status is annotated to reflect known issues and development status related to assay metadata for each run, providing critical context for interpreting the provenance and results in light of the evolving pipeline development and metadata normalization efforts. This annotation allows the harvest to capture the intended narrative and known nuances of each run's assay metadata status, which is essential for accurately analyzing performance and interpretation outcomes across different runs and conditions, especially as the pipeline and metadata structures evolve.   
         assay_metadata_status=ann.get("assay_metadata_status","unknown")
         run_notes=ann.get("notes","")
+        # Overrides for provenance fields to reflect known metadata issues and checkpoint development status, ensuring accurate interpretation of provenance data in the context of evolving pipeline development and metadata normalization. These overrides allow the harvest to capture the intended narrative and known nuances of each run's provenance, rather than relying solely on potentially inconsistent or evolving metadata fields in the raw outputs.    
         status_override=ann.get("status_override")
         git_commit_override=ann.get("git_commit_override")
         config_hash_override=ann.get("config_hash_override")
@@ -124,34 +143,76 @@ def main():
         for req,count in sorted(s12.get("counts_by_validation_required",{}).items()):
             validation.append({"sample_id":sample_id,"run_id":run_id,"metric":"validation_required","category":req,"count":count})
         prov.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"assay_metadata_status":assay_metadata_status,"run_notes":run_notes,"pipeline_version":n(meta,"run","pipeline_version",default=n(legacy,"run","pipeline_version")),"status":status_override or n(meta,"run","status",default=n(legacy,"run","status")),"machine_id":n(meta,"run","machine_id",default=n(legacy,"run","machine_id")),"config_path":n(meta,"run","config_path",default=n(legacy,"run","config_path")),"git_commit":git_commit_override or fp.get("git_commit","NA"),"config_hash":config_hash_override or fp.get("config_hash","NA"),"reference_genome":fp.get("reference_genome",n(legacy,"sample","reference_genome")),"reference_fasta_hash_or_size":reference_fasta_hash_or_size_override or fp.get("reference_fasta_hash_or_size","NA"),"execution_profile":execution_profile_override or fp.get("execution_profile",n(legacy,"run","execution_mode"))})
+        # Coding interpretation consequence abstraction (Stage 09)
+        coding_axes=[
+            ("functional_impact_distribution","variant_function"),
+            ("clinical_evidence_distribution","clinical_status"),
+            ("rarity_flag_distribution","frequency_class"),
+            ("coding_interpretation_label_distribution","interpretation_label")
+        ]
+        # The coding interpretation consequence abstraction captures the counts of interpreted variants across multiple axes, including variant function, clinical support, frequency class, and interpretation label. By harvesting these counts from stage 09 summaries, the harvest can provide insights into the distribution of interpreted variants across these key dimensions, which are critical for understanding the interpretation outcomes and their potential clinical relevance. The annotations for each axis provide context for interpreting the consequences of variants in the coding domain, allowing for nuanced analysis of how different types of variants are being interpreted across runs with different classifications and metadata statuses. This information is essential for assessing the stability and reliability of the pipeline's interpretation logic in the context of its ongoing development and evolution.    
+        for field,axis in coding_axes:
+            for label,count in sorted(s9.get(field,{}).items()):
+                consequence.append({
+                    "sample_id":sample_id,
+                    "run_id":run_id,
+                    "assay_type":assay,
+                    "run_classification":run_classification,
+                    "interpretation_domain":"coding",
+                    "summary_axis":axis,
+                    "consequence_label":label,
+                    "count":count
+                })
+        # Noncoding interpretation consequence abstraction (Stage 10)
+        noncoding_axes=[
+            ("noncoding_functional_context_distribution","context"),
+            ("clinical_evidence_distribution","clinical_status"),
+            ("rarity_flag_distribution","frequency_class"),
+            ("noncoding_interpretation_label_distribution","interpretation_label")
+        ]
+        # The noncoding interpretation consequence abstraction captures the counts of interpreted variants across multiple axes, including context, clinical support, frequency class, and interpretation label. By harvesting these counts from stage 10 summaries, the harvest can provide insights into the distribution of interpreted variants across these key dimensions in the noncoding domain, which are critical for understanding the interpretation outcomes and their potential clinical relevance. The annotations for each axis provide context for interpreting the consequences of variants in the noncoding domain, allowing for nuanced analysis of how different types of variants are being interpreted across runs with different classifications and metadata statuses. This information is essential for assessing the stability and reliability of the pipeline's interpretation logic in the context of its ongoing development and evolution.
+        for field,axis in noncoding_axes:
+            for label,count in sorted(s10.get(field,{}).items()):
+                consequence.append({
+                    "sample_id":sample_id,
+                    "run_id":run_id,
+                    "assay_type":assay,
+                    "run_classification":run_classification,
+                    "interpretation_domain":"noncoding",
+                    "summary_axis":axis,
+                    "consequence_label":label,
+                    "count":count
+                })
+    # Define the comparisons to be made between runs, with annotations to explain the rationale for each comparison and the expected outcomes based on the known development status and metadata issues of each run. These comparisons are designed to capture key transitions in the pipeline development and metadata normalization efforts, allowing for nuanced analysis of how these factors may impact the reproducibility of results and the detection of biological divergence. By systematically comparing the outputs of different runs across key metrics, the harvest can provide insights into the stability and reliability of the pipeline's performance and interpretation outcomes in the context of its ongoing development and evolution.
     comparisons=[
         {"comparison_id":"HG002_developmental_epoch","sample_id":"HG002","run_id_a":"run_2026_04_17_082417","run_id_b":"run_2026_05_13_060859","comparison_type":"developmental_epoch_transition","assay_transition":"WGS→WGS","notes":"Checkpoint-era developmental run compared against telemetry-era stabilized run."},
         {"comparison_id":"ERR10619281_metadata_transition","sample_id":"ERR10619281","run_id_a":"run_2026_05_14_083044","run_id_b":"run_2026_05_14_231247","comparison_type":"metadata_normalization_transition","assay_transition":"WGS→WES","notes":"Assay metadata normalization transition; biological evidence structure expected to remain stable."},
         {"comparison_id":"ERR10619300_standard_rerun","sample_id":"ERR10619300","run_id_a":"run_2026_05_14_164444","run_id_b":"run_2026_05_15_063040","comparison_type":"standard_rerun_reproducibility","assay_transition":"WES→WES","notes":"Telemetry-era rerun reproducibility assessment."}
     ]
-
+    # Comparative analysis of runs to assess reproducibility and detect biological divergence, with a focus on interpreting the stability of priority tiers, validation metrics, interpretation labels, and gene burden rankings across runs with different classifications and metadata statuses. The comparisons are designed to capture key transitions in the pipeline development and metadata normalization efforts, allowing for nuanced analysis of how these factors may impact the reproducibility of results and the detection of biological divergence. By systematically comparing the outputs of different runs across these key metrics, the harvest can provide insights into the stability and reliability of the pipeline's performance and interpretation outcomes in the context of its ongoing development and evolution.  
     for c in comparisons:
+        # For each comparison, the harvest projects the relevant fields from the priority tier summaries, validation summaries, interpretation label summaries, and gene burden summaries for each run, and checks for exact matches to assess reproducibility. The annotations explain that this comparison allows the harvest to determine if the interpretation outcomes are reproducible or if there is evidence of biological divergence, providing critical insights into the reliability of the pipeline's interpretation logic in the context of its ongoing development and evolution. By comparing these metrics across runs with different classifications and metadata statuses, the harvest can assess how changes in the pipeline and metadata may impact the interpretation results, which are central to the clinical relevance of the pipeline's outputs.
         pa=project_rows(rows_for_run(priority,c["run_id_a"]),["priority_tier","count"])
         pb=project_rows(rows_for_run(priority,c["run_id_b"]),["priority_tier","count"])
         va=project_rows(rows_for_run(validation,c["run_id_a"]),["metric","category","count"])
         vb=project_rows(rows_for_run(validation,c["run_id_b"]),["metric","category","count"])
-
+        # Interpretation label summaries are compared by projecting the relevant fields for each run and checking for exact matches, which allows the harvest to assess the stability of interpretation outcomes across runs with different classifications and metadata statuses. By comparing the projected rows of interpretation label summaries, the harvest can determine if the interpretation outcomes are reproducible or if there is evidence of biological divergence, providing critical insights into the reliability of the pipeline's interpretation logic in the context of its ongoing development and evolution. This comparison is essential for understanding how changes in the pipeline and metadata may impact the interpretation results, which are central to the clinical relevance of the pipeline's outputs.
         ia=project_rows(rows_for_run(interpretation,c["run_id_a"]),["summary_axis","interpretation_label","count"])
         ib=project_rows(rows_for_run(interpretation,c["run_id_b"]),["summary_axis","interpretation_label","count"])
-
+        # Gene burden summaries are compared by projecting the relevant fields for each run and checking for exact matches, which allows the harvest to assess the stability of gene burden rankings across runs with different classifications and metadata statuses. By comparing the projected rows of gene burden summaries, the harvest can determine if the gene burden rankings are reproducible or if there is evidence of biological divergence, providing critical insights into the reliability of the pipeline's interpretation logic in the context of its ongoing development and evolution. This comparison is essential for understanding how changes in the pipeline and metadata may impact the gene burden results, which are important for prioritizing genes for further analysis and potential clinical relevance.
         ga=project_rows(rows_for_run(gene_burden,c["run_id_a"]),["gene_burden_rank","gene_id","gene_id_status","variant_count"])
         gb=project_rows(rows_for_run(gene_burden,c["run_id_b"]),["gene_burden_rank","gene_id","gene_id_status","variant_count"])
-
+        # The reproducibility assessment compares the priority tier summaries, validation summaries, interpretation label summaries, and gene burden summaries between two runs to determine if they are reproducible or if there is evidence of biological divergence. The comparison checks for exact matches in the projected rows of each metric, and based on these matches, it classifies the overall reproducibility status of the runs. For the metadata normalization transition comparison, even if all metrics match, the overall status is annotated as "reproducible_with_provenance_evolution" to reflect the expected changes in provenance due to metadata normalization, while still acknowledging that the core results are reproducible. This nuanced classification allows for a more accurate interpretation of the results in the context of known development and metadata changes.
         priority_match=pa==pb
         validation_match=va==vb
         interpretation_match=ia==ib
         gene_burden_match=ga==gb
-
+        # The overall reproducibility status is determined based on the matches of the individual metrics, with annotations to explain the rationale for classifying runs as "reproducible", "biological_divergence_detected", or "reproducible_with_provenance_evolution" in the context of the known development status and metadata issues. This classification allows the harvest to provide critical insights into the stability and reliability of the pipeline's performance and interpretation outcomes across different runs and conditions, while also accounting for expected changes in provenance due to metadata normalization efforts. By systematically assessing reproducibility across these key metrics, the harvest can inform future development efforts and help prioritize areas for improvement in the pipeline.    
         overall="reproducible" if all([priority_match,validation_match,interpretation_match,gene_burden_match]) else "biological_divergence_detected"
-
+        # For the metadata normalization transition comparison, even if all metrics match, the overall status is annotated as "reproducible_with_provenance_evolution" to reflect the expected changes in provenance due to metadata normalization, while still acknowledging that the core results are reproducible. This nuanced classification allows for a more accurate interpretation of the results in the context of known development and metadata changes, providing critical insights into the stability and reliability of the pipeline's performance and interpretation outcomes across different runs and conditions. By accounting for expected provenance evolution in this way, the harvest can better inform future development efforts and help prioritize areas for improvement in the pipeline while recognizing the complexities introduced by metadata normalization efforts.    
         if overall=="reproducible" and c["comparison_type"]=="metadata_normalization_transition":
             overall="reproducible_with_provenance_evolution"
-
+        # Append the results of the reproducibility assessment for this comparison to the repro list, capturing the comparison details, metric matches, overall reproducibility status, and any relevant notes. This structured capture of reproducibility results allows for systematic analysis and reporting of the stability and reliability of the pipeline's performance and interpretation outcomes across different runs and conditions, while also accounting for known development status and metadata issues. By including detailed information about each comparison, the harvest can provide critical insights into the factors that may impact reproducibility and help inform future development efforts to improve the pipeline.    
         repro.append({
             "comparison_id":c["comparison_id"],
             "sample_id":c["sample_id"],
@@ -166,6 +227,7 @@ def main():
             "overall_reproducibility_status":overall,
             "notes":c["notes"]
         })    
+    # Write the harvested tables to TSV files in the output directory, with sorting to ensure consistent ordering for analysis and comparison. The tables capture a comprehensive set of metrics and provenance details for each run, as well as the results of comparative analyses to assess reproducibility and detect biological divergence across key transitions in the pipeline development and metadata normalization efforts. By writing these tables to TSV files, the harvest enables further analysis and visualization of the data in a structured format that can be easily consumed by downstream tools and case studies.
     write_tsv(OUTDIR/"stage_funnel_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","raw_variant_count","normalized_variant_count","annotated_variant_count","stage08_total_variants","coding_candidates","noncoding_candidates","splice_region_candidates","qc_flagged","stage09_coding_interpreted","stage10_noncoding_interpreted","stage11_prioritized_rows","stage12_validation_rows","rdgp_gene_evidence_seed_rows","unique_gene_ids"],sorted(funnel,key=lambda r:(r["sample_id"],r["run_id"])))
     write_tsv(OUTDIR/"runtime_stage_summary.tsv",["sample_id","run_id","stage","elapsed_seconds","status","start_time","end_time"],sorted(runtime,key=lambda r:(r.get("sample_id",""),r.get("run_id",""),r.get("stage",""))))
     write_tsv(OUTDIR/"priority_tier_summary.tsv",["sample_id","run_id","priority_tier","count"],sorted(priority,key=lambda r:(r["sample_id"],r["run_id"],r["priority_tier"])))
@@ -174,5 +236,7 @@ def main():
     write_tsv(OUTDIR/"interpretation_label_summary.tsv",["sample_id","run_id","assay_type","run_classification","summary_axis","interpretation_label","count"],sorted(interpretation,key=lambda r:(r["sample_id"],r["run_id"],r["summary_axis"],r["interpretation_label"])))
     write_tsv(OUTDIR/"gene_burden_summary.tsv",["sample_id","run_id","assay_type","run_classification","gene_burden_rank","gene_id","gene_id_status","variant_count"],sorted(gene_burden,key=lambda r:(r["sample_id"],r["run_id"],r["gene_burden_rank"])))
     write_tsv(OUTDIR/"run_reproducibility_summary.tsv",["comparison_id","sample_id","run_id_a","run_id_b","comparison_type","assay_transition","priority_summary_match","validation_summary_match","interpretation_summary_match","gene_burden_match","overall_reproducibility_status","notes"],repro)
+    write_tsv(OUTDIR/"coding_noncoding_consequence_summary.tsv",["sample_id","run_id","assay_type","run_classification","interpretation_domain","summary_axis","consequence_label","count"],sorted(consequence,key=lambda r:(r["sample_id"],r["run_id"],r["interpretation_domain"],r["summary_axis"],r["consequence_label"])))
+    # Print a message indicating that the harvest tables have been written to the output directory, providing feedback to the user and confirming the completion of the data harvesting and writing process. This message serves as a simple confirmation that the script has executed successfully and that the resulting tables are available in the specified location for further analysis and use in case studies. 
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()

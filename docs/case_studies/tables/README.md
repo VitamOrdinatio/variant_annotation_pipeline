@@ -51,63 +51,6 @@ Instead, they demonstrate how VAP transforms raw NGS-derived variant evidence in
 
 ---
 
-# Planned Harvester Artifacts
-
-## `coding_noncoding_consequence_summary.tsv`
-
-### Purpose
-
-Summarizes biological consequence structure across coding and noncoding evidence channels.
-
-### Highlights
-
-Tracks:
-
-- coding vs noncoding distributions
-- HIGH/MODERATE/LOW/MODIFIER impacts
-- biological consequence composition
-- candidate substrate structure
-
-### Why It Matters
-
-Demonstrates:
-
-- biologically structured evidence refinement
-- functional consequence awareness
-- transcript-aware annotation integration
-
-This table helps communicate the biological composition of retained candidate evidence.
-
----
-
-## `clinical_status_summary.tsv`
-
-### Purpose
-
-Summarizes ClinVar-style interpretation categories present within retained candidate evidence.
-
-### Highlights
-
-Tracks:
-
-- pathogenic
-- likely pathogenic
-- VUS
-- benign
-- conflicting interpretation structures
-
-### Why It Matters
-
-Demonstrates:
-
-- annotation-aware evidence structuring
-- preservation of external interpretation metadata
-- candidate evidence contextualization
-
-This table does not make clinical claims and should not be interpreted as diagnostic output.
-
----
-
 # Important Notes
 
 ## Legacy HG002 Development Run
@@ -485,3 +428,75 @@ Instead, it assesses whether VAP consistently organizes retained evidence substr
 
 ---
 
+---
+
+## `coding_noncoding_consequence_summary.tsv`
+
+### Purpose
+
+Summarizes Stage 09 coding interpretation abstractions and Stage 10 noncoding interpretation abstractions across harvested VAP runs.
+
+### Highlights
+
+Tracks:
+
+- coding functional-impact structure
+- noncoding contextual structure
+- interpretation-label distributions
+- rarity classifications
+- clinical-support classifications
+- coding vs noncoding substrate asymmetry
+
+### Why It Matters
+
+This table exposes how VAP separates:
+
+```text
+coding interpretation workflows
+```
+
+from:
+
+```text
+noncoding interpretation workflows
+```
+
+during interpretation convergence.
+
+Coding-oriented summaries include examples such as:
+- missense
+- synonymous
+- loss_of_function
+- splice_relevant
+
+Noncoding-oriented summaries include examples such as:
+- intergenic
+- intronic
+- proximal
+- transcript_associated
+
+This distinction is important because future interpretation systems may evolve differently for coding and noncoding genomic substrate.
+
+The table also highlights expected differences between:
+- WGS substrate retention
+- and WES substrate retention
+
+where WGS runs naturally preserve substantially larger noncoding evidence space.
+
+### Important Scope Boundary
+
+This table summarizes:
+
+```text
+deterministic evidence organization and interpretation abstraction
+```
+
+It does NOT:
+- perform phenotype matching
+- assign pathogenicity
+- establish causality
+- provide clinical diagnosis
+
+Instead, it documents how retained genomic substrate is partitioned and interpreted within current VAP interpretation frameworks.
+
+---
