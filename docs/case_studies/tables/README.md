@@ -51,6 +51,118 @@ Instead, they demonstrate how VAP transforms raw NGS-derived variant evidence in
 
 ---
 
+# Planned Harvester Artifacts
+
+## `coding_noncoding_consequence_summary.tsv`
+
+### Purpose
+
+Summarizes biological consequence structure across coding and noncoding evidence channels.
+
+### Highlights
+
+Tracks:
+
+- coding vs noncoding distributions
+- HIGH/MODERATE/LOW/MODIFIER impacts
+- biological consequence composition
+- candidate substrate structure
+
+### Why It Matters
+
+Demonstrates:
+
+- biologically structured evidence refinement
+- functional consequence awareness
+- transcript-aware annotation integration
+
+This table helps communicate the biological composition of retained candidate evidence.
+
+---
+
+## `clinical_status_summary.tsv`
+
+### Purpose
+
+Summarizes ClinVar-style interpretation categories present within retained candidate evidence.
+
+### Highlights
+
+Tracks:
+
+- pathogenic
+- likely pathogenic
+- VUS
+- benign
+- conflicting interpretation structures
+
+### Why It Matters
+
+Demonstrates:
+
+- annotation-aware evidence structuring
+- preservation of external interpretation metadata
+- candidate evidence contextualization
+
+This table does not make clinical claims and should not be interpreted as diagnostic output.
+
+---
+
+# Important Notes
+
+## Legacy HG002 Development Run
+
+`run_2026_04_17_082417` represents a historical checkpoint-development lineage during VAP maturation.
+
+Stages 01–06 were executed as an early continuous MARK production run, while stages 07–13 were progressively checkpoint-completed during active VAP development following VEP environment repair and stage-level reconstruction.
+
+This run therefore preserves important historical evidence regarding:
+
+- VAP operational maturation
+- telemetry evolution
+- provenance normalization
+- checkpoint-aware recovery workflows
+
+It should not be interpreted as directly equivalent to later telemetry-era production runs.
+
+---
+
+## Assay Metadata Drift Example
+
+`run_2026_05_14_083044` intentionally preserves an incorrect harvested assay metadata label (`WGS`) because the run occurred before assay-aware provenance normalization patches were introduced.
+
+The accompanying metadata annotations preserve:
+
+- the original harvested provenance
+- semantic drift detection
+- downstream metadata correction rationale
+
+This demonstrates VAP telemetry maturation and provenance QA evolution.
+
+---
+
+# Architectural Positioning
+
+These harvested tables intentionally stop short of acting as a persistent evidence warehouse.
+
+Long-term:
+
+- VAP produces sample-specific observed evidence
+- GSC provides phenotype-scoped semantic contextualization
+- VDB will eventually provide persistent cross-run evidence centralization
+- RDGP will eventually provide downstream prioritization workflows
+
+This directory therefore represents:
+
+- deterministic harvested evidence substrate
+- operational telemetry substrate
+- figure-ready case-study substrate
+- ecosystem bridge substrate
+
+for the emerging VitamOrdinatio computational genomics ecosystem.
+
+---
+
 # Table Inventory
 
 ## `stage_funnel_summary.tsv`
@@ -398,118 +510,6 @@ It does NOT evaluate:
 - diagnostic interpretation
 
 Instead, it assesses whether VAP consistently organizes retained evidence substrate across reruns and infrastructure transitions.
-
----
-
-# Planned Harvester Artifacts
-
-## `coding_noncoding_consequence_summary.tsv`
-
-### Purpose
-
-Summarizes biological consequence structure across coding and noncoding evidence channels.
-
-### Highlights
-
-Tracks:
-
-- coding vs noncoding distributions
-- HIGH/MODERATE/LOW/MODIFIER impacts
-- biological consequence composition
-- candidate substrate structure
-
-### Why It Matters
-
-Demonstrates:
-
-- biologically structured evidence refinement
-- functional consequence awareness
-- transcript-aware annotation integration
-
-This table helps communicate the biological composition of retained candidate evidence.
-
----
-
-## `clinical_status_summary.tsv`
-
-### Purpose
-
-Summarizes ClinVar-style interpretation categories present within retained candidate evidence.
-
-### Highlights
-
-Tracks:
-
-- pathogenic
-- likely pathogenic
-- VUS
-- benign
-- conflicting interpretation structures
-
-### Why It Matters
-
-Demonstrates:
-
-- annotation-aware evidence structuring
-- preservation of external interpretation metadata
-- candidate evidence contextualization
-
-This table does not make clinical claims and should not be interpreted as diagnostic output.
-
----
-
-# Important Notes
-
-## Legacy HG002 Development Run
-
-`run_2026_04_17_082417` represents a historical checkpoint-development lineage during VAP maturation.
-
-Stages 01–06 were executed as an early continuous MARK production run, while stages 07–13 were progressively checkpoint-completed during active VAP development following VEP environment repair and stage-level reconstruction.
-
-This run therefore preserves important historical evidence regarding:
-
-- VAP operational maturation
-- telemetry evolution
-- provenance normalization
-- checkpoint-aware recovery workflows
-
-It should not be interpreted as directly equivalent to later telemetry-era production runs.
-
----
-
-## Assay Metadata Drift Example
-
-`run_2026_05_14_083044` intentionally preserves an incorrect harvested assay metadata label (`WGS`) because the run occurred before assay-aware provenance normalization patches were introduced.
-
-The accompanying metadata annotations preserve:
-
-- the original harvested provenance
-- semantic drift detection
-- downstream metadata correction rationale
-
-This demonstrates VAP telemetry maturation and provenance QA evolution.
-
----
-
-# Architectural Positioning
-
-These harvested tables intentionally stop short of acting as a persistent evidence warehouse.
-
-Long-term:
-
-- VAP produces sample-specific observed evidence
-- GSC provides phenotype-scoped semantic contextualization
-- VDB will eventually provide persistent cross-run evidence centralization
-- RDGP will eventually provide downstream prioritization workflows
-
-This directory therefore represents:
-
-- deterministic harvested evidence substrate
-- operational telemetry substrate
-- figure-ready case-study substrate
-- ecosystem bridge substrate
-
-for the emerging VitamOrdinatio computational genomics ecosystem.
 
 ---
 
