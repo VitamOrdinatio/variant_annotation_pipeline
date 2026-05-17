@@ -143,6 +143,106 @@ Core reproducibility interpretation:
 
 ---
 
+---
+
+## Gene-List Overlay Intersection Design
+
+### Purpose
+
+Harvest deterministic intersections between VAP gene-burden substrate and curated gene-list overlays.
+
+This replaces the earlier `gsc_overlay_intersections.tsv` target for VAP v1.
+
+### Rationale
+
+Full GSC semantic integration is deferred until VDB provides formal, auditable namespace normalization.
+
+For VAP v1, overlay harvesting will use curated gene lists with matched identifiers:
+
+- `data/reference/gene_lists/mitocarta_vap_overlay_seed.tsv`
+- `data/reference/gene_lists/epi25_vap_overlay_seed.tsv`
+
+Both overlay seed files use the same schema:
+
+```text
+gene_id
+gene_symbol
+ensembl_gene_id
+```
+
+### Match Strategy
+
+Primary match:
+
+```text
+overlay ensembl_gene_id ↔ VAP gene_id
+```
+
+This avoids gene-symbol ambiguity and avoids premature namespace brokerage inside VAP.
+
+### Output Artifact
+
+`docs/case_studies/tables/gene_list_overlay_intersections.tsv`
+
+### Output Semantics
+
+Emit one row per VAP gene per run that intersects at least one curated overlay list.
+
+Recommended fields:
+
+```text
+sample_id
+run_id
+assay_type
+run_classification
+gene_id
+gene_symbol
+gene_burden_rank
+variant_count
+overlay_source
+overlay_source_count
+overlay_source_list
+mitocarta_hit
+epi25_hit
+match_key
+```
+
+### Source Tracking
+
+Overlay provenance must be first-class.
+
+A gene may intersect:
+
+- MitoCarta only
+- EPI25 only
+- both MitoCarta and EPI25
+
+The both category is biologically important because it may represent:
+
+```text
+mitochondrial biology ∩ epilepsy genetics
+```
+
+### Scope Boundary
+
+This artifact is not full GSC semantic integration.
+
+It is a deterministic curated gene-list overlay for VAP v1 case-study harvesting.
+
+Long-term namespace normalization belongs in VDB, where source-native identifiers, canonical identifiers, symbols, aliases, and provenance can be handled formally.
+
+### Strategic Questions Supported
+
+This artifact supports questions such as:
+
+- Which retained VAP genes intersect mitochondrial gene space?
+- Which retained VAP genes intersect high-confidence epilepsy loci?
+- Which retained VAP genes intersect both lists?
+- Do the Saudi epilepsy SRAs show different overlay-hit patterns?
+- Which overlay-hit genes may seed later RDGP demonstration?
+
+---
+
 ## Output Directory
 
 Primary outputs should be written to:
