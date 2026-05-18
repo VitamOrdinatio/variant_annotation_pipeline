@@ -826,3 +826,60 @@ This table does NOT:
 Instead, it summarizes retained coding functional-impact structure within curated overlay-hit genes.
 
 ---
+
+## `clinical_status_summary.tsv`
+
+### Purpose
+
+Summarizes the global clinical-annotation landscape across retained coding substrate harvested from Stage 09 interpretation outputs.
+
+### Highlights
+
+Tracks:
+
+- coding clinical-evidence distributions
+- coding clinical-status distributions
+- global retained coding annotation structure
+- clinically supported vs sparsely annotated coding substrate
+- reproducibility of coding annotation landscapes across reruns
+
+### Why It Matters
+
+This table provides a compact global view of the retained coding clinical-annotation landscape within VAP.
+
+Clinical categories may include examples such as:
+
+- `missing`
+- `benign`
+- `likely_benign`
+- `uncertain`
+- `conflicting`
+- `likely_pathogenic`
+- `pathogenic`
+
+Importantly, large `missing` categories are biologically expected because VAP intentionally preserves broad coding substrate rather than filtering exclusively to previously curated clinical variants.
+
+This table therefore helps distinguish:
+
+```text
+retained coding substrate
+```
+
+from:
+
+```text
+currently clinically annotated coding substrate.
+```
+
+### Important Scope Boundary
+
+This table does NOT:
+
+- establish diagnosis
+- assign causality
+- perform phenotype prioritization
+- rank candidate genes
+
+Instead, it summarizes the current clinical annotation landscape across globally retained coding substrate.
+
+---

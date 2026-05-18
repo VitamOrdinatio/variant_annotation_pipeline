@@ -55,6 +55,20 @@ RUN_ANNOTATIONS = {
 }
 
 # Utility functions for loading, processing, and writing the harvested data, with annotations to explain their purpose and how they contribute to the overall data harvesting and analysis process. These functions enable the harvest to capture a comprehensive set of metrics and provenance details from each run, while also providing the necessary tools to process and compare these metrics across runs in a structured and consistent manner. By defining these utility functions, the script can maintain clarity and modularity in its data processing logic, making it easier to understand and modify as needed during the ongoing development of the pipeline and its associated metadata structures.    
+def profile_global_coding_clinical(stage09_path,base_meta):
+    rows=[]
+    if not stage09_path.exists():return rows
+    with stage09_path.open(encoding="utf-8",newline="") as f:
+        for row in csv.DictReader(f,delimiter="\t"):
+            rows.append({
+                "sample_id":base_meta["sample_id"],
+                "run_id":base_meta["run_id"],
+                "assay_type":base_meta["assay_type"],
+                "run_classification":base_meta["run_classification"],
+                "clinical_evidence":row.get("clinical_evidence","NA"),
+                "clinical_status":row.get("clinical_status","NA")
+            })
+    return rows
 def collapse_counts(rows,group_keys,count_name="variant_count"):
     counts={}
     for r in rows:
@@ -134,6 +148,7 @@ def main():
     funnel=[];runtime=[];priority=[];validation=[];prov=[]
     interpretation=[];gene_burden=[];consequence=[];variant_consequence=[];gene_overlay=[];repro=[]
     overlay_clinical=[];overlay_frequency=[];overlay_impact=[]
+    clinical_status_rows=[]
     for rd in RUN_DIRS:
         # Path resolution with legacy support for runs that have raw_mark_outputs as the base, and loading of all relevant metadata and summary files to capture the full provenance and results landscape of each run. The harvest captures both the raw outputs and the interpreted summaries to enable comprehensive analysis of each run's performance, interpretation outcomes, and provenance details in the context of the evolving pipeline development and metadata normalization efforts. 
         base=run_base(rd)
@@ -161,6 +176,7 @@ def main():
         overlay_clinical+=c_rows
         overlay_frequency+=f_rows
         overlay_impact+=i_rows        
+        clinical_status_rows+=profile_global_coding_clinical(base/"processed/stage_09_coding_interpreted.tsv",base_meta)
         # Assay metadata status is annotated to reflect known issues and development status related to assay metadata for each run, providing critical context for interpreting the provenance and results in light of the evolving pipeline development and metadata normalization efforts. This annotation allows the harvest to capture the intended narrative and known nuances of each run's assay metadata status, which is essential for accurately analyzing performance and interpretation outcomes across different runs and conditions, especially as the pipeline and metadata structures evolve.   
         assay_metadata_status=ann.get("assay_metadata_status","unknown")
         run_notes=ann.get("notes","")
@@ -302,9 +318,11 @@ def main():
             "overall_reproducibility_status":overall,
             "notes":c["notes"]
         })    
+    # Define the fields for the overlay clinical, frequency, and impact tables, which capture the intersections of coding candidates with gene list overlays and their associated clinical evidence, frequency profiles, and functional impact assessments. These fields are designed to provide a comprehensive view of the relevant metrics for each gene that intersects with the overlays, allowing for nuanced analysis of how these genes are being interpreted in the context of their clinical relevance, population frequency, and predicted functional impact. By structuring these tables with consistent fields, the harvest can facilitate downstream analysis and visualization of the data to inform case studies and further investigations into the clinical significance of these genes and their variants.
     clinical_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","clinical_evidence","clinical_status"]
     frequency_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","frequency_status","rarity_flag"]
     impact_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","functional_impact"]
+    clinical_status_fields=["sample_id","run_id","assay_type","run_classification","clinical_evidence","clinical_status"]
     # Write the harvested tables to TSV files in the output directory, with sorting to ensure consistent ordering for analysis and comparison. The tables capture a comprehensive set of metrics and provenance details for each run, as well as the results of comparative analyses to assess reproducibility and detect biological divergence across key transitions in the pipeline development and metadata normalization efforts. By writing these tables to TSV files, the harvest enables further analysis and visualization of the data in a structured format that can be easily consumed by downstream tools and case studies.
     write_tsv(OUTDIR/"stage_funnel_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","raw_variant_count","normalized_variant_count","annotated_variant_count","stage08_total_variants","coding_candidates","noncoding_candidates","splice_region_candidates","qc_flagged","stage09_coding_interpreted","stage10_noncoding_interpreted","stage11_prioritized_rows","stage12_validation_rows","rdgp_gene_evidence_seed_rows","unique_gene_ids"],sorted(funnel,key=lambda r:(r["sample_id"],r["run_id"])))
     write_tsv(OUTDIR/"runtime_stage_summary.tsv",["sample_id","run_id","stage","elapsed_seconds","status","start_time","end_time"],sorted(runtime,key=lambda r:(r.get("sample_id",""),r.get("run_id",""),r.get("stage",""))))
@@ -320,6 +338,7 @@ def main():
     write_tsv(OUTDIR/"overlay_gene_coding_clinical_evidence.tsv",clinical_fields+["variant_count"],collapse_counts(overlay_clinical,clinical_fields))
     write_tsv(OUTDIR/"overlay_gene_coding_frequency_profiles.tsv",frequency_fields+["variant_count"],collapse_counts(overlay_frequency,frequency_fields))
     write_tsv(OUTDIR/"overlay_gene_coding_functional_impact.tsv",impact_fields+["variant_count"],collapse_counts(overlay_impact,impact_fields))
+    write_tsv(OUTDIR/"clinical_status_summary.tsv",clinical_status_fields+["variant_count"],collapse_counts(clinical_status_rows,clinical_status_fields))
     # Print a message indicating that the harvest tables have been written to the output directory, providing feedback to the user and confirming the completion of the data harvesting and writing process. This message serves as a simple confirmation that the script has executed successfully and that the resulting tables are available in the specified location for further analysis and use in case studies. 
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()
