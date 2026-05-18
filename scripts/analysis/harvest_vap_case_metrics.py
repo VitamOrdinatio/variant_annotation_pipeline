@@ -9,9 +9,13 @@
 from pathlib import Path
 import csv,json
 
-# Initialize variables
+# Initialize global variables
 RUN_DIRS=[Path("results/run_2026_04_17_082417"),Path("results/run_2026_05_13_060859"),Path("results/run_2026_05_14_083044"),Path("results/run_2026_05_14_231247"),Path("results/run_2026_05_14_164444"),Path("results/run_2026_05_15_063040")]
 OUTDIR=Path("docs/case_studies/tables")
+GENE_LISTS={
+    "mitocarta":"data/reference/gene_lists/mitocarta_vap_overlay_seed.tsv",
+    "epi25_all_epilepsy":"data/reference/gene_lists/epi25_vap_overlay_seed.tsv"
+}
 RUN_ANNOTATIONS = {
     "run_2026_04_17_082417": {
         "run_classification": "legacy_semitelemetry_checkpoint_run",
@@ -51,6 +55,40 @@ RUN_ANNOTATIONS = {
 }
 
 # Utility functions for loading, processing, and writing the harvested data, with annotations to explain their purpose and how they contribute to the overall data harvesting and analysis process. These functions enable the harvest to capture a comprehensive set of metrics and provenance details from each run, while also providing the necessary tools to process and compare these metrics across runs in a structured and consistent manner. By defining these utility functions, the script can maintain clarity and modularity in its data processing logic, making it easier to understand and modify as needed during the ongoing development of the pipeline and its associated metadata structures.    
+def collapse_counts(rows,group_keys,count_name="variant_count"):
+    counts={}
+    for r in rows:
+        key=tuple(r.get(k,"NA") for k in group_keys)
+        counts[key]=counts.get(key,0)+1
+    return [{**{k:v for k,v in zip(group_keys,key)},count_name:count} for key,count in sorted(counts.items())]
+def profile_overlay_coding(stage09_path,overlay_map,base_meta):
+    clinical=[];frequency=[];impact=[]
+    if not stage09_path.exists():return clinical,frequency,impact
+    with stage09_path.open(encoding="utf-8",newline="") as f:
+        for row in csv.DictReader(f,delimiter="\t"):
+            gene_id=row.get("gene_id","").strip()
+            hit=overlay_map.get(gene_id)
+            if not hit:continue
+            sources=sorted(hit["sources"])
+            common={"sample_id":base_meta["sample_id"],"run_id":base_meta["run_id"],"assay_type":base_meta["assay_type"],"run_classification":base_meta["run_classification"],"gene_id":gene_id,"gene_symbol":row.get("gene_symbol","NA"),"overlay_source":"multiple" if len(sources)>1 else sources[0],"overlay_source_count":len(sources),"overlay_source_list":";".join(sources),"mitocarta_hit":"mitocarta" in sources,"epi25_hit":"epi25_all_epilepsy" in sources,"match_key":"ensembl_gene_id"}
+            clinical.append({**common,"clinical_evidence":row.get("clinical_evidence","NA"),"clinical_status":row.get("clinical_status","NA")})
+            frequency.append({**common,"frequency_status":row.get("frequency_status","NA"),"rarity_flag":row.get("rarity_flag","NA")})
+            impact.append({**common,"functional_impact":row.get("functional_impact","NA")})
+    return clinical,frequency,impact
+def load_gene_list_overlays(gene_lists):
+    overlays={}
+    for source,path in gene_lists.items():
+        p=Path(path)
+        if not p.exists():continue
+        with p.open(encoding="utf-8-sig",newline="") as f:
+            reader=csv.DictReader(f,delimiter="\t")
+            for raw in reader:
+                row={k.strip():v.strip() for k,v in raw.items() if k is not None}
+                ensembl=row.get("ensembl_gene_id","")
+                if not ensembl:continue
+                overlays.setdefault(ensembl,{"gene_id":row.get("gene_id","NA"),"gene_symbol":row.get("gene_symbol","NA"),"sources":set()})
+                overlays[ensembl]["sources"].add(source)
+    return overlays
 def project_rows(rows,keys):
     return sorted([{k:r[k] for k in keys} for r in rows],key=lambda r:tuple(r[k] for k in keys))
 def rows_for_run(rows,run_id):
@@ -91,9 +129,11 @@ def n(d,*keys,default="NA"):
     return x
 def main():
     OUTDIR.mkdir(parents=True,exist_ok=True)
+    overlay_map=load_gene_list_overlays(GENE_LISTS)
     # Collectors
     funnel=[];runtime=[];priority=[];validation=[];prov=[]
-    interpretation=[];gene_burden=[];consequence=[];variant_consequence=[];repro=[]
+    interpretation=[];gene_burden=[];consequence=[];variant_consequence=[];gene_overlay=[];repro=[]
+    overlay_clinical=[];overlay_frequency=[];overlay_impact=[]
     for rd in RUN_DIRS:
         # Path resolution with legacy support for runs that have raw_mark_outputs as the base, and loading of all relevant metadata and summary files to capture the full provenance and results landscape of each run. The harvest captures both the raw outputs and the interpreted summaries to enable comprehensive analysis of each run's performance, interpretation outcomes, and provenance details in the context of the evolving pipeline development and metadata normalization efforts. 
         base=run_base(rd)
@@ -116,6 +156,11 @@ def main():
         # Run annotations are used to classify runs and provide context for interpreting the provenance and results, capturing both the raw metadata fields and the annotated classifications and notes to enable nuanced analysis of each run's performance and outcomes in the context of the evolving pipeline development and metadata normalization efforts. The annotations allow the harvest to capture critical context for each run, such as known issues, development status, and expected nuances in the provenance data, which is essential for accurately interpreting the results and performance of each run in light of its unique circumstances.   
         ann=RUN_ANNOTATIONS.get(run_id,{})
         run_classification=ann.get("run_classification","unclassified")
+        base_meta={"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification}
+        c_rows,f_rows,i_rows=profile_overlay_coding(base/"processed/stage_09_coding_interpreted.tsv",overlay_map,base_meta)
+        overlay_clinical+=c_rows
+        overlay_frequency+=f_rows
+        overlay_impact+=i_rows        
         # Assay metadata status is annotated to reflect known issues and development status related to assay metadata for each run, providing critical context for interpreting the provenance and results in light of the evolving pipeline development and metadata normalization efforts. This annotation allows the harvest to capture the intended narrative and known nuances of each run's assay metadata status, which is essential for accurately analyzing performance and interpretation outcomes across different runs and conditions, especially as the pipeline and metadata structures evolve.   
         assay_metadata_status=ann.get("assay_metadata_status","unknown")
         run_notes=ann.get("notes","")
@@ -132,7 +177,11 @@ def main():
             interpretation.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"summary_axis":"variant_origin","interpretation_label":origin,"count":count})
         gene_burden_path=base/"processed/stage_11_gene_variant_counts.tsv"
         for row in load_gene_burden(gene_burden_path):
-            gene_burden.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"gene_burden_rank":row["gene_burden_rank"],"gene_id":row["gene_id"],"gene_id_status":row["gene_id_status"],"variant_count":row["variant_count"]})        
+            gene_burden.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"gene_burden_rank":row["gene_burden_rank"],"gene_id":row["gene_id"],"gene_id_status":row["gene_id_status"],"variant_count":row["variant_count"]})
+            hit=overlay_map.get(row["gene_id"])
+            if hit:
+                sources=sorted(hit["sources"])
+                gene_overlay.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"gene_id":row["gene_id"],"gene_symbol":hit["gene_symbol"],"gene_burden_rank":row["gene_burden_rank"],"variant_count":row["variant_count"],"overlay_source":"multiple" if len(sources)>1 else sources[0],"overlay_source_count":len(sources),"overlay_source_list":";".join(sources),"mitocarta_hit":"mitocarta" in sources,"epi25_hit":"epi25_all_epilepsy" in sources,"match_key":"ensembl_gene_id"})
         runtime+=read_runtime_profile(base/"metadata/runtime_profile.tsv",run_id,sample_id)
         funnel.append({"sample_id":sample_id,"run_id":run_id,"assay_type":assay,"run_classification":run_classification,"assay_metadata_status":assay_metadata_status,"run_notes":run_notes,"raw_variant_count":n(legacy,"qc","variant_calling_qc","variant_count"),"normalized_variant_count":n(legacy,"qc","normalization_qc","normalized_variant_count"),"annotated_variant_count":n(legacy,"qc","annotation_qc","annotated_variant_count",default=s13.get("total_variants_processed",s8.get("total_variants","NA"))),"stage08_total_variants":s8.get("total_variants","NA"),"coding_candidates":n(s8,"partition_counts","coding_candidates"),"noncoding_candidates":n(s8,"partition_counts","noncoding_candidates"),"splice_region_candidates":n(s8,"partition_counts","splice_region_candidates"),"qc_flagged":n(s8,"partition_counts","qc_flagged"),"stage09_coding_interpreted":s9.get("interpreted_rows","NA"),"stage10_noncoding_interpreted":s10.get("interpreted_rows","NA"),"stage11_prioritized_rows":s11.get("output_rows","NA"),"stage12_validation_rows":s12.get("output_rows","NA"),"rdgp_gene_evidence_seed_rows":s8.get("rdgp_gene_evidence_seed_rows","NA"),"unique_gene_ids":s11.get("gene_id_count_unique",s13.get("gene_id_count_unique","NA"))})
         for tier,count in sorted(s11.get("counts_by_priority_tier",{}).items()):
@@ -253,6 +302,9 @@ def main():
             "overall_reproducibility_status":overall,
             "notes":c["notes"]
         })    
+    clinical_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","clinical_evidence","clinical_status"]
+    frequency_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","frequency_status","rarity_flag"]
+    impact_fields=["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key","functional_impact"]
     # Write the harvested tables to TSV files in the output directory, with sorting to ensure consistent ordering for analysis and comparison. The tables capture a comprehensive set of metrics and provenance details for each run, as well as the results of comparative analyses to assess reproducibility and detect biological divergence across key transitions in the pipeline development and metadata normalization efforts. By writing these tables to TSV files, the harvest enables further analysis and visualization of the data in a structured format that can be easily consumed by downstream tools and case studies.
     write_tsv(OUTDIR/"stage_funnel_summary.tsv",["sample_id","run_id","assay_type","run_classification","assay_metadata_status","run_notes","raw_variant_count","normalized_variant_count","annotated_variant_count","stage08_total_variants","coding_candidates","noncoding_candidates","splice_region_candidates","qc_flagged","stage09_coding_interpreted","stage10_noncoding_interpreted","stage11_prioritized_rows","stage12_validation_rows","rdgp_gene_evidence_seed_rows","unique_gene_ids"],sorted(funnel,key=lambda r:(r["sample_id"],r["run_id"])))
     write_tsv(OUTDIR/"runtime_stage_summary.tsv",["sample_id","run_id","stage","elapsed_seconds","status","start_time","end_time"],sorted(runtime,key=lambda r:(r.get("sample_id",""),r.get("run_id",""),r.get("stage",""))))
@@ -263,19 +315,11 @@ def main():
     write_tsv(OUTDIR/"gene_burden_summary.tsv",["sample_id","run_id","assay_type","run_classification","gene_burden_rank","gene_id","gene_id_status","variant_count"],sorted(gene_burden,key=lambda r:(r["sample_id"],r["run_id"],r["gene_burden_rank"])))
     write_tsv(OUTDIR/"run_reproducibility_summary.tsv",["comparison_id","sample_id","run_id_a","run_id_b","comparison_type","assay_transition","priority_summary_match","validation_summary_match","interpretation_summary_match","gene_burden_match","overall_reproducibility_status","notes"],repro)
     write_tsv(OUTDIR/"coding_noncoding_consequence_summary.tsv",["sample_id","run_id","assay_type","run_classification","interpretation_domain","summary_axis","consequence_label","count"],sorted(consequence,key=lambda r:(r["sample_id"],r["run_id"],r["interpretation_domain"],r["summary_axis"],r["consequence_label"])))
-    write_tsv(
-    OUTDIR/"variant_consequence_summary.tsv",
-    ["sample_id","run_id","assay_type","run_classification","interpretation_domain","molecular_consequence","count"],
-    sorted(
-        variant_consequence,
-        key=lambda r:(
-            r["sample_id"],
-            r["run_id"],
-            r["interpretation_domain"],
-            r["molecular_consequence"]
-        )
-    )
-)
+    write_tsv(OUTDIR/"variant_consequence_summary.tsv",["sample_id","run_id","assay_type","run_classification","interpretation_domain","molecular_consequence","count"],sorted(variant_consequence,key=lambda r:(r["sample_id"],r["run_id"],r["interpretation_domain"],r["molecular_consequence"])))
+    write_tsv(OUTDIR/"gene_list_overlay_intersections.tsv",["sample_id","run_id","assay_type","run_classification","gene_id","gene_symbol","gene_burden_rank","variant_count","overlay_source","overlay_source_count","overlay_source_list","mitocarta_hit","epi25_hit","match_key"],sorted(gene_overlay,key=lambda r:(r["sample_id"],r["run_id"],r["overlay_source_list"],r["gene_burden_rank"],r["gene_id"])))
+    write_tsv(OUTDIR/"overlay_gene_coding_clinical_evidence.tsv",clinical_fields+["variant_count"],collapse_counts(overlay_clinical,clinical_fields))
+    write_tsv(OUTDIR/"overlay_gene_coding_frequency_profiles.tsv",frequency_fields+["variant_count"],collapse_counts(overlay_frequency,frequency_fields))
+    write_tsv(OUTDIR/"overlay_gene_coding_functional_impact.tsv",impact_fields+["variant_count"],collapse_counts(overlay_impact,impact_fields))
     # Print a message indicating that the harvest tables have been written to the output directory, providing feedback to the user and confirming the completion of the data harvesting and writing process. This message serves as a simple confirmation that the script has executed successfully and that the resulting tables are available in the specified location for further analysis and use in case studies. 
     print(f"Wrote harvest tables to {OUTDIR}")
 if __name__=="__main__":main()

@@ -545,3 +545,284 @@ This table helps distinguish molecular/contextual substrate composition from dow
 It should not be interpreted as pathogenicity classification or clinical interpretation output.
 
 ---
+
+---
+
+## `gene_list_overlay_intersections.tsv`
+
+### Purpose
+
+Summarizes deterministic intersections between retained VAP gene-burden substrate and curated biological gene-list overlays.
+
+### Current Overlay Sources
+
+Current curated overlays include:
+
+- `mitocarta`
+- `epi25_all_epilepsy`
+
+Both overlays use curated Ensembl gene identifiers to support deterministic matching against VAP-retained gene burden.
+
+### Highlights
+
+Tracks:
+
+- overlay-hit genes
+- overlay source membership
+- overlay source combinations
+- retained variant burden
+- burden rank within each run
+- mitochondrial vs epilepsy-associated overlap structure
+
+### Why It Matters
+
+This table provides a lightweight biological overlay layer for VAP case studies without requiring full semantic GSC integration.
+
+The current implementation intentionally uses:
+
+```text
+Ensembl gene ID ↔ VAP gene_id
+```
+
+matching to avoid symbol ambiguity and premature namespace brokerage inside VAP.
+
+Genes may intersect:
+
+- MitoCarta only
+- EPI25 only
+- both overlays simultaneously
+
+The dual-hit category may be biologically interesting because it represents overlap between:
+
+- mitochondrial biology
+- and epilepsy-associated loci
+
+
+### Important Scope Boundary
+
+This table is not a semantic prioritization engine.
+
+It does NOT:
+
+- assign pathogenicity
+- perform phenotype matching
+- rank causal genes
+- establish disease association
+
+Instead, it documents deterministic overlap between retained VAP substrate and curated biological gene lists.
+
+---
+
+---
+
+## `overlay_gene_coding_clinical_evidence.tsv`
+
+### Purpose
+
+Summarizes clinical-evidence abstraction profiles for coding variants retained within curated overlay-hit genes.
+
+### Current Overlay Sources
+
+Current overlays include:
+
+- `mitocarta`
+- `epi25_all_epilepsy`
+
+Overlay matching is performed deterministically using:
+
+```text
+overlay ensembl_gene_id ↔ VAP gene_id
+```
+
+### Highlights
+
+Tracks:
+
+- coding clinical-evidence structure
+- overlay-hit gene interpretation context
+- clinical annotation sparsity
+- overlay-specific clinical-support distributions
+- mitochondrial vs epilepsy-associated coding evidence patterns
+
+### Why It Matters
+
+This table documents the current clinical annotation landscape for coding variants retained within biologically curated overlay genes.
+
+Clinical-evidence categories may include examples such as:
+
+- missing
+- supported
+- benign
+- likely_benign
+- uncertain
+
+Importantly, large missing categories are biologically expected because VAP intentionally preserves broad coding substrate rather than aggressively filtering to previously curated clinical variants only.
+
+This table therefore helps distinguish:
+
+```text
+retained biological substrate
+```
+
+from:
+
+```
+currently clinically annotated substrate
+```
+
+### Important Scope Boundary
+
+This table does NOT:
+
+- establish diagnosis
+- assign pathogenicity
+- perform phenotype matching
+- rank causal genes
+
+Instead, it summarizes current clinical annotation context for retained coding substrate within curated overlay-hit genes.
+
+---
+
+## `overlay_gene_coding_frequency_profiles.tsv`
+
+### Purpose
+
+Summarizes population-frequency abstraction profiles for coding variants retained within curated overlay-hit genes.
+
+### Current Overlay Sources
+
+Current overlays include:
+
+- `mitocarta`
+- `epi25_all_epilepsy`
+
+Overlay matching is performed deterministically using:
+
+```text
+overlay ensembl_gene_id ↔ VAP gene_id
+```
+
+### Highlights
+
+Tracks:
+
+coding rarity structure
+common vs rare retained coding substrate
+overlay-aware frequency distributions
+mitochondrial vs epilepsy-associated coding frequency patterns
+
+### Why It Matters
+
+This table documents the population-frequency landscape for retained coding variants located within curated overlay-hit genes.
+
+Frequency-oriented abstraction categories may include examples such as:
+
+- `common`
+- `rare`
+- `missing`
+
+The table is intentionally based on frequency abstraction rather than raw allele-frequency values to maintain compact and interpretable biological summaries.
+
+Importantly, VAP intentionally preserves:
+
+- common variation
+- rare variation
+- and sparsely annotated variation
+
+rather than aggressively filtering retained substrate during early interpretation stages.
+
+This helps distinguish:
+
+```text
+overall retained coding substrate
+```
+
+from:
+
+```text
+rare coding substrate within biologically relevant loci.
+```
+
+### Important Scope Boundary
+
+This table does NOT:
+
+- assign pathogenicity
+- establish disease causality
+- perform burden testing
+- rank candidate genes
+
+Instead, it summarizes retained coding population-frequency structure within curated overlay-hit genes.
+
+---
+
+## `overlay_gene_coding_functional_impact.tsv`
+
+### Purpose
+
+Summarizes coding functional-impact abstraction profiles for variants retained within curated overlay-hit genes.
+
+### Current Overlay Sources
+
+Current overlays include:
+
+- `mitocarta`
+- `epi25_all_epilepsy`
+
+Overlay matching is performed deterministically using:
+
+```text
+overlay ensembl_gene_id ↔ VAP gene_id
+```
+
+### Highlights
+
+Tracks:
+
+- coding functional-impact structure
+- overlay-aware coding impact distributions
+- mitochondrial vs epilepsy-associated coding impact patterns
+- loss-of-function vs synonymous vs missense substrate composition
+
+### Why It Matters
+
+This table provides a compact biological summary of retained coding substrate composition within curated overlay-hit genes.
+
+Functional-impact categories may include examples such as:
+
+- missense
+- synonymous
+- loss_of_function
+- splice_relevant
+- other_coding
+
+The table intentionally uses:
+
+```text
+functional_impact
+```
+
+rather than highly granular raw VEP consequence categories in order to preserve:
+
+- readability
+- compactness
+- and biological interpretability.
+
+This table therefore helps characterize:
+
+```text
+what kinds of coding variants exist within biologically relevant loci.
+```
+
+### Important Scope Boundary
+
+This table does NOT:
+
+- establish pathogenicity
+- assign clinical significance
+- rank causal variants
+- perform phenotype prioritization
+
+Instead, it summarizes retained coding functional-impact structure within curated overlay-hit genes.
+
+---
