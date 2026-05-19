@@ -1,0 +1,129 @@
+[INFO] Mark Stage 12 checkpoint run started at Wed Apr 29 03:08:27 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage12_checkpoint_20260429_030827.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+
+=== REPO STATUS ===
+
+=== FIND LATEST STAGE 11 OUTPUT ===
+[INFO] PRIORITIZED_VARIANTS=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+-rw-r--r-- 1 root root 2.2G Apr 29 02:02 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+
+=== RUN STAGE 12 FROM CHECKPOINT ===
+[PYTHON][INFO] PRIORITIZED_VARIANTS= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+[PYTHON][INFO] PROCESSED_DIR= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed
+[LOGGER][INFO] Stage 12: preparing validation candidates.
+[LOGGER][INFO] Stage 12 prioritized variants input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+[LOGGER][INFO] Stage 12 validation candidates written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+[LOGGER][INFO] Stage 12 summary JSON written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json
+[LOGGER][INFO] Stage 12 input rows processed: 4636584
+[LOGGER][INFO] Stage 12 output rows written: 4636584
+[LOGGER][INFO] Stage 12 unrecognized priority rows: 0
+
+=== STAGE 12 RESULT SUMMARY ===
+{
+  "stage_12_qc": {
+    "input_rows": 4636584,
+    "output_rows": 4636584,
+    "unrecognized_priority_rows": 0,
+    "output_exists": true,
+    "summary_exists": true
+  },
+  "stage_output": {
+    "status": "success",
+    "input_prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv",
+    "validation_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv",
+    "summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json",
+    "input_rows": 4636584,
+    "output_rows": 4636584,
+    "unrecognized_priority_rows": 0
+  },
+  "artifacts": {
+    "stage_12_validation_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv",
+    "stage_12_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json"
+  },
+  "warnings": []
+}
+
+=== STAGE 12 OUTPUT FILES ===
+-rw-r--r-- 1 root root 1.5K Apr 29 03:11 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json
+-rw-r--r-- 1 root root 2.4G Apr 29 03:11 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+
+=== SUMMARY JSON HEAD ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json
+{
+  "assumptions": [
+    "Stage 12 prepares validation actions only.",
+    "Stage 12 does not execute IGV, parse BAM files, filter variants, or reinterpret evidence.",
+    "Tier 1 and Tier 2 variants are assigned IGV as the suggested validation method.",
+    "manual_review is reserved for future edge-case workflows and is not used in v1."
+  ],
+  "counts_by_priority_tier": {
+    "tier_2_moderate_candidate": 113363,
+    "tier_3_low_support_or_common": 3369755,
+    "tier_4_uninterpretable_or_qc_limited": 1153466
+  },
+  "counts_by_suggested_validation_method": {
+    "IGV": 113363,
+    "none": 4523221
+  },
+  "counts_by_validation_priority": {
+    "low": 4523221,
+    "medium": 113363
+  },
+  "counts_by_validation_required": {
+    "False": 4523221,
+    "True": 113363
+  },
+  "input_files": {
+    "stage_11_prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv"
+  },
+  "input_rows": 4636584,
+  "output_files": {
+    "stage_12_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json",
+    "stage_12_validation_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv"
+  },
+  "output_rows": 4636584,
+  "stage": "stage_12_validate_variants",
+  "status": "success",
+  "unrecognized_priority_rows": 0
+}
+
+=== FIRST STAGE 12 ROWS ===
+[INFO] STAGE12_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label   priority_tier                 priority_rank  priority_reason                            is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable  validation_required  validation_priority  suggested_validation_method  validation_reason
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:924533:A:G  1           924533    A                 G                 snv           coding         PASS          ENSG00000187634  SAMD11       ENST00000616016.5  synonymous_variant  LOW           NA                     NA                    0.7498                0.7498     NA       0.4039               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:946247:G:A  1           946247    G                 A                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.4419                0.4419     NA       0.0643               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:952421:A:G  1           952421    A                 G                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9223                0.9223     NA       0.9062               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:953259:T:C  1           953259    T                 C                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9227                0.9227     NA       0.907                False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+
+=== VALIDATION DISTRIBUTION QUICK CHECK ===
+validation_required
+True	113363
+False	4523221
+
+validation_priority
+low	4523221
+medium	113363
+
+suggested_validation_method
+none	4523221
+IGV	113363
+
+priority_tier
+tier_3_low_support_or_common	3369755
+tier_4_uninterpretable_or_qc_limited	1153466
+tier_2_moderate_candidate	113363
+
+=== VALIDATION-REQUIRED EXAMPLES ===
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label   priority_tier                 priority_rank  priority_reason                            is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable  validation_required  validation_priority  suggested_validation_method  validation_reason
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:924533:A:G  1           924533    A                 G                 snv           coding         PASS          ENSG00000187634  SAMD11       ENST00000616016.5  synonymous_variant  LOW           NA                     NA                    0.7498                0.7498     NA       0.4039               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:946247:G:A  1           946247    G                 A                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.4419                0.4419     NA       0.0643               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:952421:A:G  1           952421    A                 G                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9223                0.9223     NA       0.9062               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:953259:T:C  1           953259    T                 C                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9227                0.9227     NA       0.907                False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:953279:T:C  1           953279    T                 C                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  missense_variant    MODERATE      NA                     NA                    0.9227                0.9227     NA       0.907                False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            missing          missense           common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:961945:G:C  1           961945    G                 C                 snv           coding         PASS          ENSG00000187961  KLHL17       ENST00000338591.8  synonymous_variant  LOW           NA                     NA                    0.8592                0.8592     NA       0.6959               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:970892:A:C  1           970892    A                 C                 snv           coding         PASS          ENSG00000187583  PLEKHN1      ENST00000379410.8  synonymous_variant  LOW           NA                     NA                    0.2065                0.1801     NA       0.2065               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False               False                low                  none                         tier_3_low_support_or_common
+
+[INFO] Mark Stage 12 checkpoint run completed at Wed Apr 29 03:11:10 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage12_checkpoint_20260429_030827.log

@@ -1,0 +1,134 @@
+[INFO] Mark VEP final bootstrap started at Wed Apr 22 06:24:52 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_finalize_vep_install_20260422_182452.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.2
+
+=== RUN INSTALL.PL (MULTI-PROMPT HANDLING) ===
+[CMD] printf 'n\ny\n' | perl INSTALL.pl --NO_TEST
+WARNING: DBD::mysql module not found. VEP can only run in offline (--offline) mode without DBD::mysql installed
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+Hello! This installer will help you set up VEP v115, including:
+ - Install v115 of the Ensembl API for use by the VEP. It will not affect any existing installations of the Ensembl API that you may have.
+ - Download and install cache files from Ensembl's FTP server.
+ - Download FASTA files from Ensembl's FTP server.
+ - Download VEP plugins.
+
+Checking for installed versions of the Ensembl API...done
+
+Setting up directories
+Destination directory ./Bio already exists.
+Do you want to overwrite it (if updating VEP this is probably OK) (y/n)? Exiting
+
+=== VERIFY CORE MODULE ===
+[CMD] perl -MBio::EnsEMBL::Registry -e 'print "OK\n"'
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl).
+BEGIN failed--compilation aborted.
+
+=== FINAL VEP TEST ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.2/modules /root/tools/vep/ensembl-vep-release-115.2 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+=== DIRECTORY CHECK ===
+[CMD] ls -lah /root/tools/vep/ensembl-vep-release-115.2/Bio
+total 960K
+drwxr-xr-x 43 root root 4.0K Apr 22 18:04 .
+drwxrwxr-x 11 root root 4.0K Apr 22 18:24 ..
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Align
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 AlignIO
+-rw-r--r--  1 root root  16K Jul 10  2014 AlignIO.pm
+-rw-r--r--  1 root root  23K Jul 10  2014 AnalysisI.pm
+-rw-r--r--  1 root root 5.0K Jul 10  2014 AnalysisParserI.pm
+-rw-r--r--  1 root root 6.4K Jul 10  2014 AnalysisResultI.pm
+-rw-r--r--  1 root root 2.8K Jul 10  2014 AnnotatableI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Annotation
+-rw-r--r--  1 root root 6.4K Jul 10  2014 AnnotationCollectionI.pm
+-rw-r--r--  1 root root 5.4K Jul 10  2014 AnnotationI.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 Assembly
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Cluster
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 ClusterIO
+-rw-r--r--  1 root root 7.8K Jul 10  2014 ClusterIO.pm
+-rw-r--r--  1 root root 4.1K Jul 10  2014 ClusterI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 CodonUsage
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 Coordinate
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Das
+-rw-r--r--  1 root root  14K Jul 10  2014 DasI.pm
+drwxr-xr-x 11 root root 4.0K Jul 10  2014 DB
+-rw-r--r--  1 root root 2.8K Jul 10  2014 DBLinkContainerI.pm
+-rw-r--r--  1 root root 3.0K Jul 10  2014 DescribableI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Draw
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Event
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Factory
+-rw-r--r--  1 root root 7.1K Jul 10  2014 FeatureHolderI.pm
+-rw-r--r--  1 root root 7.4K Jul 10  2014 HandlerBaseI.pm
+-rw-r--r--  1 root root 2.6K Jul 10  2014 IdCollectionI.pm
+-rw-r--r--  1 root root 5.1K Jul 10  2014 IdentifiableI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Index
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 LiveSeq
+-rw-r--r--  1 root root  22K Jul 10  2014 LocatableSeq.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Location
+-rw-r--r--  1 root root  13K Jul 10  2014 LocationI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Map
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 MapIO
+-rw-r--r--  1 root root 5.4K Jul 10  2014 MapIO.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 Matrix
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 MolEvol
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Nexml
+-rw-r--r--  1 root root  14K Jul 10  2014 NexmlIO.pm
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 Ontology
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 OntologyIO
+-rw-r--r--  1 root root 9.6K Jul 10  2014 OntologyIO.pm
+-rw-r--r--  1 root root 7.0K Jul 10  2014 ParameterBaseI.pm
+-rw-r--r--  1 root root  18K Jul 10  2014 Perl.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 Phenotype
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 PhyloNetwork
+-rw-r--r--  1 root root  44K Jul 10  2014 PhyloNetwork.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 PopGen
+-rw-r--r--  1 root root  32K Jul 10  2014 PrimarySeqI.pm
+-rw-r--r--  1 root root  31K Jul 10  2014 PrimarySeq.pm
+-rw-r--r--  1 root root  20K Jul 10  2014 PullParserI.pm
+-rw-r--r--  1 root root  20K Jul 10  2014 RangeI.pm
+-rw-r--r--  1 root root 8.7K Jul 10  2014 Range.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 Restriction
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Root
+drwxr-xr-x  7 root root 4.0K Jul 10  2014 Search
+-rw-r--r--  1 root root 5.4K Jul 10  2014 SearchDist.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 SearchIO
+-rw-r--r--  1 root root  22K Jul 10  2014 SearchIO.pm
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 Seq
+-rw-r--r--  1 root root 3.5K Jul 10  2014 SeqAnalysisParserI.pm
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 SeqEvolution
+drwxr-xr-x  5 root root 4.0K Jul 10  2014 SeqFeature
+-rw-r--r--  1 root root  25K Jul 10  2014 SeqFeatureI.pm
+drwxr-xr-x  5 root root 4.0K Jul 10  2014 SeqIO
+-rw-r--r--  1 root root  25K Jul 10  2014 SeqIO.pm
+-rw-r--r--  1 root root 6.4K Jul 10  2014 SeqI.pm
+-rw-r--r--  1 root root  40K Jul 10  2014 Seq.pm
+-rw-r--r--  1 root root  57K Jul 10  2014 SeqUtils.pm
+-rw-r--r--  1 root root  92K Jul 10  2014 SimpleAlign.pm
+-rw-r--r--  1 root root 7.6K Jul 10  2014 SimpleAnalysisI.pm
+-rw-r--r--  1 root root  20K Jul 10  2014 Species.pm
+drwxr-xr-x  4 root root 4.0K Jul 10  2014 Structure
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Symbol
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 Taxonomy
+-rw-r--r--  1 root root  12K Jul 10  2014 Taxonomy.pm
+-rw-r--r--  1 root root  23K Jul 10  2014 Taxon.pm
+drwxr-xr-x 15 root root 4.0K Jul 10  2014 Tools
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 Tree
+drwxr-xr-x  2 root root 4.0K Jul 10  2014 TreeIO
+-rw-r--r--  1 root root 8.3K Jul 10  2014 TreeIO.pm
+-rw-r--r--  1 root root 3.4K Jul 10  2014 UpdateableSeqI.pm
+drwxr-xr-x  3 root root 4.0K Jul 10  2014 Variation
+-rw-r--r--  1 root root 5.1K Jul 10  2014 WebAgent.pm
+
+[INFO] Mark VEP final bootstrap completed at Wed Apr 22 06:24:52 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_finalize_vep_install_20260422_182452.log

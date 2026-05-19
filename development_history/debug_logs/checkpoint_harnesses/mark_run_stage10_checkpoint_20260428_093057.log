@@ -1,0 +1,214 @@
+[INFO] Mark Stage 10 checkpoint run started at Tue Apr 28 09:30:57 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage10_checkpoint_20260428_093057.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+
+=== REPO STATUS ===
+
+=== FIND LATEST STAGE 08 NONCODING OUTPUTS ===
+[INFO] NONCODING_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+[INFO] VARIANT_SUMMARY_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[INFO] SELECTED_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+-rw-r--r-- 1 root root 1.3G Apr 28 08:22 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+-rw-r--r-- 1 root root 1.3G Apr 28 08:22 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+-rw-r--r-- 1 root root 957M Apr 28 08:23 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+
+=== RUN STAGE 10 FROM CHECKPOINT ===
+[PYTHON][INFO] NONCODING_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+[PYTHON][INFO] VARIANT_SUMMARY_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[PYTHON][INFO] SELECTED_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+[PYTHON][INFO] PROCESSED_DIR= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed
+[LOGGER][INFO] Stage 10: interpreting noncoding variants.
+[LOGGER][INFO] Stage 10 noncoding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+[LOGGER][INFO] Stage 10 Stage 08 variant summary validation input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[LOGGER][INFO] Stage 10 selected transcript validation input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+[LOGGER][INFO] Reading Stage 10 input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+[LOGGER][INFO] Stage 10 interpreted noncoding variants written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+[LOGGER][INFO] Stage 10 summary JSON written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json
+[LOGGER][INFO] Stage 10 input rows processed: 4609098
+[LOGGER][INFO] Stage 10 interpreted rows written: 4609098
+
+=== STAGE 10 RESULT SUMMARY ===
+{
+  "stage_10_qc": {
+    "input_rows": 4609098,
+    "interpreted_rows": 4609098,
+    "total_noncoding_variants": 4609098,
+    "uninterpretable_count": 2129664,
+    "output_exists": true,
+    "summary_exists": true
+  },
+  "stage_output": {
+    "status": "success",
+    "input_noncoding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv",
+    "noncoding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv",
+    "summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json",
+    "input_rows": 4609098,
+    "interpreted_rows": 4609098
+  },
+  "artifacts": {
+    "stage_10_noncoding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv",
+    "stage_10_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json"
+  },
+  "warnings": []
+}
+
+=== STAGE 10 OUTPUT FILES ===
+-rw-r--r-- 1 root root 1.8G Apr 28 09:33 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+-rw-r--r-- 1 root root 2.7K Apr 28 09:33 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json
+
+=== SUMMARY JSON HEAD ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json
+{
+  "assumptions": [
+    "Stage 10 consumes Stage 08 structural fields as authoritative.",
+    "Stage 10 performs cautious noncoding interpretation flagging only; it does not rank variants.",
+    "Summary counts are distinct variant_id counts implemented with sets.",
+    "Upstream/downstream variants are classified as proximal, not regulatory.",
+    "AlphaGenome is not run in Stage 10 v1."
+  ],
+  "benign_or_likely_benign_count": 32676,
+  "clinical_evidence_distribution": {
+    "benign": 31605,
+    "conflicting": 13,
+    "likely_benign": 1071,
+    "likely_pathogenic": 5,
+    "missing": 4576020,
+    "pathogenic": 28,
+    "vus": 356
+  },
+  "clinically_supported_count": 33,
+  "common_variant_count": 4206244,
+  "input_files": {
+    "noncoding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv",
+    "stage_08_selected_transcript_consequences": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv",
+    "stage_08_variant_summary": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv"
+  },
+  "input_rows": 4609098,
+  "intergenic_variant_count": 1107793,
+  "interpreted_rows": 4609098,
+  "intronic_variant_count": 1615376,
+  "low_frequency_variant_count": 156992,
+  "noncoding_functional_context_distribution": {
+    "intergenic": 1107793,
+    "intronic": 1615376,
+    "proximal": 587954,
+    "regulatory": 0,
+    "transcript_associated": 1253498,
+    "unknown": 44477
+  },
+  "noncoding_interpretation_label_distribution": {
+    "noncoding_common_or_low_support": 2424084,
+    "noncoding_uninterpretable": 2129664,
+    "regulatory_or_transcript_rare": 55350,
+    "regulatory_rare_supported": 0
+  },
+  "output_files": {
+    "stage_10_noncoding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv",
+    "stage_10_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_summary.json"
+  },
+  "proximal_variant_count": 587954,
+  "qc_distribution": {
+    "caution": 44460,
+    "high_confidence": 4564638,
+    "low_confidence": 0
+  },
+  "rare_variant_count": 128469,
+  "rarity_flag_distribution": {
+    "common": 4206244,
+    "low_frequency": 156992,
+    "missing": 117393,
+    "rare": 128469,
+    "unknown": 0
+  },
+  "regulatory_variant_count": 0,
+  "stage": "stage_10_interpret_noncoding",
+  "status": "success",
+  "total_noncoding_variants": 4609098,
+  "transcript_associated_variant_count": 1253498,
+  "uninterpretable_count": 2129664
+}
+
+=== FIRST STAGE 10 ROWS ===
+[INFO] STAGE10_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+sample_id  run_id                 source_pipeline              variant_id   chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence                         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context       variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag  clinical_evidence  qc_reliability   noncoding_interpretation_label   is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14522:G:A  1           14522     G                 A                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.1893                0.1893     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14542:A:G  1           14542     A                 G                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.3406                0.3406     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14574:A:G  1           14574     A                 G                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.4207                0.4207     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14590:G:A  1           14590     G                 A                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.2387                0.2387     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+
+=== LABEL DISTRIBUTION QUICK CHECK ===
+noncoding_interpretation_label
+noncoding_uninterpretable	2129664
+regulatory_or_transcript_rare	55350
+noncoding_common_or_low_support	2424084
+
+noncoding_functional_context
+transcript_associated	1253498
+intergenic	1107793
+intronic	1615376
+proximal	587954
+unknown	44477
+
+rarity_flag
+missing	117393
+rare	128469
+common	4206244
+low_frequency	156992
+
+clinical_evidence
+vus	356
+missing	4576020
+likely_benign	1071
+conflicting	13
+likely_pathogenic	5
+pathogenic	28
+benign	31605
+
+qc_reliability
+high_confidence	4564638
+caution	44460
+
+=== HIGH-VALUE EXAMPLES ===
+--- regulatory examples ---
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence                         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context       variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag    clinical_evidence  qc_reliability   noncoding_interpretation_label   is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:16949:A:C   1           16949     A                 C                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.0227                0.0140     NA       0.0227               False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  low_frequency     missing          transcript_associated         low_frequency  missing            high_confidence  regulatory_or_transcript_rare    False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:49404:C:A   1           49404     C                 A                 snv           noncoding      PASS          ENSG00000290826  NA           ENST00000832531.1  upstream_gene_variant               MODIFIER      NA                     NA                    0.1915                0.1915     NA       NA                   False      False          VEP                115                 mapped               regulatory            MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common         missing            high_confidence  noncoding_uninterpretable        False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:49448:A:G   1           49448     A                 G                 snv           noncoding      PASS          ENSG00000290826  NA           ENST00000832531.1  upstream_gene_variant               MODIFIER      NA                     NA                    0.2896                0.2896     NA       NA                   False      False          VEP                115                 mapped               regulatory            MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common         missing            high_confidence  noncoding_uninterpretable        False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:61871:C:CT  1           61871     C                 CT                insertion     noncoding      PASS          ENSG00000186092  OR4F5        ENST00000641515.2  upstream_gene_variant               MODIFIER      NA                     NA                    0.3792                0.3792     NA       NA                   False      False          VEP                115                 mapped               regulatory            MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common         missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:61987:A:G   1           61987     A                 G                 snv           noncoding      PASS          ENSG00000186092  OR4F5        ENST00000641515.2  upstream_gene_variant               MODIFIER      NA                     NA                    0.5573                0.5573     NA       NA                   False      False          VEP                115                 mapped               regulatory            MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common         missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+
+--- proximal examples ---
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence            impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag  clinical_evidence  qc_reliability   noncoding_interpretation_label   is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:49404:C:A   1           49404     C                 A                 snv           noncoding      PASS          ENSG00000290826  NA           ENST00000832531.1  upstream_gene_variant  MODIFIER      NA                     NA                    0.1915                0.1915     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_uninterpretable        False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:49448:A:G   1           49448     A                 G                 snv           noncoding      PASS          ENSG00000290826  NA           ENST00000832531.1  upstream_gene_variant  MODIFIER      NA                     NA                    0.2896                0.2896     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_uninterpretable        False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:61871:C:CT  1           61871     C                 CT                insertion     noncoding      PASS          ENSG00000186092  OR4F5        ENST00000641515.2  upstream_gene_variant  MODIFIER      NA                     NA                    0.3792                0.3792     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:61987:A:G   1           61987     A                 G                 snv           noncoding      PASS          ENSG00000186092  OR4F5        ENST00000641515.2  upstream_gene_variant  MODIFIER      NA                     NA                    0.5573                0.5573     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:61989:G:C   1           61989     G                 C                 snv           noncoding      PASS          ENSG00000186092  OR4F5        ENST00000641515.2  upstream_gene_variant  MODIFIER      NA                     NA                    0.5574                0.5574     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+
+--- transcript-associated examples ---
+sample_id  run_id                 source_pipeline              variant_id   chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence                         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context       variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag  clinical_evidence  qc_reliability   noncoding_interpretation_label   is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14522:G:A  1           14522     G                 A                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.1893                0.1893     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14542:A:G  1           14542     A                 G                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.3406                0.3406     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14574:A:G  1           14574     A                 G                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.4207                0.4207     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14590:G:A  1           14590     G                 A                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.2387                0.2387     NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14599:T:A  1           14599     T                 A                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      NA                     NA                    0.1476                0.1476     NA       0.121                False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_common_or_low_support  False                    False              False                    True             False
+
+--- rare noncoding candidate examples ---
+sample_id  run_id                 source_pipeline              variant_id       chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence                                   impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context       variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag    clinical_evidence  qc_reliability   noncoding_interpretation_label  is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:16949:A:C      1           16949     A                 C                 snv           noncoding      PASS          ENSG00000310526  WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant            MODIFIER      NA                     NA                    0.0227                0.0140     NA       0.0227               False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  low_frequency     missing          transcript_associated         low_frequency  missing            high_confidence  regulatory_or_transcript_rare   False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:181539:G:C     1           181539    G                 C                 snv           noncoding      PASS          ENSG00000308415  DDX11L2      ENST00000833856.1  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.01038               0.01038    NA       NA                   False      False          VEP                115                 mapped               intronic              MODIFIER                 pass       needs_external_annotation  low_frequency     missing          transcript_associated         low_frequency  missing            high_confidence  regulatory_or_transcript_rare   False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:187168:C:T     1           187168    C                 T                 snv           noncoding      PASS          ENSG00000279457  WASH9P       ENST00000623083.4  non_coding_transcript_exon_variant            MODIFIER      NA                     NA                    0.006865              0.006865   NA       NA                   False      False          VEP                115                 mapped               noncoding_transcript  MODIFIER                 pass       needs_external_annotation  rare              missing          transcript_associated         rare           missing            high_confidence  regulatory_or_transcript_rare   False                    True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:194633:G:C     1           194633    G                 C                 snv           noncoding      PASS          ENSG00000279457  WASH9P       ENST00000623083.4  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.04856               0.04856    NA       NA                   False      False          VEP                115                 mapped               intronic              MODIFIER                 pass       needs_external_annotation  low_frequency     missing          transcript_associated         low_frequency  missing            high_confidence  regulatory_or_transcript_rare   False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:511719:CATT:C  1           511719    CATT              C                 deletion      noncoding      PASS          ENSG00000278757  U6           ENST00000614007.1  downstream_gene_variant                       MODIFIER      NA                     NA                    0.001451              0.001451   NA       NA                   False      False          VEP                115                 mapped               regulatory            MODIFIER                 pass       needs_external_annotation  rare              missing          proximal                      rare           missing            high_confidence  regulatory_or_transcript_rare   False                    True               False                    True             False
+
+--- uninterpretable examples ---
+sample_id  run_id                 source_pipeline              variant_id   chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence                                   impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status    frequency_status  clinical_status  noncoding_functional_context  rarity_flag  clinical_evidence  qc_reliability   noncoding_interpretation_label  is_regulatory_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:39230:G:A  1           39230     G                 A                 snv           noncoding      PASS          ENSG00000308361  NA           ENST00000833573.1  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.3401                0.3401     NA       NA                   False      False          VEP                115                 mapped               intronic         MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_uninterpretable       False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:39256:A:G  1           39256     A                 G                 snv           noncoding      PASS          ENSG00000308361  NA           ENST00000833573.1  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.1797                0.1797     NA       NA                   False      False          VEP                115                 mapped               intronic         MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_uninterpretable       False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:39261:T:C  1           39261     T                 C                 snv           noncoding      PASS          ENSG00000308361  NA           ENST00000833573.1  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.5648                0.5648     NA       NA                   False      False          VEP                115                 mapped               intronic         MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_uninterpretable       False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:39406:G:C  1           39406     G                 C                 snv           noncoding      PASS          ENSG00000308361  NA           ENST00000833573.1  intron_variant&non_coding_transcript_variant  MODIFIER      NA                     NA                    0.5258                0.5258     NA       NA                   False      False          VEP                115                 mapped               intronic         MODIFIER                 pass       needs_external_annotation  common            missing          transcript_associated         common       missing            high_confidence  noncoding_uninterpretable       False                    False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:49404:C:A  1           49404     C                 A                 snv           noncoding      PASS          ENSG00000290826  NA           ENST00000832531.1  upstream_gene_variant                         MODIFIER      NA                     NA                    0.1915                0.1915     NA       NA                   False      False          VEP                115                 mapped               regulatory       MODIFIER                 pass       needs_external_annotation  common            missing          proximal                      common       missing            high_confidence  noncoding_uninterpretable       False                    False              False                    True             False
+
+[INFO] Mark Stage 10 checkpoint run completed at Tue Apr 28 09:33:59 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage10_checkpoint_20260428_093057.log

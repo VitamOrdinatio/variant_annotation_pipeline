@@ -1,0 +1,31 @@
+[INFO] Mark Stage 13 checkpoint run started at Wed Apr 29 10:19:01 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage13_checkpoint_20260429_101901.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+=== PYTHON ENV CHECK ===
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python
+Python 3.11.2
+
+=== REPO STATUS ===
+
+=== FIND REQUIRED STAGE 13 INPUTS ===
+[INFO] STAGE11_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+[INFO] STAGE11_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json
+[INFO] STAGE11_GENE_COUNTS=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv
+[INFO] STAGE12_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+[INFO] STAGE12_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json
+-rw-r--r-- 1 root root 976K Apr 29 02:02 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv
+-rw-r--r-- 1 root root 2.2G Apr 29 02:02 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+-rw-r--r-- 1 root root 3.6K Apr 29 02:02 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json
+-rw-r--r-- 1 root root 1.5K Apr 29 03:11 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_summary.json
+-rw-r--r-- 1 root root 2.4G Apr 29 03:11 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+
+=== VERIFY STAGE 13 IMPORTS ===
+21:import pandas as pd
+
+=== RUN STAGE 13 FROM CHECKPOINT ===
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/root/dev/portfolio_projects/variant_annotation_pipeline/pipeline/stage_13_write_summary.py", line 21, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'

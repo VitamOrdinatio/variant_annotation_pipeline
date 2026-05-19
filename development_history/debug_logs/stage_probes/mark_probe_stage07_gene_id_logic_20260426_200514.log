@@ -1,0 +1,41 @@
+[INFO] Mark Stage 07 gene_id logic probe started at Sun Apr 26 08:05:14 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_probe_stage07_gene_id_logic_20260426_200514.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== CODE PRESENCE CHECK ===
+
+=== FIND LATEST ANNOTATED VCF ===
+[INFO] ANNOTATED_VCF=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+
+=== PYTHON PARSER PROBE ON FIRST CSQ RECORD ===
+CSQ_FIELDS_FIRST_12= ['Allele', 'Consequence', 'IMPACT', 'SYMBOL', 'Gene', 'Feature_type', 'Feature', 'BIOTYPE', 'EXON', 'INTRON', 'HGVSc', 'HGVSp']
+PARSED_RECORD_KEY_FIELDS
+gene_id=None
+gene_symbol=WASH7P
+transcript_id=ENST00000831140.1
+consequence=non_coding_transcript_exon_variant
+impact=MODIFIER
+variant_class=SNV
+OUTPUT_ROW_KEY_FIELDS
+variant_id=1:14522:G:A
+gene_id=NA
+gene_symbol=WASH7P
+transcript_id=ENST00000831140.1
+consequence=non_coding_transcript_exon_variant
+variant_class=SNV
+variant_type=non-coding
+mito_flag=False
+epilepsy_flag=False
+unresolved_increment=1
+warnings=[]
+
+=== EXISTING STAGE 07 TSV FIRST ROW CHECK (PRE-RERUN MAY STILL SHOW OLD NA) ===
+[INFO] ANNOTATED_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+sample_id  run_id                 source_pipeline              variant_id   chromosome  position  reference_allele  alternate_allele  quality_flag  gene_id  gene_symbol  transcript_id      consequence                         impact_class  impact    variant_class  variant_type  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:14522:G:A  1           14522     G                 A                 PASS          NA       WASH7P       ENST00000831140.1  non_coding_transcript_exon_variant  MODIFIER      MODIFIER  SNV            non-coding    NA                     NA                    0.1893                0.1893     NA       NA                   False      False
+
+[INFO] Mark Stage 07 gene_id logic probe completed at Sun Apr 26 08:05:14 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_probe_stage07_gene_id_logic_20260426_200514.log

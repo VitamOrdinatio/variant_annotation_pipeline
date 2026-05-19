@@ -1,0 +1,15 @@
+[INFO] Mark VEP install-from-archive test started at Wed Apr 22 03:51:42 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_install_vep_from_archive_20260422_155142.log
+[INFO] Initial working directory: /root/Desktop
+[INFO] Target repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP_ARCHIVE=/root/Desktop/ensembl-vep-release-115.0.tar.gz
+
+[STEP] Changing into VAP repo root
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== PRECHECKS ===
+[CMD] ls -lah /root/Desktop/ensembl-vep-release-115.0.tar.gz
+ls: cannot access '/root/Desktop/ensembl-vep-release-115.0.tar.gz': No such file or directory

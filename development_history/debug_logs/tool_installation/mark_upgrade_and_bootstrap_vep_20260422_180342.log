@@ -1,0 +1,427 @@
+[INFO] Mark VEP upgrade/bootstrap started at Wed Apr 22 06:03:42 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_upgrade_and_bootstrap_vep_20260422_180342.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP version: 115.2
+[INFO] VEP archive path: /root/Desktop/ensembl-vep-release-115.2.tar.gz
+[INFO] VEP tools dir: /root/tools/vep
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.2
+
+=== PRECHECKS ===
+[CMD] perl -MDBI -e 'print $DBI::VERSION, qq(\n)'
+1.643
+
+[CMD] ls -lah /root/tools
+total 20K
+drwxr-xr-x  5 root root 4.0K Apr 22 14:13 .
+drwx------ 26 root root 4.0K Apr 22 16:29 ..
+drwxr-xr-x  2 root root 4.0K Apr 22 14:13 annovar
+drwxr-xr-x  3 root root 4.0K Apr 21 20:10 gatk
+drwxr-xr-x  3 root root 4.0K Apr 22 16:06 vep
+
+=== DOWNLOAD LATEST VEP ARCHIVE ===
+[CMD] curl -fL -o /root/Desktop/ensembl-vep-release-115.2.tar.gz https://github.com/Ensembl/ensembl-vep/archive/refs/tags/release/115.2.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 12393    0 12393    0     0  34156      0 --:--:-- --:--:-- --:--:-- 34156100 4408k    0 4408k    0     0  3232k      0 --:--:--  0:00:01 --:--:-- 4395k100 11.2M    0 11.2M    0     0  4970k      0 --:--:--  0:00:02 --:--:-- 5881k100 14.0M    0 14.0M    0     0  4284k      0 --:--:--  0:00:03 --:--:-- 4798k100 16.5M    0 16.5M    0     0  3921k      0 --:--:--  0:00:04 --:--:-- 4277k100 19.2M    0 19.2M    0     0  3655k      0 --:--:--  0:00:05 --:--:-- 3916k100 21.7M    0 21.7M    0     0  3523k      0 --:--:--  0:00:06 --:--:-- 3602k100 38.8M    0 38.8M    0     0  5423k      0 --:--:--  0:00:07 --:--:-- 5634k100 41.5M    0 41.5M    0     0  5080k      0 --:--:--  0:00:08 --:--:-- 5616k100 44.3M    0 44.3M    0     0  4820k      0 --:--:--  0:00:09 --:--:-- 5586k100 46.7M    0 46.7M    0     0  4628k      0 --:--:--  0:00:10 --:--:-- 5689k100 49.3M    0 49.3M    0     0  4448k      0 --:--:--  0:00:11 --:--:-- 5616k100 52.0M    0 52.0M    0     0  4310k      0 --:--:--  0:00:12 --:--:-- 2685k100 54.5M    0 54.5M    0     0  4182k      0 --:--:--  0:00:13 --:--:-- 2672k100 57.3M    0 57.3M    0     0  4076k      0 --:--:--  0:00:14 --:--:-- 2668k100 59.8M    0 59.8M    0     0  3993k      0 --:--:--  0:00:15 --:--:-- 2676k100 60.4M    0 60.4M    0     0  3991k      0 --:--:--  0:00:15 --:--:-- 2738k
+
+[CMD] ls -lah /root/Desktop/ensembl-vep-release-115.2.tar.gz
+-rw-r--r-- 1 root root 61M Apr 22 18:03 /root/Desktop/ensembl-vep-release-115.2.tar.gz
+
+[CMD] tar -tzf /root/Desktop/ensembl-vep-release-115.2.tar.gz | head
+ensembl-vep-release-115.2/
+ensembl-vep-release-115.2/.github/
+ensembl-vep-release-115.2/.github/ISSUE_TEMPLATE/
+ensembl-vep-release-115.2/.github/ISSUE_TEMPLATE/issue-report.md
+ensembl-vep-release-115.2/.github/workflows/
+ensembl-vep-release-115.2/.github/workflows/docker.yml
+ensembl-vep-release-115.2/.github/workflows/merge-branches.yml
+ensembl-vep-release-115.2/.travis.yml
+ensembl-vep-release-115.2/INSTALL.pl
+ensembl-vep-release-115.2/LICENSE
+
+=== CLEAN PREVIOUS VEP SOURCE TREE ===
+[CMD] rm -rf /root/tools/vep/ensembl-vep-release-115.2
+
+=== EXTRACT INTO /root/tools/vep ===
+[CMD] tar -xzf /root/Desktop/ensembl-vep-release-115.2.tar.gz -C /root/tools/vep
+
+=== REFRESH CANONICAL SYMLINK ===
+[CMD] ls -lah /root/tools/vep
+total 16K
+drwxr-xr-x  4 root root 4.0K Apr 22 18:03 .
+drwxr-xr-x  5 root root 4.0K Apr 22 14:13 ..
+drwxrwxr-x 10 root root 4.0K Apr 22 17:39 ensembl-vep-release-115.0
+drwxrwxr-x 10 root root 4.0K Sep 25  2025 ensembl-vep-release-115.2
+lrwxrwxrwx  1 root root   45 Apr 22 18:03 vep -> /root/tools/vep/ensembl-vep-release-115.2/vep
+
+=== RUN INSTALL.PL (AUTO-CONTINUE IF ASKED) ===
+[CMD] printf 'n\n' | perl INSTALL.pl --NO_TEST
+WARNING: DBD::mysql module not found. VEP can only run in offline (--offline) mode without DBD::mysql installed
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+Hello! This installer will help you set up VEP v115, including:
+ - Install v115 of the Ensembl API for use by the VEP. It will not affect any existing installations of the Ensembl API that you may have.
+ - Download and install cache files from Ensembl's FTP server.
+ - Download FASTA files from Ensembl's FTP server.
+ - Download VEP plugins.
+
+Checking for installed versions of the Ensembl API...done
+
+Setting up directories
+ - fetching BioPerl
+ - unpacking ./Bio/tmp/release-1-6-924.zip
+ - moving files
+Attempting to install Bio::DB::HTS and htslib.
+
+>>> If this fails, try re-running with --NO_HTSLIB
+
+bzlib.h, lzma.h library header(s) not found in /usr/include. Please install it and try again.
+(or to skip Bio::DB::HTS/htslib install re-run with --NO_HTSLIB)
+
+On Debian/Ubuntu systems you can do this with the command:
+
+apt-get install libbz2-dev liblzma-dev
+
+
+=== POST-INSTALL HELP CHECK ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.2/modules /root/tools/vep/ensembl-vep-release-115.2 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+=== FINAL LAYOUT ===
+[CMD] tree -L 3 /root/tools/vep
+/root/tools/vep
+├── ensembl-vep-release-115.0
+│   ├── convert_cache.pl
+│   ├── cpanfile
+│   ├── docker
+│   │   ├── Dockerfile
+│   │   └── Dockerfile.dockerignore
+│   ├── examples
+│   │   ├── arabidopsis_thaliana.TAIR10.vcf
+│   │   ├── bos_taurus_UMD3.1.vcf
+│   │   ├── canis_familiaris_CanFam3.1.vcf
+│   │   ├── danio_rerio_GRCz10.vcf
+│   │   ├── drosophila_melanogaster_BDGP6.vcf
+│   │   ├── homo_sapiens_GRCh37.vcf
+│   │   ├── homo_sapiens_GRCh38.vcf
+│   │   ├── mus_musculus_GRCm38.vcf
+│   │   ├── rattus_norvegicus_Rnor_6.0.vcf
+│   │   └── sus_scrofa_Sscrofa10.2.vcf
+│   ├── filter_vep
+│   ├── haplo
+│   ├── INSTALL.pl
+│   ├── LICENSE
+│   ├── main.nf
+│   ├── modules
+│   │   └── Bio
+│   ├── nextflow
+│   │   ├── examples
+│   │   ├── main.nf
+│   │   ├── modules
+│   │   ├── nextflow.config
+│   │   ├── nextflow_schema.json
+│   │   ├── README.md
+│   │   ├── vep_config
+│   │   └── workflows
+│   ├── nextflow.config
+│   ├── README.md
+│   ├── t
+│   │   ├── AnnotationSourceAdaptor.t
+│   │   ├── AnnotationSource_Cache_RegFeat.t
+│   │   ├── AnnotationSource_Cache.t
+│   │   ├── AnnotationSource_Cache_Transcript.t
+│   │   ├── AnnotationSource_Cache_Variation.t
+│   │   ├── AnnotationSource_Cache_VariationTabix.t
+│   │   ├── AnnotationSource_Database_RegFeat.t
+│   │   ├── AnnotationSource_Database_StructuralVariation.t
+│   │   ├── AnnotationSource_Database_Transcript.t
+│   │   ├── AnnotationSource_Database_Variation.t
+│   │   ├── AnnotationSource_File_BED.t
+│   │   ├── AnnotationSource_File_BigWig.t
+│   │   ├── AnnotationSource_File_GFF.t
+│   │   ├── AnnotationSource_File_GTF.t
+│   │   ├── AnnotationSource_File.t
+│   │   ├── AnnotationSource_File_VCF.t
+│   │   ├── AnnotationSource.t
+│   │   ├── bam_edit.t
+│   │   ├── BaseVEP.t
+│   │   ├── CacheDir.t
+│   │   ├── Config.t
+│   │   ├── FilterSet.t
+│   │   ├── Haplo_AnnotationSource_Cache_Transcript.t
+│   │   ├── Haplo_AnnotationSource_Database_Transcript.t
+│   │   ├── Haplo_AnnotationSource_File_GFF.t
+│   │   ├── Haplo_AnnotationSource_File_GTF.t
+│   │   ├── Haplo_InputBuffer.t
+│   │   ├── Haplo_Parser_VCF.t
+│   │   ├── Haplo_Runner.t
+│   │   ├── InputBuffer.t
+│   │   ├── MultiTestDB.conf.default
+│   │   ├── MultiTestDB.conf.example
+│   │   ├── OutputFactory_JSON.t
+│   │   ├── OutputFactory.t
+│   │   ├── OutputFactory_Tab.t
+│   │   ├── OutputFactory_VCF.t
+│   │   ├── OutputFactory_VEP_output.t
+│   │   ├── Parser_CAID.t
+│   │   ├── Parser_HGVS.t
+│   │   ├── Parser_ID.t
+│   │   ├── Parser_Region.t
+│   │   ├── Parser_SPDI.t
+│   │   ├── Parser.t
+│   │   ├── Parser_VCF.t
+│   │   ├── Parser_VEP_input.t
+│   │   ├── README
+│   │   ├── Runner.t
+│   │   ├── Stats.t
+│   │   ├── test_core_region_config.json
+│   │   ├── test_core_region_mouse_config.json
+│   │   ├── testdata
+│   │   ├── test-genome-DBs
+│   │   ├── test_otherfeatures_region_config.json
+│   │   ├── TestPluginCache.pm
+│   │   ├── TestPluginNewFails.pm
+│   │   ├── TestPluginNoCompile.pm
+│   │   ├── TestPluginNoMethods.pm
+│   │   ├── TestPlugin.pm
+│   │   ├── TestPluginRegFeat.pm
+│   │   ├── TestPluginRunFails.pm
+│   │   ├── TranscriptTree.t
+│   │   ├── translation_md5s.txt
+│   │   ├── Utils.t
+│   │   ├── VariantRecoder.t
+│   │   ├── VEPTestingConfig.pm
+│   │   └── version.t
+│   ├── travisci
+│   │   ├── api_build_run_last_hour.py
+│   │   ├── build_c.sh
+│   │   ├── get_dependencies.sh
+│   │   ├── harness.sh
+│   │   ├── install_dependencies.sh
+│   │   ├── install_mysql.sh
+│   │   ├── MultiTestDB.conf.travisci
+│   │   └── trigger-dependent-build.sh
+│   ├── validator
+│   │   ├── test_vep_input_validator.py
+│   │   └── vep_input_format_validator.py
+│   ├── variant_recoder
+│   └── vep
+├── ensembl-vep-release-115.2
+│   ├── Bio
+│   │   ├── Align
+│   │   ├── AlignIO
+│   │   ├── AlignIO.pm
+│   │   ├── AnalysisI.pm
+│   │   ├── AnalysisParserI.pm
+│   │   ├── AnalysisResultI.pm
+│   │   ├── AnnotatableI.pm
+│   │   ├── Annotation
+│   │   ├── AnnotationCollectionI.pm
+│   │   ├── AnnotationI.pm
+│   │   ├── Assembly
+│   │   ├── Cluster
+│   │   ├── ClusterIO
+│   │   ├── ClusterIO.pm
+│   │   ├── ClusterI.pm
+│   │   ├── CodonUsage
+│   │   ├── Coordinate
+│   │   ├── Das
+│   │   ├── DasI.pm
+│   │   ├── DB
+│   │   ├── DBLinkContainerI.pm
+│   │   ├── DescribableI.pm
+│   │   ├── Draw
+│   │   ├── Event
+│   │   ├── Factory
+│   │   ├── FeatureHolderI.pm
+│   │   ├── HandlerBaseI.pm
+│   │   ├── IdCollectionI.pm
+│   │   ├── IdentifiableI.pm
+│   │   ├── Index
+│   │   ├── LiveSeq
+│   │   ├── LocatableSeq.pm
+│   │   ├── Location
+│   │   ├── LocationI.pm
+│   │   ├── Map
+│   │   ├── MapIO
+│   │   ├── MapIO.pm
+│   │   ├── Matrix
+│   │   ├── MolEvol
+│   │   ├── Nexml
+│   │   ├── NexmlIO.pm
+│   │   ├── Ontology
+│   │   ├── OntologyIO
+│   │   ├── OntologyIO.pm
+│   │   ├── ParameterBaseI.pm
+│   │   ├── Perl.pm
+│   │   ├── Phenotype
+│   │   ├── PhyloNetwork
+│   │   ├── PhyloNetwork.pm
+│   │   ├── PopGen
+│   │   ├── PrimarySeqI.pm
+│   │   ├── PrimarySeq.pm
+│   │   ├── PullParserI.pm
+│   │   ├── RangeI.pm
+│   │   ├── Range.pm
+│   │   ├── Restriction
+│   │   ├── Root
+│   │   ├── Search
+│   │   ├── SearchDist.pm
+│   │   ├── SearchIO
+│   │   ├── SearchIO.pm
+│   │   ├── Seq
+│   │   ├── SeqAnalysisParserI.pm
+│   │   ├── SeqEvolution
+│   │   ├── SeqFeature
+│   │   ├── SeqFeatureI.pm
+│   │   ├── SeqIO
+│   │   ├── SeqIO.pm
+│   │   ├── SeqI.pm
+│   │   ├── Seq.pm
+│   │   ├── SeqUtils.pm
+│   │   ├── SimpleAlign.pm
+│   │   ├── SimpleAnalysisI.pm
+│   │   ├── Species.pm
+│   │   ├── Structure
+│   │   ├── Symbol
+│   │   ├── Taxonomy
+│   │   ├── Taxonomy.pm
+│   │   ├── Taxon.pm
+│   │   ├── Tools
+│   │   ├── Tree
+│   │   ├── TreeIO
+│   │   ├── TreeIO.pm
+│   │   ├── UpdateableSeqI.pm
+│   │   ├── Variation
+│   │   └── WebAgent.pm
+│   ├── convert_cache.pl
+│   ├── cpanfile
+│   ├── docker
+│   │   ├── Dockerfile
+│   │   └── Dockerfile.dockerignore
+│   ├── examples
+│   │   ├── arabidopsis_thaliana.TAIR10.vcf
+│   │   ├── bos_taurus_UMD3.1.vcf
+│   │   ├── canis_familiaris_CanFam3.1.vcf
+│   │   ├── danio_rerio_GRCz10.vcf
+│   │   ├── drosophila_melanogaster_BDGP6.vcf
+│   │   ├── homo_sapiens_GRCh37.vcf
+│   │   ├── homo_sapiens_GRCh38.vcf
+│   │   ├── mus_musculus_GRCm38.vcf
+│   │   ├── rattus_norvegicus_Rnor_6.0.vcf
+│   │   └── sus_scrofa_Sscrofa10.2.vcf
+│   ├── filter_vep
+│   ├── haplo
+│   ├── INSTALL.pl
+│   ├── LICENSE
+│   ├── main.nf
+│   ├── modules
+│   │   └── Bio
+│   ├── nextflow
+│   │   ├── examples
+│   │   ├── main.nf
+│   │   ├── modules
+│   │   ├── nextflow.config
+│   │   ├── nextflow_schema.json
+│   │   ├── README.md
+│   │   ├── vep_config
+│   │   └── workflows
+│   ├── nextflow.config
+│   ├── README.md
+│   ├── t
+│   │   ├── AnnotationSourceAdaptor.t
+│   │   ├── AnnotationSource_Cache_RegFeat.t
+│   │   ├── AnnotationSource_Cache.t
+│   │   ├── AnnotationSource_Cache_Transcript.t
+│   │   ├── AnnotationSource_Cache_Variation.t
+│   │   ├── AnnotationSource_Cache_VariationTabix.t
+│   │   ├── AnnotationSource_Database_RegFeat.t
+│   │   ├── AnnotationSource_Database_StructuralVariation.t
+│   │   ├── AnnotationSource_Database_Transcript.t
+│   │   ├── AnnotationSource_Database_Variation.t
+│   │   ├── AnnotationSource_File_BED.t
+│   │   ├── AnnotationSource_File_BigWig.t
+│   │   ├── AnnotationSource_File_GFF.t
+│   │   ├── AnnotationSource_File_GTF.t
+│   │   ├── AnnotationSource_File.t
+│   │   ├── AnnotationSource_File_VCF.t
+│   │   ├── AnnotationSource.t
+│   │   ├── bam_edit.t
+│   │   ├── BaseVEP.t
+│   │   ├── CacheDir.t
+│   │   ├── Config.t
+│   │   ├── FilterSet.t
+│   │   ├── Haplo_AnnotationSource_Cache_Transcript.t
+│   │   ├── Haplo_AnnotationSource_Database_Transcript.t
+│   │   ├── Haplo_AnnotationSource_File_GFF.t
+│   │   ├── Haplo_AnnotationSource_File_GTF.t
+│   │   ├── Haplo_InputBuffer.t
+│   │   ├── Haplo_Parser_VCF.t
+│   │   ├── Haplo_Runner.t
+│   │   ├── InputBuffer.t
+│   │   ├── MultiTestDB.conf.default
+│   │   ├── MultiTestDB.conf.example
+│   │   ├── OutputFactory_JSON.t
+│   │   ├── OutputFactory.t
+│   │   ├── OutputFactory_Tab.t
+│   │   ├── OutputFactory_VCF.t
+│   │   ├── OutputFactory_VEP_output.t
+│   │   ├── Parser_CAID.t
+│   │   ├── Parser_HGVS.t
+│   │   ├── Parser_ID.t
+│   │   ├── Parser_Region.t
+│   │   ├── Parser_SPDI.t
+│   │   ├── Parser.t
+│   │   ├── Parser_VCF.t
+│   │   ├── Parser_VEP_input.t
+│   │   ├── README
+│   │   ├── Runner.t
+│   │   ├── Stats.t
+│   │   ├── test_core_region_config.json
+│   │   ├── test_core_region_mouse_config.json
+│   │   ├── testdata
+│   │   ├── test-genome-DBs
+│   │   ├── test_otherfeatures_region_config.json
+│   │   ├── TestPluginCache.pm
+│   │   ├── TestPluginNewFails.pm
+│   │   ├── TestPluginNoCompile.pm
+│   │   ├── TestPluginNoMethods.pm
+│   │   ├── TestPlugin.pm
+│   │   ├── TestPluginRegFeat.pm
+│   │   ├── TestPluginRunFails.pm
+│   │   ├── TranscriptTree.t
+│   │   ├── translation_md5s.txt
+│   │   ├── Utils.t
+│   │   ├── VariantRecoder.t
+│   │   ├── VEPTestingConfig.pm
+│   │   └── version.t
+│   ├── travisci
+│   │   ├── api_build_run_last_hour.py
+│   │   ├── build_c.sh
+│   │   ├── get_dependencies.sh
+│   │   ├── harness.sh
+│   │   ├── install_dependencies.sh
+│   │   ├── install_mysql.sh
+│   │   ├── MultiTestDB.conf.travisci
+│   │   └── trigger-dependent-build.sh
+│   ├── validator
+│   │   ├── test_vep_input_validator.py
+│   │   └── vep_input_format_validator.py
+│   ├── variant_recoder
+│   └── vep
+└── vep -> /root/tools/vep/ensembl-vep-release-115.2/vep
+
+73 directories, 248 files
+
+[INFO] Mark VEP upgrade/bootstrap completed at Wed Apr 22 06:04:02 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_upgrade_and_bootstrap_vep_20260422_180342.log

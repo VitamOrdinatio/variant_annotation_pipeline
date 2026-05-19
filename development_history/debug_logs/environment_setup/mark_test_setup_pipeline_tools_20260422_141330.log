@@ -1,0 +1,153 @@
+[INFO] Mark setup_pipeline_tools test started at Wed Apr 22 02:13:30 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_test_setup_pipeline_tools_20260422_141330.log
+[INFO] Initial working directory: /root/Desktop
+[INFO] Target repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Changing into VAP repo root
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== REPO STATUS ===
+[CMD] git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	results/run_2026_04_17_044028/
+	results/run_2026_04_17_044718/
+	results/run_2026_04_17_082417/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+=== CONFIG SNAPSHOT ===
+[CMD] grep -n 'gatk\|vep\|annovar' config/config.mark.local.yaml
+44:  gatk:
+45:    executable: /root/tools/gatk/gatk
+48:  vep:
+49:    executable: vep
+50:    cache_dir: /data/storage/reference/vep/cache
+55:  engine: vep
+
+=== TOOL SCRIPT STATUS MODE ===
+[CMD] TARGET_ENV=mark MODE=status bash scripts/tools/setup_pipeline_tools.sh
+[INFO] TARGET_ENV: mark
+[INFO] MODE: status
+[INFO] TOOLS_BASE: /root/tools
+[INFO] GATK_DIR: /root/tools/gatk
+[INFO] GATK_EXECUTABLE: /root/tools/gatk/gatk
+[INFO] GATK_LEGACY_DIR: /root/tools/gatk-4.6.2.0
+[INFO] VEP_DIR: /root/tools/vep
+[INFO] VEP_EXECUTABLE: <unset>
+[INFO] VEP_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_DIR: /root/tools/annovar
+[INFO] ANNOVAR_EXECUTABLE: /root/tools/annovar/table_annovar.pl
+[INFO] ANNOVAR_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_SOURCE_DIR: <unset>
+[INFO] Found tool on PATH: perl -> /usr/bin/perl
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory directory exists and is non-empty.
+[WARN] VEP directory directory does not exist.
+[WARN] ANNOVAR directory directory does not exist.
+
+=== TOOL SCRIPT PROVISION MODE ===
+[CMD] TARGET_ENV=mark MODE=provision bash scripts/tools/setup_pipeline_tools.sh
+[INFO] TARGET_ENV: mark
+[INFO] MODE: provision
+[INFO] TOOLS_BASE: /root/tools
+[INFO] GATK_DIR: /root/tools/gatk
+[INFO] GATK_EXECUTABLE: /root/tools/gatk/gatk
+[INFO] GATK_LEGACY_DIR: /root/tools/gatk-4.6.2.0
+[INFO] VEP_DIR: /root/tools/vep
+[INFO] VEP_EXECUTABLE: <unset>
+[INFO] VEP_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_DIR: /root/tools/annovar
+[INFO] ANNOVAR_EXECUTABLE: /root/tools/annovar/table_annovar.pl
+[INFO] ANNOVAR_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_SOURCE_DIR: <unset>
+[INFO] Found tool on PATH: perl -> /usr/bin/perl
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory directory exists and is non-empty.
+[WARN] VEP directory directory does not exist.
+[WARN] ANNOVAR directory directory does not exist.
+[INFO] Provision mode selected.
+[INFO] Tools base directory already exists: /root/tools
+[INFO] GATK directory directory already exists: /root/tools/gatk
+[INFO] Created VEP directory directory: /root/tools/vep
+[INFO] Created ANNOVAR directory directory: /root/tools/annovar
+[INFO] Canonical GATK executable already present: /root/tools/gatk/gatk
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] VEP source archive not provided; skipping VEP install.
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[WARN] ANNOVAR source archive/directory not provided; skipping ANNOVAR install.
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory directory exists and is non-empty.
+[WARN] VEP directory directory exists but is empty.
+[WARN] ANNOVAR directory directory exists but is empty.
+[WARN] VEP executable provisioning not yet complete.
+[WARN] ANNOVAR executable provisioning not yet complete.
+[INFO] Provision step completed.
+
+=== POST-RUN TOOL LAYOUT ===
+[CMD] tree -L 3 /root/tools
+/root/tools
+├── annovar
+├── gatk
+│   ├── gatk -> /root/tools/gatk/gatk-4.6.2.0/gatk
+│   ├── gatk-4.6.2.0
+│   │   ├── gatk
+│   │   ├── gatk-completion.sh
+│   │   ├── gatkcondaenv.yml
+│   │   ├── GATKConfig.EXAMPLE.properties
+│   │   ├── gatkdoc
+│   │   ├── gatk-package-4.6.2.0-local.jar
+│   │   ├── gatk-package-4.6.2.0-spark.jar
+│   │   ├── gatkPythonPackageArchive.zip
+│   │   ├── README.md
+│   │   └── scripts
+│   └── gatk-4.6.2.0.zip
+└── vep
+
+7 directories, 10 files
+
+[CMD] ls -lah /root/tools/gatk
+total 672M
+drwxr-xr-x 3 root root 4.0K Apr 21 20:10 .
+drwxr-xr-x 5 root root 4.0K Apr 22 14:13 ..
+lrwxrwxrwx 1 root root   34 Apr 21 20:10 gatk -> /root/tools/gatk/gatk-4.6.2.0/gatk
+drwxr-xr-x 4 root root 4.0K Apr 13  2025 gatk-4.6.2.0
+-rw-r--r-- 1 root root 672M Apr 13  2025 gatk-4.6.2.0.zip
+
+[CMD] ls -lah /root/tools/vep
+total 8.0K
+drwxr-xr-x 2 root root 4.0K Apr 22 14:13 .
+drwxr-xr-x 5 root root 4.0K Apr 22 14:13 ..
+
+[CMD] ls -lah /root/tools/annovar
+total 8.0K
+drwxr-xr-x 2 root root 4.0K Apr 22 14:13 .
+drwxr-xr-x 5 root root 4.0K Apr 22 14:13 ..
+
+=== DIRECT GATK CHECK ===
+[CMD] /root/tools/gatk/gatk --version
+Using GATK jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar --version
+The Genome Analysis Toolkit (GATK) v4.6.2.0
+HTSJDK Version: 4.2.0
+Picard Version: 3.4.0
+
+[INFO] Mark setup_pipeline_tools test completed at Wed Apr 22 02:13:34 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_test_setup_pipeline_tools_20260422_141330.log

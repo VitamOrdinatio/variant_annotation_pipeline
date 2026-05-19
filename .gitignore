@@ -18,6 +18,9 @@
 !docs/case_studies/tables/*.tsv.gz
 !docs/case_studies/tables/README.md
 
+# Keep developmental history logs
+!development_history/**/**/*.log
+
 # Block internal notes and uncompressed large burden table
 docs/case_studies/tables/narrative_seeder.md
 docs/case_studies/tables/gene_burden_summary.tsv

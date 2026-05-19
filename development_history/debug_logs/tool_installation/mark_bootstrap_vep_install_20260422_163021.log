@@ -1,0 +1,62 @@
+[INFO] Mark VEP bootstrap started at Wed Apr 22 04:30:21 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_bootstrap_vep_install_20260422_163021.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.0
+
+=== PRECHECKS ===
+[CMD] ls -lah /root/tools/vep
+total 12K
+drwxr-xr-x  3 root root 4.0K Apr 22 16:06 .
+drwxr-xr-x  5 root root 4.0K Apr 22 14:13 ..
+drwxrwxr-x 10 root root 4.0K Aug 20  2025 ensembl-vep-release-115.0
+lrwxrwxrwx  1 root root   45 Apr 22 16:06 vep -> /root/tools/vep/ensembl-vep-release-115.0/vep
+
+[CMD] ls -lah /root/tools/vep/ensembl-vep-release-115.0
+total 212K
+drwxrwxr-x 10 root root 4.0K Aug 20  2025 .
+drwxr-xr-x  3 root root 4.0K Apr 22 16:06 ..
+-rwxrwxr-x  1 root root  17K Aug 20  2025 convert_cache.pl
+-rw-rw-r--  1 root root  331 Aug 20  2025 cpanfile
+drwxrwxr-x  2 root root 4.0K Aug 20  2025 docker
+drwxrwxr-x  2 root root 4.0K Aug 20  2025 examples
+-rwxrwxr-x  1 root root  17K Aug 20  2025 filter_vep
+drwxrwxr-x  4 root root 4.0K Aug 20  2025 .github
+-rwxrwxr-x  1 root root 4.8K Aug 20  2025 haplo
+-rwxrwxr-x  1 root root  63K Aug 20  2025 INSTALL.pl
+-rw-rw-r--  1 root root  12K Aug 20  2025 LICENSE
+-rw-rw-r--  1 root root  130 Aug 20  2025 main.nf
+drwxrwxr-x  3 root root 4.0K Aug 20  2025 modules
+drwxrwxr-x  6 root root 4.0K Aug 20  2025 nextflow
+-rw-rw-r--  1 root root   41 Aug 20  2025 nextflow.config
+-rw-rw-r--  1 root root  18K Aug 20  2025 README.md
+drwxrwxr-x  4 root root 4.0K Aug 20  2025 t
+drwxrwxr-x  2 root root 4.0K Aug 20  2025 travisci
+-rw-rw-r--  1 root root 2.3K Aug 20  2025 .travis.yml
+drwxrwxr-x  2 root root 4.0K Aug 20  2025 validator
+-rwxrwxr-x  1 root root 5.4K Aug 20  2025 variant_recoder
+-rwxrwxr-x  1 root root 2.7K Aug 20  2025 vep
+
+[CMD] ls -lah /root/tools/vep/ensembl-vep-release-115.0/INSTALL.pl
+-rwxrwxr-x 1 root root 63K Aug 20  2025 /root/tools/vep/ensembl-vep-release-115.0/INSTALL.pl
+
+=== RUN INSTALL.PL ===
+[CMD] perl INSTALL.pl --NO_TEST
+ERROR: DBI module not found. VEP requires the DBI perl module to function
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+
+=== POST-INSTALL HELP CHECK ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.0/modules /root/tools/vep/ensembl-vep-release-115.0 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+[INFO] Mark VEP bootstrap completed at Wed Apr 22 04:30:21 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_bootstrap_vep_install_20260422_163021.log

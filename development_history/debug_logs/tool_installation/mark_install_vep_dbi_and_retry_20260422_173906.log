@@ -1,0 +1,78 @@
+[INFO] Mark VEP DBI install + retry started at Wed Apr 22 05:39:06 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_install_vep_dbi_and_retry_20260422_173906.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.0
+
+=== PRECHECK: DBI BEFORE INSTALL ===
+[CMD] perl -MDBI -e 'print $DBI::VERSION, qq(\n)'
+Can't locate DBI.pm in @INC (you may need to install the DBI module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl).
+BEGIN failed--compilation aborted.
+
+=== APT INSTALL DBI ===
+[CMD] apt-get update
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Get:2 http://security.debian.org bookworm-security InRelease [48.0 kB]
+Get:3 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+Get:4 http://security.debian.org bookworm-security/main amd64 Packages [297 kB]
+Get:5 http://security.debian.org bookworm-security/main Translation-en [181 kB]
+Fetched 582 kB in 0s (1,187 kB/s)
+Reading package lists...
+
+[CMD] apt-get install -y libdbi-perl
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdbus-glib-1-2 linux-headers-6.1.0-25-amd64 linux-headers-6.1.0-25-common
+  linux-headers-6.1.0-30-amd64 linux-headers-6.1.0-30-common
+  linux-headers-6.1.0-40-amd64 linux-headers-6.1.0-40-common
+Use 'apt autoremove' to remove them.
+Suggested packages:
+  libmldbm-perl libnet-daemon-perl libsql-statement-perl
+The following NEW packages will be installed:
+  libdbi-perl
+0 upgraded, 1 newly installed, 0 to remove and 8 not upgraded.
+Need to get 773 kB of archives.
+After this operation, 2,203 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 libdbi-perl amd64 1.643-4 [773 kB]
+Fetched 773 kB in 0s (5,935 kB/s)
+Selecting previously unselected package libdbi-perl:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 208405 files and directories currently installed.)
+Preparing to unpack .../libdbi-perl_1.643-4_amd64.deb ...
+Unpacking libdbi-perl:amd64 (1.643-4) ...
+Setting up libdbi-perl:amd64 (1.643-4) ...
+Processing triggers for man-db (2.11.2-2) ...
+
+=== VERIFY DBI AFTER INSTALL ===
+[CMD] perl -MDBI -e 'print $DBI::VERSION, qq(\n)'
+1.643
+
+=== RERUN VEP INSTALLER ===
+[CMD] perl INSTALL.pl --NO_TEST
+WARNING: DBD::mysql module not found. VEP can only run in offline (--offline) mode without DBD::mysql installed
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+
+Version check reports there are post-release updates available of ensembl-vep (installed: 115.0, available: 115.2)
+
+You should exit this installer and re-download 'ensembl-vep' if you wish to update
+
+Do you wish to exit so you can get updates (y) or continue (n): OK, bye!
+
+NB: Remember to re-run INSTALL.pl after updating to check for API updates
+
+=== POST-INSTALL HELP CHECK ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.0/modules /root/tools/vep/ensembl-vep-release-115.0 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+[INFO] Mark VEP DBI install + retry completed at Wed Apr 22 05:39:17 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_install_vep_dbi_and_retry_20260422_173906.log

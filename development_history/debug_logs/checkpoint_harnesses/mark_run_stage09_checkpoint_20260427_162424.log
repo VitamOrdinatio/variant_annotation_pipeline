@@ -1,0 +1,722 @@
+[INFO] Mark Stage 09 checkpoint run started at Mon Apr 27 04:24:24 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage09_checkpoint_20260427_162424.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+
+=== REPO STATUS ===
+
+=== FIND LATEST STAGE 08 OUTPUTS ===
+[INFO] CODING_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+[INFO] SPLICE_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+[INFO] VARIANT_SUMMARY_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[INFO] SELECTED_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+-rw-r--r-- 1 root root 6.6M Apr 26 22:50 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+-rw-r--r-- 1 root root 1.2M Apr 26 22:50 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+-rw-r--r-- 1 root root 1.3G Apr 26 22:50 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+-rw-r--r-- 1 root root 957M Apr 26 22:51 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+
+=== RUN STAGE 09 FROM CHECKPOINT ===
+[PYTHON][INFO] CODING_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+[PYTHON][INFO] SPLICE_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+[PYTHON][INFO] VARIANT_SUMMARY_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[PYTHON][INFO] SELECTED_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+[PYTHON][INFO] PROCESSED_DIR= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed
+[LOGGER][INFO] Stage 09: interpreting coding and splice-region variants.
+[LOGGER][INFO] Stage 09 coding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+[LOGGER][INFO] Stage 09 splice-region input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+[LOGGER][INFO] Stage 09 Stage 08 variant summary validation input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[LOGGER][INFO] Stage 09 selected transcript validation input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+[LOGGER][INFO] Reading Stage 09 input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+[LOGGER][INFO] Reading Stage 09 input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:1708951:C:T', 'ENST00000404249.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:2609830:A:G', 'ENST00000378412.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:12893472:T:C', 'ENST00000235347.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:13308331:A:G', 'ENST00000437300.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:16577417:T:A', 'ENST00000430580.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:21468895:A:G', 'ENST00000318249.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:21984331:T:C', 'ENST00000337107.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:31698605:T:G', 'ENST00000373672.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:42665982:G:A', 'ENST00000304979.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:54548340:C:T', 'ENST00000343744.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:54594689:G:A', 'ENST00000343744.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:66822362:C:T', 'ENST00000371026.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:75236989:G:A', 'ENST00000370859.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:85128709:T:C', 'ENST00000294664.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:88805891:T:C', 'ENST00000370521.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:91316474:T:C', 'ENST00000370425.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:94001103:A:G', 'ENST00000370225.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:107770636:C:T', 'ENST00000370056.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:110456232:G:A', 'ENST00000271331.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:120005329:CTG:C', 'ENST00000256646.7', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:121374827:A:G', 'ENST00000367123.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:150987874:A:C', 'ENST00000368947.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:153304947:C:T', 'ENST00000683862.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:162397313:G:T', 'ENST00000367929.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:170965253:T:C', 'ENST00000367759.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:179444970:A:C', 'ENST00000367618.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:186132407:A:G', 'ENST00000271588.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:186352110:C:T', 'ENST00000367478.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:203174597:G:C', 'ENST00000255416.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:205058662:A:C', 'ENST00000331830.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:207479280:G:A', 'ENST00000367057.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:207621975:A:G', 'ENST00000367049.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:208034494:G:A', 'ENST00000367033.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:223717830:G:A', 'ENST00000295006.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:225085546:G:T', 'ENST00000682510.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:232955717:T:A', 'ENST00000366628.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:234446974:C:T', 'ENST00000040877.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:236543562:G:C', 'ENST00000366584.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:236581412:C:A', 'ENST00000366582.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:241744515:T:C', 'ENST00000437684.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:242524088:G:A', 'ENST00000536534.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('1:246988255:A:G', 'ENST00000339986.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:15531051:A:G', 'ENST00000378076.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:19607901:C:A', 'ENST00000454679.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:23008372:C:T', 'ENST00000298032.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:23193706:T:C', 'ENST00000376504.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:26066977:G:A', 'ENST00000642920.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:26270642:G:C', 'ENST00000376261.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:27968923:C:T', 'ENST00000305242.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:32456334:T:C', 'ENST00000639629.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:32834896:G:C', 'ENST00000639629.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:49648606:G:A', 'ENST00000337653.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:54195684:T:G', 'ENST00000644397.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:59245057:A:C', 'ENST00000373880.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:70667380:A:G', 'ENST00000697572.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:77819464:G:A', 'ENST00000372391.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:86366315:G:A', 'ENST00000327946.12', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:91848385:G:A', 'ENST00000371627.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:95346408:T:C', 'ENST00000371247.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:112668219:G:A', 'ENST00000393077.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:132808904:T:C', 'ENST00000368586.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('10:132942436:CTT:C', 'ENST00000368586.10', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:829539:A:G', 'ENST00000525077.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:1083078:T:C', 'ENST00000675028.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:1083145:C:T', 'ENST00000675028.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:1199373:C:T', 'ENST00000621226.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:2414716:A:G', 'ENST00000696290.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:18269333:C:G', 'ENST00000356524.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:18306137:G:T', 'ENST00000349215.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:19146303:A:G', 'ENST00000446113.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:20077995:C:T', 'ENST00000349880.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:57410120:A:G', 'ENST00000395124.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:57500779:C:T', 'ENST00000278426.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:60385090:T:A', 'ENST00000300184.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:64243969:T:C', 'ENST00000309366.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:65021722:T:C', 'ENST00000246747.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:69083946:T:C', 'ENST00000294309.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:93668930:C:A', 'ENST00000325212.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:93675665:G:A', 'ENST00000325212.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:94604054:C:T', 'ENST00000299001.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:111924361:C:G', 'ENST00000278601.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:120905292:G:A', 'ENST00000527524.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:122867553:A:G', 'ENST00000227348.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('11:129852658:C:T', 'ENST00000281441.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:4278918:C:G', 'ENST00000261254.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:4596151:C:T', 'ENST00000543431.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:5575836:G:A', 'ENST00000682330.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:5996221:G:A', 'ENST00000261405.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:6528679:T:C', 'ENST00000315579.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:7433375:A:G', 'ENST00000313599.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:16216894:A:T', 'ENST00000344941.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:16244800:C:A', 'ENST00000344941.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:40225280:G:A', 'ENST00000298910.12', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:40427374:G:A', 'ENST00000454784.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:40504394:T:A', 'ENST00000454784.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:40513782:C:T', 'ENST00000454784.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:40514391:T:G', 'ENST00000454784.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:48569238:T:C', 'ENST00000301046.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:50809588:C:T', 'ENST00000262053.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:52428474:A:G', 'ENST00000252245.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:52490951:A:G', 'ENST00000330722.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:53039702:C:T', 'ENST00000262056.14', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:55941323:A:G', 'ENST00000331886.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:57173979:C:T', 'ENST00000243077.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:57196001:A:C', 'ENST00000243077.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:66211448:A:G', 'ENST00000261233.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:69952885:G:A', 'ENST00000552032.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:78148919:T:C', 'ENST00000397909.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:80305695:G:T', 'ENST00000547103.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:80372020:A:G', 'ENST00000547103.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:80506569:T:G', 'ENST00000644991.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:88111856:A:G', 'ENST00000552810.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:95872257:T:C', 'ENST00000344280.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('12:123789927:A:G', 'ENST00000673944.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:23324370:T:C', 'ENST00000218867.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:24447016:C:T', 'ENST00000381989.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:24447185:A:G', 'ENST00000381989.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:31247855:T:C', 'ENST00000343307.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:42159267:G:T', 'ENST00000337343.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:49482961:G:A', 'ENST00000611815.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:98826885:T:C', 'ENST00000682017.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('13:114265239:T:C', 'ENST00000356221.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:21360970:C:G', 'ENST00000216297.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:22812901:A:G', 'ENST00000674313.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:24178608:T:C', 'ENST00000611366.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:36711480:T:C', 'ENST00000331299.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:51249470:T:G', 'ENST00000457354.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:52029689:C:T', 'ENST00000216286.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:52042783:T:C', 'ENST00000216286.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:61113648:C:T', 'ENST00000703134.1', 'splice_region_variant&synonymous_variant&NMD_transcript_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:64737373:A:T', 'ENST00000247226.13', 'stop_gained&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:64779244:A:G', 'ENST00000644917.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:73496679:T:C', 'ENST00000553558.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:73729983:T:C', 'ENST00000423556.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:73922205:T:C', 'ENST00000555044.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:91307224:T:C', 'ENST00000389857.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:94378638:G:A', 'ENST00000393087.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:103970541:G:A', 'ENST00000409874.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:105588091:C:G', 'ENST00000497872.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('14:105625344:C:CTGGGCACGG', 'ENST00000641978.1', 'inframe_insertion&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:28847190:A:G', 'ENST00000567390.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:33088799:A:T', 'ENST00000616417.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:33579976:C:T', 'ENST00000634891.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:41047499:T:C', 'ENST00000648947.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:42081612:G:C', 'ENST00000290472.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:42276349:C:G', 'ENST00000318010.13', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:42351331:T:C', 'ENST00000318010.13', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:43340351:T:C', 'ENST00000562188.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:44755375:C:T', 'ENST00000329464.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:48288516:T:C', 'ENST00000380993.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:64216564:G:A', 'ENST00000303052.13', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:64670431:A:C', 'ENST00000326648.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:64943580:A:G', 'ENST00000319580.13', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:65201874:A:G', 'ENST00000261883.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:74837752:T:C', 'ENST00000440863.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:75044388:A:G', 'ENST00000342932.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('15:99706731:T:C', 'ENST00000557942.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:1341131:C:T', 'ENST00000426824.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:2009735:CG:C', 'ENST00000562103.2', 'splice_acceptor_variant&frameshift_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:4744872:C:T', 'ENST00000299320.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:8746097:A:G', 'ENST00000268251.13', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:8885189:A:G', 'ENST00000636296.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:11933924:A:C', 'ENST00000399147.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:15748166:G:A', 'ENST00000300036.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:23510322:G:C', 'ENST00000309859.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:56872656:C:T', 'ENST00000563236.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:56935236:G:A', 'ENST00000439977.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:57058065:T:C', 'ENST00000688547.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:72008783:A:C', 'ENST00000219240.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:88033111:C:T', 'ENST00000682872.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('16:89224802:G:GGTGA', 'ENST00000433976.7', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:2965641:T:C', 'ENST00000254695.13', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:3872554:T:C', 'ENST00000348335.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:3937634:A:G', 'ENST00000397041.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:4789759:G:A', 'ENST00000331264.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:4819581:G:A', 'ENST00000263088.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:5405057:C:T', 'ENST00000573584.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:5422769:C:T', 'ENST00000381209.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:7108773:T:C', 'ENST00000691900.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:7499281:T:C', 'ENST00000674977.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:7944637:C:A', 'ENST00000563694.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:8047076:G:A', 'ENST00000380183.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:8229445:T:C', 'ENST00000651323.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:10340400:G:A', 'ENST00000252172.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:12949142:A:G', 'ENST00000379672.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:14236574:A:C', 'ENST00000420162.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:17869341:T:C', 'ENST00000379504.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:19015197:A:ACGGTACGGGGGTGGGGGC', 'ENST00000395645.4', 'inframe_insertion&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:19675560:A:T', 'ENST00000176643.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:21298879:C:A', 'ENST00000342679.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:21298925:G:C', 'ENST00000342679.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:21300875:G:T', 'ENST00000342679.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:35142260:G:C', 'ENST00000442241.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:38898519:C:T', 'ENST00000318008.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:39067958:C:T', 'ENST00000315392.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:41515472:T:C', 'ENST00000254043.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:41728331:G:A', 'ENST00000347901.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:41755893:T:A', 'ENST00000393931.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:44372421:G:A', 'ENST00000262407.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:50139579:C:T', 'ENST00000612501.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:68368550:C:G', 'ENST00000621439.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:75225344:C:T', 'ENST00000245544.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:75591977:G:T', 'ENST00000645453.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('17:81190907:C:T', 'ENST00000450824.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:334742:C:T', 'ENST00000400256.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:3176042:C:G', 'ENST00000356443.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:14780020:G:T', 'ENST00000690538.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:23539813:G:A', 'ENST00000269228.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:54937957:C:T', 'ENST00000591504.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:57697620:A:G', 'ENST00000648908.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('18:74260915:C:T', 'ENST00000340533.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:282753:G:A', 'ENST00000434325.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:4102451:G:A', 'ENST00000262948.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:6926367:T:C', 'ENST00000312053.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:7528703:C:T', 'ENST00000264079.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8595901:G:A', 'ENST00000597188.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8882332:G:A', 'ENST00000397910.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8882365:A:G', 'ENST00000397910.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8886857:GC:G', 'ENST00000397910.8', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8886859:A:G', 'ENST00000397910.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8888888:C:T', 'ENST00000397910.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8891157:A:G', 'ENST00000397910.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:8914322:C:T', 'ENST00000397910.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:9380138:C:T', 'ENST00000683217.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:9977595:C:G', 'ENST00000264828.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:9996260:G:C', 'ENST00000264828.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:10001670:T:C', 'ENST00000264828.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:12275033:C:G', 'ENST00000355684.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:12432437:A:C', 'ENST00000301547.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:14478566:C:T', 'ENST00000393033.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:17537541:T:C', 'ENST00000599164.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:32953801:C:T', 'ENST00000305768.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:33117827:C:A', 'ENST00000170564.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:35131791:A:G', 'ENST00000310123.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:35488483:C:T', 'ENST00000338897.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:35861122:G:A', 'ENST00000360202.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:36084743:G:A', 'ENST00000401500.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:39504071:T:C', 'ENST00000356433.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:46320445:A:G', 'ENST00000377670.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:46634202:C:T', 'ENST00000693335.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:46700950:C:T', 'ENST00000291281.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:47319781:G:A', 'ENST00000355085.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:48040605:G:A', 'ENST00000293255.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:48117779:C:G', 'ENST00000263274.12', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:48835841:T:C', 'ENST00000263278.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:49447099:C:G', 'ENST00000262265.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:49970191:G:C', 'ENST00000602139.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:50856241:T:C', 'ENST00000326003.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:51478692:T:C', 'ENST00000396477.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54042277:T:C', 'ENST00000338372.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54252055:G:C', 'ENST00000449561.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54454681:A:G', 'ENST00000326764.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54739507:G:C', 'ENST00000342376.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54773335:G:T', 'ENST00000336077.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54773630:T:C', 'ENST00000336077.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54837873:T:C', 'ENST00000339924.12', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:54866420:C:G', 'ENST00000326321.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:55911708:C:G', 'ENST00000342929.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:56182251:C:G', 'ENST00000357330.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:56208036:A:C', 'ENST00000534327.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:56549120:C:T', 'ENST00000301318.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('19:57491596:G:C', 'ENST00000221735.12', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:1660882:A:G', 'ENST00000252804.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:9843557:G:T', 'ENST00000263663.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:26176345:G:A', 'ENST00000401533.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:31199529:TCTC:T', 'ENST00000403897.4', 'inframe_deletion&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:63897588:C:A', 'ENST00000272322.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:71611467:C:A', 'ENST00000410020.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:85666618:G:A', 'ENST00000519937.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95935616:C:T', 'ENST00000295246.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95945173:T:G', 'ENST00000295246.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95951407:A:G', 'ENST00000295246.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95953939:C:T', 'ENST00000295246.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95953940:T:G', 'ENST00000295246.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:95960544:C:T', 'ENST00000295246.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:97151880:T:C', 'ENST00000420699.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:97167605:G:A', 'ENST00000420699.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:97211741:G:A', 'ENST00000420699.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:98312031:G:A', 'ENST00000477737.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:99188179:T:C', 'ENST00000338148.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:100480498:C:T', 'ENST00000376865.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:105049350:C:T', 'ENST00000258455.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:107863031:A:T', 'ENST00000408999.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:111847725:C:T', 'ENST00000341068.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:112074958:CAAT:C', 'ENST00000283206.9', 'inframe_deletion&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:119321202:T:C', 'ENST00000334816.12', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:135636088:A:G', 'ENST00000683871.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:141059052:A:G', 'ENST00000389484.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:151727692:G:A', 'ENST00000397345.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:152521945:T:C', 'ENST00000288670.14', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:159854534:G:C', 'ENST00000263636.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:159886529:T:A', 'ENST00000263636.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:178756224:C:T', 'ENST00000589042.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:181509807:A:G', 'ENST00000397033.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:181534370:T:C', 'ENST00000397033.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:182934830:G:C', 'ENST00000361354.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:191296113:A:T', 'ENST00000392318.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:202099794:G:C', 'ENST00000498697.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:203251967:C:T', 'ENST00000356079.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:206046504:G:A', 'ENST00000403263.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:206738510:T:G', 'ENST00000374412.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:208171988:T:C', 'ENST00000341287.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:233796044:T:C', 'ENST00000389758.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:233799782:G:A', 'ENST00000389758.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:235799522:C:T', 'ENST00000304032.13', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:240747320:G:A', 'ENST00000498729.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('2:241202304:C:T', 'ENST00000674324.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:276086:T:A', 'ENST00000360321.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:279328:G:C', 'ENST00000360321.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:1566265:C:G', 'ENST00000381605.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:1915454:C:T', 'ENST00000358771.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:3015851:C:T', 'ENST00000399903.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:8150296:C:T', 'ENST00000338037.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:32798643:T:C', 'ENST00000328111.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:35528453:T:C', 'ENST00000444723.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:37179387:G:GCTTATAGACAGGGCCCCGCGGCCGGCACT', 'ENST00000343811.10', 'splice_donor_variant&stop_gained&frameshift_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:38310650:G:C', 'ENST00000642449.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:44636286:C:T', 'ENST00000372874.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:44750129:A:G', 'ENST00000372861.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:45409934:A:G', 'ENST00000372710.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('20:53957432:T:G', 'ENST00000688948.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('21:37191424:G:A', 'ENST00000418766.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('21:39793535:C:A', 'ENST00000380588.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('21:41345735:T:C', 'ENST00000357985.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:16966101:C:T', 'ENST00000400588.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:22556814:A:G', 'ENST00000405655.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:30538829:T:C', 'ENST00000402034.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:30538900:G:A', 'ENST00000402034.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:42141394:C:G', 'ENST00000433992.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:42810944:A:C', 'ENST00000263245.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:43976752:C:T', 'ENST00000350028.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:50277738:G:A', 'ENST00000359337.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:50504803:G:A', 'ENST00000474879.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('22:50674573:CCG:C', 'ENST00000692848.2', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:10046582:G:T', 'ENST00000675286.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:12820087:T:C', 'ENST00000456430.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:20099864:C:T', 'ENST00000263754.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:27284960:A:G', 'ENST00000691995.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:43032269:G:A', 'ENST00000430121.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:44887795:G:C', 'ENST00000296125.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:52520288:G:C', 'ENST00000321725.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:53077688:T:C', 'ENST00000850556.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:57896874:C:T', 'ENST00000671191.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:58126761:C:T', 'ENST00000295956.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:73064852:T:C', 'ENST00000356692.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:75741276:C:T', 'ENST00000652011.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:108428881:T:C', 'ENST00000693548.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:113274376:C:T', 'ENST00000682979.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:121635736:G:A', 'ENST00000314583.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:125019263:C:T', 'ENST00000311127.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:125027205:A:G', 'ENST00000311127.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:130385363:A:G', 'ENST00000373157.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:134559428:C:T', 'ENST00000675561.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:150562658:C:G', 'ENST00000460851.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:158602808:T:C', 'ENST00000466246.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:167305950:G:C', 'ENST00000675490.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:183981728:T:C', 'ENST00000334444.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:184982568:A:C', 'ENST00000625842.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('3:194666571:C:T', 'ENST00000265245.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:1096837:G:A', 'ENST00000433731.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:1380986:C:T', 'ENST00000389851.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:17817262:T:C', 'ENST00000251496.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:48170249:G:A', 'ENST00000381501.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:61979772:A:G', 'ENST00000683033.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:67668674:C:T', 'ENST00000322244.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:68129811:C:T', 'ENST00000356291.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:75799732:T:C', 'ENST00000514213.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:75801200:G:A', 'ENST00000514213.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:75914984:A:G', 'ENST00000286733.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:88398144:T:C', 'ENST00000264346.12', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:94264904:A:G', 'ENST00000354268.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:121045652:C:T', 'ENST00000379692.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:129111688:A:G', 'ENST00000425929.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:138179218:C:T', 'ENST00000280612.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:142122244:G:A', 'ENST00000262992.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:143880509:C:G', 'ENST00000358615.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:144120588:T:G', 'ENST00000641688.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:155866188:G:A', 'ENST00000537611.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:176192628:T:C', 'ENST00000280191.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:184389064:C:T', 'ENST00000393593.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:184734017:C:T', 'ENST00000281453.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('4:185502483:G:A', 'ENST00000284767.12', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:226045:A:C', 'ENST00000264932.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:766918:A:C', 'ENST00000508859.8', 'start_lost&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:1065284:C:T', 'ENST00000264930.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:35700496:T:C', 'ENST00000356031.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:52897456:C:T', 'ENST00000282588.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:53062927:G:A', 'ENST00000296585.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:78177341:A:G', 'ENST00000255194.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:80654962:A:G', 'ENST00000265081.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:80873118:G:A', 'ENST00000265081.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:83579981:C:T', 'ENST00000265077.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:84064701:C:T', 'ENST00000296591.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:102239387:C:T', 'ENST00000310954.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:116005914:G:T', 'ENST00000357872.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:126552023:T:G', 'ENST00000409134.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:128134167:A:G', 'ENST00000262461.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:131879048:T:C', 'ENST00000442687.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:143214087:C:T', 'ENST00000645722.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:146098292:T:C', 'ENST00000311450.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:149627077:C:T', 'ENST00000333677.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:150026708:C:T', 'ENST00000502717.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:154892388:G:A', 'ENST00000285873.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:154902675:T:C', 'ENST00000285873.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:160408651:A:G', 'ENST00000297151.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:173123201:C:T', 'ENST00000296953.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:178988936:A:G', 'ENST00000517717.3', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:179853379:T:C', 'ENST00000292586.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:180569111:C:T', 'ENST00000261951.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('5:181058353:G:A', 'ENST00000327705.14', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:7576294:G:A', 'ENST00000379802.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:25420116:C:G', 'ENST00000329474.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:29943024:C:A', 'ENST00000376809.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:29943542:G:T', 'ENST00000376809.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:29944124:C:G', 'ENST00000376809.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:30922706:G:T', 'ENST00000676266.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31151121:A:T', 'ENST00000396268.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31269385:C:G', 'ENST00000376228.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31270210:C:T', 'ENST00000376228.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31271074:T:C', 'ENST00000376228.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31271601:T:G', 'ENST00000376228.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31271999:A:C', 'ENST00000376228.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31354526:C:G', 'ENST00000412585.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31356168:A:C', 'ENST00000412585.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:31892560:T:C', 'ENST00000375537.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32396039:T:C', 'ENST00000454136.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32530127:C:T', 'ENST00000374975.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32579102:A:G', 'ENST00000360004.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32581836:G:A', 'ENST00000360004.6', 'stop_gained&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32581837:G:A', 'ENST00000360004.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:32589645:C:T', 'ENST00000360004.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:33288694:T:C', 'ENST00000374617.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:36718495:C:T', 'ENST00000612677.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:38832433:T:C', 'ENST00000327475.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:52050158:G:A', 'ENST00000371117.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:57532411:T:C', 'ENST00000615550.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:73783709:A:C', 'ENST00000287097.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('6:159775311:A:G', 'ENST00000367048.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:5072923:A:C', 'ENST00000498308.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:6643823:A:G', 'ENST00000382252.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:21892426:C:T', 'ENST00000409508.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:22976212:T:C', 'ENST00000432176.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:37867702:T:C', 'ENST00000199447.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:38789865:C:T', 'ENST00000310301.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:44581237:C:A', 'ENST00000457408.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:47882084:A:T', 'ENST00000289672.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:75426451:C:G', 'ENST00000615331.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:87450090:T:A', 'ENST00000649586.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:90309366:C:T', 'ENST00000389297.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:100627489:G:A', 'ENST00000223051.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:100965345:C:A', 'ENST00000379458.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:101551143:C:T', 'ENST00000313669.12', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:103556978:G:A', 'ENST00000428762.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:107554287:T:A', 'ENST00000297135.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:108194169:G:C', 'ENST00000379028.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:128477173:G:A', 'ENST00000262432.13', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142096331:G:A', 'ENST00000475668.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142308754:G:A', 'ENST00000390387.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142463290:T:C', 'ENST00000454561.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142500243:T:C', 'ENST00000390375.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142751775:C:T', 'ENST00000311737.12', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142772207:T:C', 'ENST00000539842.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142773267:C:T', 'ENST00000539842.6', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:142773518:T:G', 'ENST00000539842.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:143391774:T:C', 'ENST00000275815.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:150948446:T:G', 'ENST00000262186.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:151982987:T:C', 'ENST00000392800.7', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:152238825:C:T', 'ENST00000262189.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('7:156969530:G:C', 'ENST00000275820.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:2073341:G:T', 'ENST00000262113.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:2090010:C:G', 'ENST00000262113.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:2963223:G:C', 'ENST00000635120.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:6741749:G:A', 'ENST00000285518.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:7361110:C:T', 'ENST00000400156.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:7541250:T:G', 'ENST00000533250.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:8339635:C:T', 'ENST00000615670.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:9116348:A:G', 'ENST00000518663.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:17268259:T:C', 'ENST00000324849.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:18071302:C:T', 'ENST00000637790.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:22669046:G:A', 'ENST00000276416.11', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:27436348:C:T', 'ENST00000346049.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:38978147:T:C', 'ENST00000302495.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:72023910:T:C', 'ENST00000262209.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:75540078:G:A', 'ENST00000396423.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:94148874:G:A', 'ENST00000027335.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:124064348:T:G', 'ENST00000522917.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:130909710:A:G', 'ENST00000286355.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:132077728:A:G', 'ENST00000414222.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:133012033:C:T', 'ENST00000220616.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:141160785:C:T', 'ENST00000519811.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:142913286:G:T', 'ENST00000323110.2', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('8:144415811:A:G', 'ENST00000301305.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:16967:A:G', 'ENST00000696149.1', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:154795:T:C', 'ENST00000356521.9', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:19087156:T:C', 'ENST00000380502.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:20988427:A:G', 'ENST00000338382.11', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:33796801:A:C', 'ENST00000379405.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:33797831:G:A', 'ENST00000379405.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:33798081:T:C', 'ENST00000379405.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:33799028:C:G', 'ENST00000379405.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:66917806:G:A', 'ENST00000621410.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:68384399:T:C', 'ENST00000396396.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:72360220:T:C', 'ENST00000376962.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:74952186:CTGGCGCGATGCGA:C', 'ENST00000376854.6', 'frameshift_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:79572835:A:G', 'ENST00000376552.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:94587309:G:T', 'ENST00000375337.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:96450627:G:C', 'ENST00000375249.5', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:114323246:G:A', 'ENST00000259396.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:127727464:A:G', 'ENST00000373289.4', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:128473042:A:G', 'ENST00000351030.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:131087621:G:A', 'ENST00000361069.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:131555028:T:C', 'ENST00000636672.2', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:133639992:A:G', 'ENST00000393056.8', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:136384721:G:A', 'ENST00000684778.1', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:137050284:C:G', 'ENST00000355097.7', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:137356366:C:T', 'ENST00000340951.9', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('9:137754290:C:T', 'ENST00000460843.6', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:10015674:G:GC', 'ENST00000380861.10', 'frameshift_variant&splice_region_variant&intron_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:19545924:G:C', 'ENST00000397821.8', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:21843316:A:G', 'ENST00000379484.10', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:23705594:C:G', 'ENST00000379303.10', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:49323276:G:A', 'ENST00000442437.3', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:70432912:A:G', 'ENST00000374382.4', 'splice_region_variant&synonymous_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:80688070:T:C', 'ENST00000373275.5', 'missense_variant&splice_region_variant')
+[LOGGER][WARN] Skipping duplicate Stage 09 candidate row: ('X:107153172:A:G', 'ENST00000372466.8', 'missense_variant&splice_region_variant')
+[LOGGER][INFO] Stage 09 interpreted coding variants written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+[LOGGER][INFO] Stage 09 summary JSON written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json
+[LOGGER][INFO] Stage 09 input rows processed: 27486
+[LOGGER][INFO] Stage 09 interpreted rows written: 27486
+
+=== STAGE 09 RESULT SUMMARY ===
+{
+  "stage_09_qc": {
+    "input_rows": 27486,
+    "interpreted_rows": 27486,
+    "total_coding_variants": 27486,
+    "uninterpretable_count": 1196,
+    "output_exists": true,
+    "summary_exists": true
+  },
+  "stage_output": {
+    "status": "success",
+    "input_coding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv",
+    "input_splice_region_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv",
+    "coding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv",
+    "summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json",
+    "input_rows": 27486,
+    "interpreted_rows": 27486
+  },
+  "artifacts": {
+    "stage_09_coding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv",
+    "stage_09_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json"
+  },
+  "warnings": []
+}
+
+=== STAGE 09 OUTPUT FILES ===
+-rw-r--r-- 1 root root 11M Apr 27 16:24 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+-rw-r--r-- 1 root root 2.7K Apr 27 16:24 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json
+
+=== SUMMARY JSON HEAD ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json
+{
+  "assumptions": [
+    "Stage 09 consumes Stage 08 structural fields as authoritative.",
+    "Stage 09 performs interpretation flagging only; it does not rank or prioritize variants.",
+    "Summary counts are distinct variant_id counts implemented with sets.",
+    "Duplicate candidate rows across coding and splice-region inputs are skipped by variant_id/transcript_id/consequence key."
+  ],
+  "benign_or_likely_benign_count": 7450,
+  "clinical_evidence_distribution": {
+    "benign": 6712,
+    "conflicting": 61,
+    "likely_benign": 738,
+    "likely_pathogenic": 13,
+    "missing": 19758,
+    "pathogenic": 20,
+    "vus": 184
+  },
+  "clinically_supported_count": 33,
+  "coding_interpretation_label_distribution": {
+    "coding_common_or_low_support": 25169,
+    "coding_uninterpretable": 1196,
+    "lof_or_missense_rare": 1121,
+    "lof_rare_clinically_supported": 0
+  },
+  "common_variant_count": 24674,
+  "functional_impact_distribution": {
+    "loss_of_function": 789,
+    "missense": 11573,
+    "other_coding": 369,
+    "splice_relevant": 3154,
+    "synonymous": 11601,
+    "unknown": 0
+  },
+  "input_files": {
+    "coding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv",
+    "splice_region_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv",
+    "stage_08_selected_transcript_consequences": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv",
+    "stage_08_variant_summary": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv"
+  },
+  "input_rows": 27486,
+  "interpreted_rows": 27486,
+  "lof_variant_count": 789,
+  "low_frequency_variant_count": 1215,
+  "missense_variant_count": 11573,
+  "output_files": {
+    "stage_09_coding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv",
+    "stage_09_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_summary.json"
+  },
+  "qc_distribution": {
+    "caution": 0,
+    "high_confidence": 27486,
+    "low_confidence": 0
+  },
+  "rare_variant_count": 1335,
+  "rarity_flag_distribution": {
+    "common": 24674,
+    "low_frequency": 1215,
+    "missing": 262,
+    "rare": 1335,
+    "unknown": 0
+  },
+  "stage": "stage_09_interpret_coding",
+  "status": "success",
+  "total_coding_variants": 27486,
+  "uninterpretable_count": 1196
+}
+
+=== FIRST STAGE 09 ROWS ===
+[INFO] STAGE09_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:924533:A:G  1           924533    A                 G                 snv           coding         PASS          ENSG00000187634  SAMD11       ENST00000616016.5  synonymous_variant  LOW           NA                     NA                    0.7498                0.7498     NA       0.4039               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:946247:G:A  1           946247    G                 A                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.4419                0.4419     NA       0.0643               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:952421:A:G  1           952421    A                 G                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9223                0.9223     NA       0.9062               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:953259:T:C  1           953259    T                 C                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9227                0.9227     NA       0.907                False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False
+
+=== LABEL DISTRIBUTION QUICK CHECK ===
+coding_interpretation_label
+lof_or_missense_rare	1121
+coding_common_or_low_support	25169
+coding_uninterpretable	1196
+
+functional_impact
+other_coding	369
+splice_relevant	3154
+missense	11573
+loss_of_function	789
+synonymous	11601
+
+rarity_flag
+missing	262
+rare	1335
+common	24674
+low_frequency	1215
+
+clinical_evidence
+vus	184
+missing	19758
+likely_benign	738
+conflicting	61
+likely_pathogenic	13
+pathogenic	20
+benign	6712
+
+=== HIGH-VALUE EXAMPLES ===
+--- loss_of_function examples ---
+sample_id  run_id                 source_pipeline              variant_id                                        chromosome  position  reference_allele                     alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id       consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:9718724:A:AT                                    1           9718724   A                                    AT                insertion     coding         PASS          ENSG00000171608  PIK3CD       ENST00000377346.9   frameshift_variant  HIGH          NA                     NA                    0                     0          NA       NA                   False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        rare              missing          loss_of_function   rare         missing            high_confidence  lof_or_missense_rare          True              True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:11846011:A:G                                    1           11846011  A                                    G                 snv           coding         PASS          ENSG00000175206  NPPA         ENST00000376480.7   stop_lost           HIGH          benign                 benign                0.4183                0.1791     NA       0.4183               False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        common            benign           loss_of_function   common       benign             high_confidence  coding_common_or_low_support  True              False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:26345031:GAAATGAGGCATCA:G                       1           26345031  GAAATGAGGCATCA                       G                 deletion      coding         PASS          ENSG00000176092  CRYBG2       ENST00000308182.10  frameshift_variant  HIGH          NA                     NA                    0.7034                0.7034     NA       NA                   False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        common            missing          loss_of_function   common       missing            high_confidence  coding_common_or_low_support  True              False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:26345047:AGCAC:A                                1           26345047  AGCAC                                A                 deletion      coding         PASS          ENSG00000176092  CRYBG2       ENST00000308182.10  frameshift_variant  HIGH          NA                     NA                    0.7101                0.7101     NA       NA                   False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        common            missing          loss_of_function   common       missing            high_confidence  coding_common_or_low_support  True              False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:26345053:GGGGCCCTTCACGACCTCTTTCCAGGTGGGGAACA:G  1           26345053  GGGGCCCTTCACGACCTCTTTCCAGGTGGGGAACA  G                 deletion      coding         PASS          ENSG00000176092  CRYBG2       ENST00000308182.10  frameshift_variant  HIGH          NA                     NA                    0.7374                0.7374     NA       NA                   False      False          VEP                115                 mapped               coding           HIGH                     pass       interpretable_now        common            missing          loss_of_function   common       missing            high_confidence  coding_common_or_low_support  True              False              False                    True             False
+
+--- lof_or_missense_rare examples ---
+sample_id  run_id                 source_pipeline              variant_id     chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id       consequence       impact_class  clinical_significance   clinvar_significance    population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag    clinical_evidence  qc_reliability   coding_interpretation_label  is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:1072326:G:A  1           1072326   G                 A                 snv           coding         PASS          ENSG00000237330  RNF223       ENST00000453464.3   missense_variant  MODERATE      NA                      NA                      0.0002                0.0002     NA       0                    False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        rare              missing          missense           rare           missing            high_confidence  lof_or_missense_rare         False             True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:3781099:C:T  1           3781099   C                 T                 snv           coding         PASS          ENSG00000130764  LRRC47       ENST00000378251.3   missense_variant  MODERATE      NA                      NA                      0.0194                0.0194     NA       0.0015               False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:5864452:C:A  1           5864452   C                 A                 snv           coding         PASS          ENSG00000131697  NPHP4        ENST00000378156.9   missense_variant  MODERATE      uncertain_significance  uncertain_significance  0.001152              0.001152   NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        rare              vus              missense           rare           vus                high_confidence  lof_or_missense_rare         False             True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:6249964:C:T  1           6249964   C                 T                 snv           coding         PASS          ENSG00000158292  GPR153       ENST00000377893.3   missense_variant  MODERATE      NA                      NA                      0.0357                0.0357     NA       0                    False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:6645884:C:T  1           6645884   C                 T                 snv           coding         PASS          ENSG00000007923  DNAJC11      ENST00000377577.10  missense_variant  MODERATE      NA                      NA                      0.0441                0.0441     NA       0.0038               True       False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False
+
+--- clinically supported examples ---
+sample_id  run_id                 source_pipeline              variant_id       chromosome  position   reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance                                                                                   clinvar_significance                                                                                    population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:11796321:G:A   1           11796321   G                 A                 snv           coding         PASS          ENSG00000177000  MTHFR        ENST00000376590.9  missense_variant    MODERATE      uncertain_significance&drug_response&benign&likely_benign&conflicting_classifications_of_pathogenicity  uncertain_significance&drug_response&benign&likely_benign&conflicting_classifications_of_pathogenicity  0.2454                0.2454     NA       0.09                 False      True           VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            conflicting      missense           common       conflicting        high_confidence  coding_common_or_low_support  False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:21854286:C:T   1           21854286   C                 T                 snv           coding         PASS          ENSG00000142798  HSPG2        ENST00000374695.8  missense_variant    MODERATE      uncertain_significance&conflicting_classifications_of_pathogenicity&likely_benign                       uncertain_significance&conflicting_classifications_of_pathogenicity&likely_benign                       0.006342              0.006342   NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        rare              conflicting      missense           rare         conflicting        high_confidence  lof_or_missense_rare          False             True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:53213424:T:C   1           53213424   T                 C                 snv           coding         PASS          ENSG00000157184  CPT2         ENST00000371486.4  synonymous_variant  LOW           benign&likely_benign&conflicting_classifications_of_pathogenicity                                       benign&likely_benign&conflicting_classifications_of_pathogenicity                                       0.0004                0.0004     NA       0                    True       True           VEP                115                 mapped               coding           LOW                      pass       interpretable_now        rare              conflicting      synonymous         rare         conflicting        high_confidence  coding_common_or_low_support  False             True               False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:55057360:A:G   1           55057360   A                 G                 snv           coding         PASS          ENSG00000169174  PCSK9        ENST00000302118.5  synonymous_variant  LOW           conflicting_classifications_of_pathogenicity&benign                                                     conflicting_classifications_of_pathogenicity&benign                                                     0.9818                0.9818     NA       0.9319               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            conflicting      synonymous         common       conflicting        high_confidence  coding_common_or_low_support  False             False              False                    True             False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:158627717:G:C  1           158627717  G                 C                 snv           coding         PASS          ENSG00000163554  SPTA1        ENST00000643759.2  missense_variant    MODERATE      conflicting_classifications_of_pathogenicity&benign&benign/likely_benign                                conflicting_classifications_of_pathogenicity&benign&benign/likely_benign                                0.2278                0.2278     NA       0.1906               False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            conflicting      missense           common       conflicting        high_confidence  coding_common_or_low_support  False             False              False                    True             False
+
+[INFO] Mark Stage 09 checkpoint run completed at Mon Apr 27 04:24:25 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage09_checkpoint_20260427_162424.log

@@ -1,0 +1,64 @@
+[INFO] Mark Stage 08 variant_type logic probe started at Sat Apr 25 09:06:53 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_probe_stage08_variant_type_logic_20260425_090653.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== CODE PRESENCE CHECK ===
+[CMD] grep -n '_derive_variant_type_from_alleles\|explicit_variant_type\|variant_type =' pipeline/stage_08_filter_and_partition.py
+311:def _derive_variant_type_from_alleles(ref: Any, alt: Any) -> str:
+555:    explicit_variant_type = input_row.get("variant_type")
+556:    normalized_explicit_variant_type = _normalize_variant_type(explicit_variant_type)
+558:    if normalized_explicit_variant_type == "unknown":
+561:            variant_type = stage07_variant_class_as_type
+563:            variant_type = _derive_variant_type_from_alleles(
+568:        variant_type = normalized_explicit_variant_type
+
+=== DIRECT HELPER FUNCTION TEST ===
+G/A -> snv
+G/GA -> insertion
+GA/G -> deletion
+GA/TC -> complex
+NA/A -> unknown
+G/NA -> unknown
+G/A,T -> complex
+
+=== FIRST STAGE 07 TSV ROW COERCION TEST ===
+INPUT_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+FIELDNAMES_BEGIN
+['sample_id', 'run_id', 'source_pipeline', 'variant_id', 'chromosome', 'position', 'reference_allele', 'alternate_allele', 'quality_flag', 'gene_id', 'gene_symbol', 'transcript_id', 'consequence', 'impact_class', 'impact', 'variant_class', 'variant_type', 'clinical_significance', 'clinvar_significance', 'population_frequency', 'gnomad_af', 'exac_af', 'thousand_genomes_af', 'mito_flag', 'epilepsy_flag']
+FIELDNAMES_END
+RAW_FIRST_ROW_KEY_FIELDS
+variant_id=1:14522:G:A
+reference_allele=G
+alternate_allele=A
+variant_type=non-coding
+variant_class=SNV
+consequence=non_coding_transcript_exon_variant
+impact_class=MODIFIER
+explicit_variant_type='non-coding'
+_is_missing(explicit_variant_type)=False
+direct_allele_derivation=snv
+COERCED_FIRST_ROW_KEY_FIELDS
+variant_id=1:14522:G:A
+reference_allele=G
+alternate_allele=A
+variant_type=snv
+variant_class=noncoding
+variant_context=noncoding_transcript
+variant_effect_severity=MODIFIER
+frequency_status=common
+clinical_status=missing
+qc_status=pass
+partition_contexts=['noncoding_transcript']
+
+=== CURRENT SUMMARY VARIANT_TYPE CHECK ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json
+  "variants_by_variant_type": {
+    "unknown": 4636584
+  }
+}
+
+[INFO] Mark Stage 08 variant_type logic probe completed at Sat Apr 25 09:06:53 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_probe_stage08_variant_type_logic_20260425_090653.log

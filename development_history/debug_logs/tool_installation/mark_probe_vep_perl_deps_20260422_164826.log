@@ -1,0 +1,58 @@
+[INFO] Mark VEP Perl dependency probe started at Wed Apr 22 04:48:26 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_probe_vep_perl_deps_20260422_164826.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.0
+
+=== BASIC PERL CONTEXT ===
+[CMD] which perl
+/usr/bin/perl
+
+[CMD] perl -v | head -n 5
+
+This is perl 5, version 36, subversion 0 (v5.36.0) built for x86_64-linux-gnu-thread-multi
+(with 60 registered patches, see perl -V for more detail)
+
+Copyright 1987-2022, Larry Wall
+
+[CMD] perl -MDBI -e 'print $DBI::VERSION, qq(\n)'
+Can't locate DBI.pm in @INC (you may need to install the DBI module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl).
+BEGIN failed--compilation aborted.
+
+=== SYSTEM PACKAGE DISCOVERY ===
+[CMD] apt-cache policy libdbi-perl
+libdbi-perl:
+  Installed: (none)
+  Candidate: 1.643-4
+  Version table:
+     1.643-4 500
+        500 http://deb.debian.org/debian bookworm/main amd64 Packages
+
+[CMD] apt-cache search libdbi-perl
+libdbi-perl - Perl Database Interface (DBI)
+
+[CMD] which cpan
+/usr/bin/cpan
+
+[CMD] which cpanm
+
+=== VEP INSTALLER RETRY (EXPECTED TO FAIL OR PROGRESS) ===
+[CMD] perl INSTALL.pl --NO_TEST
+ERROR: DBI module not found. VEP requires the DBI perl module to function
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+
+=== POST-PROBE HELP CHECK ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.0/modules /root/tools/vep/ensembl-vep-release-115.0 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+[INFO] Mark VEP Perl dependency probe completed at Wed Apr 22 04:48:27 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_probe_vep_perl_deps_20260422_164826.log

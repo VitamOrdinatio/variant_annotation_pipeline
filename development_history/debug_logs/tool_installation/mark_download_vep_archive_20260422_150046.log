@@ -1,0 +1,46 @@
+[INFO] Mark VEP download helper started at Wed Apr 22 03:00:46 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_download_vep_archive_20260422_150046.log
+[INFO] Working directory: /root/Desktop
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP_VERSION: 115
+[INFO] VEP_URL: https://github.com/Ensembl/ensembl-vep/archive/refs/tags/release/115.tar.gz
+[INFO] Target archive path: /root/Desktop/ensembl-vep-release-115.tar.gz
+
+[STEP] Changing into repo root (for consistency)
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== PRECHECK: Desktop contents ===
+[CMD] ls -lah /root/Desktop
+total 20K
+drwxr-xr-x  3 root root 4.0K Apr 22 15:00 .
+drwx------ 26 root root 4.0K Apr 22 10:47 ..
+drwxr-xr-x  3 root root 4.0K Apr 22 14:15 debug
+-rw-r--r--  1 root root  713 Apr 22 15:00 mark_download_vep_archive_20260422_150046.log
+-rwx--x--x  1 root root 1.7K Apr 22 15:00 mark_download_vep_archive.sh
+
+=== DOWNLOAD VEP ARCHIVE ===
+[CMD] curl -L -o /root/Desktop/ensembl-vep-release-115.tar.gz https://github.com/Ensembl/ensembl-vep/archive/refs/tags/release/115.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100    14  100    14    0     0     38      0 --:--:-- --:--:-- --:--:--    38
+
+=== VERIFY DOWNLOAD ===
+[CMD] ls -lah /root/Desktop/ensembl-vep-release-115.tar.gz
+-rw-r--r-- 1 root root 14 Apr 22 15:00 /root/Desktop/ensembl-vep-release-115.tar.gz
+
+[CMD] file /root/Desktop/ensembl-vep-release-115.tar.gz
+/root/Desktop/ensembl-vep-release-115.tar.gz: ASCII text, with no line terminators
+
+[CMD] tar -tzf /root/Desktop/ensembl-vep-release-115.tar.gz | head
+
+gzip: stdin: not in gzip format
+tar: Child returned status 1
+tar: Error is not recoverable: exiting now
+
+[INFO] Mark VEP download helper completed at Wed Apr 22 03:00:47 PM EDT 2026
+[INFO] Archive ready at: /root/Desktop/ensembl-vep-release-115.tar.gz
+[INFO] Log file saved to: /root/Desktop/mark_download_vep_archive_20260422_150046.log

@@ -1,0 +1,99 @@
+[INFO] Mark GATK/config probe started at Wed Apr 22 09:59:21 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_gatk_config_probe_20260422_095921.log
+[INFO] Initial working directory: /root/Desktop
+[INFO] Target repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Changing into VAP repo root
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== VENV / PYTHON CONTEXT ===
+[CMD] which python
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python
+
+[CMD] python --version
+Python 3.11.2
+
+[CMD] which python3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python3
+
+[CMD] python3 --version
+Python 3.11.2
+
+[CMD] echo $PATH
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin:/root/tools/gatk-4.6.2.0:/root/dev/sratoolkit/bin:/root/anaconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/root/dev/sratoolkit*/bin
+
+=== CONFIG FILES ===
+[CMD] ls -lah config
+total 16K
+drwxr-xr-x  2 root root 4.0K Apr 17 04:37 .
+drwxr-xr-x 12 root root 4.0K Apr 21 15:23 ..
+-rw-r--r--  1 root root 2.8K Apr 17 04:37 config.mark.local.yaml
+-rw-r--r--  1 root root 2.8K Apr 16 17:44 config.yaml
+
+[INFO] ACTIVE_CONFIG=config/config.mark.local.yaml
+
+=== GATK CONFIG EXTRACTION ===
+[CMD] python - <<'PY' ...
+CONFIG_PATH=config/config.mark.local.yaml
+GATK_EXECUTABLE=gatk
+GATK_JAVA_OPTIONS=-Xmx16g
+GATK_EMIT_MODE=discovery
+
+=== RAW YAML GATK LINES ===
+[CMD] grep -n 'gatk\|java_options\|haplotypecaller_emit_mode' $ACTIVE_CONFIG
+54:  gatk:
+55:    executable: gatk
+56:    java_options: "-Xmx16g"
+57:    haplotypecaller_emit_mode: discovery
+
+=== GATK PATH RESOLUTION ===
+[CMD] which gatk
+
+[CMD] ls -lah /root/tools/gatk
+total 672M
+drwxr-xr-x 3 root root 4.0K Apr 21 20:10 .
+drwxr-xr-x 3 root root 4.0K Apr 21 18:13 ..
+lrwxrwxrwx 1 root root   34 Apr 21 20:10 gatk -> /root/tools/gatk/gatk-4.6.2.0/gatk
+drwxr-xr-x 4 root root 4.0K Apr 13  2025 gatk-4.6.2.0
+-rw-r--r-- 1 root root 672M Apr 13  2025 gatk-4.6.2.0.zip
+
+[CMD] ls -lah /root/tools/gatk/gatk
+lrwxrwxrwx 1 root root 34 Apr 21 20:10 /root/tools/gatk/gatk -> /root/tools/gatk/gatk-4.6.2.0/gatk
+
+[CMD] file /root/tools/gatk/gatk
+/root/tools/gatk/gatk: symbolic link to /root/tools/gatk/gatk-4.6.2.0/gatk
+
+=== GATK EXECUTION CHECKS ===
+[CMD] /root/tools/gatk/gatk --help | head
+
+ Usage template for all tools (uses --spark-runner LOCAL when used with a Spark tool)
+    gatk AnyTool toolArgs
+
+ Usage template for Spark tools (will NOT work on non-Spark tools)
+    gatk SparkTool toolArgs  [ -- --spark-runner <LOCAL | SPARK | GCS> sparkArgs ]
+
+ Getting help
+    gatk --list       Print the list of available tools
+
+
+[CMD] gatk --help | head
+./mark_gatk_config_probe.sh: line 112: gatk: command not found
+
+=== STAGE 05 FILE REFERENCE ===
+[CMD] grep -n 'gatk_executable\|tools\["gatk"\]\|HaplotypeCaller' pipeline/stage_05_call_variants.py
+10:- tool: GATK HaplotypeCaller
+129:    gatk_executable = config["tools"]["gatk"]["executable"]
+132:            [gatk_executable, "--version"],
+160:    - run GATK HaplotypeCaller
+197:    gatk_executable = config["tools"]["gatk"]["executable"]
+201:    gatk_command = [gatk_executable]
+207:            "HaplotypeCaller",
+229:    _run_command(gatk_command, logger, "GATK HaplotypeCaller")
+249:        "caller": "GATK HaplotypeCaller",
+255:        "tool": "GATK HaplotypeCaller",
+
+[INFO] Mark GATK/config probe completed at Wed Apr 22 09:59:21 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_gatk_config_probe_20260422_095921.log

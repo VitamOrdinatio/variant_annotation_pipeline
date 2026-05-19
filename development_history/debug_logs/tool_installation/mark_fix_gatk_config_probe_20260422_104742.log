@@ -1,0 +1,54 @@
+[INFO] Mark GATK config fix probe started at Wed Apr 22 10:47:42 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_fix_gatk_config_probe_20260422_104742.log
+[INFO] Initial working directory: /root/Desktop
+[INFO] Target repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== BEFORE EDIT ===
+[CMD] grep -n 'gatk\|java_options\|haplotypecaller_emit_mode' config/config.mark.local.yaml
+54:  gatk:
+55:    executable: /root/tools/gatk/gatk
+56:    java_options: "-Xmx16g"
+57:    haplotypecaller_emit_mode: discovery
+
+[STEP] Rewriting GATK executable in config/config.mark.local.yaml
+UPDATED_CONFIG=config/config.mark.local.yaml
+NEW_GATK_EXECUTABLE=/root/tools/gatk/gatk
+
+=== AFTER EDIT ===
+[CMD] grep -n 'gatk\|java_options\|haplotypecaller_emit_mode' config/config.mark.local.yaml
+44:  gatk:
+45:    executable: /root/tools/gatk/gatk
+46:    java_options: -Xmx16g
+47:    haplotypecaller_emit_mode: discovery
+
+=== DIRECT EXECUTION CHECK ===
+[CMD] /root/tools/gatk/gatk --version
+Using GATK jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar --version
+The Genome Analysis Toolkit (GATK) v4.6.2.0
+HTSJDK Version: 4.2.0
+Picard Version: 3.4.0
+
+=== CONFIG-DRIVEN EXECUTION CHECK ===
+[CMD] python - <<'PY' ...
+GATK_EXECUTABLE_FROM_CONFIG=/root/tools/gatk/gatk
+RETURN_CODE=0
+STDOUT_BEGIN
+The Genome Analysis Toolkit (GATK) v4.6.2.0
+HTSJDK Version: 4.2.0
+Picard Version: 3.4.0
+STDOUT_END
+STDERR_BEGIN
+Using GATK jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar
+Running:
+    java -Dsamjdk.use_async_io_read_samtools=false -Dsamjdk.use_async_io_write_samtools=true -Dsamjdk.use_async_io_write_tribble=false -Dsamjdk.compression_level=2 -jar /root/tools/gatk/gatk-4.6.2.0/gatk-package-4.6.2.0-local.jar --version
+STDERR_END
+
+[INFO] Mark GATK config fix probe completed at Wed Apr 22 10:47:47 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_fix_gatk_config_probe_20260422_104742.log

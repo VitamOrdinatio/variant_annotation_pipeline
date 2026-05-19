@@ -1,0 +1,278 @@
+[INFO] Mark Stage 11 checkpoint run started at Wed Apr 29 01:07:10 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage11_checkpoint_20260429_010710.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+
+=== REPO STATUS ===
+
+=== FIND LATEST STAGE 09/10 OUTPUTS ===
+[INFO] CODING_INTERPRETED=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+[INFO] NONCODING_INTERPRETED=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+-rw-r--r-- 1 root root  11M Apr 28 09:30 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+-rw-r--r-- 1 root root 1.8G Apr 28 11:26 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+
+=== RUN STAGE 11 FROM CHECKPOINT ===
+[PYTHON][INFO] CODING_INTERPRETED= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+[PYTHON][INFO] NONCODING_INTERPRETED= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+[PYTHON][INFO] PROCESSED_DIR= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed
+[LOGGER][INFO] Stage 11: prioritizing interpreted variants.
+[LOGGER][INFO] Stage 11 coding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+[LOGGER][INFO] Stage 11 noncoding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+[LOGGER][INFO] Reading Stage 11 coding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+[LOGGER][INFO] Reading Stage 11 noncoding input: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+[LOGGER][INFO] Stage 11 prioritized variants written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+[LOGGER][INFO] Stage 11 summary JSON written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json
+[LOGGER][INFO] Stage 11 input rows processed: 4636584
+[LOGGER][INFO] Stage 11 output rows written: 4636584
+[LOGGER][INFO] Stage 11 malformed/unassigned rows: 0
+
+=== STAGE 11 RESULT SUMMARY ===
+{
+  "stage_11_qc": {
+    "input_rows": 4636584,
+    "output_rows": 4636584,
+    "unassigned_or_malformed_rows": 0,
+    "high_priority_candidate_count": 0,
+    "moderate_priority_candidate_count": 113363,
+    "low_priority_candidate_count": 3369755,
+    "uninterpretable_count": 1153466,
+    "output_exists": true,
+    "summary_exists": true
+  },
+  "stage_output": {
+    "status": "success",
+    "input_coding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv",
+    "input_noncoding_interpreted": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv",
+    "prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv",
+    "summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json",
+    "input_rows": 4636584,
+    "output_rows": 4636584,
+    "unassigned_or_malformed_rows": 0
+  },
+  "artifacts": {
+    "stage_11_prioritized_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv",
+    "stage_11_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json"
+  },
+  "warnings": []
+}
+
+=== STAGE 11 OUTPUT FILES ===
+-rw-r--r-- 1 root root 1.3M Apr 29 01:09 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json
+-rw-r--r-- 1 root root 2.2G Apr 29 01:09 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+
+=== SUMMARY JSON HEAD ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_summary.json
+{
+  "assumptions": [
+    "Stage 11 consumes Stage 09 and Stage 10 interpretation labels as authoritative.",
+    "Stage 11 performs deterministic variant-level prioritization only.",
+    "Stage 11 does not perform gene-level aggregation or ranking.",
+    "Rows with unrecognized interpretation labels are routed to Tier 4."
+  ],
+  "counts_by_gene_id": {
+    "ENSG00000000003": 4,
+    "ENSG00000000005": 11,
+    "ENSG00000000419": 5,
+    "ENSG00000000457": 102,
+    "ENSG00000000460": 375,
+    "ENSG00000000938": 11,
+    "ENSG00000000971": 191,
+    "ENSG00000001036": 48,
+    "ENSG00000001084": 125,
+    "ENSG00000001167": 3,
+    "ENSG00000001460": 92,
+    "ENSG00000001461": 107,
+    "ENSG00000001497": 3,
+    "ENSG00000001561": 73,
+    "ENSG00000001617": 43,
+    "ENSG00000001626": 262,
+    "ENSG00000001629": 44,
+    "ENSG00000001630": 54,
+    "ENSG00000001631": 27,
+    "ENSG00000002016": 125,
+    "ENSG00000002330": 9,
+    "ENSG00000002549": 89,
+    "ENSG00000002587": 76,
+    "ENSG00000002726": 49,
+    "ENSG00000002745": 3,
+    "ENSG00000002746": 613,
+    "ENSG00000002822": 561,
+    "ENSG00000002834": 122,
+    "ENSG00000002919": 28,
+    "ENSG00000002933": 49,
+    "ENSG00000003056": 39,
+    "ENSG00000003096": 21,
+    "ENSG00000003137": 15,
+    "ENSG00000003147": 365,
+    "ENSG00000003249": 40,
+    "ENSG00000003393": 167,
+    "ENSG00000003400": 29,
+    "ENSG00000003402": 118,
+    "ENSG00000003436": 125,
+    "ENSG00000003509": 31,
+    "ENSG00000003756": 47,
+    "ENSG00000003987": 233,
+    "ENSG00000003989": 238,
+    "ENSG00000004059": 1,
+    "ENSG00000004139": 33,
+    "ENSG00000004142": 1,
+    "ENSG00000004399": 143,
+    "ENSG00000004455": 35,
+    "ENSG00000004468": 84,
+    "ENSG00000004478": 13,
+    "ENSG00000004487": 55,
+    "ENSG00000004534": 194,
+    "ENSG00000004660": 49,
+    "ENSG00000004700": 78,
+    "ENSG00000004766": 114,
+    "ENSG00000004776": 7,
+    "ENSG00000004777": 50,
+    "ENSG00000004779": 21,
+    "ENSG00000004799": 62,
+    "ENSG00000004809": 128,
+    "ENSG00000004846": 277,
+    "ENSG00000004848": 2,
+    "ENSG00000004864": 205,
+    "ENSG00000004866": 154,
+    "ENSG00000004897": 85,
+    "ENSG00000004939": 21,
+    "ENSG00000004948": 278,
+    "ENSG00000004975": 5,
+    "ENSG00000005001": 40,
+    "ENSG00000005007": 34,
+    "ENSG00000005020": 617,
+    "ENSG00000005022": 52,
+    "ENSG00000005059": 157,
+    "ENSG00000005073": 14,
+    "ENSG00000005075": 31,
+    "ENSG00000005100": 43,
+    "ENSG00000005102": 84,
+    "ENSG00000005108": 901,
+    "ENSG00000005156": 26,
+    "ENSG00000005175": 17,
+    "ENSG00000005187": 25,
+    "ENSG00000005189": 34,
+    "ENSG00000005194": 20,
+    "ENSG00000005206": 65,
+    "ENSG00000005238": 16,
+    "ENSG00000005243": 21,
+    "ENSG00000005249": 90,
+    "ENSG00000005302": 19,
+    "ENSG00000005339": 76,
+    "ENSG00000005379": 63,
+    "ENSG00000005381": 9,
+    "ENSG00000005421": 59,
+    "ENSG00000005436": 87,
+    "ENSG00000005448": 2,
+    "ENSG00000005469": 73,
+    "ENSG00000005471": 121,
+    "ENSG00000005483": 49,
+    "ENSG00000005486": 39,
+    "ENSG00000005513": 49,
+    "ENSG00000005700": 68,
+    "ENSG00000005801": 126,
+    "ENSG00000005810": 198,
+    "ENSG00000005812": 28,
+    "ENSG00000005844": 61,
+    "ENSG00000005882": 10,
+    "ENSG00000005884": 43,
+    "ENSG00000005889": 93,
+    "ENSG00000005893": 3,
+    "ENSG00000005961": 20,
+    "ENSG00000005981": 127,
+    "ENSG00000006007": 31,
+    "ENSG00000006015": 10,
+    "ENSG00000006016": 41,
+    "ENSG00000006025": 47,
+    "ENSG00000006042": 32,
+    "ENSG00000006047": 31,
+    "ENSG00000006059": 14,
+    "ENSG00000006062": 49,
+    "ENSG00000006071": 69,
+    "ENSG00000006116": 251,
+    "ENSG00000006118": 15,
+    "ENSG00000006125": 221,
+    "ENSG00000006128": 10,
+    "ENSG00000006194": 16,
+    "ENSG00000006210": 37,
+    "ENSG00000006282": 25,
+    "ENSG00000006283": 67,
+    "ENSG00000006327": 4,
+    "ENSG00000006377": 12,
+    "ENSG00000006432": 188,
+    "ENSG00000006451": 86,
+    "ENSG00000006453": 89,
+    "ENSG00000006459": 170,
+    "ENSG00000006468": 188,
+    "ENSG00000006530": 28,
+    "ENSG00000006534": 1,
+    "ENSG00000006555": 68,
+    "ENSG00000006576": 53,
+    "ENSG00000006606": 47,
+    "ENSG00000006607": 229,
+    "ENSG00000006611": 110,
+    "ENSG00000006625": 38,
+    "ENSG00000006634": 17,
+    "ENSG00000006638": 13,
+    "ENSG00000006652": 72,
+    "ENSG00000006659": 1,
+    "ENSG00000006695": 234,
+    "ENSG00000006704": 209,
+    "ENSG00000006715": 395,
+    "ENSG00000006740": 377,
+    "ENSG00000006744": 150,
+    "ENSG00000006747": 183,
+
+=== FIRST STAGE 11 ROWS ===
+[INFO] STAGE11_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+sample_id  run_id                 source_pipeline              variant_id    chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability   coding_interpretation_label   is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label   priority_tier                 priority_rank  priority_reason                            is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:924533:A:G  1           924533    A                 G                 snv           coding         PASS          ENSG00000187634  SAMD11       ENST00000616016.5  synonymous_variant  LOW           NA                     NA                    0.7498                0.7498     NA       0.4039               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:946247:G:A  1           946247    G                 A                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.4419                0.4419     NA       0.0643               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:952421:A:G  1           952421    A                 G                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9223                0.9223     NA       0.9062               False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:953259:T:C  1           953259    T                 C                 snv           coding         PASS          ENSG00000188976  NOC2L        ENST00000327044.7  synonymous_variant  LOW           NA                     NA                    0.9227                0.9227     NA       0.907                False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common       missing            high_confidence  coding_common_or_low_support  False             False              False                    True             False                  coding          coding_common_or_low_support  tier_3_low_support_or_common  3              coding label coding_common_or_low_support  False                       False                           True                       False
+
+=== PRIORITY DISTRIBUTION QUICK CHECK ===
+priority_tier
+tier_3_low_support_or_common	3369755
+tier_4_uninterpretable_or_qc_limited	1153466
+tier_2_moderate_candidate	113363
+
+priority_rank
+3	3369755
+2	113363
+4	1153466
+
+variant_origin
+coding	27486
+noncoding	4609098
+
+source_interpretation_label
+lof_or_missense_rare	1121
+coding_common_or_low_support	25169
+noncoding_uninterpretable	1152270
+regulatory_or_transcript_rare	112242
+noncoding_common_or_low_support	3344586
+coding_uninterpretable	1196
+
+=== HIGH-VALUE EXAMPLES ===
+--- Tier 1 examples ---
+sample_id  run_id  source_pipeline  variant_id  chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id  gene_symbol  transcript_id  consequence  impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag  clinical_evidence  qc_reliability  coding_interpretation_label  is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label  priority_tier  priority_rank  priority_reason  is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable
+
+--- Tier 2 examples ---
+sample_id  run_id                 source_pipeline              variant_id     chromosome  position  reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id       consequence       impact_class  clinical_significance   clinvar_significance    population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag    clinical_evidence  qc_reliability   coding_interpretation_label  is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label  priority_tier              priority_rank  priority_reason                    is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:1072326:G:A  1           1072326   G                 A                 snv           coding         PASS          ENSG00000237330  RNF223       ENST00000453464.3   missense_variant  MODERATE      NA                      NA                      0.0002                0.0002     NA       0                    False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        rare              missing          missense           rare           missing            high_confidence  lof_or_missense_rare         False             True               False                    True             False                  coding          lof_or_missense_rare         tier_2_moderate_candidate  2              coding label lof_or_missense_rare  False                       True                            False                      False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:3781099:C:T  1           3781099   C                 T                 snv           coding         PASS          ENSG00000130764  LRRC47       ENST00000378251.3   missense_variant  MODERATE      NA                      NA                      0.0194                0.0194     NA       0.0015               False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False                  coding          lof_or_missense_rare         tier_2_moderate_candidate  2              coding label lof_or_missense_rare  False                       True                            False                      False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:5864452:C:A  1           5864452   C                 A                 snv           coding         PASS          ENSG00000131697  NPHP4        ENST00000378156.9   missense_variant  MODERATE      uncertain_significance  uncertain_significance  0.001152              0.001152   NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        rare              vus              missense           rare           vus                high_confidence  lof_or_missense_rare         False             True               False                    True             False                  coding          lof_or_missense_rare         tier_2_moderate_candidate  2              coding label lof_or_missense_rare  False                       True                            False                      False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:6249964:C:T  1           6249964   C                 T                 snv           coding         PASS          ENSG00000158292  GPR153       ENST00000377893.3   missense_variant  MODERATE      NA                      NA                      0.0357                0.0357     NA       0                    False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False                  coding          lof_or_missense_rare         tier_2_moderate_candidate  2              coding label lof_or_missense_rare  False                       True                            False                      False
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:6645884:C:T  1           6645884   C                 T                 snv           coding         PASS          ENSG00000007923  DNAJC11      ENST00000377577.10  missense_variant  MODERATE      NA                      NA                      0.0441                0.0441     NA       0.0038               True       False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  lof_or_missense_rare         False             False              False                    True             False                  coding          lof_or_missense_rare         tier_2_moderate_candidate  2              coding label lof_or_missense_rare  False                       True                            False                      False
+
+--- Tier 4 examples ---
+sample_id  run_id                 source_pipeline              variant_id       chromosome  position   reference_allele  alternate_allele  variant_type  variant_class  quality_flag  gene_id          gene_symbol  transcript_id      consequence         impact_class  clinical_significance  clinvar_significance  population_frequency  gnomad_af  exac_af  thousand_genomes_af  mito_flag  epilepsy_flag  annotation_source  annotation_version  gene_mapping_status  variant_context  variant_effect_severity  qc_status  interpretability_status  frequency_status  clinical_status  functional_impact  rarity_flag    clinical_evidence  qc_reliability   coding_interpretation_label  is_lof_candidate  is_rare_candidate  is_clinically_supported  is_high_quality  is_potential_artifact  variant_origin  source_interpretation_label  priority_tier                         priority_rank  priority_reason                      is_high_priority_candidate  is_moderate_priority_candidate  is_low_priority_candidate  is_uninterpretable
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:30576753:T:C   1           30576753   T                 C                 snv           coding         PASS          ENSG00000289710  NA           ENST00000696552.1  missense_variant    MODERATE      NA                     NA                    0.0487                0.0487     NA       0.031                False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        low_frequency     missing          missense           low_frequency  missing            high_confidence  coding_uninterpretable       False             False              False                    True             False                  coding          coding_uninterpretable       tier_4_uninterpretable_or_qc_limited  4              coding label coding_uninterpretable  False                       False                           False                      True
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:155628453:G:C  1           155628453  G                 C                 snv           coding         PASS          ENSG00000287839  NA           ENST00000713940.1  missense_variant    MODERATE      NA                     NA                    0.707                 0.707      NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            missing          missense           common         missing            high_confidence  coding_uninterpretable       False             False              False                    True             False                  coding          coding_uninterpretable       tier_4_uninterpretable_or_qc_limited  4              coding label coding_uninterpretable  False                       False                           False                      True
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:155628733:C:T  1           155628733  C                 T                 snv           coding         PASS          ENSG00000287839  NA           ENST00000713940.1  missense_variant    MODERATE      NA                     NA                    0.9925                0.9925     NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            missing          missense           common         missing            high_confidence  coding_uninterpretable       False             False              False                    True             False                  coding          coding_uninterpretable       tier_4_uninterpretable_or_qc_limited  4              coding label coding_uninterpretable  False                       False                           False                      True
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:155629283:G:T  1           155629283  G                 T                 snv           coding         PASS          ENSG00000287839  NA           ENST00000713940.1  synonymous_variant  LOW           NA                     NA                    0.7263                0.7263     NA       NA                   False      False          VEP                115                 mapped               coding           LOW                      pass       interpretable_now        common            missing          synonymous         common         missing            high_confidence  coding_uninterpretable       False             False              False                    True             False                  coding          coding_uninterpretable       tier_4_uninterpretable_or_qc_limited  4              coding label coding_uninterpretable  False                       False                           False                      True
+HG002      run_2026_04_17_082417  variant_annotation_pipeline  1:155629776:T:C  1           155629776  T                 C                 snv           coding         PASS          ENSG00000287839  NA           ENST00000713940.1  missense_variant    MODERATE      NA                     NA                    0.9951                0.9951     NA       NA                   False      False          VEP                115                 mapped               coding           MODERATE                 pass       interpretable_now        common            missing          missense           common         missing            high_confidence  coding_uninterpretable       False             False              False                    True             False                  coding          coding_uninterpretable       tier_4_uninterpretable_or_qc_limited  4              coding label coding_uninterpretable  False                       False                           False                      True
+
+[INFO] Mark Stage 11 checkpoint run completed at Wed Apr 29 01:09:40 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage11_checkpoint_20260429_010710.log

@@ -1,0 +1,71 @@
+[INFO] Mark git auth probe started at Thu Apr 23 12:58:31 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_git_auth_probe_20260423_125831.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+=== BASIC REPO CONTEXT ===
+[CMD] pwd
+/root/dev/portfolio_projects/variant_annotation_pipeline
+
+[CMD] whoami
+root
+
+[CMD] hostname
+VandPyMolGPUResearch
+
+=== REMOTE CONFIG ===
+[CMD] git remote -v
+origin	git@github.com:VitamOrdinatio/variant_annotation_pipeline (fetch)
+origin	git@github.com:VitamOrdinatio/variant_annotation_pipeline (push)
+
+[CMD] git branch -vv
+* main fedfa54 [origin/main: behind 1] Removed minor bug in setup_pipeline_tools.sh that duplicated 'directory' to console out.
+
+=== GIT CONFIG ===
+[CMD] git config --get remote.origin.url
+git@github.com:VitamOrdinatio/variant_annotation_pipeline
+
+[CMD] git config --get credential.helper
+
+[CMD] git config --global --get credential.helper
+
+=== SSH CONTEXT ===
+[CMD] ls -lah ~/.ssh
+total 24K
+drwx------  2 root root 4.0K Apr 16 15:47 .
+drwx------ 27 root root 4.0K Apr 22 22:17 ..
+-rw-------  1 root root  411 Apr 16 15:41 id_ed25519
+-rw-r--r--  1 root root   97 Apr 16 15:41 id_ed25519.pub
+-rw-------  1 root root  978 Apr 16 15:47 known_hosts
+-rw-r--r--  1 root root  142 Apr 16 15:40 known_hosts.old
+
+[CMD] ssh -T git@github.com
+Hi VitamOrdinatio! You've successfully authenticated, but GitHub does not provide shell access.
+
+=== FETCH / PULL TESTS ===
+[CMD] git fetch origin
+
+[CMD] git status
+On branch main
+Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	results/bootstrap_logs/
+	results/run_2026_04_17_044028/
+	results/run_2026_04_17_044718/
+	results/run_2026_04_17_082417/
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+[CMD] git pull --ff-only
+Updating fedfa54..fb506ef
+Fast-forward
+ .gitignore                             |   2 +-
+ config/config.mark.local.yaml          | 120 +++++++++++++++++++++++++++++++++
+ pipeline/stage_07_annotate_variants.py |  15 ++++-
+ 3 files changed, 135 insertions(+), 2 deletions(-)
+ create mode 100644 config/config.mark.local.yaml
+
+[INFO] Mark git auth probe completed at Thu Apr 23 12:58:33 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_git_auth_probe_20260423_125831.log

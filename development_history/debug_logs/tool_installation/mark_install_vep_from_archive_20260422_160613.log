@@ -1,0 +1,282 @@
+[INFO] Mark VEP install-from-archive test started at Wed Apr 22 04:06:13 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_install_vep_from_archive_20260422_160613.log
+[INFO] Initial working directory: /root/Desktop
+[INFO] Target repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP_ARCHIVE=/root/Desktop/ensembl-vep-release-115.0.tar.gz
+
+[STEP] Changing into VAP repo root
+[INFO] Current working directory: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== PRECHECKS ===
+[CMD] ls -lah /root/Desktop/ensembl-vep-release-115.0.tar.gz
+-rw-r--r-- 1 root root 61M Apr 22 15:11 /root/Desktop/ensembl-vep-release-115.0.tar.gz
+
+=== BEFORE PROVISION ===
+[CMD] TARGET_ENV=mark MODE=status bash scripts/tools/setup_pipeline_tools.sh
+[INFO] TARGET_ENV: mark
+[INFO] MODE: status
+[INFO] TOOLS_BASE: /root/tools
+[INFO] GATK_DIR: /root/tools/gatk
+[INFO] GATK_EXECUTABLE: /root/tools/gatk/gatk
+[INFO] GATK_LEGACY_DIR: /root/tools/gatk-4.6.2.0
+[INFO] VEP_DIR: /root/tools/vep
+[INFO] VEP_EXECUTABLE: <unset>
+[INFO] VEP_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_DIR: /root/tools/annovar
+[INFO] ANNOVAR_EXECUTABLE: /root/tools/annovar/table_annovar.pl
+[INFO] ANNOVAR_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_SOURCE_DIR: <unset>
+[INFO] Found tool on PATH: perl -> /usr/bin/perl
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory exists and is non-empty.
+[WARN] VEP directory exists but is empty.
+[WARN] ANNOVAR directory exists but is empty.
+
+=== RUN VEP PROVISION THROUGH REPO SCRIPT ===
+[CMD] TARGET_ENV=mark MODE=provision VEP_SOURCE_ARCHIVE=/root/Desktop/ensembl-vep-release-115.0.tar.gz bash scripts/tools/setup_pipeline_tools.sh
+[INFO] TARGET_ENV: mark
+[INFO] MODE: provision
+[INFO] TOOLS_BASE: /root/tools
+[INFO] GATK_DIR: /root/tools/gatk
+[INFO] GATK_EXECUTABLE: /root/tools/gatk/gatk
+[INFO] GATK_LEGACY_DIR: /root/tools/gatk-4.6.2.0
+[INFO] VEP_DIR: /root/tools/vep
+[INFO] VEP_EXECUTABLE: <unset>
+[INFO] VEP_SOURCE_ARCHIVE: /root/Desktop/ensembl-vep-release-115.0.tar.gz
+[INFO] ANNOVAR_DIR: /root/tools/annovar
+[INFO] ANNOVAR_EXECUTABLE: /root/tools/annovar/table_annovar.pl
+[INFO] ANNOVAR_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_SOURCE_DIR: <unset>
+[INFO] Found tool on PATH: perl -> /usr/bin/perl
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory exists and is non-empty.
+[WARN] VEP directory exists but is empty.
+[WARN] ANNOVAR directory exists but is empty.
+[INFO] Provision mode selected.
+[INFO] Tools base directory already exists: /root/tools
+[INFO] GATK directory already exists: /root/tools/gatk
+[INFO] VEP directory already exists: /root/tools/vep
+[INFO] ANNOVAR directory already exists: /root/tools/annovar
+[INFO] Canonical GATK executable already present: /root/tools/gatk/gatk
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[INFO] VEP target directory already exists: /root/tools/vep
+[INFO] Extracting VEP archive (.tar.gz) into /root/tools/vep
+[INFO] Created canonical VEP symlink: /root/tools/vep/vep -> /root/tools/vep/ensembl-vep-release-115.0/vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[WARN] ANNOVAR source archive/directory not provided; skipping ANNOVAR install.
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory exists and is non-empty.
+[INFO] VEP directory exists and is non-empty.
+[WARN] ANNOVAR directory exists but is empty.
+[WARN] VEP executable provisioning not yet complete.
+[WARN] ANNOVAR executable provisioning not yet complete.
+[INFO] Provision step completed.
+
+=== AFTER PROVISION ===
+[CMD] TARGET_ENV=mark MODE=status bash scripts/tools/setup_pipeline_tools.sh
+[INFO] TARGET_ENV: mark
+[INFO] MODE: status
+[INFO] TOOLS_BASE: /root/tools
+[INFO] GATK_DIR: /root/tools/gatk
+[INFO] GATK_EXECUTABLE: /root/tools/gatk/gatk
+[INFO] GATK_LEGACY_DIR: /root/tools/gatk-4.6.2.0
+[INFO] VEP_DIR: /root/tools/vep
+[INFO] VEP_EXECUTABLE: <unset>
+[INFO] VEP_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_DIR: /root/tools/annovar
+[INFO] ANNOVAR_EXECUTABLE: /root/tools/annovar/table_annovar.pl
+[INFO] ANNOVAR_SOURCE_ARCHIVE: <unset>
+[INFO] ANNOVAR_SOURCE_DIR: <unset>
+[INFO] Found tool on PATH: perl -> /usr/bin/perl
+[INFO] Found GATK executable: /root/tools/gatk/gatk
+[WARN] Tool not found on PATH: vep
+[WARN] ANNOVAR executable path does not exist: /root/tools/annovar/table_annovar.pl
+[INFO] Tools base directory exists and is non-empty.
+[INFO] GATK directory exists and is non-empty.
+[INFO] VEP directory exists and is non-empty.
+[WARN] ANNOVAR directory exists but is empty.
+
+=== POST-RUN VEP LAYOUT ===
+[CMD] tree -L 4 /root/tools/vep
+/root/tools/vep
+├── ensembl-vep-release-115.0
+│   ├── convert_cache.pl
+│   ├── cpanfile
+│   ├── docker
+│   │   ├── Dockerfile
+│   │   └── Dockerfile.dockerignore
+│   ├── examples
+│   │   ├── arabidopsis_thaliana.TAIR10.vcf
+│   │   ├── bos_taurus_UMD3.1.vcf
+│   │   ├── canis_familiaris_CanFam3.1.vcf
+│   │   ├── danio_rerio_GRCz10.vcf
+│   │   ├── drosophila_melanogaster_BDGP6.vcf
+│   │   ├── homo_sapiens_GRCh37.vcf
+│   │   ├── homo_sapiens_GRCh38.vcf
+│   │   ├── mus_musculus_GRCm38.vcf
+│   │   ├── rattus_norvegicus_Rnor_6.0.vcf
+│   │   └── sus_scrofa_Sscrofa10.2.vcf
+│   ├── filter_vep
+│   ├── haplo
+│   ├── INSTALL.pl
+│   ├── LICENSE
+│   ├── main.nf
+│   ├── modules
+│   │   └── Bio
+│   │       └── EnsEMBL
+│   ├── nextflow
+│   │   ├── examples
+│   │   │   └── clinvar-testset
+│   │   ├── main.nf
+│   │   ├── modules
+│   │   │   ├── check_VCF.nf
+│   │   │   ├── generate_splits.nf
+│   │   │   ├── merge_VCF.nf
+│   │   │   ├── run_vep.nf
+│   │   │   └── split_VCF.nf
+│   │   ├── nextflow.config
+│   │   ├── nextflow_schema.json
+│   │   ├── README.md
+│   │   ├── vep_config
+│   │   │   ├── README
+│   │   │   └── vep.ini.template
+│   │   └── workflows
+│   │       └── run_vep.nf
+│   ├── nextflow.config
+│   ├── README.md
+│   ├── t
+│   │   ├── AnnotationSourceAdaptor.t
+│   │   ├── AnnotationSource_Cache_RegFeat.t
+│   │   ├── AnnotationSource_Cache.t
+│   │   ├── AnnotationSource_Cache_Transcript.t
+│   │   ├── AnnotationSource_Cache_Variation.t
+│   │   ├── AnnotationSource_Cache_VariationTabix.t
+│   │   ├── AnnotationSource_Database_RegFeat.t
+│   │   ├── AnnotationSource_Database_StructuralVariation.t
+│   │   ├── AnnotationSource_Database_Transcript.t
+│   │   ├── AnnotationSource_Database_Variation.t
+│   │   ├── AnnotationSource_File_BED.t
+│   │   ├── AnnotationSource_File_BigWig.t
+│   │   ├── AnnotationSource_File_GFF.t
+│   │   ├── AnnotationSource_File_GTF.t
+│   │   ├── AnnotationSource_File.t
+│   │   ├── AnnotationSource_File_VCF.t
+│   │   ├── AnnotationSource.t
+│   │   ├── bam_edit.t
+│   │   ├── BaseVEP.t
+│   │   ├── CacheDir.t
+│   │   ├── Config.t
+│   │   ├── FilterSet.t
+│   │   ├── Haplo_AnnotationSource_Cache_Transcript.t
+│   │   ├── Haplo_AnnotationSource_Database_Transcript.t
+│   │   ├── Haplo_AnnotationSource_File_GFF.t
+│   │   ├── Haplo_AnnotationSource_File_GTF.t
+│   │   ├── Haplo_InputBuffer.t
+│   │   ├── Haplo_Parser_VCF.t
+│   │   ├── Haplo_Runner.t
+│   │   ├── InputBuffer.t
+│   │   ├── MultiTestDB.conf.default
+│   │   ├── MultiTestDB.conf.example
+│   │   ├── OutputFactory_JSON.t
+│   │   ├── OutputFactory.t
+│   │   ├── OutputFactory_Tab.t
+│   │   ├── OutputFactory_VCF.t
+│   │   ├── OutputFactory_VEP_output.t
+│   │   ├── Parser_CAID.t
+│   │   ├── Parser_HGVS.t
+│   │   ├── Parser_ID.t
+│   │   ├── Parser_Region.t
+│   │   ├── Parser_SPDI.t
+│   │   ├── Parser.t
+│   │   ├── Parser_VCF.t
+│   │   ├── Parser_VEP_input.t
+│   │   ├── README
+│   │   ├── Runner.t
+│   │   ├── Stats.t
+│   │   ├── test_core_region_config.json
+│   │   ├── test_core_region_mouse_config.json
+│   │   ├── testdata
+│   │   │   ├── cache
+│   │   │   ├── chr_synonyms.txt
+│   │   │   ├── custom
+│   │   │   ├── fasta
+│   │   │   ├── filter
+│   │   │   ├── haplotype_frequencies_nh.txt
+│   │   │   ├── haplotype_frequencies.txt
+│   │   │   ├── input
+│   │   │   ├── vep.ini
+│   │   │   ├── vep.registry
+│   │   │   └── version
+│   │   ├── test-genome-DBs
+│   │   │   ├── homo_vepiens
+│   │   │   ├── homo_vepiens_coreonly
+│   │   │   ├── multi
+│   │   │   └── mus_muscuvep
+│   │   ├── test_otherfeatures_region_config.json
+│   │   ├── TestPluginCache.pm
+│   │   ├── TestPluginNewFails.pm
+│   │   ├── TestPluginNoCompile.pm
+│   │   ├── TestPluginNoMethods.pm
+│   │   ├── TestPlugin.pm
+│   │   ├── TestPluginRegFeat.pm
+│   │   ├── TestPluginRunFails.pm
+│   │   ├── TranscriptTree.t
+│   │   ├── translation_md5s.txt
+│   │   ├── Utils.t
+│   │   ├── VariantRecoder.t
+│   │   ├── VEPTestingConfig.pm
+│   │   └── version.t
+│   ├── travisci
+│   │   ├── api_build_run_last_hour.py
+│   │   ├── build_c.sh
+│   │   ├── get_dependencies.sh
+│   │   ├── harness.sh
+│   │   ├── install_dependencies.sh
+│   │   ├── install_mysql.sh
+│   │   ├── MultiTestDB.conf.travisci
+│   │   └── trigger-dependent-build.sh
+│   ├── validator
+│   │   ├── test_vep_input_validator.py
+│   │   └── vep_input_format_validator.py
+│   ├── variant_recoder
+│   └── vep
+└── vep -> /root/tools/vep/ensembl-vep-release-115.0/vep
+
+28 directories, 115 files
+
+[CMD] find /root/tools/vep -maxdepth 6 -name vep -type f
+/root/tools/vep/ensembl-vep-release-115.0/vep
+
+[CMD] ls -lah /root/tools/vep/vep
+lrwxrwxrwx 1 root root 45 Apr 22 16:06 /root/tools/vep/vep -> /root/tools/vep/ensembl-vep-release-115.0/vep
+
+[CMD] file /root/tools/vep/vep
+/root/tools/vep/vep: symbolic link to /root/tools/vep/ensembl-vep-release-115.0/vep
+
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.0/modules /root/tools/vep/ensembl-vep-release-115.0 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.0/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+[INFO] Mark VEP install-from-archive test completed at Wed Apr 22 04:06:15 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_install_vep_from_archive_20260422_160613.log

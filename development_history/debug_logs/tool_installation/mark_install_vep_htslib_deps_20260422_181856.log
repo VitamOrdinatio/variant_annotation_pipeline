@@ -1,0 +1,87 @@
+[INFO] Mark VEP HTS dependency install started at Wed Apr 22 06:18:56 PM EDT 2026
+[INFO] Log file: /root/Desktop/mark_install_vep_htslib_deps_20260422_181856.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] VEP root: /root/tools/vep/ensembl-vep-release-115.2
+
+=== INSTALL SYSTEM LIBRARIES ===
+[CMD] apt-get update
+Hit:1 http://deb.debian.org/debian bookworm InRelease
+Get:2 http://security.debian.org bookworm-security InRelease [48.0 kB]
+Hit:3 http://deb.debian.org/debian bookworm-updates InRelease
+Fetched 48.0 kB in 0s (104 kB/s)
+Reading package lists...
+
+[CMD] apt-get install -y libbz2-dev liblzma-dev zlib1g-dev
+Reading package lists...
+Building dependency tree...
+Reading state information...
+zlib1g-dev is already the newest version (1:1.2.13.dfsg-1).
+zlib1g-dev set to manually installed.
+The following packages were automatically installed and are no longer required:
+  libdbus-glib-1-2 linux-headers-6.1.0-25-amd64 linux-headers-6.1.0-25-common
+  linux-headers-6.1.0-30-amd64 linux-headers-6.1.0-30-common
+  linux-headers-6.1.0-40-amd64 linux-headers-6.1.0-40-common
+Use 'apt autoremove' to remove them.
+Suggested packages:
+  liblzma-doc
+The following NEW packages will be installed:
+  bzip2-doc libbz2-dev liblzma-dev
+0 upgraded, 3 newly installed, 0 to remove and 8 not upgraded.
+Need to get 805 kB of archives.
+After this operation, 1,467 kB of additional disk space will be used.
+Get:1 http://deb.debian.org/debian bookworm/main amd64 bzip2-doc all 1.0.8-5 [514 kB]
+Get:2 http://deb.debian.org/debian bookworm/main amd64 libbz2-dev amd64 1.0.8-5+b1 [30.9 kB]
+Get:3 http://deb.debian.org/debian bookworm/main amd64 liblzma-dev amd64 5.4.1-1 [260 kB]
+Fetched 805 kB in 0s (5,231 kB/s)
+Selecting previously unselected package bzip2-doc.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 208558 files and directories currently installed.)
+Preparing to unpack .../bzip2-doc_1.0.8-5_all.deb ...
+Unpacking bzip2-doc (1.0.8-5) ...
+Selecting previously unselected package libbz2-dev:amd64.
+Preparing to unpack .../libbz2-dev_1.0.8-5+b1_amd64.deb ...
+Unpacking libbz2-dev:amd64 (1.0.8-5+b1) ...
+Selecting previously unselected package liblzma-dev:amd64.
+Preparing to unpack .../liblzma-dev_5.4.1-1_amd64.deb ...
+Unpacking liblzma-dev:amd64 (5.4.1-1) ...
+Setting up bzip2-doc (1.0.8-5) ...
+Setting up liblzma-dev:amd64 (5.4.1-1) ...
+Setting up libbz2-dev:amd64 (1.0.8-5+b1) ...
+
+=== VERIFY HEADERS ===
+[CMD] ls /usr/include | grep -E 'bz|lzma'
+bzlib.h
+lzma
+lzma.h
+
+=== RERUN INSTALL.PL ===
+[CMD] printf 'n\n' | perl INSTALL.pl --NO_TEST
+WARNING: DBD::mysql module not found. VEP can only run in offline (--offline) mode without DBD::mysql installed
+
+http://www.ensembl.org/info/docs/tools/vep/script/vep_download.html#requirements
+Hello! This installer will help you set up VEP v115, including:
+ - Install v115 of the Ensembl API for use by the VEP. It will not affect any existing installations of the Ensembl API that you may have.
+ - Download and install cache files from Ensembl's FTP server.
+ - Download FASTA files from Ensembl's FTP server.
+ - Download VEP plugins.
+
+Checking for installed versions of the Ensembl API...done
+
+Setting up directories
+Destination directory ./Bio already exists.
+Do you want to overwrite it (if updating VEP this is probably OK) (y/n)? Exiting
+
+=== POST-INSTALL HELP CHECK ===
+[CMD] /root/tools/vep/vep --help | head
+Can't locate Bio/EnsEMBL/Registry.pm in @INC (you may need to install the Bio::EnsEMBL::Registry module) (@INC contains: /root/tools/vep/ensembl-vep-release-115.2/modules /root/tools/vep/ensembl-vep-release-115.2 /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseVEP.pm line 58.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/BaseRunner.pm line 56.
+Compilation failed in require at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 135.
+	...propagated at /usr/lib/x86_64-linux-gnu/perl-base/base.pm line 157.
+BEGIN failed--compilation aborted at /root/tools/vep/ensembl-vep-release-115.2/modules/Bio/EnsEMBL/VEP/Runner.pm line 71.
+Compilation failed in require at /root/tools/vep/vep line 20.
+BEGIN failed--compilation aborted at /root/tools/vep/vep line 20.
+
+[INFO] Mark VEP HTS dependency install completed at Wed Apr 22 06:19:01 PM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_install_vep_htslib_deps_20260422_181856.log

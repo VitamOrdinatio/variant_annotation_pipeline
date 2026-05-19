@@ -1,0 +1,170 @@
+[INFO] Mark Stage 08 checkpoint probe started at Sat Apr 25 01:26:45 AM EDT 2026
+[INFO] Log file: /root/Desktop/mark_run_stage08_checkpoint_probe_20260425_012645.log
+[INFO] Repo root: /root/dev/portfolio_projects/variant_annotation_pipeline
+[INFO] Config path: /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+
+[STEP] Activating VAP .venv
+[INFO] Venv activated.
+
+=== REPO STATUS ===
+?? results/bootstrap_logs/
+?? results/run_2026_04_17_044028/
+?? results/run_2026_04_17_044718/
+?? results/run_2026_04_17_082417/
+
+=== STAGE 07 OUTPUT DISCOVERY ===
+[INFO] ANNOTATED_TSV=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+[INFO] ANNOTATED_VCF=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+-rw-r--r-- 1 root root 974M Apr 23 18:36 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+-rw-r--r-- 1 root root 1.8G Apr 23 18:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+
+=== PYTHON STAGE 08 PROBE ===
+[PYTHON][INFO] CONFIG_PATH= /root/dev/portfolio_projects/variant_annotation_pipeline/config/config.mark.local.yaml
+[PYTHON][INFO] ANNOTATED_TSV= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+[PYTHON][INFO] ANNOTATED_VCF= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+[PYTHON][INFO] PROCESSED_DIR= /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed
+[LOGGER][INFO] Stage 08: filtering and partitioning annotated variants.
+[LOGGER][INFO] Stage 08 canonical input TSV: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+[LOGGER][INFO] Stage 08 validation/provenance VCF: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+[LOGGER][INFO] Stage 08 annotation_source: VEP
+[LOGGER][INFO] Stage 08 annotation_version: 115
+[LOGGER][INFO] Stage 08 selected transcript consequences written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+[LOGGER][INFO] Stage 08 variant summary written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+[LOGGER][INFO] Stage 08 VDB-ready variants written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv
+[LOGGER][INFO] Stage 08 RDGP gene evidence seed written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv
+[LOGGER][INFO] Stage 08 summary JSON written to: /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json
+[LOGGER][INFO] Stage 08 total variants processed: 4636584
+[LOGGER][INFO] Stage 08 irreparably malformed rows skipped: 0
+
+=== STAGE 08 RESULT SUMMARY ===
+{
+  "stage_08_qc": {
+    "total_variants": 4636584,
+    "irreparably_malformed_rows": 0,
+    "selected_transcript_consequences_exists": true,
+    "variant_summary_exists": true,
+    "vdb_ready_variants_exists": true,
+    "rdgp_gene_evidence_seed_exists": true,
+    "qc_status_counts": {
+      "caution": 44460,
+      "pass": 4592124
+    }
+  },
+  "stage_output": {
+    "status": "success",
+    "input_annotated_table": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv",
+    "input_annotated_vcf": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf",
+    "outputs": {
+      "selected_transcript_consequences": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv",
+      "variant_summary": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv",
+      "coding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv",
+      "splice_region_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv",
+      "noncoding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv",
+      "qc_flagged": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/qc_flagged.tsv",
+      "summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json",
+      "vdb_ready_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv",
+      "rdgp_gene_evidence_seed": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv"
+    },
+    "total_variants": 4636584,
+    "variant_summary_rows": 4636584,
+    "rdgp_gene_evidence_seed_rows": 49826,
+    "irreparably_malformed_rows": 0
+  },
+  "artifacts": {
+    "stage_08_selected_transcript_consequences": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv",
+    "stage_08_variant_summary": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv",
+    "coding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv",
+    "splice_region_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv",
+    "noncoding_candidates": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv",
+    "qc_flagged": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/qc_flagged.tsv",
+    "stage_08_summary_json": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json",
+    "stage_08_vdb_ready_variants": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv",
+    "stage_08_rdgp_gene_evidence_seed": "/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv"
+  },
+  "warnings": []
+}
+
+=== STAGE 08 OUTPUT FILES ===
+-rw-r--r-- 1 root root 1.2M Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/splice_region_candidates.tsv
+-rw-r--r-- 1 root root 1.3G Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/noncoding_candidates.tsv
+-rw-r--r-- 1 root root 1.3G Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+-rw-r--r-- 1 root root 1.3G Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv
+-rw-r--r-- 1 root root 13M Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/qc_flagged.tsv
+-rw-r--r-- 1 root root 1.9K Apr 25 01:36 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json
+-rw-r--r-- 1 root root 58M Apr 25 01:36 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv
+-rw-r--r-- 1 root root 6.4M Apr 25 01:34 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/coding_candidates.tsv
+-rw-r--r-- 1 root root 983M Apr 25 01:35 /root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+
+=== SUMMARY JSON HEAD ===
+[INFO] SUMMARY_JSON=/root/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_04_17_082417/processed/stage_08_summary.json
+{
+  "annotation_source": "VEP",
+  "annotation_version": "115",
+  "assumptions": [
+    "VAP v1 treats Stage 07 annotated_variants.tsv as canonical selected-transcript truth.",
+    "Full CSQ expansion from annotated_variants.vcf is deferred to a future VAP v2 mode.",
+    "canonical_present is emitted as False because Stage 07 TSV does not expose CANONICAL in v1.",
+    "RDGP gene evidence seed groups by gene_id when available, otherwise by gene_symbol when gene_id is missing but gene_symbol is mapped.",
+    "population_frequency is recomputed as max(non-missing gnomad_af, exac_af, thousand_genomes_af)."
+  ],
+  "clinical_status": {
+    "benign": 38317,
+    "conflicting": 74,
+    "likely_benign": 1809,
+    "likely_pathogenic": 18,
+    "missing": 4595778,
+    "pathogenic": 48,
+    "vus": 540
+  },
+  "frequency_status": {
+    "common": 4230918,
+    "low_frequency": 158207,
+    "missing": 117655,
+    "rare": 129804
+  },
+  "interpretability_counts": {
+    "interpretable_now": 27486,
+    "needs_external_annotation": 4564638,
+    "unsupported_currently": 44460
+  },
+  "irreparably_malformed_rows": 0,
+  "partition_counts": {
+    "coding_candidates": 24278,
+    "noncoding_candidates": 4612207,
+    "qc_flagged": 44460,
+    "splice_region_candidates": 3733
+  },
+  "qc_status_counts": {
+    "caution": 44460,
+    "pass": 4592124
+  },
+  "rdgp_gene_evidence_seed_rows": 49826,
+  "total_variants": 4636584,
+  "variant_summary_rows": 4636584,
+  "variants_by_context": {
+    "coding": 23753,
+    "intergenic": 1107793,
+    "intronic": 2819766,
+    "noncoding_transcript": 49108,
+    "regulatory": 587971,
+    "splice_region": 3733,
+    "unknown": 44460
+  },
+  "variants_by_severity": {
+    "HIGH": 791,
+    "LOW": 18525,
+    "MODERATE": 11946,
+    "MODIFIER": 4605322
+  },
+  "variants_by_variant_class": {
+    "coding": 27486,
+    "noncoding": 4564638,
+    "unknown": 44460
+  },
+  "variants_by_variant_type": {
+    "unknown": 4636584
+  }
+}
+
+[INFO] Mark Stage 08 checkpoint probe completed at Sat Apr 25 01:36:05 AM EDT 2026
+[INFO] Log file saved to: /root/Desktop/mark_run_stage08_checkpoint_probe_20260425_012645.log
