@@ -1,0 +1,2 @@
+comparison_id	sample_id	run_id_a	run_id_b	comparison_type	assay_transition	priority_summary_match	validation_summary_match	interpretation_summary_match	gene_burden_match	overall_reproducibility_status	notes
+HG002_developmental_epoch	HG002	run_2026_04_17_082417	run_2026_05_13_060859	developmental_epoch_transition	WGS→WGS	True	True	True	True	reproducible	Checkpoint-era developmental run compared against telemetry-era stabilized run.

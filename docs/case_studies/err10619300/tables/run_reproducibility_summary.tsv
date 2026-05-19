@@ -1,0 +1,2 @@
+comparison_id	sample_id	run_id_a	run_id_b	comparison_type	assay_transition	priority_summary_match	validation_summary_match	interpretation_summary_match	gene_burden_match	overall_reproducibility_status	notes
+ERR10619300_standard_rerun	ERR10619300	run_2026_05_14_164444	run_2026_05_15_063040	standard_rerun_reproducibility	WES→WES	True	True	True	True	reproducible	Telemetry-era rerun reproducibility assessment.
