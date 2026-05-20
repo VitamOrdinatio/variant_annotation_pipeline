@@ -1,0 +1,7 @@
+figure_id	panel_id	metric	run_a_value	run_b_value	unit	comparison_interpretation	source_table	transformation_rule
+F1	B	total_runtime_seconds	0	81874.0	seconds	runtime variability expected	runtime_stage_summary.tsv	sum elapsed_seconds by run_id
+F1	C	stage_11_prioritized_rows	4636584	4636584	rows	stable	stage_funnel_summary.tsv	extract stage11_prioritized_rows by run_id
+F1	C	stage_12_validation_rows	4636584	4636584	rows	stable	stage_funnel_summary.tsv	extract stage12_validation_rows by run_id
+F1	D	priority_summary_match	True	True	boolean	stable	run_reproducibility_summary.tsv	semantic equality from harvester
+F1	D	interpretation_summary_match	True	True	boolean	stable	run_reproducibility_summary.tsv	semantic equality from harvester
+F1	D	gene_burden_match	True	True	boolean	stable	run_reproducibility_summary.tsv	semantic equality from harvester

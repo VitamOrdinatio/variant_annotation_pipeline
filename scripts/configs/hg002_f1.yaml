@@ -1,0 +1,6 @@
+case_id: HG002
+case_dir: docs/case_studies/hg002
+comparison_id: HG002_developmental_epoch
+figure_title: HG002 Benchmark Operational Stability
+comparison_label: Checkpointed vs end-to-end WGS execution
+output_prefix: hg002_f1_benchmark_operational_stability

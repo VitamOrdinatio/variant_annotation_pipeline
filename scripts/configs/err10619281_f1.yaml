@@ -1,0 +1,6 @@
+case_id: ERR10619281
+case_dir: docs/case_studies/err10619281
+comparison_id: ERR10619281_metadata_transition
+figure_title: ERR10619281 Provenance-Aware Reproducibility Transition
+comparison_label: Provenance patch WES rerun
+output_prefix: err10619281_f1_provenance_transition_summary

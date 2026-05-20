@@ -70,9 +70,25 @@ def main():
     source_path=out_dir/f"{out_prefix}_source.tsv"
     write_source_tsv(source_path,source_rows)
 
-    plt.rcParams.update({"axes.spines.top":False,"axes.spines.right":False,"font.size":10,"axes.titlesize":12,"figure.titlesize":15})
-    fig=plt.figure(figsize=(14,8.6),facecolor="white",constrained_layout=False)
-    gs=fig.add_gridspec(2,2,hspace=0.30,wspace=0.34)
+    plt.rcParams.update({
+        "axes.spines.top":False,
+        "axes.spines.right":False,
+        "font.size":10,
+        "axes.titlesize":14,
+        "figure.titlesize":18
+    })
+
+    # Main Geometry
+    # Create figure and subplots with manual layout adjustments for title/label spacing
+    fig=plt.figure(figsize=(14,8.8),facecolor="white")
+    fig.subplots_adjust(left=0.055,right=0.975,top=0.82,bottom=0.13)
+    gs=fig.add_gridspec(
+        2,2,
+        width_ratios=[1,1],
+        height_ratios=[1,1],
+        wspace=0.26,
+        hspace=0.28
+    )
 
     # Panel A: Execution identity and overall reproducibility status
     ax1=fig.add_subplot(gs[0,0])
@@ -84,31 +100,45 @@ def main():
         ["Run B",run_b],
         ["Status",comp["overall_reproducibility_status"]]
     ]
-    tbl=ax1.table(cellText=identity,colLabels=["Field","Value"],loc="center",cellLoc="left",colLoc="left")
+    tbl=ax1.table(
+        cellText=identity,
+        colLabels=["Field","Value"],
+        loc="center",
+        cellLoc="left",
+        colLoc="left",
+        colWidths=[0.36,0.62],
+        bbox=[0.00,0.02,0.98,0.78]
+    )
+    tbl.auto_set_font_size(False)
+    tbl.set_fontsize(9)
     for c in range(2):
         tbl[(0,c)].set_text_props(weight="bold")
-    tbl.auto_set_font_size(False);tbl.set_fontsize(9);tbl.scale(1.05,1.75)
-    ax1.set_title("A  Execution identity",loc="left",pad=12,fontweight="bold")
     for (_, _), cell in tbl.get_celld().items():
         cell.set_edgecolor("#B8B8B8")
         cell.set_linewidth(0.6)
+    ax1.text(-0.02,1.04,"A  Execution identity",transform=ax1.transAxes,
+         ha="left",va="bottom",fontsize=14,fontweight="bold")
 
     # Panel B: Runtime variability
     ax2=fig.add_subplot(gs[0,1])
     runtime_dark="#4F81BD"
     runtime_light="#7FA6D9"
-    runtime_x=[0,0.82]
-    ax2.bar(runtime_x,[seconds_to_hours(run_a_runtime),seconds_to_hours(run_b_runtime)],color=[runtime_dark,runtime_light],width=0.5)
+    runtime_x=[0,0.52]
+    runtime_vals=[seconds_to_hours(run_a_runtime),seconds_to_hours(run_b_runtime)]
+    bars=ax2.bar(runtime_x,runtime_vals,color=[runtime_dark,runtime_light],width=0.28)
+    ax2.set_xlim(-0.28,0.80)
     ax2.set_xticks(runtime_x)
-    ax2.set_xticklabels(["Run A","Run B"])    
-    
+    ax2.set_xticklabels(["Run A","Run B"])
     ax2.set_ylabel("Total runtime (hours)")
     ax2.set_ylim(0,6)
-    ax2.set_title("B  Runtime variability",x=-0.13,pad=12,fontweight="bold")
-    ax2.grid(axis="y",alpha=0.2)
-    for i,v in enumerate([seconds_to_hours(run_a_runtime),seconds_to_hours(run_b_runtime)]):
-        ax2.text(i,v,f"{v:.1f}",ha="center",va="bottom",fontsize=9)
-
+    ax2.text(-0.02,1.04,"B  Runtime variability",transform=ax2.transAxes,
+         ha="left",va="bottom",fontsize=14,fontweight="bold")
+    ax2.grid(axis="y",alpha=0.25)
+    ax2.set_axisbelow(True)
+    ax2.spines["top"].set_visible(False)
+    ax2.spines["right"].set_visible(False)
+    for bar,v in zip(bars,runtime_vals):
+        ax2.text(bar.get_x()+bar.get_width()/2,v+0.08,f"{v:.1f}",ha="center",va="bottom",fontsize=10)
 
     # Panel C: Structural stability of evidence prioritization and validation rows
     ax3=fig.add_subplot(gs[1,0])
@@ -123,40 +153,66 @@ def main():
     b_vals=[stage11_b,stage12_b]
     deltas=[stage11_b-stage11_a,stage12_b-stage12_a]
 
-    x=[0,1.08]
-    width=0.26
-    max_val=max(a_vals+b_vals)
-
+    x=[0,0.78]
+    width=0.18
+    gap=0.025
     struct_dark="#5B4B9A"
     struct_light="#9B8AD1"
-    ax3.bar([i-width/2 for i in x],a_vals,width,label="Run A",color=struct_dark,alpha=0.88)
-    ax3.bar([i+width/2 for i in x],b_vals,width,label="Run B",color=struct_light,alpha=0.88)
 
-    ax3.set_xticks(list(x))
+    bars_a=ax3.bar([i-width/2-gap for i in x],a_vals,width,label="Run A",color=struct_dark,alpha=0.88)
+    bars_b=ax3.bar([i+width/2+gap for i in x],b_vals,width,label="Run B",color=struct_light,alpha=0.88)
+    ax3.set_xlim(-0.32,1.10)
+
+    ax3.set_xticks(x)
     ax3.set_xticklabels(struct_metrics)
     ax3.set_ylabel("Rows")
     ax3.set_ylim(0,1000000)
     ax3.yaxis.set_major_formatter(FuncFormatter(lambda x,pos: "0" if x==0 else f"{int(x/1000):,}k"))
-    ax3.set_title("C  Structural stability (rows)",x=-0.13,pad=12,fontweight="bold")
-    ax3.grid(axis="y",alpha=0.16)
+    ax3.text(-0.02,1.015,"C  Structural stability (rows)",transform=ax3.transAxes,
+         ha="left",va="bottom",fontsize=14,fontweight="bold")
+    ax3.grid(axis="y",alpha=0.25)
     ax3.set_axisbelow(True)
-    # Annotate bars with values and deltas
-    for i,(a,b,d) in enumerate(zip(a_vals,b_vals,deltas)):
-        left=i-width/2
-        right=i+width/2
-        y=max(a,b)*1.08
-        bracket_y=max(a,b)*1.14
-        # Annotate bars with values and deltas
-        ax3.text(left,a+20000,f"{a:,}",ha="center",va="bottom",fontsize=8)
-        ax3.text(right,b+20000,f"{b:,}",ha="center",va="bottom",fontsize=8)
-        # Draw delta bracket
-        ax3.plot([left,left,right,right],[bracket_y-25000,bracket_y,bracket_y,bracket_y-25000],color="#333333",linewidth=0.9)
-        ax3.text(i,bracket_y+15000,f"Δ = {d:,}",ha="center",va="bottom",fontsize=9)
+    ax3.spines["top"].set_visible(False)
+    ax3.spines["right"].set_visible(False)
+
+    for i,a,b,d in zip(x,a_vals,b_vals,deltas):
+        left=i-width/2-gap
+        right=i+width/2+gap
+        bracket_y=max(a,b)*1.17
+        stem_y=max(a,b)*1.12
+
+        ax3.text(left,a+25000,f"{a:,}",ha="center",va="bottom",fontsize=8)
+        ax3.text(right,b+25000,f"{b:,}",ha="center",va="bottom",fontsize=8)
+
+        ax3.plot(
+            [left,left,right,right],
+            [stem_y,bracket_y,bracket_y,stem_y],
+            color="#333333",
+            linewidth=0.9
+        )
+        ax3.text(i,bracket_y+18000,f"Δ = {d:,}",ha="center",va="bottom",fontsize=9)
+
+    ax3.legend(
+        frameon=False,
+        loc="upper left",
+        bbox_to_anchor=(0.625,1.105),
+        ncol=2,
+        handlelength=1.8,
+        columnspacing=1.8,
+        handletextpad=0.6,
+        borderaxespad=0.0
+    )    
     
-    # Add legend
-    ax3.legend(frameon=False,loc="upper center",bbox_to_anchor=(0.55,1.16),ncol=2)
-    ax3.text(0.5,-0.18,"Δ = Run B − Run A",transform=ax3.transAxes,ha="center",va="top",fontsize=8,alpha=0.65)
-    
+    ax3.text(
+        0.5,-0.115,
+        "Δ = Run B − Run A",
+        transform=ax3.transAxes,
+        ha="center",
+        va="top",
+        fontsize=7,
+        alpha=0.62
+    )
+
     # Panel D: Semantic stability checklist
     ax4=fig.add_subplot(gs[1,1])
     ax4.axis("off")
@@ -167,22 +223,41 @@ def main():
         ["Gene burden",comp["gene_burden_match"]]
     ]
     checks=[[k,"stable" if str(v)=="True" else "divergent"] for k,v in checks]
-    tbl2=ax4.table(cellText=checks,colLabels=["Evidence layer","Semantic status"],loc="center",cellLoc="left",colLoc="left")
+    tbl2=ax4.table(
+        cellText=checks,
+        colLabels=["Evidence layer","Semantic status"],
+        loc="center",
+        cellLoc="left",
+        colLoc="left",
+        # Panel D table bbox
+        bbox=[0.00,0.08,0.98,0.70]
+    )
+    tbl2.auto_set_font_size(False)
+    tbl2.set_fontsize(10)
     for c in range(2):
         tbl2[(0,c)].set_text_props(weight="bold")
-    tbl2.auto_set_font_size(False);tbl2.set_fontsize(10);tbl2.scale(1.05,1.7)
-    ax4.set_title("D  Semantic stability checklist",loc="left",pad=12,fontweight="bold")
     for (_, _), cell in tbl2.get_celld().items():
         cell.set_edgecolor("#B8B8B8")
         cell.set_linewidth(0.6)
-    
-    fig.suptitle(cfg["figure_title"],y=0.98,fontweight="bold")
-    fig.text(0.5,0.935,"Operational variability with stable downstream biological evidence organization",ha="center",fontsize=10,alpha=0.75)
-    fig.text(0.5,0.02,"Generated deterministically from case-study TSV artifacts. Operational reproducibility only; not clinical interpretation.",ha="center",fontsize=9,alpha=0.65)
+    ax4.text(-0.02,1.04,"D  Semantic stability checklist",transform=ax4.transAxes,
+         ha="left",va="bottom",fontsize=14,fontweight="bold")
 
-    # Prevent title/label overlap with tight layout by using constrained_layout=False and manual adjustments
-    plt.subplots_adjust(left=0.08,right=0.97,top=0.88,bottom=0.10)
-    
+    fig.suptitle(cfg["figure_title"],y=0.975,fontweight="bold",fontsize=18)
+    fig.text(
+        0.5,0.925,
+        "Operational variability with stable downstream biological evidence organization",
+        ha="center",
+        fontsize=12,
+        color="#444444"
+    )
+    fig.text(
+        0.5,0.055,
+        "Generated deterministically from case-study TSV artifacts. Operational reproducibility only; not clinical interpretation.",
+        ha="center",
+        fontsize=9,
+        color="#555555"
+    )    
+
     # Save outputs
     png=out_dir/f"{out_prefix}.png"
     pdf=out_dir/f"{out_prefix}.pdf"
