@@ -1,0 +1,5 @@
+case_id: HG002
+case_dir: docs/case_studies/hg002
+figure_title: HG002 Runtime Observability Profile
+comparison_label: Checkpointed vs end-to-end WGS execution
+output_prefix: hg002_f2_runtime_observability_profile

@@ -1,0 +1,15 @@
+figure_id	panel_id	metric	run_id	stage	value	unit	source_table	transformation_rule
+F2	B	total_runtime_seconds	run_2026_05_13_060859	all	81874.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_13_write_summary	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_12_validate_variants	144.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_11_prioritize_variants	142.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_10_interpret_noncoding	168.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_09_interpret_coding	2.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_08_filter_and_partition	547.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_07_annotate_variants	6091.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_06_normalize_vcf	60.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_05_call_variants	41883.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_04_qc_aligned_reads	174.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_03_process_bam	1062.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_02_align_data	31601.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_13_060859	stage_01_load_data	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id

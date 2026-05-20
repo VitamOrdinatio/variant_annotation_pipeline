@@ -1,0 +1,29 @@
+figure_id	panel_id	metric	run_id	stage	value	unit	source_table	transformation_rule
+F2	B	total_runtime_seconds	run_2026_05_14_083044	all	18264.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by run_id
+F2	B	total_runtime_seconds	run_2026_05_14_231247	all	17790.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_13_write_summary	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_13_write_summary	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_12_validate_variants	26.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_12_validate_variants	27.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_11_prioritize_variants	25.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_11_prioritize_variants	24.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_10_interpret_noncoding	30.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_10_interpret_noncoding	28.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_09_interpret_coding	1.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_09_interpret_coding	1.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_08_filter_and_partition	99.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_08_filter_and_partition	90.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_07_annotate_variants	1232.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_07_annotate_variants	1215.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_06_normalize_vcf	18.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_06_normalize_vcf	20.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_05_call_variants	10189.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_05_call_variants	9947.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_04_qc_aligned_reads	51.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_04_qc_aligned_reads	49.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_03_process_bam	303.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_03_process_bam	305.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_02_align_data	6290.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_02_align_data	6084.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_083044	stage_01_load_data	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
+F2	C	stage_runtime_seconds	run_2026_05_14_231247	stage_01_load_data	0.0	seconds	runtime_stage_summary.tsv	sum elapsed_seconds by stage and run_id
