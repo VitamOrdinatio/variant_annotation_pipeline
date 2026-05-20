@@ -24,6 +24,22 @@ def write_source_tsv(path,rows):
         w.writeheader()
         for r in rows:w.writerow({k:r.get(k,"NA") for k in fields})
 
+def runtime_ceiling(hours):
+    if hours <= 6:return 6
+    if hours <= 30:return 30
+    if hours <= 60:return 60
+    return ((int(hours)//25)+2)*25
+
+def row_count_ceiling(rows):
+    if rows <= 1_000_000:return 1_000_000
+    if rows <= 5_000_000:return 6_000_000
+    return ((int(rows)//1_000_000)+2)*1_000_000
+
+def count_formatter(x,pos):
+    if x==0:return "0"
+    if x>=1_000_000:return f"{x/1_000_000:.1f}M"
+    return f"{int(x/1000):,}k"
+
 def main():
     ap=argparse.ArgumentParser()
     ap.add_argument("--config",required=True)
@@ -130,7 +146,8 @@ def main():
     ax2.set_xticks(runtime_x)
     ax2.set_xticklabels(["Run A","Run B"])
     ax2.set_ylabel("Total runtime (hours)")
-    ax2.set_ylim(0,6)
+    runtime_ymax=runtime_ceiling(max(runtime_vals))
+    ax2.set_ylim(0,runtime_ymax)
     ax2.text(-0.02,1.04,"B  Runtime variability",transform=ax2.transAxes,
          ha="left",va="bottom",fontsize=14,fontweight="bold")
     ax2.grid(axis="y",alpha=0.25)
@@ -166,8 +183,9 @@ def main():
     ax3.set_xticks(x)
     ax3.set_xticklabels(struct_metrics)
     ax3.set_ylabel("Rows")
-    ax3.set_ylim(0,1000000)
-    ax3.yaxis.set_major_formatter(FuncFormatter(lambda x,pos: "0" if x==0 else f"{int(x/1000):,}k"))
+    struct_ymax=row_count_ceiling(max(a_vals+b_vals))
+    ax3.set_ylim(0,struct_ymax)
+    ax3.yaxis.set_major_formatter(FuncFormatter(count_formatter))
     ax3.text(-0.02,1.015,"C  Structural stability (rows)",transform=ax3.transAxes,
          ha="left",va="bottom",fontsize=14,fontweight="bold")
     ax3.grid(axis="y",alpha=0.25)
@@ -178,19 +196,12 @@ def main():
     for i,a,b,d in zip(x,a_vals,b_vals,deltas):
         left=i-width/2-gap
         right=i+width/2+gap
-        bracket_y=max(a,b)*1.17
-        stem_y=max(a,b)*1.12
-
-        ax3.text(left,a+25000,f"{a:,}",ha="center",va="bottom",fontsize=8)
-        ax3.text(right,b+25000,f"{b:,}",ha="center",va="bottom",fontsize=8)
-
-        ax3.plot(
-            [left,left,right,right],
-            [stem_y,bracket_y,bracket_y,stem_y],
-            color="#333333",
-            linewidth=0.9
-        )
-        ax3.text(i,bracket_y+18000,f"Δ = {d:,}",ha="center",va="bottom",fontsize=9)
+        offset=struct_ymax*0.025
+        bracket_y=max(a,b)+struct_ymax*0.08
+        stem_y=max(a,b)+struct_ymax*0.05
+        ax3.text(i,bracket_y+offset,f"Δ = {d:,}",ha="center",va="bottom",fontsize=9)        
+        ax3.text(left,a+struct_ymax*0.025,f"{a:,}",ha="center",va="bottom",fontsize=8)
+        ax3.text(right,b+struct_ymax*0.025,f"{b:,}",ha="center",va="bottom",fontsize=8)        
 
     ax3.legend(
         frameon=False,
