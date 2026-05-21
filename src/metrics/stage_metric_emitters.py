@@ -1,11 +1,33 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
 from src.metrics.metric_collectors import safe_count_tsv_rows, safe_count_vcf_records
 from src.metrics.metric_io import append_stage_metrics_long_tsv, ensure_metrics_dir, write_stage_metrics_json
 from src.metrics.metric_record import make_metric
+
+def _json_scalar_metric(metric_name,value,unit,category,stage_id,stage_label,state,source_artifact,source_rule,figure_support):
+    meta=_run_meta(state)
+    status="available" if value is not None else "not_available"
+    return make_metric(
+        metric_name=metric_name,
+        metric_value=value if value is not None else "not_available",
+        metric_unit=unit,
+        metric_status=status,
+        metric_category=category,
+        stage_id=stage_id,
+        stage_name=stage_label,
+        sample_id=meta["sample_id"],
+        run_id=meta["run_id"],
+        assay_type=meta["assay_type"],
+        run_classification=meta["run_classification"],
+        source_artifact=str(source_artifact),
+        source_column_or_rule=source_rule,
+        derivation_rule=source_rule,
+        intended_figure_support=figure_support,
+    )
 
 def _run_meta(state:dict[str,Any])->dict[str,str]:
     sample=state.get("sample",{})
@@ -63,11 +85,50 @@ def emit_stage_07_metrics(config,paths,state,logger)->None:
     ]
     _emit("stage_07_annotate_variants","stage_07","annotate_variants","stage_07_annotation_metrics.json",metrics,paths,state)
 
+def emit_stage_08_metrics(config,paths,state,logger)->None:
+    artifacts=state.get("artifacts",{})
+    summary_path=Path(artifacts.get("stage_08_summary_json",""))
+    metrics=[]
+
+    if summary_path.exists():
+        summary=json.loads(summary_path.read_text(encoding="utf-8"))
+        metrics.extend([
+            _json_scalar_metric("partitioned_variants_total",summary.get("total_variants"),"variants","f3_refinement_flow","stage_08","filter_and_partition",state,summary_path,"stage_08_summary.json total_variants",["F3A"]),
+            _json_scalar_metric("irreparably_malformed_rows",summary.get("irreparably_malformed_rows"),"rows","f3_refinement_flow","stage_08","filter_and_partition",state,summary_path,"stage_08_summary.json irreparably_malformed_rows",["F3A"]),
+            _json_scalar_metric("variant_summary_rows",summary.get("variant_summary_rows"),"rows","f3_refinement_flow","stage_08","filter_and_partition",state,summary_path,"stage_08_summary.json variant_summary_rows",["F3A"]),
+            _json_scalar_metric("rdgp_gene_evidence_seed_rows",summary.get("rdgp_gene_evidence_seed_rows"),"rows","f5_overlay_readiness","stage_08","filter_and_partition",state,summary_path,"stage_08_summary.json rdgp_gene_evidence_seed_rows",["F5"]),
+        ])
+
+        for key,value in summary.get("partition_counts",{}).items():
+            metrics.append(_json_scalar_metric(key,value,"rows","f3_semantic_decomposition","stage_08","filter_and_partition",state,summary_path,f"stage_08_summary.json partition_counts.{key}",["F3B","F4"]))
+
+        for dist_name in ["variants_by_context","variants_by_severity","qc_status_counts","interpretability_counts","frequency_status","clinical_status","variants_by_variant_type","variants_by_variant_class"]:
+            for key,value in summary.get(dist_name,{}).items():
+                metrics.append(_json_scalar_metric(f"{dist_name}__{key}",value,"variants","f4_biological_landscape","stage_08","filter_and_partition",state,summary_path,f"stage_08_summary.json {dist_name}.{key}",["F4"]))
+    else:
+        metrics.append(_json_scalar_metric("stage_08_summary_json_available",None,"status","metric_availability","stage_08","filter_and_partition",state,summary_path,"source file existence check",["F3A"]))
+
+    row_count_targets=[
+        ("selected_transcript_consequences_rows",artifacts.get("stage_08_selected_transcript_consequences"),"F3A"),
+        ("vdb_ready_variants_rows",artifacts.get("stage_08_vdb_ready_variants"),"F5"),
+        ("coding_candidates_rows",artifacts.get("coding_candidates"),"F3B"),
+        ("splice_region_candidates_rows",artifacts.get("splice_region_candidates"),"F3B"),
+        ("noncoding_candidates_rows",artifacts.get("noncoding_candidates"),"F3B"),
+        ("qc_flagged_rows",artifacts.get("qc_flagged"),"F4"),
+        ("rdgp_gene_evidence_seed_tsv_rows",artifacts.get("stage_08_rdgp_gene_evidence_seed"),"F5"),
+    ]
+    for metric_name,path,figure in row_count_targets:
+        if path:
+            metrics.append(_count_metric(metric_name,path,"rows","stage08_artifact_row_count","stage_08","filter_and_partition",state,"count TSV data rows excluding header",[figure]))
+
+    _emit("stage_08_filter_and_partition","stage_08","filter_and_partition","stage_08_partition_metrics.json",metrics,paths,state)
+
 def emit_metrics_for_stage(stage_name:str,config:dict[str,Any],paths:dict[str,Any],state:dict[str,Any],logger)->None:
     dispatch={
         "stage_05_call_variants":emit_stage_05_metrics,
         "stage_06_normalize_vcf":emit_stage_06_metrics,
         "stage_07_annotate_variants":emit_stage_07_metrics,
+        "stage_08_filter_and_partition":emit_stage_08_metrics,
     }
     emitter=dispatch.get(stage_name)
     if emitter is None:
