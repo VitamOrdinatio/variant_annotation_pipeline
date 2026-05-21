@@ -29,3 +29,11 @@ python scripts/figures/generate_case_study_f2_runtime_observability_profile.py -
 ```
 
 ---
+
+## F3: 
+
+```bash
+python scripts/figures/generate_case_study_f3_deterministic_evidence_funnel.py --config scripts/configs/err10619300_f3.yaml
+python scripts/figures/generate_case_study_f3_deterministic_evidence_funnel.py --config scripts/configs/err10619281_f3.yaml
+python scripts/figures/generate_case_study_f3_deterministic_evidence_funnel.py --config scripts/configs/hg002_f3.yaml
+```
