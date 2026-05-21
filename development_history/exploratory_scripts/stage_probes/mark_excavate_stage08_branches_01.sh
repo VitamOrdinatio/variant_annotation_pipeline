@@ -3,6 +3,8 @@ set -euo pipefail
 
 PROBE_NAME="mark_excavate_stage08_branches_01"
 LOG="/root/Desktop/${PROBE_NAME}.log"
+
+VAP_REPO="/root/dev/portfolio_projects/variant_annotation_pipeline"
 RUN_ID="run_2026_05_15_063040"
 
 {
@@ -14,7 +16,6 @@ echo "Host: $(hostname)"
 echo "========================================"
 echo
 
-VAP_REPO="$(git rev-parse --show-toplevel)"
 cd "${VAP_REPO}"
 source .venv/bin/activate
 
@@ -35,7 +36,7 @@ import csv
 from itertools import combinations
 
 run_id="run_2026_05_15_063040"
-repo=Path.cwd()
+repo=Path("/root/dev/portfolio_projects/variant_annotation_pipeline")
 processed=repo/"results"/run_id/"processed"
 
 files={
@@ -71,21 +72,24 @@ def read_variant_ids(path):
     return ids
 
 ids={}
+all_rows={}
+
 print("[row counts]")
 for label,name in files.items():
     vals=read_variant_ids(processed/name)
+    all_rows[label]=vals
     ids[label]=set(vals)
     print(f"{label}\trows={len(vals)}")
 print()
 
 print("[unique variant_id counts]")
-for label,name in files.items():
-    vals=read_variant_ids(processed/name)
+for label,vals in all_rows.items():
     duplicate_count=len(vals)-len(set(vals))
     print(f"{label}\tunique_variant_ids={len(set(vals))}\tduplicate_variant_id_rows={duplicate_count}")
 print()
 
 branch_labels=["coding","splice","noncoding"]
+
 print("[branch overlaps]")
 for a,b in combinations(branch_labels,2):
     overlap=ids[a] & ids[b]
@@ -101,6 +105,7 @@ print()
 
 print("[reconciliation checks]")
 branch_union=set().union(*(ids[label] for label in branch_labels))
+
 checks=[
     ("selected_equals_vdb_ready",ids["selected"]==ids["vdb_ready"]),
     ("selected_equals_variant_summary",ids["selected"]==ids["variant_summary"]),
@@ -109,6 +114,7 @@ checks=[
     ("splice_noncoding_disjoint",len(ids["splice"] & ids["noncoding"])==0),
     ("qc_subset_of_selected",ids["qc_flagged"].issubset(ids["selected"])),
 ]
+
 for name,status in checks:
     print(f"{name}\t{'PASS' if status else 'WARN'}")
 print()
