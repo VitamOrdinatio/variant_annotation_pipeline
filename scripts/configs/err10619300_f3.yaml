@@ -1,0 +1,20 @@
+case_id: ERR10619300
+case_dir: docs/case_studies/err10619300
+figure_title: ERR10619300 Deterministic Evidence Refinement Flow
+comparison_label: Same-patch WES rerun
+output_prefix: err10619300_f3_deterministic_evidence_refinement_flow
+representative_run: run_b
+
+flow_layers:
+  - label: Raw variants
+    column: raw_variant_count
+  - label: Normalized variants
+    column: normalized_variant_count
+  - label: Annotated variants
+    column: annotated_variant_count
+  - label: Partitioned variants
+    column: stage08_total_variants
+  - label: Prioritized evidence
+    column: stage11_prioritized_rows
+  - label: Validation-ready evidence
+    column: stage12_validation_rows
