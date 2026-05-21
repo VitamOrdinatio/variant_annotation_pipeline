@@ -148,3 +148,150 @@ def test_stage_08_sidecar_metric_emitter(tmp_path):
     assert "coding_candidates" in long_text
     assert "variants_by_context__coding" in long_text
     assert "rdgp_gene_evidence_seed_rows" in long_text
+
+def test_stage_11_sidecar_metric_emitter(tmp_path):
+    run_dir=tmp_path/"run_test"
+    processed=run_dir/"processed"
+    metrics=run_dir/"metrics"
+    for path in [processed,metrics]:
+        path.mkdir(parents=True,exist_ok=True)
+
+    summary=processed/"stage_11_summary.json"
+    summary.write_text(json.dumps({
+        "input_rows":5,
+        "output_rows":5,
+        "unassigned_or_malformed_rows":0,
+        "high_priority_candidate_count":1,
+        "moderate_priority_candidate_count":2,
+        "low_priority_candidate_count":1,
+        "uninterpretable_count":1,
+        "gene_id_count_unique":3,
+        "counts_by_priority_tier":{
+            "tier_1_high_confidence_candidate":1,
+            "tier_2_moderate_candidate":2,
+            "tier_3_low_support_or_common":1,
+            "tier_4_uninterpretable_or_qc_limited":1
+        },
+        "counts_by_priority_rank":{
+            "1":1,
+            "2":2,
+            "3":1,
+            "4":1
+        },
+        "counts_by_variant_origin":{
+            "coding":3,
+            "noncoding":2
+        },
+        "counts_by_source_interpretation_label":{
+            "lof_rare_clinically_supported":1,
+            "lof_or_missense_rare":2,
+            "noncoding_common_or_low_support":1,
+            "noncoding_uninterpretable":1
+        }
+    }),encoding="utf-8")
+
+    prioritized=processed/"stage_11_prioritized_variants.tsv"
+    prioritized.write_text(
+        "variant_id\tgene_id\tpriority_tier\n"
+        "v1\tg1\ttier_1_high_confidence_candidate\n"
+        "v2\tg2\ttier_2_moderate_candidate\n",
+        encoding="utf-8",
+    )
+
+    gene_counts=processed/"stage_11_gene_variant_counts.tsv"
+    gene_counts.write_text(
+        "gene_id\tvariant_count\n"
+        "g1\t1\n"
+        "g2\t1\n",
+        encoding="utf-8",
+    )
+
+    paths={"run_dir":str(run_dir),"metrics_dir":str(metrics)}
+    state={
+        "run":{"run_id":"run_test","execution_mode":"fixture"},
+        "sample":{"sample_id":"sample","assay_type":"WES"},
+        "artifacts":{
+            "stage_11_summary_json":str(summary),
+            "stage_11_prioritized_variants":str(prioritized),
+            "stage_11_gene_variant_counts":str(gene_counts),
+        },
+    }
+
+    logger=logging.getLogger("metric_stage11_test")
+    logger.handlers.clear()
+    logger.addHandler(logging.NullHandler())
+
+    emit_metrics_for_stage("stage_11_prioritize_variants",{},paths,state,logger)
+
+    assert (metrics/"stage_11_prioritization_metrics.json").exists()
+    long_text=(metrics/"stage_metrics_long.tsv").read_text(encoding="utf-8")
+    assert "high_priority_candidate_count" in long_text
+    assert "counts_by_priority_tier__tier_1_high_confidence_candidate" in long_text
+    assert "counts_by_variant_origin__coding" in long_text
+    assert "prioritized_variants_rows" in long_text
+    assert "gene_variant_counts_rows" in long_text
+
+def test_stage_12_sidecar_metric_emitter(tmp_path):
+    run_dir=tmp_path/"run_test"
+    processed=run_dir/"processed"
+    metrics=run_dir/"metrics"
+    for path in [processed,metrics]:
+        path.mkdir(parents=True,exist_ok=True)
+
+    summary=processed/"stage_12_summary.json"
+    summary.write_text(json.dumps({
+        "input_rows":5,
+        "output_rows":5,
+        "unrecognized_priority_rows":0,
+        "counts_by_validation_required":{
+            "True":3,
+            "False":2
+        },
+        "counts_by_validation_priority":{
+            "high":1,
+            "medium":2,
+            "low":2
+        },
+        "counts_by_suggested_validation_method":{
+            "IGV":3,
+            "none":2
+        },
+        "counts_by_priority_tier":{
+            "tier_1_high_confidence_candidate":1,
+            "tier_2_moderate_candidate":2,
+            "tier_3_low_support_or_common":1,
+            "tier_4_uninterpretable_or_qc_limited":1
+        }
+    }),encoding="utf-8")
+
+    validation=processed/"stage_12_validation_candidates.tsv"
+    validation.write_text(
+        "variant_id\tgene_id\tvalidation_required\n"
+        "v1\tg1\tTrue\n"
+        "v2\tg2\tTrue\n",
+        encoding="utf-8",
+    )
+
+    paths={"run_dir":str(run_dir),"metrics_dir":str(metrics)}
+    state={
+        "run":{"run_id":"run_test","execution_mode":"fixture"},
+        "sample":{"sample_id":"sample","assay_type":"WES"},
+        "artifacts":{
+            "stage_12_summary_json":str(summary),
+            "stage_12_validation_candidates":str(validation),
+        },
+    }
+
+    logger=logging.getLogger("metric_stage12_test")
+    logger.handlers.clear()
+    logger.addHandler(logging.NullHandler())
+
+    emit_metrics_for_stage("stage_12_validate_variants",{},paths,state,logger)
+
+    assert (metrics/"stage_12_validation_metrics.json").exists()
+    long_text=(metrics/"stage_metrics_long.tsv").read_text(encoding="utf-8")
+    assert "counts_by_validation_required__True" in long_text
+    assert "counts_by_validation_priority__high" in long_text
+    assert "counts_by_suggested_validation_method__IGV" in long_text
+    assert "validation_candidates_rows" in long_text
+

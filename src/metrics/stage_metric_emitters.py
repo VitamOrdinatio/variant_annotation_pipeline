@@ -123,12 +123,217 @@ def emit_stage_08_metrics(config,paths,state,logger)->None:
 
     _emit("stage_08_filter_and_partition","stage_08","filter_and_partition","stage_08_partition_metrics.json",metrics,paths,state)
 
+def emit_stage_11_metrics(config,paths,state,logger)->None:
+    artifacts=state.get("artifacts",{})
+    summary_path=Path(artifacts.get("stage_11_summary_json",""))
+    metrics=[]
+
+    if summary_path.exists():
+        summary=json.loads(summary_path.read_text(encoding="utf-8"))
+
+        scalar_targets=[
+            ("input_rows","rows","F3A"),
+            ("output_rows","rows","F3A"),
+            ("unassigned_or_malformed_rows","rows","F4"),
+            ("high_priority_candidate_count","variants","F3B"),
+            ("moderate_priority_candidate_count","variants","F3B"),
+            ("low_priority_candidate_count","variants","F3B"),
+            ("uninterpretable_count","variants","F3B"),
+            ("gene_id_count_unique","genes","F5"),
+        ]
+
+        for key,unit,figure in scalar_targets:
+            metrics.append(
+                _json_scalar_metric(
+                    key,
+                    summary.get(key),
+                    unit,
+                    "stage11_prioritization",
+                    "stage_11",
+                    "prioritize_variants",
+                    state,
+                    summary_path,
+                    f"stage_11_summary.json {key}",
+                    [figure],
+                )
+            )
+
+        counter_targets=[
+            "counts_by_priority_tier",
+            "counts_by_priority_rank",
+            "counts_by_variant_origin",
+            "counts_by_source_interpretation_label",
+        ]
+
+        for counter_name in counter_targets:
+            for key,value in summary.get(counter_name,{}).items():
+                metrics.append(
+                    _json_scalar_metric(
+                        f"{counter_name}__{key}",
+                        value,
+                        "variants",
+                        "stage11_distribution",
+                        "stage_11",
+                        "prioritize_variants",
+                        state,
+                        summary_path,
+                        f"stage_11_summary.json {counter_name}.{key}",
+                        ["F3B","F4"],
+                    )
+                )
+
+    else:
+        metrics.append(
+            _json_scalar_metric(
+                "stage_11_summary_json_available",
+                None,
+                "status",
+                "metric_availability",
+                "stage_11",
+                "prioritize_variants",
+                state,
+                summary_path,
+                "source file existence check",
+                ["F3A"],
+            )
+        )
+
+    row_count_targets=[
+        ("prioritized_variants_rows",artifacts.get("stage_11_prioritized_variants"),"F3B"),
+        ("gene_variant_counts_rows",artifacts.get("stage_11_gene_variant_counts"),"F5"),
+    ]
+
+    for metric_name,path,figure in row_count_targets:
+        if path:
+            metrics.append(
+                _count_metric(
+                    metric_name,
+                    path,
+                    "rows",
+                    "stage11_artifact_row_count",
+                    "stage_11",
+                    "prioritize_variants",
+                    state,
+                    "count TSV data rows excluding header",
+                    [figure],
+                )
+            )
+
+    _emit(
+        "stage_11_prioritize_variants",
+        "stage_11",
+        "prioritize_variants",
+        "stage_11_prioritization_metrics.json",
+        metrics,
+        paths,
+        state,
+    )
+
+def emit_stage_12_metrics(config,paths,state,logger)->None:
+    artifacts=state.get("artifacts",{})
+    summary_path=Path(artifacts.get("stage_12_summary_json",""))
+    metrics=[]
+
+    if summary_path.exists():
+        summary=json.loads(summary_path.read_text(encoding="utf-8"))
+
+        scalar_targets=[
+            ("input_rows","rows","F3A"),
+            ("output_rows","rows","F3A"),
+            ("unrecognized_priority_rows","rows","F4"),
+        ]
+
+        for key,unit,figure in scalar_targets:
+            metrics.append(
+                _json_scalar_metric(
+                    key,
+                    summary.get(key),
+                    unit,
+                    "stage12_validation_preparation",
+                    "stage_12",
+                    "validate_variants",
+                    state,
+                    summary_path,
+                    f"stage_12_summary.json {key}",
+                    [figure],
+                )
+            )
+
+        counter_targets=[
+            "counts_by_validation_required",
+            "counts_by_validation_priority",
+            "counts_by_suggested_validation_method",
+            "counts_by_priority_tier",
+        ]
+
+        for counter_name in counter_targets:
+            for key,value in summary.get(counter_name,{}).items():
+                metrics.append(
+                    _json_scalar_metric(
+                        f"{counter_name}__{key}",
+                        value,
+                        "variants",
+                        "stage12_distribution",
+                        "stage_12",
+                        "validate_variants",
+                        state,
+                        summary_path,
+                        f"stage_12_summary.json {counter_name}.{key}",
+                        ["F3B","F4"],
+                    )
+                )
+
+    else:
+        metrics.append(
+            _json_scalar_metric(
+                "stage_12_summary_json_available",
+                None,
+                "status",
+                "metric_availability",
+                "stage_12",
+                "validate_variants",
+                state,
+                summary_path,
+                "source file existence check",
+                ["F3A"],
+            )
+        )
+
+    validation_candidates=artifacts.get("stage_12_validation_candidates")
+
+    if validation_candidates:
+        metrics.append(
+            _count_metric(
+                "validation_candidates_rows",
+                validation_candidates,
+                "rows",
+                "stage12_artifact_row_count",
+                "stage_12",
+                "validate_variants",
+                state,
+                "count TSV data rows excluding header",
+                ["F3B","F5"],
+            )
+        )
+
+    _emit(
+        "stage_12_validate_variants",
+        "stage_12",
+        "validate_variants",
+        "stage_12_validation_metrics.json",
+        metrics,
+        paths,
+        state,
+    )
+
 def emit_metrics_for_stage(stage_name:str,config:dict[str,Any],paths:dict[str,Any],state:dict[str,Any],logger)->None:
     dispatch={
         "stage_05_call_variants":emit_stage_05_metrics,
         "stage_06_normalize_vcf":emit_stage_06_metrics,
         "stage_07_annotate_variants":emit_stage_07_metrics,
         "stage_08_filter_and_partition":emit_stage_08_metrics,
+        "stage_11_prioritize_variants":emit_stage_11_metrics,
+        "stage_12_validate_variants":emit_stage_12_metrics,
     }
     emitter=dispatch.get(stage_name)
     if emitter is None:
