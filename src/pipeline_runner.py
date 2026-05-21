@@ -29,6 +29,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from src.metrics.stage_metric_emitters import emit_metrics_for_stage
+
 STAGE_ORDER = [
     "stage_01_load_data",
     "stage_02_align_data",
@@ -194,6 +196,7 @@ def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
     reports_dir = ensure_directory(run_dir / "reports")
     final_dir = ensure_directory(run_dir / "final")
     validation_dir = ensure_directory(run_dir / "validation")
+    metrics_dir = ensure_directory(run_dir / "metrics")
 
     return {
         "base_results_dir": str(base_results_dir),
@@ -206,6 +209,7 @@ def initialize_run_paths(config: dict[str, Any], run_id: str) -> dict[str, str]:
         "reports_dir": str(reports_dir),
         "final_dir": str(final_dir),
         "validation_dir": str(validation_dir),
+        "metrics_dir": str(metrics_dir),
         "legacy_config_snapshot_path": str(run_dir / "config_used.yaml"),
         "legacy_metadata_path": str(run_dir / "metadata.json"),
         "config_snapshot_path": str(metadata_dir / "config_snapshot.yaml"),
@@ -738,6 +742,13 @@ def run_pipeline(
                 stage_data=state["stage_outputs"][stage_name],
                 stage_summaries_dir=run_paths["stage_summaries_dir"],
             )
+            emit_metrics_for_stage(
+                stage_name=stage_name,
+                config=config,
+                paths=run_paths,
+                state=state,
+                logger=logger,
+            )            
             if config["runtime"]["record_tool_versions"]:
                 state.setdefault("run", {})
                 state["run"].setdefault("tool_versions_recorded", False)
