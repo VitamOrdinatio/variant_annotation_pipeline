@@ -1,0 +1,403 @@
+========================================
+mark_triage_results_inode_03
+results inode and orphan reconnaissance
+Started: 2026-05-20T23:55:27-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[repo listing]
+total 100
+drwxr-xr-x 15 root root 4096 May 20 21:36 .
+drwxr-xr-x  5 root root 4096 May 11 19:29 ..
+drwxr-xr-x  2 root root 4096 Apr 27 15:50 assets
+drwxr-xr-x  2 root root 4096 May 14 12:28 config
+drwxr-xr-x  4 root root 4096 May 20 20:29 data
+drwxr-xr-x  4 root root 4096 May 20 20:29 development_history
+drwxr-xr-x 12 root root 4096 May 20 20:29 docs
+drwxr-xr-x  2 root root 4096 Apr 16 17:44 environment
+drwxr-xr-x  8 root root 4096 May 20 23:50 .git
+-rw-r--r--  1 root root 5805 May 20 20:29 .gitignore
+-rw-r--r--  1 root root 1071 Apr 16 17:44 LICENSE
+-rw-r--r--  1 root root  264 Apr 21 15:23 NEXT.STEPS.md
+drwxr-xr-x  3 root root 4096 May 14 12:28 pipeline
+drwxr-xr-x  3 root root 4096 May 13 01:18 .pytest_cache
+-rw-r--r--  1 root root   42 May 13 01:18 pytest.ini
+-rw-r--r--  1 root root 5458 May 13 01:14 README.md
+-rw-r--r--  1 root root  415 May 20 21:36 requirements.txt
+lrwxrwxrwx  1 root root   30 May 20 20:29 results -> /mnt/storage/vap_runs/results/
+-rw-r--r--  1 root root 3252 Apr 21 15:23 ROADMAP.md
+-rw-r--r--  1 root root 3511 May 13 01:18 run_pipeline.py
+drwxr-xr-x 11 root root 4096 May 20 20:29 scripts
+drwxr-xr-x  3 root root 4096 May 14 04:05 src
+drwxr-xr-x  3 root root 4096 May 13 01:18 tests
+drwxr-xr-x  5 root root 4096 Apr 16 17:57 .venv
+
+[results symlink metadata]
+  File: /root/dev/portfolio_projects/variant_annotation_pipeline/results -> /mnt/storage/vap_runs/results/
+  Size: 30        	Blocks: 0          IO Block: 4096   symbolic link
+Device: 251,16	Inode: 60179817    Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-05-20 20:29:50.624494625 -0400
+Modify: 2026-05-20 20:29:50.621494637 -0400
+Change: 2026-05-20 20:29:50.621494637 -0400
+ Birth: 2026-05-20 20:29:50.621494637 -0400
+
+[parent inode info]
+  File: /root/dev/portfolio_projects/variant_annotation_pipeline
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 251,16	Inode: 60179737    Links: 15
+Access: (0755/drwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-05-20 21:36:53.453391493 -0400
+Modify: 2026-05-20 21:36:47.459414146 -0400
+Change: 2026-05-20 21:36:47.459414146 -0400
+ Birth: 2026-04-16 17:44:22.393449665 -0400
+
+[search nearby orphan-like directories]
+/root/dev/portfolio_projects/variant_annotation_pipeline
+/root/dev/portfolio_projects/variant_annotation_pipeline/assets
+/root/dev/portfolio_projects/variant_annotation_pipeline/config
+/root/dev/portfolio_projects/variant_annotation_pipeline/data
+/root/dev/portfolio_projects/variant_annotation_pipeline/data/example
+/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference
+/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/gene_lists
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/environment_setup
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/environment_setup
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/smoketests
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/stage_probes
+/root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/conceptual
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/status
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/figures
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/contracts
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/contracts/stage
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/contracts/system
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_01_06_foundation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_07_vep_annotation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_09_coding_interpretation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_10_noncoding_interpretation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_11_prioritization
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_12_validation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_13_final_summary
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/implementation
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/maps
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/operations
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/plans
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/plans/archive
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/SOP
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/status
+/root/dev/portfolio_projects/variant_annotation_pipeline/environment
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/branches
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/hooks
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/info
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/logs
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/logs/refs
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/00
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/03
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/04
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/05
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/06
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/07
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/08
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/0a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/0b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/0d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/0e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/0f
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/11
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/12
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/13
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/14
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/15
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/16
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/17
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/18
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/19
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/1a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/1b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/1c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/1d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/1e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/20
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/22
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/23
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/24
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/25
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/26
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/27
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/28
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/29
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/2a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/2b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/2d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/2e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/30
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/31
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/32
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/33
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/35
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/36
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/37
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/38
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/39
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/3a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/3b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/3d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/3e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/40
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/41
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/42
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/43
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/44
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/45
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/46
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/47
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/48
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/4f
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/50
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/52
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/53
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/54
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/55
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/56
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/57
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/58
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/59
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/5a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/5b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/5c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/5d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/5e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/60
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/61
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/62
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/63
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/64
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/65
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/66
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/67
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/68
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/69
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/6f
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/70
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/71
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/72
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/73
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/74
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/75
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/77
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/78
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/79
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/7a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/7b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/7c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/7e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/7f
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/80
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/81
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/84
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/85
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/88
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/89
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/8b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/8c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/8d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/90
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/91
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/92
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/93
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/94
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/95
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/96
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/97
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/98
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/99
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9a
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9b
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9c
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9d
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9e
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/9f
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a2
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a5
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a6
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a7
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a8
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/a9
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ab
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ac
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/af
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b2
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/b8
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ba
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/bb
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/bd
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/bf
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c2
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c5
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c6
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c7
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/c9
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ca
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/cb
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/cc
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/cd
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ce
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d7
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d8
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/d9
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/da
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/db
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/dc
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/dd
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/de
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/df
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e2
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e6
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e7
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e8
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/e9
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ea
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/eb
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ed
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ee
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ef
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f0
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f1
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f2
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f4
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f5
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f6
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f7
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/f8
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/fa
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/fb
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/fc
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/fd
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/fe
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/ff
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/info
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/objects/pack
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/refs
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/refs/heads
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/refs/remotes
+/root/dev/portfolio_projects/variant_annotation_pipeline/.git/refs/tags
+/root/dev/portfolio_projects/variant_annotation_pipeline/pipeline
+/root/dev/portfolio_projects/variant_annotation_pipeline/pipeline/__pycache__
+/root/dev/portfolio_projects/variant_annotation_pipeline/.pytest_cache
+/root/dev/portfolio_projects/variant_annotation_pipeline/.pytest_cache/v
+/root/dev/portfolio_projects/variant_annotation_pipeline/.pytest_cache/v/cache
+/root/dev/portfolio_projects/variant_annotation_pipeline/results
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/analysis
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/data_prep
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/environment
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/figures
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/orchestration
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/resources
+/root/dev/portfolio_projects/variant_annotation_pipeline/scripts/tools
+/root/dev/portfolio_projects/variant_annotation_pipeline/src
+/root/dev/portfolio_projects/variant_annotation_pipeline/src/__pycache__
+/root/dev/portfolio_projects/variant_annotation_pipeline/tests
+/root/dev/portfolio_projects/variant_annotation_pipeline/tests/__pycache__
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python3
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python3.11
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/include
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/include/python3.11
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/lib
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/lib64
+/root/dev/portfolio_projects/variant_annotation_pipeline/.venv/lib/python3.11
+
+[search entire filesystem for known run names]
+/root/Desktop/vap_snippets/run_2026_04_17_082417
+/root/Desktop/vap_snippets/run_2026_05_14_231247
+/root/Desktop/vap_snippets/run_2026_05_14_164444
+/root/Desktop/vap_snippets/run_2026_05_14_083044
+/root/Desktop/vap_snippets/run_2026_05_13_060859
+/root/Desktop/vap_snippets/run_2026_05_15_063040
+/root/Desktop/vap/HG002/run_2026_04_17_082417
+/root/Desktop/vap/artificer_exports/HG002_run_2026_04_17_082417_artifacts
+/root/.vep/sus_scrofa_tibetan/115_Tibetan_Pig_v2/AORO02063040.1
+/root/.vep/sus_scrofa_berkshire/115_Berkshire_pig_v1/LUXW01063040.1
+/root/.vep/oryzias_sinensis/115_ASM858656v1/VHIC01063040.1
+/root/.vep/sus_scrofa_landrace/115_Landrace_pig_v1/LUXT01082417.1
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_11_225558
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000434
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_11_233101
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000434
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000434
+/root/dev/portfolio_projects/reproducible_pipeline_framework/results/runs/run_2026_04_16_163628
+
+[search for large VAP TSV artifacts]
+/root/Desktop/vap/HG002/run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+/root/Desktop/vap/HG002/run_2026_04_17_082417/processed/coding_candidates.tsv
+/root/Desktop/vap/HG002/run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/coding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/coding_candidates.tsv
+
+Finished: 2026-05-20T23:56:39-04:00

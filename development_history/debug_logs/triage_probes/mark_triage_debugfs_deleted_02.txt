@@ -1,0 +1,18 @@
+========================================
+mark_triage_debugfs_deleted_02
+debugfs deleted inode reconnaissance
+Started: 2026-05-20T23:53:35-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[filesystem]
+/dev/rbd1 on / type ext4 (rw,relatime,stripe=16)
+
+[debugfs deleted inode scan]
+THIS MAY TAKE A FEW MINUTES
+
+
+[grep likely VAP signatures from deleted inode table]
+
+
+Finished: 2026-05-20T23:53:35-04:00

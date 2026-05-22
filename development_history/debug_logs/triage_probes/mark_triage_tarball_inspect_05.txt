@@ -1,0 +1,108 @@
+========================================
+mark_triage_tarball_inspect_05
+tarball reconnaissance
+Started: 2026-05-21T00:17:03-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[existence]
+-rw-r--r-- 1 root root 60G Apr 29 22:26 /root/.local/share/Trash/files/run_2026_04_17_082417.tar.gz
+
+[file type]
+/root/.local/share/Trash/files/run_2026_04_17_082417.tar.gz: gzip compressed data, last modified: Thu Apr 30 02:24:28 2026, from Unix, original size modulo 2^32 2337308672 gzip compressed data, reserved method, extra field, encrypted, from FAT filesystem (MS-DOS, OS/2, NT), original size modulo 2^32 2337308672
+
+[tarball top-level listing]
+run_2026_04_17_082417/
+run_2026_04_17_082417/config_used.yaml
+run_2026_04_17_082417/validation/
+run_2026_04_17_082417/final/
+run_2026_04_17_082417/logs/
+run_2026_04_17_082417/reports/
+run_2026_04_17_082417/reports/HG002_run_2026_04_17_082417.aligned_read_qc_report.txt
+run_2026_04_17_082417/metadata.json
+run_2026_04_17_082417/processed/
+run_2026_04_17_082417/processed/splice_region_candidates.tsv
+run_2026_04_17_082417/processed/stage_12_summary.json
+run_2026_04_17_082417/processed/stage_09_summary.json
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf_summary.html
+run_2026_04_17_082417/processed/stage_08_summary.json
+run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv
+run_2026_04_17_082417/processed/stage_11_summary.json
+run_2026_04_17_082417/processed/stage_13_run_report.md
+run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv
+run_2026_04_17_082417/processed/stage_13_final_summary.json
+run_2026_04_17_082417/processed/coding_candidates.tsv
+run_2026_04_17_082417/processed/qc_flagged.tsv
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+run_2026_04_17_082417/processed/noncoding_candidates.tsv
+run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+run_2026_04_17_082417/processed/stage_10_summary.json
+run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+run_2026_04_17_082417/processed/stage_13_artifact_manifest.json
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf_warnings.txt
+run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv
+run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+run_2026_04_17_082417/interim/
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.aligned.sorted.bam.bai
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.aligned.bam
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.raw_variants.vcf
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.normalized_variants.vcf
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.normalized_variants.vcf.idx
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.aligned.sorted.bam
+run_2026_04_17_082417/interim/HG002_run_2026_04_17_082417.raw_variants.vcf.idx
+
+[processed subtree glimpse]
+run_2026_04_17_082417/processed/
+run_2026_04_17_082417/processed/splice_region_candidates.tsv
+run_2026_04_17_082417/processed/stage_12_summary.json
+run_2026_04_17_082417/processed/stage_09_summary.json
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf_summary.html
+run_2026_04_17_082417/processed/stage_08_summary.json
+run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv
+run_2026_04_17_082417/processed/stage_11_summary.json
+run_2026_04_17_082417/processed/stage_13_run_report.md
+run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv
+run_2026_04_17_082417/processed/stage_13_final_summary.json
+run_2026_04_17_082417/processed/coding_candidates.tsv
+run_2026_04_17_082417/processed/qc_flagged.tsv
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf
+run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.tsv
+run_2026_04_17_082417/processed/noncoding_candidates.tsv
+run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+run_2026_04_17_082417/processed/stage_10_summary.json
+run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+run_2026_04_17_082417/processed/stage_13_artifact_manifest.json
+run_2026_04_17_082417/processed/HG002_run_2026_04_17_082417.annotated_variants.vcf_warnings.txt
+run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv
+run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+
+[stage artifact glimpse]
+run_2026_04_17_082417/validation/
+run_2026_04_17_082417/processed/stage_12_summary.json
+run_2026_04_17_082417/processed/stage_09_summary.json
+run_2026_04_17_082417/processed/stage_08_summary.json
+run_2026_04_17_082417/processed/stage_11_gene_variant_counts.tsv
+run_2026_04_17_082417/processed/stage_11_summary.json
+run_2026_04_17_082417/processed/stage_13_run_report.md
+run_2026_04_17_082417/processed/stage_11_prioritized_variants.tsv
+run_2026_04_17_082417/processed/stage_08_rdgp_gene_evidence_seed.tsv
+run_2026_04_17_082417/processed/stage_13_final_summary.json
+run_2026_04_17_082417/processed/coding_candidates.tsv
+run_2026_04_17_082417/processed/stage_09_coding_interpreted.tsv
+run_2026_04_17_082417/processed/noncoding_candidates.tsv
+run_2026_04_17_082417/processed/stage_12_validation_candidates.tsv
+run_2026_04_17_082417/processed/stage_10_summary.json
+run_2026_04_17_082417/processed/stage_10_noncoding_interpreted.tsv
+run_2026_04_17_082417/processed/stage_13_artifact_manifest.json
+run_2026_04_17_082417/processed/stage_08_vdb_ready_variants.tsv
+run_2026_04_17_082417/processed/stage_08_variant_summary.tsv
+run_2026_04_17_082417/processed/stage_08_selected_transcript_consequences.tsv
+
+Finished: 2026-05-21T00:46:06-04:00

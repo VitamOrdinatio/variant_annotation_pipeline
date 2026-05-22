@@ -1,0 +1,81 @@
+========================================
+mark_triage_recovery_tools_01
+VAP results recovery triage: tool and filesystem survey
+Started: 2026-05-20T23:50:51-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[tool availability]
+MISSING	extundelete
+MISSING	testdisk
+MISSING	photorec
+FOUND	debugfs	/usr/sbin/debugfs
+FOUND	e2fsck	/usr/sbin/e2fsck
+FOUND	dumpe2fs	/usr/sbin/dumpe2fs
+FOUND	lsblk	/usr/bin/lsblk
+FOUND	findmnt	/usr/bin/findmnt
+FOUND	lsof	/usr/bin/lsof
+FOUND	strings	/usr/bin/strings
+FOUND	grep	/usr/bin/grep
+FOUND	awk	/usr/bin/awk
+FOUND	sed	/usr/bin/sed
+FOUND	stat	/usr/bin/stat
+FOUND	file	/usr/bin/file
+FOUND	git	/usr/bin/git
+
+[root mount]
+/dev/rbd1 on / type ext4 (rw,relatime,stripe=16)
+
+[findmnt root]
+TARGET SOURCE    FSTYPE OPTIONS
+/      /dev/rbd1 ext4   rw,relatime,stripe=16
+
+[block devices]
+NAME   FSTYPE FSVER LABEL UUID FSAVAIL FSUSE% MOUNTPOINTS
+sda                                           
+├─sda1                                        
+├─sda2                                        
+└─sda3                                        
+sdb                                           
+sr0                                           
+rbd0                                          
+rbd1                              2.2T    18% /
+rbd2                                          
+rbd3                                          
+rbd4                                          
+rbd5                                          
+rbd6                                          
+rbd7                                          
+rbd8                                          
+rbd9                                          
+rbd10                                         
+rbd11                                         
+rbd12                                         
+rbd13                                         
+rbd14                                         
+rbd15                                         
+rbd16                                         
+
+[filesystem usage]
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/rbd1       2.9T  529G  2.3T  19% /
+none            492K  4.0K  488K   1% /dev
+udev            189G     0  189G   0% /dev/nvidia0
+tmpfs           179G     0  179G   0% /dev/shm
+tmpfs            72G  864K   72G   1% /run
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs            36G  112K   36G   1% /run/user/0
+
+[repo results symlink]
+repo_exists=true
+/root/dev/portfolio_projects/variant_annotation_pipeline
+lrwxrwxrwx 1 root root 30 May 20 20:29 results -> /mnt/storage/vap_runs/results/
+results: broken symbolic link to /mnt/storage/vap_runs/results/
+/mnt/storage/vap_runs/results/
+120000 859d0e5a246813959c0dac95629ce1dc743c43b7 0	results
+
+[deleted open files]
+
+[recent shell history hints]
+
+Finished: 2026-05-20T23:50:51-04:00

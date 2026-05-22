@@ -1,0 +1,502 @@
+========================================
+mark_triage_hidden_runs_04
+hidden/orphan VAP run reconnaissance
+Started: 2026-05-21T00:11:31-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[trash inventory]
+/root/.local/share/Trash/files/stage_08_filter_partition/rdgp_gene_evidence/rdgp_top_genes_by_rare_variant_burden.md
+/root/.local/share/Trash/files/stage_08_filter_partition/rdgp_gene_evidence/rdgp_top_genes_by_pathogenic_evidence_or_high_impact_variants.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/coding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_vdb_ready_variants.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_variant_summary.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/coding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_vdb_ready_variants.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_variant_summary.tsv
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf_summary.html
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.tsv
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf_warnings.txt
+/root/.local/share/Trash/files/stage11_coding_candidates_subset.tsv
+/root/.local/share/Trash/files/231247_processed_dirtree.txt
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/rdgp_gene_evidence/rdgp_top_genes_by_rare_variant_burden.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/rdgp_gene_evidence/rdgp_top_genes_by_pathogenic_evidence_or_high_impact_variants.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/variant_summary
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/variant_summary/variant_summary_coding_vs_noncoding_flags.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/variant_summary/variant_summary_frequency_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/variant_summary/variant_summary_severity_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_01_06_foundation/stage_06_normalized_vcf_variant_count.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_01_06_foundation/stage_05_raw_vcf_variant_count.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_07_vep_annotation/stage_07_vep_variants_vcf_example_warnings.md
+/root/.local/share/Trash/files/run_2026_04_17_082417.tar.gz
+
+[non-desktop run search]
+/root/.local/share/Trash/info/231247_processed_dirtree.txt.trashinfo
+/root/.local/share/Trash/info/run_2026_04_17_082417.tar.gz.trashinfo
+/root/.local/share/Trash/info/stage11_coding_candidates_subset.tsv.trashinfo
+/root/.local/share/Trash/info/HG002_run_2026_04_17_082417_artifacts.trashinfo
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md
+/root/.local/share/Trash/files/stage_08_filter_partition/coding_candidates/coding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/coding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/coding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf_summary.html
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.tsv
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.vcf_warnings.txt
+/root/.local/share/Trash/files/stage11_coding_candidates_subset.tsv
+/root/.local/share/Trash/files/231247_processed_dirtree.txt
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_variant_type_distribution.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md
+/root/.local/share/Trash/files/HG002_run_2026_04_17_082417_artifacts/stage_08_filter_partition/coding_candidates/coding_candidates_high_impact_variants.md
+/root/.local/share/Trash/files/run_2026_04_17_082417.tar.gz
+/root/tools/vep/ensembl-vep-release-115.2/Bio/DB/GFF/Aggregator/processed_transcript.pm
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/noncoding_candidates
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_consequence_distribution.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_excerpt.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_high_impact_variants.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/noncoding_candidates/noncoding_candidates_variant_type_distribution.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/coding_candidates
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_consequence_distribution.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_variant_type_distribution.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_excerpt.md
+/root/dev/portfolio_projects/variant_annotation_pipeline/docs/examples/stage_08_filter_partition/coding_candidates/coding_candidates_high_impact_variants.md
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_11_225558
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_12_000434
+/root/dev/portfolio_projects/gene_set_consensus/logs/run_2026_05_11_233101
+/root/dev/portfolio_projects/gene_set_consensus/data/processed
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/data/processed/run_2026_05_12_000434
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000417
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000425
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000443
+/root/dev/portfolio_projects/gene_set_consensus/data/interim/run_2026_05_12_000434
+/root/dev/portfolio_projects/reproducible_pipeline_framework/results/runs/run_2026_04_16_163628
+/root/dev/portfolio_projects/reproducible_pipeline_framework/data/processed
+/root/anaconda3/include/boost/numeric/conversion/detail/preprocessed
+/root/anaconda3/include/boost/function_types/detail/pp_cc_loop/preprocessed.hpp
+/root/anaconda3/include/boost/function_types/detail/pp_retag_default_cc/preprocessed.hpp
+/root/anaconda3/include/boost/function_types/detail/pp_tags/preprocessed.hpp
+/root/anaconda3/include/boost/function_types/detail/pp_variate_loop/preprocessed.hpp
+/root/anaconda3/include/boost/phoenix/function/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/phoenix/statement/detail/preprocessed
+/root/anaconda3/include/boost/phoenix/operator/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/phoenix/scope/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/phoenix/support/preprocessed
+/root/anaconda3/include/boost/phoenix/bind/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/phoenix/object/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/phoenix/core/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/proto/detail/preprocessed
+/root/anaconda3/include/boost/proto/context/detail/preprocessed
+/root/anaconda3/include/boost/proto/transform/detail/preprocessed
+/root/anaconda3/include/boost/fusion/container/set/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/fusion/container/list/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/fusion/container/vector/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/fusion/container/generation/detail/preprocessed
+/root/anaconda3/include/boost/fusion/container/deque/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/fusion/container/map/detail/cpp03/preprocessed
+/root/anaconda3/include/boost/fusion/tuple/detail/preprocessed
+/root/anaconda3/include/boost/fusion/algorithm/iteration/detail/preprocessed
+/root/anaconda3/include/boost/fusion/algorithm/transformation/detail/preprocessed
+/root/anaconda3/include/boost/signals2/detail/preprocessed_arg_type.hpp
+/root/anaconda3/include/boost/signals2/detail/preprocessed_arg_type_template.hpp
+/root/anaconda3/include/boost/signals2/preprocessed_slot.hpp
+/root/anaconda3/include/boost/signals2/preprocessed_signal.hpp
+/root/anaconda3/include/boost/mpl/set/aux_/include_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/set/aux_/preprocessed
+/root/anaconda3/include/boost/mpl/aux_/config/use_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/aux_/include_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/aux_/preprocessed
+/root/anaconda3/include/boost/mpl/list/aux_/include_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/list/aux_/preprocessed
+/root/anaconda3/include/boost/mpl/vector/aux_/include_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/vector/aux_/preprocessed
+/root/anaconda3/include/boost/mpl/map/aux_/include_preprocessed.hpp
+/root/anaconda3/include/boost/mpl/map/aux_/preprocessed
+/root/anaconda3/include/aws/cognito-identity/model/UnprocessedIdentityId.h
+/root/anaconda3/pkgs/aws-sdk-cpp-1.10.55-h721c034_0/include/aws/cognito-identity/model/UnprocessedIdentityId.h
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/numeric/conversion/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/function_types/detail/pp_cc_loop/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/function_types/detail/pp_retag_default_cc/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/function_types/detail/pp_tags/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/function_types/detail/pp_variate_loop/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/function/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/statement/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/operator/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/scope/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/support/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/bind/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/object/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/phoenix/core/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/proto/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/proto/context/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/proto/transform/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/set/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/list/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/vector/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/generation/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/deque/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/container/map/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/tuple/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/algorithm/iteration/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/fusion/algorithm/transformation/detail/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/signals2/detail/preprocessed_arg_type.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/signals2/detail/preprocessed_arg_type_template.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/signals2/preprocessed_slot.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/signals2/preprocessed_signal.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/set/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/set/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/aux_/config/use_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/list/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/list/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/vector/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/vector/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/map/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-headers-1.85.0-ha770c72_4/include/boost/mpl/map/aux_/preprocessed
+/root/anaconda3/pkgs/aws-sdk-cpp-1.11.329-h46c3b66_9/include/aws/cognito-identity/model/UnprocessedIdentityId.h
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/numeric/conversion/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/function_types/detail/pp_cc_loop/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/function_types/detail/pp_retag_default_cc/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/function_types/detail/pp_tags/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/function_types/detail/pp_variate_loop/preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/function/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/statement/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/operator/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/scope/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/support/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/bind/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/object/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/phoenix/core/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/proto/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/proto/context/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/proto/transform/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/set/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/list/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/vector/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/generation/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/deque/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/container/map/detail/cpp03/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/tuple/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/algorithm/iteration/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/fusion/algorithm/transformation/detail/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/signals2/detail/preprocessed_arg_type.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/signals2/detail/preprocessed_arg_type_template.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/signals2/preprocessed_slot.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/signals2/preprocessed_signal.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/set/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/set/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/aux_/config/use_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/list/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/list/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/vector/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/vector/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/map/aux_/include_preprocessed.hpp
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/include/boost/mpl/map/aux_/preprocessed
+/root/anaconda3/pkgs/libboost-1.82.0-h109eef0_2/share/b2/src/tools/types/preprocessed.jam
+
+[large surviving TSV search outside Desktop]
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_rdgp_gene_evidence_seed.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_vdb_ready_variants.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_variant_summary.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_fix/stage_08_selected_transcript_consequences.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_rdgp_gene_evidence_seed.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/noncoding_candidates.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_vdb_ready_variants.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_variant_summary.tsv
+/root/.local/share/Trash/files/stage08_capture/geneID_bug/stage_08_selected_transcript_consequences.tsv
+/root/.local/share/Trash/files/stage07_capture/geneID_fix/HG002_run_2026_04_17_082417.annotated_variants.tsv
+
+[recently modified filesystem objects near incident window]
+ 60179830      4 drwxr-xr-x  11 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts
+ 73028007      4 -rw-r--r--   1 root     root          282 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/err10619281_f1.yaml
+ 73028009      4 -rw-r--r--   1 root     root          271 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/err10619300_f1.yaml
+ 73028012      4 -rw-r--r--   1 root     root          211 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/hg002_f2.yaml
+ 73028008      4 -rw-r--r--   1 root     root          221 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/err10619281_f2.yaml
+ 73028010      4 -rw-r--r--   1 root     root          215 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/err10619300_f2.yaml
+ 73028011      4 -rw-r--r--   1 root     root          256 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/configs/hg002_f1.yaml
+ 73028016     12 -rw-r--r--   1 root     root         9115 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/figures/generate_case_study_f2_runtime_observability_profile.py
+ 73028015     12 -rw-r--r--   1 root     root        11930 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/figures/generate_case_study_f1_reproducibility_summary.py
+ 73028014      4 -rw-r--r--   1 root     root         1085 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/figures/README.md
+ 73016272      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark
+ 73028018      8 -rw-r--r--   1 root     root         6582 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_run_stage09_checkpoint.sh
+ 73028020      8 -rw-r--r--   1 root     root         5701 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_run_stage11_checkpoint.sh
+ 73028019      8 -rw-r--r--   1 root     root         6849 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_run_stage10_checkpoint.sh
+ 73028021      8 -rw-r--r--   1 root     root         4687 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_run_stage12_checkpoint.sh
+ 73028017      4 -rw-r--r--   1 root     root         1397 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_download_vep_archive.sh
+ 73028022      8 -rw-r--r--   1 root     root         5449 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/mark/mark_run_stage13_checkpoint.sh
+ 73028227      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/analysis
+ 73028005     44 -rw-r--r--   1 root     root        42263 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/scripts/analysis/harvest_vap_case_metrics.py
+ 73028459      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history
+ 73028461      4 drwxr-xr-x   7 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs
+ 73028496      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation
+ 73028509      8 -rw-r--r--   1 root     root         5473 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_install_vep_htslib_deps_20260422_181856.log
+ 73028503      4 -rw-r--r--   1 root     root         2300 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_fix_gatk_config_probe_20260422_104742.log
+ 73028502    364 -rw-r--r--   1 root     root       370934 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_finalize_vep_install_20260422_221733.log
+ 73028512      4 -rw-r--r--   1 root     root         2365 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_vep_probe_20260422_110608.log
+ 73028505     28 -rw-r--r--   1 root     root        27225 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_install_perl_build_finalize_vep_20260422_221303.log
+ 73028498     20 -rw-r--r--   1 root     root        18914 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_clean_reinstall_vep_20260422_203815.log
+ 73028499      4 -rw-r--r--   1 root     root         2299 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_download_vep_archive_20260422_150046.log
+ 73028510      4 -rw-r--r--   1 root     root         3209 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_probe_vep_perl_deps_20260422_164826.log
+ 73028500      4 -rw-r--r--   1 root     root         2816 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_download_vep_archive_20260422_151133.log
+ 73028511     20 -rw-r--r--   1 root     root        20331 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_upgrade_and_bootstrap_vep_20260422_180342.log
+ 73028507      4 -rw-r--r--   1 root     root          715 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_install_vep_from_archive_20260422_155142.log
+ 73028504      4 -rw-r--r--   1 root     root         3586 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_gatk_config_probe_20260422_095921.log
+ 73028506      8 -rw-r--r--   1 root     root         5270 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_install_vep_dbi_and_retry_20260422_173906.log
+ 73028497      4 -rw-r--r--   1 root     root         3759 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_bootstrap_vep_install_20260422_163021.log
+ 73028501      8 -rw-r--r--   1 root     root         7976 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_finalize_vep_install_20260422_182452.log
+ 73028508     16 -rw-r--r--   1 root     root        13559 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/tool_installation/mark_install_vep_from_archive_20260422_160613.log
+ 73028484      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests
+ 73028487     16 -rw-r--r--   1 root     root        15678 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests/mark_stage07_vep_smoketest_v2_20260423_145121.log
+ 73028488     16 -rw-r--r--   1 root     root        15678 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests/mark_stage07_vep_smoketest_v2_20260423_155526.log
+ 73028485  50740 -rw-r--r--   1 root     root     51951980 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests/mark_stage07_vep_smoketest_20260423_075321.log
+ 73028486  50740 -rw-r--r--   1 root     root     51952007 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/smoketests/mark_stage07_vep_smoketest_20260423_143745.log
+ 73028489      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes
+ 73028492      4 -rw-r--r--   1 root     root         2409 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage07_gene_id_logic_20260426_201537.log
+ 73028494      4 -rw-r--r--   1 root     root         2622 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage08_variant_type_logic_20260425_034447.log
+ 73028490      4 -rw-r--r--   1 root     root         2409 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage07_gene_id_logic_20260426_200514.log
+ 73028493      4 -rw-r--r--   1 root     root         2845 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage07_gene_id_logic_20260426_202314.log
+ 73028491      4 -rw-r--r--   1 root     root         2409 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage07_gene_id_logic_20260426_200815.log
+ 73028495      4 -rw-r--r--   1 root     root         2767 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/stage_probes/mark_probe_stage08_variant_type_logic_20260425_090653.log
+ 73028480      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/environment_setup
+ 73028481      4 -rw-r--r--   1 root     root         2395 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/environment_setup/mark_git_auth_probe_20260423_125831.log
+ 73028483      4 -rw-r--r--   1 root     root         3653 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/environment_setup/mark_tool_probe_20260422_080208.log
+ 73028482      8 -rw-r--r--   1 root     root         6265 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/environment_setup/mark_test_setup_pipeline_tools_20260422_141330.log
+ 73028462      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses
+ 73028467     12 -rw-r--r--   1 root     root        11212 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage08_checkpoint_probe_20260425_012645.log
+ 73028473    792 -rw-r--r--   1 root     root       808832 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage10_checkpoint_20260428_012102_log.txt
+ 73028474     36 -rw-r--r--   1 root     root        36825 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage10_checkpoint_20260428_093057.log
+ 73028463   5120 -rw-r--r--   1 root     root      5239472 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage07_checkpoint_20260426_204349.log
+ 73028471    104 -rw-r--r--   1 root     root       102829 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage09_checkpoint_20260427_162424.log
+ 73028475     28 -rw-r--r--   1 root     root        28182 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage11_checkpoint_20260429_010710.log
+ 73028470     12 -rw-r--r--   1 root     root        11169 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage08_checkpoint_probe_20260425_094429.log
+ 73028477      4 -rw-r--r--   1 root     root         2276 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage13_checkpoint_20260429_083447.log
+ 73028464      4 -rw-r--r--   1 root     root         2935 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage07_checkpoint_probe_20260423_162838.log
+ 73028476     20 -rw-r--r--   1 root     root        20121 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage12_checkpoint_20260429_030827.log
+ 73028469     12 -rw-r--r--   1 root     root        11083 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage08_checkpoint_probe_20260425_024816.log
+ 73028466     16 -rw-r--r--   1 root     root        12367 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage08_checkpoint_20260426_224227.log
+ 73028479     12 -rw-r--r--   1 root     root        11829 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage13_checkpoint_20260429_110730.log
+ 73028472  11316 -rw-r--r--   1 root     root     11584994 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage10_checkpoint_20260428_000815_log.txt
+ 73028478      4 -rw-r--r--   1 root     root         2339 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage13_checkpoint_20260429_101901.log
+ 73028465   5116 -rw-r--r--   1 root     root      5238734 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage07_checkpoint_probe_20260423_165320.log
+ 73028468     12 -rw-r--r--   1 root     root        11083 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/debug_logs/checkpoint_harnesses/mark_run_stage08_checkpoint_probe_20260425_023125.log
+ 73028513      4 drwxr-xr-x   8 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts
+ 73028531      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest
+ 73028532      4 -rw-r--r--   1 root     root         1638 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_compare_err10619281_runs.sh
+ 73028535      4 -rw-r--r--   1 root     root         1415 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_probe_err10619281_runs.sh
+ 73028533      4 -rw-r--r--   1 root     root         2520 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_probe_epi_mito_hits.sh
+ 73028538      4 -rw-r--r--   1 root     root         2136 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/probe_stage_schema.sh
+ 73028537      4 -rw-r--r--   1 root     root         2796 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_probe_saudi_runids.sh
+ 73028536      4 -rw-r--r--   1 root     root         1970 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_probe_err10619300_runs.sh
+ 73028534      8 -rw-r--r--   1 root     root         6279 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/evidence_harvest/mark_probe_err10619281_repro_evidence.sh
+ 73028547      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation
+ 73028557      4 -rw-r--r--   1 root     root         2302 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_install_vep_from_archive.sh
+ 73028552      4 -rw-r--r--   1 root     root         1286 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_finalize_vep_install_force.sh
+ 73028558      4 -rw-r--r--   1 root     root         1228 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_install_vep_htslib_deps.sh
+ 73028553      4 -rw-r--r--   1 root     root         2620 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_fix_gatk_config_probe.sh
+ 73028548      4 -rw-r--r--   1 root     root         1077 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_bootstrap_vep_install.pl.sh
+ 73028555      4 -rw-r--r--   1 root     root         1387 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_install_perl_build_and_finalize_vep.sh
+ 73028550      4 -rw-r--r--   1 root     root         1397 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_download_vep_archive.sh
+ 73028560      4 -rw-r--r--   1 root     root         1458 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_probe_vep_perl_deps.sh
+ 73028551      4 -rw-r--r--   1 root     root         1151 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_finalize_vep_install.sh
+ 73028559      4 -rw-r--r--   1 root     root         1931 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_probe_vep_installability.sh
+ 73028561      4 -rw-r--r--   1 root     root         2431 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_upgrade_and_bootstrap_vep.sh
+ 73028554      4 -rw-r--r--   1 root     root         3143 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_gatk_config_probe.sh
+ 73028556      4 -rw-r--r--   1 root     root         1331 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_install_vep_dbi_and_retry.sh
+ 73028549      4 -rw-r--r--   1 root     root         1243 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/tool_installation/mark_clean_reinstall_vep.sh
+ 73028539      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/smoketests
+ 73028541      4 -rw-r--r--   1 root     root         2829 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/smoketests/mark_stage07_vep_smoketest_v2.sh
+ 73028540      4 -rw-r--r--   1 root     root         3678 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/smoketests/mark_stage07_vep_smoketest.sh
+ 73028545      4 -rw-r--r--   1 root     root         3607 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/stage_probes/mark_probe_stage08_variant_type_logic.sh
+ 73028546      4 -rw-r--r--   1 root     root         2024 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/stage_probes/probe_stage11_schema.sh
+ 73028544      4 -rw-r--r--   1 root     root         4026 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/stage_probes/mark_probe_stage07_gene_id_logic.sh
+ 73028527      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/environment_setup
+ 73028529      4 -rw-r--r--   1 root     root         2047 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/environment_setup/mark_test_setup_pipeline_tools.sh
+ 73028528      4 -rw-r--r--   1 root     root         1434 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/environment_setup/mark_git_auth_probe.sh
+ 73028530      4 -rw-r--r--   1 root     root         2324 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/environment_setup/mark_tool_probe.sh
+ 73028514      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses
+ 73028522      8 -rw-r--r--   1 root     root         6582 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage09_checkpoint.sh
+ 73028520      8 -rw-r--r--   1 root     root         4653 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage08_checkpoint.sh
+ 73028524      8 -rw-r--r--   1 root     root         5701 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage11_checkpoint.sh
+ 73028516      4 -rwxr-xr-x   1 root     root         1055 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_err10619300_baseline.sh
+ 73028517      4 -rwxr-xr-x   1 root     root          975 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_phase1a_hg002_baseline.sh
+ 73028523      8 -rw-r--r--   1 root     root         6849 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage10_checkpoint.sh
+ 73028525      8 -rw-r--r--   1 root     root         4687 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage12_checkpoint.sh
+ 73028519      8 -rw-r--r--   1 root     root         4423 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage07_checkpoint_probe.sh
+ 73028518      4 -rw-r--r--   1 root     root         3767 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage07_checkpoint.sh
+ 73028521      8 -rw-r--r--   1 root     root         4563 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage08_checkpoint_probe.sh
+ 73028526      8 -rw-r--r--   1 root     root         5449 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_stage13_checkpoint.sh
+ 73028515      4 -rwxr-xr-x   1 root     root         1055 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/exploratory_scripts/checkpoint_harnesses/mark_run_err10619281_baseline.sh
+ 73028460      4 -rw-r--r--   1 root     root         4027 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/development_history/README.md
+ 60179767      8 -rw-r--r--   1 root     root         5805 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/.gitignore
+ 60179817      0 lrwxrwxrwx   1 root     root           30 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/results -> /mnt/storage/vap_runs/results/
+ 60179786      4 drwxr-xr-x  12 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs
+ 73028562      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture
+ 73028567     12 -rw-r--r--   1 root     root        11567 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/summary_artifact_ecosystem.md
+ 73028565      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/status
+ 73028566   1832 -rw-r--r--   1 root     root      1872247 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/status/vap_v1_operational_ecosystem_overview.png
+ 73028563      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/conceptual
+ 73028564   2164 -rw-r--r--   1 root     root      2213314 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/architecture/conceptual/vap_to_gsc_consensus_layering_workflow.png
+ 73028663      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/operations
+ 73028664      8 -rw-r--r--   1 root     root         8070 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/operations/vap_storage_policy.md
+ 60179835      4 drwxr-xr-x   3 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/plans
+ 60179818     24 -rw-r--r--   1 root     root        23750 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/plans/harvest_case_metrics_implementation_plan.md
+ 60179819      4 -rw-r--r--   1 root     root         2394 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/plans/vap_v1_evidence_harvest_attack_vector.md
+ 73016138      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/status
+ 73028665      8 -rw-r--r--   1 root     root         6861 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/status/phase1_operational_findings.md
+ 73028666      8 -rw-r--r--   1 root     root         7606 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/status/phase1_reproducibility_assessment.md
+ 73027999     12 -rw-r--r--   1 root     root         8539 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/status/phase1_runtime_baseline_status.md
+ 73016130      4 drwxr-xr-x   7 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies
+ 73028568      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281
+ 73028570      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures
+ 73028574     36 -rw-r--r--   1 root     root        36236 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f2_runtime_observability_profile.pdf
+ 73028573      4 -rw-r--r--   1 root     root          853 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f1_provenance_transition_summary_source.tsv
+ 73028572    396 -rw-r--r--   1 root     root       403586 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f1_provenance_transition_summary.png
+ 73028571     36 -rw-r--r--   1 root     root        36096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f1_provenance_transition_summary.pdf
+ 73028576      8 -rw-r--r--   1 root     root         4316 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f2_runtime_observability_profile_source.tsv
+ 73028575    488 -rw-r--r--   1 root     root       497747 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/figures/err10619281_f2_runtime_observability_profile.png
+ 73028569     12 -rw-r--r--   1 root     root         9523 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/err10619281_wes_reproducibility.md
+ 73028577      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables
+ 73028592      4 -rw-r--r--   1 root     root         2323 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/variant_consequence_summary.tsv
+ 73028591      4 -rw-r--r--   1 root     root          885 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/stage_funnel_summary.tsv
+ 73028588      4 -rw-r--r--   1 root     root         1019 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/provenance_summary.tsv
+ 73028580     12 -rw-r--r--   1 root     root         9758 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/coding_noncoding_consequence_summary.tsv
+ 73028585    160 -rw-r--r--   1 root     root       159952 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/overlay_gene_coding_frequency_profiles.tsv
+ 73028586    192 -rw-r--r--   1 root     root       194189 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/overlay_gene_coding_functional_impact.tsv
+ 73028582    292 -rw-r--r--   1 root     root       296936 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/gene_list_overlay_intersections.tsv
+ 73028589      4 -rw-r--r--   1 root     root          496 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/run_reproducibility_summary.tsv
+ 73028578      4 -rw-r--r--   1 root     root          981 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/candidate_reviewability_readiness.tsv
+ 73028584    160 -rw-r--r--   1 root     root       160053 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/overlay_gene_coding_clinical_evidence.tsv
+ 73028581   9092 -rw-r--r--   1 root     root      9306793 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/gene_burden_summary.tsv
+ 73028583      4 -rw-r--r--   1 root     root         2261 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/interpretation_label_summary.tsv
+ 73028579      4 -rw-r--r--   1 root     root         1385 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/clinical_status_summary.tsv
+ 73028587      4 -rw-r--r--   1 root     root          603 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/priority_tier_summary.tsv
+ 73028590      4 -rw-r--r--   1 root     root         3295 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619281/tables/runtime_stage_summary.tsv
+ 73028593      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300
+ 73028594     12 -rw-r--r--   1 root     root         9679 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/err10619300_wes_baseline.md
+ 73028599     36 -rw-r--r--   1 root     root        35569 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f2_runtime_observability_profile.pdf
+ 73028600    488 -rw-r--r--   1 root     root       498546 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f2_runtime_observability_profile.png
+ 73028596     36 -rw-r--r--   1 root     root        35833 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f1_same_patch_reproducibility_summary.pdf
+ 73028601      8 -rw-r--r--   1 root     root         4316 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f2_runtime_observability_profile_source.tsv
+ 73028597    388 -rw-r--r--   1 root     root       396039 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f1_same_patch_reproducibility_summary.png
+ 73028598      4 -rw-r--r--   1 root     root          853 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/figures/err10619300_f1_same_patch_reproducibility_summary_source.tsv
+ 73028602      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables
+ 73028617      4 -rw-r--r--   1 root     root         2215 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/variant_consequence_summary.tsv
+ 73028616      4 -rw-r--r--   1 root     root          832 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/stage_funnel_summary.tsv
+ 73028613      4 -rw-r--r--   1 root     root          966 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/provenance_summary.tsv
+ 73028605     12 -rw-r--r--   1 root     root         9362 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/coding_noncoding_consequence_summary.tsv
+ 73028610    136 -rw-r--r--   1 root     root       138225 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/overlay_gene_coding_frequency_profiles.tsv
+ 73028611    164 -rw-r--r--   1 root     root       167840 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/overlay_gene_coding_functional_impact.tsv
+ 73028607    280 -rw-r--r--   1 root     root       286218 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/gene_list_overlay_intersections.tsv
+ 73028614      4 -rw-r--r--   1 root     root          412 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/run_reproducibility_summary.tsv
+ 73028603      4 -rw-r--r--   1 root     root          981 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/candidate_reviewability_readiness.tsv
+ 73028609    140 -rw-r--r--   1 root     root       141572 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/overlay_gene_coding_clinical_evidence.tsv
+ 73028606   8496 -rw-r--r--   1 root     root      8697029 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/gene_burden_summary.tsv
+ 73028608      4 -rw-r--r--   1 root     root         2180 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/interpretation_label_summary.tsv
+ 73028604      4 -rw-r--r--   1 root     root         1322 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/clinical_status_summary.tsv
+ 73028612      4 -rw-r--r--   1 root     root          603 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/priority_tier_summary.tsv
+ 73028615      4 -rw-r--r--   1 root     root         3295 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/err10619300/tables/runtime_stage_summary.tsv
+ 73028621      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002
+ 73028629     12 -rw-r--r--   1 root     root         9198 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/hg002_wgs_baseline.md
+ 73028622      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures
+ 73028626     36 -rw-r--r--   1 root     root        34099 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f2_runtime_observability_profile.pdf
+ 73028625      4 -rw-r--r--   1 root     root          851 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f1_benchmark_operational_stability_source.tsv
+ 73028623     36 -rw-r--r--   1 root     root        34946 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f1_benchmark_operational_stability.pdf
+ 73028627    464 -rw-r--r--   1 root     root       474034 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f2_runtime_observability_profile.png
+ 73028628      4 -rw-r--r--   1 root     root         2207 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f2_runtime_observability_profile_source.tsv
+ 73028624    388 -rw-r--r--   1 root     root       395794 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/figures/hg002_f1_benchmark_operational_stability.png
+ 73028630      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables
+ 73028645      4 -rw-r--r--   1 root     root         2173 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/variant_consequence_summary.tsv
+ 73028644      4 -rw-r--r--   1 root     root         1108 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/stage_funnel_summary.tsv
+ 73028641      4 -rw-r--r--   1 root     root         1157 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/provenance_summary.tsv
+ 73028633     12 -rw-r--r--   1 root     root         9210 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/coding_noncoding_consequence_summary.tsv
+ 73028638    140 -rw-r--r--   1 root     root       139470 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/overlay_gene_coding_frequency_profiles.tsv
+ 73028639    168 -rw-r--r--   1 root     root       171677 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/overlay_gene_coding_functional_impact.tsv
+ 73028635    284 -rw-r--r--   1 root     root       288161 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/gene_list_overlay_intersections.tsv
+ 73028642      4 -rw-r--r--   1 root     root          437 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/run_reproducibility_summary.tsv
+ 73028631      4 -rw-r--r--   1 root     root          799 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/candidate_reviewability_readiness.tsv
+ 73028637    140 -rw-r--r--   1 root     root       142401 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/overlay_gene_coding_clinical_evidence.tsv
+ 73028634  10024 -rw-r--r--   1 root     root     10262950 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/gene_burden_summary.tsv
+ 73028636      4 -rw-r--r--   1 root     root         1913 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/interpretation_label_summary.tsv
+ 73028632      4 -rw-r--r--   1 root     root         1294 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/clinical_status_summary.tsv
+ 73028640      4 -rw-r--r--   1 root     root          435 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/priority_tier_summary.tsv
+ 73028643      4 -rw-r--r--   1 root     root         1610 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/hg002/tables/runtime_stage_summary.tsv
+ 73028618      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/figures
+ 73028619     40 -rw-r--r--   1 root     root        38304 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/figures/vap_v1_harvest_ecosystem_overview.pdf
+ 73028620    592 -rw-r--r--   1 root     root       603383 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/figures/vap_v1_harvest_ecosystem_overview.png
+ 73028646      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables
+ 73028662      8 -rw-r--r--   1 root     root         6517 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/variant_consequence_summary.tsv
+ 73028661      4 -rw-r--r--   1 root     root         2035 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/stage_funnel_summary.tsv
+ 73028658      4 -rw-r--r--   1 root     root         2716 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/provenance_summary.tsv
+ 73028650     28 -rw-r--r--   1 root     root        28118 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/coding_noncoding_consequence_summary.tsv
+ 73028655    428 -rw-r--r--   1 root     root       437247 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/overlay_gene_coding_frequency_profiles.tsv
+ 73028656    524 -rw-r--r--   1 root     root       533328 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/overlay_gene_coding_functional_impact.tsv
+ 73028652    852 -rw-r--r--   1 root     root       870939 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/gene_list_overlay_intersections.tsv
+ 73028659      4 -rw-r--r--   1 root     root          931 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/run_reproducibility_summary.tsv
+ 73028648      4 -rw-r--r--   1 root     root         2683 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/candidate_reviewability_readiness.tsv
+ 73028654    436 -rw-r--r--   1 root     root       443616 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/overlay_gene_coding_clinical_evidence.tsv
+ 73028653      8 -rw-r--r--   1 root     root         6180 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/interpretation_label_summary.tsv
+ 73028651   1816 -rw-r--r--   1 root     root      1858918 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/gene_burden_summary.tsv.gz
+ 73028649      4 -rw-r--r--   1 root     root         3811 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/clinical_status_summary.tsv
+ 73028657      4 -rw-r--r--   1 root     root         1567 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/priority_tier_summary.tsv
+ 73028660      8 -rw-r--r--   1 root     root         8068 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/runtime_stage_summary.tsv
+ 73028647     24 -rw-r--r--   1 root     root        21025 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/tables/README.md
+ 73016131      4 -rw-r--r--   1 root     root          756 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/docs/case_studies/README.md
+ 60852336      4 drwxr-xr-x   4 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data
+ 73028229      4 drwxr-xr-x   3 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference
+ 73028455      4 drwxr-xr-x   2 root     root         4096 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/gene_lists
+ 73028458     72 -rw-r--r--   1 root     root        70306 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/gene_lists/mitocarta_vap_overlay_seed.tsv
+ 73028457      4 -rw-r--r--   1 root     root          690 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/gene_lists/epi25_vap_overlay_seed.tsv
+ 73028456      4 -rw-r--r--   1 root     root         1802 May 20 20:29 /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/gene_lists/README.md
+
+Finished: 2026-05-21T00:12:08-04:00
