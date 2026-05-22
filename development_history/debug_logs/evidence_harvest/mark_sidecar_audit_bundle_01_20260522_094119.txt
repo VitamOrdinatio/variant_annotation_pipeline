@@ -1,0 +1,88 @@
+========================================
+mark_sidecar_audit_bundle_01
+Canonical sidecar audit bundle
+Started: 2026-05-22T09:41:19-04:00
+Host: VandPyMolGPUResearch
+========================================
+
+[run_dir]
+results/run_2026_05_22_071545
+
+[run completion]
+2026-05-22 08:18:07,411 | INFO | Stage 10 summary JSON written to: results/run_2026_05_22_071545/processed/stage_10_summary.json
+2026-05-22 08:18:07,411 | INFO | Stage 10 input rows processed: 710029
+2026-05-22 08:18:07,411 | INFO | Stage 10 interpreted rows written: 710029
+2026-05-22 08:18:07,707 | INFO | Completed stage: stage_10_interpret_noncoding
+2026-05-22 08:18:56,299 | INFO | Sidecar metrics emitted for stage_10_interpret_noncoding
+2026-05-22 08:18:56,299 | INFO | Starting stage: stage_11_prioritize_variants
+2026-05-22 08:18:56,302 | INFO | Stage 11: prioritizing interpreted variants.
+2026-05-22 08:18:56,302 | INFO | Stage 11 coding input: results/run_2026_05_22_071545/processed/stage_09_coding_interpreted.tsv
+2026-05-22 08:18:56,303 | INFO | Stage 11 noncoding input: results/run_2026_05_22_071545/processed/stage_10_noncoding_interpreted.tsv
+2026-05-22 08:18:56,303 | INFO | Reading Stage 11 coding input: results/run_2026_05_22_071545/processed/stage_09_coding_interpreted.tsv
+2026-05-22 08:18:57,157 | INFO | Reading Stage 11 noncoding input: results/run_2026_05_22_071545/processed/stage_10_noncoding_interpreted.tsv
+2026-05-22 08:19:19,906 | INFO | Stage 11 prioritized variants written to: results/run_2026_05_22_071545/processed/stage_11_prioritized_variants.tsv
+2026-05-22 08:19:19,906 | INFO | Stage 11 gene variant counts written to: results/run_2026_05_22_071545/processed/stage_11_gene_variant_counts.tsv
+2026-05-22 08:19:19,906 | INFO | Stage 11 summary JSON written to: results/run_2026_05_22_071545/processed/stage_11_summary.json
+2026-05-22 08:19:19,906 | INFO | Stage 11 input rows processed: 736468
+2026-05-22 08:19:19,906 | INFO | Stage 11 output rows written: 736468
+2026-05-22 08:19:19,906 | INFO | Stage 11 malformed/unassigned rows: 0
+2026-05-22 08:19:19,907 | INFO | Completed stage: stage_11_prioritize_variants
+2026-05-22 08:19:25,174 | INFO | Sidecar metrics emitted for stage_11_prioritize_variants
+2026-05-22 08:19:25,175 | INFO | Starting stage: stage_12_validate_variants
+2026-05-22 08:19:25,177 | INFO | Stage 12: preparing validation candidates.
+2026-05-22 08:19:25,178 | INFO | Stage 12 prioritized variants input: results/run_2026_05_22_071545/processed/stage_11_prioritized_variants.tsv
+2026-05-22 08:19:49,364 | INFO | Stage 12 validation candidates written to: results/run_2026_05_22_071545/processed/stage_12_validation_candidates.tsv
+2026-05-22 08:19:49,364 | INFO | Stage 12 summary JSON written to: results/run_2026_05_22_071545/processed/stage_12_summary.json
+2026-05-22 08:19:49,364 | INFO | Stage 12 input rows processed: 736468
+2026-05-22 08:19:49,364 | INFO | Stage 12 output rows written: 736468
+2026-05-22 08:19:49,364 | INFO | Stage 12 unrecognized priority rows: 0
+2026-05-22 08:19:49,364 | INFO | Completed stage: stage_12_validate_variants
+2026-05-22 08:19:54,963 | INFO | Sidecar metrics emitted for stage_12_validate_variants
+2026-05-22 08:19:54,969 | INFO | F3A sidecar flow substrate written to: results/run_2026_05_22_071545/metrics/figure_f3a_flow.tsv
+2026-05-22 08:19:54,969 | INFO | Starting stage: stage_13_write_summary
+2026-05-22 08:19:54,972 | INFO | Stage 13: writing final summary and manifest.
+2026-05-22 08:19:54,977 | INFO | Stage 13 final summary written to: results/run_2026_05_22_071545/processed/stage_13_final_summary.json
+2026-05-22 08:19:54,978 | INFO | Stage 13 artifact manifest written to: results/run_2026_05_22_071545/processed/stage_13_artifact_manifest.json
+2026-05-22 08:19:54,978 | INFO | Stage 13 run report written to: results/run_2026_05_22_071545/processed/stage_13_run_report.md
+2026-05-22 08:19:54,978 | INFO | Completed stage: stage_13_write_summary
+2026-05-22 08:19:54,980 | INFO | Runtime profile written to: results/run_2026_05_22_071545/metadata/runtime_profile.tsv
+2026-05-22 08:19:54,980 | INFO | Run metadata written to: results/run_2026_05_22_071545/metadata/run_metadata.json
+2026-05-22 08:19:54,981 | INFO | Legacy metadata written to: results/run_2026_05_22_071545/metadata.json
+2026-05-22 08:19:54,981 | INFO | Pipeline run finished.
+
+[metrics files]
+results/run_2026_05_22_071545/metrics/figure_f3a_flow.tsv
+results/run_2026_05_22_071545/metrics/stage_05_variant_calling_metrics.json
+results/run_2026_05_22_071545/metrics/stage_06_normalization_metrics.json
+results/run_2026_05_22_071545/metrics/stage_07_annotation_metrics.json
+results/run_2026_05_22_071545/metrics/stage_08_partition_metrics.json
+results/run_2026_05_22_071545/metrics/stage_09_coding_interpretation_metrics.json
+results/run_2026_05_22_071545/metrics/stage_10_noncoding_interpretation_metrics.json
+results/run_2026_05_22_071545/metrics/stage_11_prioritization_metrics.json
+results/run_2026_05_22_071545/metrics/stage_12_validation_metrics.json
+results/run_2026_05_22_071545/metrics/stage_metrics_long.tsv
+
+[metadata check]
+metric_name	metric_value	metric_unit	metric_status	metric_category	stage_id	stage_name	sample_id	run_id	assay_type	run_classification	source_artifact	source_column_or_rule	derivation_rule	generated_at	intended_figure_support
+raw_called_variants	738619	variants	available	f3_refinement_flow	stage_05	call_variants	ERR10619300	run_2026_05_22_071545	WES	full_pipeline	results/run_2026_05_22_071545/interim/ERR10619300_run_2026_05_22_071545.raw_variants.vcf	count non-header VCF records	count non-header VCF records	2026-05-22T11:57:00.988441+00:00	F3A
+
+stage_id	sample_id	run_id	assay_type	run_classification
+stage_05	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_06	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_07	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_07	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
+stage_08	ERR10619300	run_2026_05_22_071545	WES	full_pipeline
