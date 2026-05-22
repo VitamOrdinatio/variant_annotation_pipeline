@@ -11,11 +11,11 @@ def read_stage_metrics_long(metrics_path:Path)->list[dict[str,str]]:
     with path.open("r",encoding="utf-8",newline="") as handle:
         return list(csv.DictReader(handle,delimiter="\t"))
 
-def metric_lookup(rows:list[dict[str,str]])->dict[str,dict[str,str]]:
-    return {row["metric_name"]:row for row in rows}
+def metric_lookup(rows:list[dict[str,str]])->dict[tuple[str,str],dict[str,str]]:
+    return {(row["stage_id"],row["metric_name"]):row for row in rows}
 
-def _metric_value_int(lookup:dict[str,dict[str,str]],metric_name:str)->int:
-    row=lookup.get(metric_name)
+def _metric_value_int(lookup:dict[tuple[str,str],dict[str,str]],stage_id:str,metric_name:str)->int:
+    row=lookup.get((stage_id,metric_name))
     if row is None:
         raise KeyError(f"Required metric missing: {metric_name}")
     if row.get("metric_status")!="available":
@@ -27,19 +27,19 @@ def build_f3a_flow_table(metrics_long_path:Path,out_path:Path)->Path:
     lookup=metric_lookup(rows)
 
     edges=[
-        ("raw_called_variants","normalized_variants","raw_to_normalized"),
-        ("normalized_variants","annotated_variants_tsv","normalized_to_annotated"),
-        ("annotated_variants_tsv","partitioned_variants_total","annotated_to_partitioned"),
-        ("partitioned_variants_total","coding_candidates","partitioned_to_coding"),
-        ("partitioned_variants_total","splice_region_candidates","partitioned_to_splice_region"),
-        ("partitioned_variants_total","noncoding_candidates","partitioned_to_noncoding"),
-        ("partitioned_variants_total","qc_flagged","partitioned_to_qc_flagged"),
-        ("coding_candidates","coding_interpreted_rows","coding_to_interpreted"),
-        ("splice_region_candidates","coding_interpreted_rows","splice_to_coding_interpreted"),
-        ("noncoding_candidates","noncoding_interpreted_rows","noncoding_to_interpreted"),
-        ("coding_interpreted_rows","prioritized_variants_rows","coding_interpreted_to_prioritized"),
-        ("noncoding_interpreted_rows","prioritized_variants_rows","noncoding_interpreted_to_prioritized"),
-        ("prioritized_variants_rows","validation_candidates_rows","prioritized_to_validation"),
+        ("stage_05","raw_called_variants","stage_06","normalized_variants","raw_to_normalized"),
+        ("stage_06","normalized_variants","stage_07","annotated_variants_tsv","normalized_to_annotated"),
+        ("stage_07","annotated_variants_tsv","stage_08","partitioned_variants_total","annotated_to_partitioned"),
+        ("stage_08","partitioned_variants_total","stage_08","coding_candidates","partitioned_to_coding"),
+        ("stage_08","partitioned_variants_total","stage_08","splice_region_candidates","partitioned_to_splice_region"),
+        ("stage_08","partitioned_variants_total","stage_08","noncoding_candidates","partitioned_to_noncoding"),
+        ("stage_08","partitioned_variants_total","stage_08","qc_flagged","partitioned_to_qc_flagged"),
+        ("stage_08","coding_candidates","stage_09","coding_interpreted_rows","coding_to_interpreted"),
+        ("stage_08","splice_region_candidates","stage_09","coding_interpreted_rows","splice_to_coding_interpreted"),
+        ("stage_08","noncoding_candidates","stage_10","noncoding_interpreted_rows","noncoding_to_interpreted"),
+        ("stage_09","coding_interpreted_rows","stage_11","prioritized_variants_rows","coding_interpreted_to_prioritized"),
+        ("stage_10","noncoding_interpreted_rows","stage_11","prioritized_variants_rows","noncoding_interpreted_to_prioritized"),
+        ("stage_11","prioritized_variants_rows","stage_12","validation_candidates_rows","prioritized_to_validation"),
     ]
 
     out_path=Path(out_path)
@@ -61,16 +61,20 @@ def build_f3a_flow_table(metrics_long_path:Path,out_path:Path)->Path:
         writer=csv.DictWriter(handle,fieldnames=fieldnames,delimiter="\t")
         writer.writeheader()
 
-        for source_metric,target_metric,edge_label in edges:
-            source_value=_metric_value_int(lookup,source_metric)
-            target_value=_metric_value_int(lookup,target_metric)
+        for source_stage,source_metric,target_stage,target_metric,edge_label in edges:
+            try:
+                source_value=_metric_value_int(lookup,source_stage,source_metric)
+                target_value=_metric_value_int(lookup,target_stage,target_metric)
+            except (KeyError,ValueError):
+                continue
+
             edge_value=min(source_value,target_value)
 
             writer.writerow({
                 "source_metric":source_metric,
                 "target_metric":target_metric,
-                "source_node":source_metric,
-                "target_node":target_metric,
+                "source_node":f"{source_stage}:{source_metric}",
+                "target_node":f"{target_stage}:{target_metric}",
                 "edge_label":edge_label,
                 "source_value":source_value,
                 "target_value":target_value,
