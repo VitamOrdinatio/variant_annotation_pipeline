@@ -4,9 +4,22 @@ import json
 from pathlib import Path
 from typing import Any
 
-from src.metrics.metric_collectors import safe_count_tsv_rows, safe_count_vcf_records
+from src.metrics.metric_collectors import safe_count_tsv_rows, safe_count_vcf_records, safe_exact_string_distribution, safe_binned_population_frequency
 from src.metrics.metric_io import append_stage_metrics_long_tsv, ensure_metrics_dir, write_stage_metrics_json
 from src.metrics.metric_record import make_metric
+
+def _distribution_metrics(metric_prefix,distribution,unit,category,stage_id,stage_label,state,source_artifact,source_rule,figure_support):
+    metrics=[]
+    if not isinstance(distribution,dict):
+        metrics.append(_json_scalar_metric(f"{metric_prefix}__not_available",None,unit,category,stage_id,stage_label,state,source_artifact,source_rule,figure_support))
+        return metrics
+
+    for key,value in distribution.items():
+        safe_key=str(key).strip().replace(" ","_").replace("/","_").replace(";","_").replace(",","_")
+        if safe_key=="":
+            safe_key="missing"
+        metrics.append(_json_scalar_metric(f"{metric_prefix}__{safe_key}",value,unit,category,stage_id,stage_label,state,source_artifact,f"{source_rule}.{key}",figure_support))
+    return metrics
 
 def _json_scalar_metric(metric_name,value,unit,category,stage_id,stage_label,state,source_artifact,source_rule,figure_support):
     meta=_run_meta(state)
@@ -122,6 +135,69 @@ def emit_stage_08_metrics(config,paths,state,logger)->None:
             metrics.append(_count_metric(metric_name,path,"rows","stage08_artifact_row_count","stage_08","filter_and_partition",state,"count TSV data rows excluding header",[figure]))
 
     _emit("stage_08_filter_and_partition","stage_08","filter_and_partition","stage_08_partition_metrics.json",metrics,paths,state)
+
+def emit_stage_09_metrics(config,paths,state,logger)->None:
+    artifacts=state.get("artifacts",{})
+    stage09_path=artifacts.get("stage_09_coding_interpreted")
+    metrics=[]
+
+    if stage09_path:
+        metrics.append(_count_metric("coding_interpreted_rows",stage09_path,"rows","stage09_artifact_row_count","stage_09","interpret_coding",state,"count TSV data rows excluding header",["F3B","F4"]))
+
+        exact_columns=[
+            "consequence",
+            "clinical_significance",
+            "clinvar_significance",
+            "functional_impact",
+            "rarity_flag",
+        ]
+
+        for column in exact_columns:
+            status,distribution=safe_exact_string_distribution(Path(stage09_path),column)
+            if status=="available":
+                metrics.extend(_distribution_metrics(f"{column}_distribution",distribution,"rows","stage09_semantic_distribution","stage_09","interpret_coding",state,stage09_path,f"exact string counts for {column}",["F4"]))
+            else:
+                metrics.append(_json_scalar_metric(f"{column}_distribution_available",None,"status","metric_availability","stage_09","interpret_coding",state,stage09_path,f"exact string counts for {column}",["F4"]))
+
+        status,distribution=safe_binned_population_frequency(Path(stage09_path),"population_frequency")
+        if status=="available":
+            metrics.extend(_distribution_metrics("population_frequency_bin",distribution,"rows","stage09_semantic_distribution","stage_09","interpret_coding",state,stage09_path,"binned counts for population_frequency",["F4"]))
+        else:
+            metrics.append(_json_scalar_metric("population_frequency_bin_available",None,"status","metric_availability","stage_09","interpret_coding",state,stage09_path,"binned counts for population_frequency",["F4"]))
+
+    _emit("stage_09_interpret_coding","stage_09","interpret_coding","stage_09_coding_interpretation_metrics.json",metrics,paths,state)
+
+def emit_stage_10_metrics(config,paths,state,logger)->None:
+    artifacts=state.get("artifacts",{})
+    stage10_path=artifacts.get("stage_10_noncoding_interpreted")
+    metrics=[]
+
+    if stage10_path:
+        metrics.append(_count_metric("noncoding_interpreted_rows",stage10_path,"rows","stage10_artifact_row_count","stage_10","interpret_noncoding",state,"count TSV data rows excluding header",["F3B","F4"]))
+
+        exact_columns=[
+            "consequence",
+            "clinical_significance",
+            "clinvar_significance",
+            "rarity_flag",
+            "variant_context",
+            "noncoding_functional_context",
+        ]
+
+        for column in exact_columns:
+            status,distribution=safe_exact_string_distribution(Path(stage10_path),column)
+            if status=="available":
+                metrics.extend(_distribution_metrics(f"{column}_distribution",distribution,"rows","stage10_semantic_distribution","stage_10","interpret_noncoding",state,stage10_path,f"exact string counts for {column}",["F4"]))
+            else:
+                metrics.append(_json_scalar_metric(f"{column}_distribution_available",None,"status","metric_availability","stage_10","interpret_noncoding",state,stage10_path,f"exact string counts for {column}",["F4"]))
+
+        status,distribution=safe_binned_population_frequency(Path(stage10_path),"population_frequency")
+        if status=="available":
+            metrics.extend(_distribution_metrics("population_frequency_bin",distribution,"rows","stage10_semantic_distribution","stage_10","interpret_noncoding",state,stage10_path,"binned counts for population_frequency",["F4"]))
+        else:
+            metrics.append(_json_scalar_metric("population_frequency_bin_available",None,"status","metric_availability","stage_10","interpret_noncoding",state,stage10_path,"binned counts for population_frequency",["F4"]))
+
+    _emit("stage_10_interpret_noncoding","stage_10","interpret_noncoding","stage_10_noncoding_interpretation_metrics.json",metrics,paths,state)
 
 def emit_stage_11_metrics(config,paths,state,logger)->None:
     artifacts=state.get("artifacts",{})
@@ -332,6 +408,8 @@ def emit_metrics_for_stage(stage_name:str,config:dict[str,Any],paths:dict[str,An
         "stage_06_normalize_vcf":emit_stage_06_metrics,
         "stage_07_annotate_variants":emit_stage_07_metrics,
         "stage_08_filter_and_partition":emit_stage_08_metrics,
+        "stage_09_interpret_coding":emit_stage_09_metrics,
+        "stage_10_interpret_noncoding":emit_stage_10_metrics,
         "stage_11_prioritize_variants":emit_stage_11_metrics,
         "stage_12_validate_variants":emit_stage_12_metrics,
     }

@@ -149,6 +149,125 @@ def test_stage_08_sidecar_metric_emitter(tmp_path):
     assert "variants_by_context__coding" in long_text
     assert "rdgp_gene_evidence_seed_rows" in long_text
 
+def test_stage_09_semantic_distribution_metrics(tmp_path):
+    run_dir=tmp_path/"run_test"
+    processed=run_dir/"processed"
+    metrics=run_dir/"metrics"
+
+    for path in [processed,metrics]:
+        path.mkdir(parents=True,exist_ok=True)
+
+    stage09=processed/"stage_09_coding_interpreted.tsv"
+
+    stage09.write_text(
+        "variant_id\tconsequence\tclinical_significance\tclinvar_significance\tfunctional_impact\trarity_flag\tpopulation_frequency\n"
+        "v1\tmissense_variant\tpathogenic\tpathogenic\tloss_of_function\trare\t0.001\n"
+        "v2\tsynonymous_variant\tbenign\tbenign\tneutral\tcommon\t0.12\n"
+        "v3\tmissense_variant\tmissing\tmissing\tmissense_or_protein_altering\trare\t0.02\n",
+        encoding="utf-8",
+    )
+
+    paths={"run_dir":str(run_dir),"metrics_dir":str(metrics)}
+
+    state={
+        "run":{"run_id":"run_test","execution_mode":"fixture"},
+        "sample":{"sample_id":"sample","assay_type":"WES"},
+        "artifacts":{
+            "stage_09_coding_interpreted":str(stage09),
+        },
+    }
+
+    logger=logging.getLogger("metric_stage09_test")
+    logger.handlers.clear()
+    logger.addHandler(logging.NullHandler())
+
+    emit_metrics_for_stage(
+        "stage_09_interpret_coding",
+        {},
+        paths,
+        state,
+        logger,
+    )
+
+    assert (metrics/"stage_09_coding_interpretation_metrics.json").exists()
+
+    long_text=(metrics/"stage_metrics_long.tsv").read_text(encoding="utf-8")
+
+    assert "consequence_distribution__missense_variant" in long_text
+    assert "consequence_distribution__synonymous_variant" in long_text
+
+    assert "clinical_significance_distribution__pathogenic" in long_text
+    assert "clinical_significance_distribution__benign" in long_text
+
+    assert "functional_impact_distribution__loss_of_function" in long_text
+
+    assert "rarity_flag_distribution__rare" in long_text
+    assert "rarity_flag_distribution__common" in long_text
+
+    assert "population_frequency_bin__rare" in long_text
+    assert "population_frequency_bin__low_frequency" in long_text
+    assert "population_frequency_bin__common" in long_text
+
+def test_stage_10_semantic_distribution_metrics(tmp_path):
+    run_dir=tmp_path/"run_test"
+    processed=run_dir/"processed"
+    metrics=run_dir/"metrics"
+
+    for path in [processed,metrics]:
+        path.mkdir(parents=True,exist_ok=True)
+
+    stage10=processed/"stage_10_noncoding_interpreted.tsv"
+
+    stage10.write_text(
+        "variant_id\tconsequence\tclinical_significance\tclinvar_significance\trarity_flag\tvariant_context\tnoncoding_functional_context\tpopulation_frequency\n"
+        "v1\tintron_variant\tmissing\tmissing\trare\tintronic\ttranscript_associated\t0.001\n"
+        "v2\tregulatory_region_variant\tbenign\tbenign\tcommon\tregulatory\tregulatory\t0.15\n"
+        "v3\tintergenic_variant\tmissing\tmissing\tlow_frequency\tintergenic\tintergenic\t0.03\n",
+        encoding="utf-8",
+    )
+
+    paths={"run_dir":str(run_dir),"metrics_dir":str(metrics)}
+
+    state={
+        "run":{"run_id":"run_test","execution_mode":"fixture"},
+        "sample":{"sample_id":"sample","assay_type":"WES"},
+        "artifacts":{
+            "stage_10_noncoding_interpreted":str(stage10),
+        },
+    }
+
+    logger=logging.getLogger("metric_stage10_test")
+    logger.handlers.clear()
+    logger.addHandler(logging.NullHandler())
+
+    emit_metrics_for_stage(
+        "stage_10_interpret_noncoding",
+        {},
+        paths,
+        state,
+        logger,
+    )
+
+    assert (metrics/"stage_10_noncoding_interpretation_metrics.json").exists()
+
+    long_text=(metrics/"stage_metrics_long.tsv").read_text(encoding="utf-8")
+
+    assert "consequence_distribution__intron_variant" in long_text
+    assert "consequence_distribution__regulatory_region_variant" in long_text
+    assert "consequence_distribution__intergenic_variant" in long_text
+
+    assert "variant_context_distribution__intronic" in long_text
+    assert "variant_context_distribution__regulatory" in long_text
+    assert "variant_context_distribution__intergenic" in long_text
+
+    assert "noncoding_functional_context_distribution__transcript_associated" in long_text
+    assert "noncoding_functional_context_distribution__regulatory" in long_text
+    assert "noncoding_functional_context_distribution__intergenic" in long_text
+
+    assert "population_frequency_bin__rare" in long_text
+    assert "population_frequency_bin__low_frequency" in long_text
+    assert "population_frequency_bin__common" in long_text
+
 def test_stage_11_sidecar_metric_emitter(tmp_path):
     run_dir=tmp_path/"run_test"
     processed=run_dir/"processed"
