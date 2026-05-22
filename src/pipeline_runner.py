@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
+from src.metrics.metric_aggregation import build_f3a_flow_table
 
 STAGE_ORDER = [
     "stage_01_load_data",
@@ -422,6 +423,21 @@ def write_stage_summary(stage_name: str, stage_data: dict[str, Any], stage_summa
         handle.write(stable_json_dumps(summary))
 
 
+def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], logger) -> None:
+    if stage_name!="stage_12_validate_variants":
+        return
+
+    metrics_dir=Path(run_paths["metrics_dir"])
+    metrics_long=metrics_dir/"stage_metrics_long.tsv"
+    f3a_out=metrics_dir/"figure_f3a_flow.tsv"
+
+    try:
+        build_f3a_flow_table(metrics_long,f3a_out)
+        logger.info(f"F3A sidecar flow substrate written to: {f3a_out}")
+    except Exception as exc:
+        logger.warning(f"F3A sidecar flow substrate generation failed: {exc}")
+
+
 def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:
     fieldnames = ["stage", "status", "start_time", "end_time", "elapsed_seconds"]
     output_path = Path(runtime_profile_path)
@@ -747,6 +763,11 @@ def run_pipeline(
                 config=config,
                 paths=run_paths,
                 state=state,
+                logger=logger,
+            )            
+            build_sidecar_figure_substrates(
+                stage_name=stage_name,
+                run_paths=run_paths,
                 logger=logger,
             )            
             if config["runtime"]["record_tool_versions"]:
