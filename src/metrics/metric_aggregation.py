@@ -83,3 +83,68 @@ def build_f3a_flow_table(metrics_long_path:Path,out_path:Path)->Path:
             })
 
     return out_path
+
+def build_f3a_flow_table_v2(metrics_long_path,output_path):
+    import csv,math
+    from datetime import datetime,timezone
+    from pathlib import Path
+
+    metrics_long_path=Path(metrics_long_path)
+    output_path=Path(output_path)
+    rows=read_stage_metrics_long(metrics_long_path)
+    lookup={(r["stage_id"],r["metric_name"]):r for r in rows}
+
+    edges=[
+        (1,"stage_05","Raw variants","raw_called_variants","stage_06","Normalized variants","normalized_variants",""),
+        (2,"stage_06","Normalized variants","normalized_variants","stage_07","Annotated variants","annotated_variants_tsv",""),
+        (3,"stage_07","Annotated variants","annotated_variants_tsv","stage_08","Partitioned evidence","partitioned_variants_total","stage08_overlap_compressed"),
+        (4,"stage_08","Partitioned evidence","partitioned_variants_total","stage_11","Prioritized evidence","prioritized_variants_rows","stage08_to_stage11_semantic_compression"),
+        (5,"stage_11","Prioritized evidence","prioritized_variants_rows","stage_12","Validation-ready evidence","validation_candidates_rows","validation_ready_not_clinically_validated"),
+    ]
+
+    fields=[
+        "figure_id","run_id","sample_id","assay_type","run_classification",
+        "edge_order","source_stage_id","source_label","target_stage_id","target_label",
+        "source_metric_name","target_metric_name",
+        "source_metric_value","target_metric_value","edge_metric_value",
+        "scaling_mode","scaling_value","scaling_rule",
+        "lineage_role","semantic_caveat","source_artifact","generated_at"
+    ]
+
+    out=[]
+    generated_at=datetime.now(timezone.utc).isoformat()
+    for edge_order,src_stage,src_label,src_metric,tgt_stage,tgt_label,tgt_metric,caveat in edges:
+        src=lookup[(src_stage,src_metric)]
+        tgt=lookup[(tgt_stage,tgt_metric)]
+        edge_value=int(float(tgt["metric_value"]))
+        out.append({
+            "figure_id":"F3A",
+            "run_id":tgt.get("run_id","unknown"),
+            "sample_id":tgt.get("sample_id","unknown"),
+            "assay_type":tgt.get("assay_type","unknown"),
+            "run_classification":tgt.get("run_classification","unknown"),
+            "edge_order":edge_order,
+            "source_stage_id":src_stage,
+            "source_label":src_label,
+            "target_stage_id":tgt_stage,
+            "target_label":tgt_label,
+            "source_metric_name":src_metric,
+            "target_metric_name":tgt_metric,
+            "source_metric_value":int(float(src["metric_value"])),
+            "target_metric_value":int(float(tgt["metric_value"])),
+            "edge_metric_value":edge_value,
+            "scaling_mode":"log10",
+            "scaling_value":math.log10(edge_value+1),
+            "scaling_rule":"log10(edge_metric_value + 1)",
+            "lineage_role":"coarse_refinement_backbone",
+            "semantic_caveat":caveat if caveat else "none",
+            "source_artifact":str(metrics_long_path),
+            "generated_at":generated_at,
+        })
+
+    output_path.parent.mkdir(parents=True,exist_ok=True)
+    with output_path.open("w",encoding="utf-8",newline="") as f:
+        w=csv.DictWriter(f,fieldnames=fields,delimiter="\t",lineterminator="\n")
+        w.writeheader()
+        w.writerows(out)
+    return output_path

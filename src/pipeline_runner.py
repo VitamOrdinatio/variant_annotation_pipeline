@@ -30,7 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
-from src.metrics.metric_aggregation import build_f3a_flow_table
+from src.metrics.metric_aggregation import build_f3a_flow_table, build_f3a_flow_table_v2
 
 STAGE_ORDER = [
     "stage_01_load_data",
@@ -430,10 +430,13 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
     metrics_dir=Path(run_paths["metrics_dir"])
     metrics_long=metrics_dir/"stage_metrics_long.tsv"
     f3a_out=metrics_dir/"figure_f3a_flow.tsv"
+    f3a_v2_out=metrics_dir/"figure_f3a_flow_v2.tsv"    
 
     try:
         build_f3a_flow_table(metrics_long,f3a_out)
         logger.info(f"F3A sidecar flow substrate written to: {f3a_out}")
+        build_f3a_flow_table_v2(metrics_long,f3a_v2_out)
+        logger.info(f"F3A v2 sidecar flow substrate written to: {f3a_v2_out}")
     except Exception as exc:
         logger.warning(f"F3A sidecar flow substrate generation failed: {exc}")
 
