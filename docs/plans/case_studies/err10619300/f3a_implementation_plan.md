@@ -88,6 +88,18 @@ Supporting reconciliation metrics:
 
 ---
 
+# Called Variants To Validation-Ready Candidate Variants
+
+| Node                                 | Canonical metric                                                  |
+| ------------------------------------ | ----------------------------------------------------------------- |
+| Called variants                      | raw_called_variants                                               |
+| Annotated evidence                   | annotated_variants_tsv                                            |
+| Coding/splice interpretable evidence | coding_interpreted_rows + splice_region_candidates                |
+| Prioritized candidates               | high_priority_candidate_count + moderate_priority_candidate_count |
+| Validation-ready candidates          | counts_by_validation_required__True                               |
+
+---
+
 # Allowed Transformations
 
 Allowed:

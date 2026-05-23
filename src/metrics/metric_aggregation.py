@@ -84,6 +84,13 @@ def build_f3a_flow_table(metrics_long_path:Path,out_path:Path)->Path:
 
     return out_path
 
+def _metric_value_sum(lookup,stage_metric_pairs):
+    total=0
+    for stage_name,metric_name in stage_metric_pairs:
+        row=lookup[(stage_name,metric_name)]
+        total+=int(float(row["metric_value"]))
+    return total
+
 def build_f3a_flow_table_v2(metrics_long_path,output_path):
     import csv,math
     from datetime import datetime,timezone
@@ -95,11 +102,46 @@ def build_f3a_flow_table_v2(metrics_long_path,output_path):
     lookup={(r["stage_id"],r["metric_name"]):r for r in rows}
 
     edges=[
-        (1,"stage_05","Raw variants","raw_called_variants","stage_06","Normalized variants","normalized_variants",""),
-        (2,"stage_06","Normalized variants","normalized_variants","stage_07","Annotated variants","annotated_variants_tsv",""),
-        (3,"stage_07","Annotated variants","annotated_variants_tsv","stage_08","Partitioned evidence","partitioned_variants_total","stage08_overlap_compressed"),
-        (4,"stage_08","Partitioned evidence","partitioned_variants_total","stage_11","Prioritized evidence","prioritized_variants_rows","stage08_to_stage11_semantic_compression"),
-        (5,"stage_11","Prioritized evidence","prioritized_variants_rows","stage_12","Validation-ready evidence","validation_candidates_rows","validation_ready_not_clinically_validated"),
+        (
+            1,
+            "stage_05",
+            "Called variants",
+            "raw_called_variants",
+            "stage_07",
+            "Annotated evidence",
+            "annotated_variants_tsv",
+            "annotation_enables_interpretability"
+        ),
+        (
+            2,
+            "stage_07",
+            "Annotated evidence",
+            "annotated_variants_tsv",
+            "stage_11",
+            "Rare interpretable evidence",
+            "counts_by_source_interpretation_label__lof_or_missense_rare",
+            "rare_interpretable_evidence_includes_coding_and_regulatory_transcript_rare"
+        ),
+        (
+            3,
+            "stage_11",
+            "Rare interpretable evidence",
+            "counts_by_source_interpretation_label__lof_or_missense_rare",
+            "stage_11",
+            "Prioritized candidates",
+            "high_priority_candidate_count",
+            "prioritization_not_diagnosis"
+        ),
+        (
+            4,
+            "stage_11",
+            "Prioritized candidates",
+            "high_priority_candidate_count",
+            "stage_12",
+            "Validation-ready evidence",
+            "counts_by_validation_required__True",
+            "validation_ready_not_clinically_validated"
+        ),
     ]
 
     fields=[
@@ -117,6 +159,28 @@ def build_f3a_flow_table_v2(metrics_long_path,output_path):
         src=lookup[(src_stage,src_metric)]
         tgt=lookup[(tgt_stage,tgt_metric)]
         edge_value=int(float(tgt["metric_value"]))
+
+        if tgt_label=="Rare interpretable evidence":
+            edge_value=_metric_value_sum(
+                lookup,
+                [
+                    ("stage_11","counts_by_source_interpretation_label__lof_rare_clinically_supported"),
+                    ("stage_11","counts_by_source_interpretation_label__lof_or_missense_rare"),
+                    ("stage_11","counts_by_source_interpretation_label__regulatory_or_transcript_rare"),
+                ]
+            )
+
+        if tgt_metric=="high_priority_candidate_count":
+            moderate=_metric_value_sum(
+                lookup,
+                [("stage_11","moderate_priority_candidate_count")]
+            )
+            edge_value+=moderate
+
+        if tgt_metric=="counts_by_validation_required__True":
+            edge_value=int(float(
+                lookup[("stage_12","counts_by_validation_required__True")]["metric_value"]
+            ))
         out.append({
             "figure_id":"F3A",
             "run_id":tgt.get("run_id","unknown"),
@@ -131,7 +195,7 @@ def build_f3a_flow_table_v2(metrics_long_path,output_path):
             "source_metric_name":src_metric,
             "target_metric_name":tgt_metric,
             "source_metric_value":int(float(src["metric_value"])),
-            "target_metric_value":int(float(tgt["metric_value"])),
+            "target_metric_value":edge_value,
             "edge_metric_value":edge_value,
             "scaling_mode":"log10",
             "scaling_value":math.log10(edge_value+1),

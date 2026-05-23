@@ -1,8 +1,8 @@
-case_id: ERR10619281
-case_dir: docs/case_studies/err10619281
-figure_title: ERR10619281 Deterministic Evidence Refinement Flow
-comparison_label: Provenance patch WES rerun
-output_prefix: err10619281_f3_deterministic_evidence_refinement_flow
+case_id: ERR10619300
+case_dir: docs/case_studies/err10619300
+figure_title: ERR10619300 Deterministic Evidence Refinement Flow
+comparison_label: Same-patch WES rerun
+output_prefix: err10619300_f3_deterministic_evidence_refinement_flow
 representative_run: run_b
 
 flow_layers:
