@@ -229,23 +229,86 @@ def build_f3b_semantic_branching_table(metrics_long_path,output_path):
         return int(float(row["metric_value"])),row
 
     branches=[
-        ("coding_rare_interpretable","Coding rare interpretable evidence","stage_11","counts_by_source_interpretation_label__lof_or_missense_rare","coding evidence retained after semantic interpretation"),
-        ("regulatory_transcript_rare","Regulatory/transcript rare evidence","stage_11","counts_by_source_interpretation_label__regulatory_or_transcript_rare","noncoding evidence retained as biologically meaningful substrate"),
-        ("common_low_support","Common or low-support evidence","stage_11","counts_by_source_interpretation_label__coding_common_or_low_support","coding common or low-support evidence retained but deprioritized"),
-        ("noncoding_common_low_support","Noncoding common or low-support evidence","stage_11","counts_by_source_interpretation_label__noncoding_common_or_low_support","noncoding common or low-support evidence retained but deprioritized"),
-        ("uninterpretable_or_qc_limited","Uninterpretable or QC-limited evidence","stage_11","counts_by_source_interpretation_label__coding_uninterpretable","coding uninterpretable evidence retained with limitations"),
-        ("noncoding_uninterpretable","Noncoding uninterpretable evidence","stage_11","counts_by_source_interpretation_label__noncoding_uninterpretable","noncoding uninterpretable evidence retained with limitations"),
+        (
+            "coding_rare_interpretable",
+            "Coding rare interpretable evidence",
+            "rare_interpretable",
+            "coding",
+            "stage_11",
+            "counts_by_source_interpretation_label__lof_or_missense_rare",
+            "coding evidence retained after semantic interpretation"
+        ),
+
+        (
+            "regulatory_transcript_rare",
+            "Regulatory/transcript rare evidence",
+            "rare_interpretable",
+            "noncoding",
+            "stage_11",
+            "counts_by_source_interpretation_label__regulatory_or_transcript_rare",
+            "noncoding evidence retained as biologically meaningful substrate"
+        ),
+
+        (
+            "common_low_support",
+            "Common or low-support evidence",
+            "common_low_support",
+            "coding",
+            "stage_11",
+            "counts_by_source_interpretation_label__coding_common_or_low_support",
+            "coding common or low-support evidence retained but deprioritized"
+        ),
+
+        (
+            "noncoding_common_low_support",
+            "Noncoding common or low-support evidence",
+            "common_low_support",
+            "noncoding",
+            "stage_11",
+            "counts_by_source_interpretation_label__noncoding_common_or_low_support",
+            "noncoding common or low-support evidence retained but deprioritized"
+        ),
+
+        (
+            "coding_uninterpretable",
+            "Coding uninterpretable evidence",
+            "uninterpretable",
+            "coding",
+            "stage_11",
+            "counts_by_source_interpretation_label__coding_uninterpretable",
+            "coding uninterpretable evidence retained with limitations"
+        ),
+
+        (
+            "noncoding_uninterpretable",
+            "Noncoding uninterpretable evidence",
+            "uninterpretable",
+            "noncoding",
+            "stage_11",
+            "counts_by_source_interpretation_label__noncoding_uninterpretable",
+            "noncoding uninterpretable evidence retained with limitations"
+        ),
     ]
 
     fields=[
         "figure_id","run_id","sample_id","assay_type","run_classification",
-        "branch_order","branch_id","branch_label","stage_id","metric_name",
+        "branch_order","branch_id","branch_label",
+        "semantic_group","branch_class",
+        "stage_id","metric_name",
         "metric_value","semantic_role","semantic_caveat",
         "source_artifact","generated_at"
     ]
 
     out=[]
-    for i,(branch_id,label,stage,metric,caveat) in enumerate(branches,1):
+    for i,(
+        branch_id,
+        label,
+        semantic_group,
+        branch_class,
+        stage,
+        metric,
+        caveat
+    ) in enumerate(branches,1):    
         value,row=get(stage,metric)
         out.append({
             "figure_id":"F3B",
@@ -256,6 +319,8 @@ def build_f3b_semantic_branching_table(metrics_long_path,output_path):
             "branch_order":i,
             "branch_id":branch_id,
             "branch_label":label,
+            "semantic_group":semantic_group,
+            "branch_class":branch_class,            
             "stage_id":stage,
             "metric_name":metric,
             "metric_value":value,
