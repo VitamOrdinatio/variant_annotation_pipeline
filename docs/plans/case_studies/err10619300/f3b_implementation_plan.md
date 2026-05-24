@@ -43,8 +43,16 @@ The pipeline performs opaque ranking magic.
 
 Primary telemetry substrate:
 
-```text
-metrics/stage_metrics_long.tsv
+`metrics/figure_f3b_semantic_branching.tsv`
+
+This TSV is generated deterministically from:
+
+`metrics/stage_metrics_long.tsv`
+
+via:
+
+```python
+build_f3b_semantic_branching_table()
 ```
 
 Supporting telemetry JSONs:
@@ -178,7 +186,7 @@ where:
 Recommended architecture:
 
 ```text
-multi-panel semantic observability system
+hybrid semantic topology system
 ```
 
 NOT:
@@ -187,15 +195,15 @@ NOT:
 mega-Sankey topology graph
 ```
 
-Recommended panel domains:
+Recommended semantic domains:
 
-| Panel | Domain |
+| Domain | Purpose |
 |---|---|
-| F3B-A | Stage 08 partition topology |
-| F3B-B | Coding semantic decomposition |
-| F3B-C | Noncoding semantic decomposition |
-| F3B-D | Prioritization topology |
-| F3B-E | Validation topology |
+| Rare interpretable evidence | biologically meaningful retained substrate |
+| Regulatory/transcript rare evidence | preserved noncoding semantic continuity |
+| Common or low-support evidence | deprioritized but preserved substrate |
+| Uninterpretable evidence | retained evidence with interpretive limitations |
+| Validation-ready evidence | downstream routing topology |
 
 Recommended visualization structures:
 
@@ -210,7 +218,9 @@ Avoid:
 - dense crossing flows
 - artificial lineage weaving
 - network dramatization
-- exclusivity-heavy Sankeys
+- fabricated semantic exclusivity
+- destructive evidence collapse
+- fake survivorship topology
 
 ---
 
@@ -305,6 +315,20 @@ Provenance outputs should include:
 - ordering rules
 - panel mappings
 - ontology compression notes
+
+---
+
+# Canonical F3B Schema
+
+Canonical substrate:
+
+`metrics/figure_f3b_semantic_branching.tsv`
+
+Canonical schema reference:
+
+`F3B_SEMANTIC_BRANCHING_SCHEMA.md`
+
+Renderer implementations must consume the canonical schema rather than reconstructing semantic topology directly from raw telemetry metrics.
 
 ---
 
