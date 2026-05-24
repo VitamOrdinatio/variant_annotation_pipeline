@@ -1,0 +1,9 @@
+case_id: ERR10619300
+case_dir: docs/case_studies/err10619300
+figure_title: ERR10619300 Semantic Evidence Branching
+comparison_label: Canonical telemetry-enabled WES run
+output_prefix: err10619300_f3b_semantic_branching
+f3b_semantic_branching_path: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f3b_semantic_branching.tsv
+scaling_mode: sqrt
+min_width: 1.2
+max_width: 8.0
