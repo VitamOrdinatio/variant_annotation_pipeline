@@ -30,7 +30,11 @@ from pathlib import Path
 from typing import Any
 
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
-from src.metrics.metric_aggregation import build_f3a_flow_table, build_f3a_flow_table_v2
+from src.metrics.metric_aggregation import (
+    build_f3a_flow_table,
+    build_f3a_flow_table_v2,
+    build_f3b_semantic_branching_table,
+)
 
 STAGE_ORDER = [
     "stage_01_load_data",
@@ -431,12 +435,15 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
     metrics_long=metrics_dir/"stage_metrics_long.tsv"
     f3a_out=metrics_dir/"figure_f3a_flow.tsv"
     f3a_v2_out=metrics_dir/"figure_f3a_flow_v2.tsv"    
+    f3b_out=metrics_dir/"figure_f3b_semantic_branching.tsv"
 
     try:
         build_f3a_flow_table(metrics_long,f3a_out)
         logger.info(f"F3A sidecar flow substrate written to: {f3a_out}")
         build_f3a_flow_table_v2(metrics_long,f3a_v2_out)
         logger.info(f"F3A v2 sidecar flow substrate written to: {f3a_v2_out}")
+        build_f3b_semantic_branching_table(metrics_long,f3b_out)
+        logger.info(f"F3B semantic branching substrate written to: {f3b_out}")
     except Exception as exc:
         logger.warning(f"F3A sidecar flow substrate generation failed: {exc}")
 
