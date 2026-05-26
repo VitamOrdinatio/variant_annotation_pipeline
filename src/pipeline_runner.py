@@ -34,6 +34,8 @@ from src.metrics.metric_aggregation import (
     build_f3a_flow_table,
     build_f3a_flow_table_v2,
     build_f3b_semantic_branching_table,
+    build_f4a_coding_semantic_composition_table,
+    build_f4b_noncoding_semantic_composition_table,
 )
 
 STAGE_ORDER = [
@@ -433,19 +435,34 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
 
     metrics_dir=Path(run_paths["metrics_dir"])
     metrics_long=metrics_dir/"stage_metrics_long.tsv"
+
     f3a_out=metrics_dir/"figure_f3a_flow.tsv"
-    f3a_v2_out=metrics_dir/"figure_f3a_flow_v2.tsv"    
+    f3a_v2_out=metrics_dir/"figure_f3a_flow_v2.tsv"
     f3b_out=metrics_dir/"figure_f3b_semantic_branching.tsv"
+
+    stage09_json=metrics_dir/"stage_09_coding_interpretation_metrics.json"
+    stage10_json=metrics_dir/"stage_10_noncoding_interpretation_metrics.json"
+    f4a_out=metrics_dir/"figure_f4a_coding_semantic_composition.tsv"
+    f4b_out=metrics_dir/"figure_f4b_noncoding_semantic_composition.tsv"
 
     try:
         build_f3a_flow_table(metrics_long,f3a_out)
         logger.info(f"F3A sidecar flow substrate written to: {f3a_out}")
+
         build_f3a_flow_table_v2(metrics_long,f3a_v2_out)
         logger.info(f"F3A v2 sidecar flow substrate written to: {f3a_v2_out}")
+
         build_f3b_semantic_branching_table(metrics_long,f3b_out)
         logger.info(f"F3B semantic branching substrate written to: {f3b_out}")
+
+        build_f4a_coding_semantic_composition_table(stage09_json,f4a_out)
+        logger.info(f"F4A coding semantic composition substrate written to: {f4a_out}")
+
+        build_f4b_noncoding_semantic_composition_table(stage10_json,f4b_out)
+        logger.info(f"F4B noncoding semantic composition substrate written to: {f4b_out}")
+
     except Exception as exc:
-        logger.warning(f"F3A sidecar flow substrate generation failed: {exc}")
+        logger.warning(f"Sidecar figure substrate generation failed: {exc}")
 
 
 def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:

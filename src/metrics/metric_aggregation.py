@@ -3,6 +3,8 @@ from __future__ import annotations
 import csv
 from pathlib import Path
 from typing import Any
+import json
+from datetime import datetime,timezone
 
 def read_stage_metrics_long(metrics_path:Path)->list[dict[str,str]]:
     path=Path(metrics_path)
@@ -336,3 +338,128 @@ def build_f3b_semantic_branching_table(metrics_long_path,output_path):
         w.writeheader()
         w.writerows(out)
     return output_path
+
+def _read_metrics_json(metrics_json_path:Path)->list[dict[str,Any]]:
+    path=Path(metrics_json_path)
+    if not path.exists():
+        raise FileNotFoundError(f"Metrics JSON not found: {path}")
+
+    with path.open("r",encoding="utf-8") as handle:
+        payload=json.load(handle)
+
+    metrics=payload.get("metrics")
+    if not isinstance(metrics,list):
+        raise ValueError(f"Expected top-level 'metrics' list in: {path}")
+
+    return metrics
+
+def _build_f4_semantic_composition_table(
+    *,
+    figure_id:str,
+    metrics_json_path:Path,
+    output_path:Path,
+    allowed_prefixes:dict[str,str],
+)->Path:
+
+    metrics=_read_metrics_json(metrics_json_path)
+    generated_at=datetime.now(timezone.utc).isoformat()
+
+    fields=[
+        "figure_id",
+        "run_id",
+        "sample_id",
+        "assay_type",
+        "run_classification",
+        "stage_id",
+        "stage_name",
+        "semantic_domain",
+        "metric_name",
+        "metric_value",
+        "metric_category",
+        "source_artifact",
+        "source_column_or_rule",
+        "generated_at",
+    ]
+
+    rows=[]
+
+    for metric in metrics:
+
+        metric_name=metric.get("metric_name","")
+        matched_domain=None
+
+        for semantic_domain,prefix in allowed_prefixes.items():
+            if metric_name.startswith(prefix):
+                matched_domain=semantic_domain
+                break
+
+        if matched_domain is None:
+            continue
+
+        rows.append({
+            "figure_id":figure_id,
+            "run_id":metric.get("run_id","unknown"),
+            "sample_id":metric.get("sample_id","unknown"),
+            "assay_type":metric.get("assay_type","unknown"),
+            "run_classification":metric.get("run_classification","unknown"),
+            "stage_id":metric.get("stage_id","unknown"),
+            "stage_name":metric.get("stage_name","unknown"),
+            "semantic_domain":matched_domain,
+            "metric_name":metric_name,
+            "metric_value":metric.get("metric_value","0"),
+            "metric_category":metric.get("metric_category","unknown"),
+            "source_artifact":str(metrics_json_path),
+            "source_column_or_rule":"metric_name prefix projection",
+            "generated_at":generated_at,
+        })
+
+    output_path=Path(output_path)
+    output_path.parent.mkdir(parents=True,exist_ok=True)
+
+    with output_path.open("w",encoding="utf-8",newline="") as handle:
+        writer=csv.DictWriter(
+            handle,
+            fieldnames=fields,
+            delimiter="\t",
+            lineterminator="\n",
+        )
+        writer.writeheader()
+        writer.writerows(rows)
+
+    return output_path
+
+def build_f4a_coding_semantic_composition_table(
+    metrics_json_path:Path,
+    output_path:Path,
+)->Path:
+
+    allowed_prefixes={
+        "consequence":"consequence_distribution__",
+        "clinvar_significance":"clinvar_significance_distribution__",
+        "population_frequency_bin":"population_frequency_bin__",
+    }
+
+    return _build_f4_semantic_composition_table(
+        figure_id="F4A",
+        metrics_json_path=metrics_json_path,
+        output_path=output_path,
+        allowed_prefixes=allowed_prefixes,
+    )
+
+def build_f4b_noncoding_semantic_composition_table(
+    metrics_json_path:Path,
+    output_path:Path,
+)->Path:
+
+    allowed_prefixes={
+        "consequence":"consequence_distribution__",
+        "clinvar_significance":"clinvar_significance_distribution__",
+        "population_frequency_bin":"population_frequency_bin__",
+    }
+
+    return _build_f4_semantic_composition_table(
+        figure_id="F4B",
+        metrics_json_path=metrics_json_path,
+        output_path=output_path,
+        allowed_prefixes=allowed_prefixes,
+    )
