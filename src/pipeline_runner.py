@@ -35,7 +35,9 @@ from src.metrics.metric_aggregation import (
     build_f3a_flow_table_v2,
     build_f3b_semantic_branching_table,
     build_f4a_coding_semantic_composition_table,
+    build_f4a_coding_semantic_composition_collapsed_table,
     build_f4b_noncoding_semantic_composition_table,
+    build_f4b_noncoding_semantic_composition_collapsed_table,
 )
 
 STAGE_ORDER = [
@@ -442,8 +444,13 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
 
     stage09_json=metrics_dir/"stage_09_coding_interpretation_metrics.json"
     stage10_json=metrics_dir/"stage_10_noncoding_interpretation_metrics.json"
+
     f4a_out=metrics_dir/"figure_f4a_coding_semantic_composition.tsv"
+    f4a_collapsed_out=metrics_dir/"figure_f4a_coding_semantic_composition_collapsed.tsv"
+
     f4b_out=metrics_dir/"figure_f4b_noncoding_semantic_composition.tsv"
+    f4b_collapsed_out=metrics_dir/"figure_f4b_noncoding_semantic_composition_collapsed.tsv"
+
 
     try:
         build_f3a_flow_table(metrics_long,f3a_out)
@@ -458,8 +465,26 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
         build_f4a_coding_semantic_composition_table(stage09_json,f4a_out)
         logger.info(f"F4A coding semantic composition substrate written to: {f4a_out}")
 
+        build_f4a_coding_semantic_composition_collapsed_table(
+            f4a_out,
+            f4a_collapsed_out,
+        )
+        logger.info(
+            f"F4A collapsed coding semantic composition substrate written to: "
+            f"{f4a_collapsed_out}"
+        )
+
         build_f4b_noncoding_semantic_composition_table(stage10_json,f4b_out)
         logger.info(f"F4B noncoding semantic composition substrate written to: {f4b_out}")
+
+        build_f4b_noncoding_semantic_composition_collapsed_table(
+            f4b_out,
+            f4b_collapsed_out,
+        )
+        logger.info(
+            f"F4B collapsed noncoding semantic composition substrate written to: "
+            f"{f4b_collapsed_out}"
+        )
 
     except Exception as exc:
         logger.warning(f"Sidecar figure substrate generation failed: {exc}")
