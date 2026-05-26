@@ -1,0 +1,4 @@
+input: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f4b_noncoding_semantic_composition_collapsed.tsv
+semantic_domain: consequence
+title: "F4B Noncoding Variants: Consequences"
+output: docs/case_studies/err10619300/figures/err10619300_f4b_consequence.png

@@ -1,0 +1,4 @@
+input: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f4a_coding_semantic_composition_collapsed.tsv
+semantic_domain: clinvar_significance
+title: "F4A Coding Variants: ClinVar Significance Categories"
+output: docs/case_studies/err10619300/figures/err10619300_f4a_clinvar_significance.png

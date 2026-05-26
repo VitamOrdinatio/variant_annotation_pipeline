@@ -1,0 +1,4 @@
+input: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f4a_coding_semantic_composition_collapsed.tsv
+semantic_domain: population_frequency_bin
+title: "F4A Coding Variants: Population Frequency Bins"
+output: docs/case_studies/err10619300/figures/err10619300_f4a_pop_freq_bins.png
