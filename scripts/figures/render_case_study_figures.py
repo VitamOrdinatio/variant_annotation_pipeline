@@ -21,12 +21,15 @@ def read_yaml(path:Path)->dict:
     return data or {}
 
 def flatten_context(parent:dict)->dict:
+    # Start with top-level fields that are commonly needed by child configs
     context={
         "sample_id":parent["sample_id"],
         "run_id":parent["run_id"],
-        "run_dir":parent["run_dir"],
-        "output_dir":parent["output_dir"],
     }
+    # Resolve paths in the context so they can be referenced in child configs, e.g. "{output_dir}"
+    context["run_dir"]=resolve_value(parent["run_dir"],context)
+    context["output_dir"]=resolve_value(parent["output_dir"],context)
+    # Add substrates to context so they can be referenced in child configs, e.g. "{vep_cache_dir}"
     for key,value in parent.get("substrates",{}).items():
         context[key]=value
     return context
