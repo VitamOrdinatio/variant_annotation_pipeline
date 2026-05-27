@@ -1,4 +1,4 @@
-case_id: ERR10619300
+case_id: err10619300
 case_dir: docs/case_studies/err10619300
 figure_title: ERR10619300 Runtime Observability Profile
 comparison_label: Same-patch WES rerun
