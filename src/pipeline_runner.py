@@ -677,6 +677,36 @@ def should_run_stage(config: dict[str, Any], stage_name: str) -> bool:
     return True
 
 
+def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str], logger) -> None:
+    figures_cfg=config.get("figures",{})
+    if not figures_cfg.get("auto_render",False):
+        return
+
+    figure_set_config=figures_cfg.get("figure_set_config")
+    if not figure_set_config:
+        logger.warning("Figure auto-render requested but no figure_set_config was provided.")
+        return
+
+    command=[
+        sys.executable,
+        "scripts/figures/render_case_study_figures.py",
+        "--config",
+        str(figure_set_config),
+    ]
+
+    strict=bool(figures_cfg.get("strict",False))
+
+    try:
+        logger.info(f"Starting optional figure auto-render: {' '.join(command)}")
+        subprocess.run(command,check=True,capture_output=True,text=True)
+        logger.info("Optional figure auto-render completed successfully.")
+    except subprocess.CalledProcessError as exc:
+        message=(exc.stderr or exc.stdout or str(exc)).replace("\n"," ")[:1000]
+        if strict:
+            raise RuntimeError(f"Figure auto-render failed: {message}") from exc
+        logger.warning(f"Optional figure auto-render failed but pipeline will continue: {message}")
+
+
 def run_pipeline(
     config: dict[str, Any],
     config_path: str,
@@ -887,6 +917,11 @@ def run_pipeline(
             f"Legacy metadata written to: "
             f"{run_paths['legacy_metadata_path']}"
         )
+        render_run_figures_if_enabled(
+            config=config,
+            run_paths=run_paths,
+            logger=logger,
+        )        
         logger.info("Pipeline run finished.")
 
     return state, run_paths

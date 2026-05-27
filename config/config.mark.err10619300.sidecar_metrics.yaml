@@ -6,6 +6,11 @@ project:
 mode:
   execution_mode: full_pipeline
 
+figures:
+  auto_render: false
+  strict: false
+  figure_set_config: scripts/configs/figure_sets/err10619300_figures.yaml
+
 execution_profile:
   name: mark_err10619300_sidecar_metrics_pre_release
   hardware_class: MARK1
