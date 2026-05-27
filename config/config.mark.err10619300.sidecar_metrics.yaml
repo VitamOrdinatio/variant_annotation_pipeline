@@ -4,7 +4,7 @@ project:
   version: v1.0
 
 mode:
-  execution_mode: full_pipeline
+  execution_mode: post_vep_fixture
 
 figures:
   auto_render: true
