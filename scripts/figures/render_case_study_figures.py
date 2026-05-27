@@ -116,9 +116,17 @@ def main():
         ]
 
         status="dry_run"
+        error_message=""
+
         if not args.dry_run:
-            subprocess.run(command,check=True)
-            status="success"
+            try:
+                subprocess.run(command,check=True,capture_output=True,text=True)
+                status="success"
+            except subprocess.CalledProcessError as exc:
+                status="failed"
+                error_message=(exc.stderr or exc.stdout or str(exc)).replace("\n"," ")[:1000]
+                if parent.get("strict",False):
+                    raise
 
         rows.append({
             "sample_id":parent["sample_id"],
@@ -132,6 +140,7 @@ def main():
             "generation_command":" ".join(command),
             "generated_at":generated_at,
             "status":status,
+            "error_message":error_message,
         })
 
     fields=[
@@ -146,6 +155,7 @@ def main():
         "generation_command",
         "generated_at",
         "status",
+        "error_message",
     ]
 
     with manifest_path.open("w",encoding="utf-8",newline="") as f:

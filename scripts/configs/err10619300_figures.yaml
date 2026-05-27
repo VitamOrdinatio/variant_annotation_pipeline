@@ -3,6 +3,8 @@ run_id: run_2026_05_22_071545
 run_dir: results/run_2026_05_22_071545
 output_dir: results/run_2026_05_22_071545/figures
 
+strict: false
+
 substrates:
   f3a_flow_v2: metrics/figure_f3a_flow_v2.tsv
   f3b_semantic_branching: metrics/figure_f3b_semantic_branching.tsv
