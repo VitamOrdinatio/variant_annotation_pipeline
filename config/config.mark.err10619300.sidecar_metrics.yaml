@@ -23,7 +23,7 @@ input:
   sample_alias: ERR10619300
   sra_accession: ERR10619300
   assay_type: WES
-  annotated_tsv: results/run_2026_05_22_071545/processed/annotated_variants.tsv
+  annotated_tsv: results/run_2026_05_22_071545/processed/ERR10619300_run_2026_05_22_071545.annotated_variants.tsv
 
   fastq:
     r1: /data/storage/fastq/ERR10619300_1.fastq.gz
@@ -37,7 +37,7 @@ input:
     sra_file: null
 
   vcf:
-    input_vcf: results/run_2026_05_22_071545/processed/normalized_variants.vcf
+    input_vcf: results/run_2026_05_22_071545/processed/ERR10619300_run_2026_05_22_071545.annotated_variants.vcf
 
 reference:
   genome_build: GRCh38
