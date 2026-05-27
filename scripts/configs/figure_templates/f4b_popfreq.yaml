@@ -1,0 +1,5 @@
+figure_id: f4b_population_frequency
+input: "{run_dir}/{f4b_collapsed}"
+semantic_domain: population_frequency_bin
+title: "F4B Noncoding Variants: Population Frequency Bins"
+output: "{output_dir}/{sample_id}_f4b_pop_freq_bins.png"

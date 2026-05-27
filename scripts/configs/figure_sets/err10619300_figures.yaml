@@ -14,12 +14,12 @@ substrates:
   stage08_vdb_ready: processed/stage_08_vdb_ready_variants.tsv
 
 figure_configs:
-  - scripts/configs/err10619300_f3a.yaml
-  - scripts/configs/err10619300_f3b.yaml
-  - scripts/configs/err10619300_f4a_clinvar.yaml
-  - scripts/configs/err10619300_f4a_consequence.yaml
-  - scripts/configs/err10619300_f4a_popfreq.yaml
-  - scripts/configs/err10619300_f4b_clinvar.yaml
-  - scripts/configs/err10619300_f4b_consequence.yaml
-  - scripts/configs/err10619300_f4b_popfreq.yaml
-  - scripts/configs/err10619300_f5.yaml
+  - scripts/configs/figure_templates/f3a.yaml
+  - scripts/configs/figure_templates/f3b.yaml
+  - scripts/configs/figure_templates/f4a_clinvar.yaml
+  - scripts/configs/figure_templates/f4a_consequence.yaml
+  - scripts/configs/figure_templates/f4a_popfreq.yaml
+  - scripts/configs/figure_templates/f4b_clinvar.yaml
+  - scripts/configs/figure_templates/f4b_consequence.yaml
+  - scripts/configs/figure_templates/f4b_popfreq.yaml
+  - scripts/configs/figure_templates/f5.yaml

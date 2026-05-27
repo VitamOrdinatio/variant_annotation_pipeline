@@ -1,0 +1,9 @@
+figure_id: f3a_deterministic_evidence_lineage
+case_id: "{sample_id}"
+case_dir: "{run_dir}"
+figure_title: "{sample_id} Deterministic Evidence Lineage"
+output_prefix: "{sample_id}_f3a_deterministic_evidence_lineage"
+f3a_flow_v2_path: "{run_dir}/{f3a_flow_v2}"
+scaling_mode: sqrt
+min_width: 1.6
+max_width: 10.0

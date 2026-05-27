@@ -1,0 +1,5 @@
+figure_id: f4a_clinvar_significance
+input: "{run_dir}/{f4a_collapsed}"
+semantic_domain: clinvar_significance
+title: "F4A Coding Variants: ClinVar Significance Categories"
+output: "{output_dir}/{sample_id}_f4a_clinvar_significance.png"

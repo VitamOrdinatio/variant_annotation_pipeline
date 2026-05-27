@@ -1,0 +1,8 @@
+figure_id: f5_interoperability_substrates
+case_id: "{sample_id}"
+output_prefix: "{sample_id}_f5_interoperability_substrates"
+sample_id: "{sample_id}"
+run_id: "{run_id}"
+rdgp_tsv: "{run_dir}/{stage08_rdgp_seed}"
+vdb_tsv: "{run_dir}/{stage08_vdb_ready}"
+out: "{output_dir}/{output_prefix}.png"

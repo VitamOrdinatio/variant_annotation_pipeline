@@ -1,8 +1,8 @@
 key	value
 figure_id	F3A
-case_id	err10619300
+case_id	ERR10619300
 input_f3a_flow_v2_path	results/run_2026_05_22_071545/metrics/figure_f3a_flow_v2.tsv
-output_prefix	err10619300_f3a_deterministic_evidence_lineage
+output_prefix	ERR10619300_f3a_deterministic_evidence_lineage
 run_id	run_2026_05_22_071545
 sample_id	ERR10619300
 assay_type	WES

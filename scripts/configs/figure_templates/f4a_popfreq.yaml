@@ -1,0 +1,5 @@
+figure_id: f4a_population_frequency
+input: "{run_dir}/{f4a_collapsed}"
+semantic_domain: population_frequency_bin
+title: "F4A Coding Variants: Population Frequency Bins"
+output: "{output_dir}/{sample_id}_f4a_pop_freq_bins.png"

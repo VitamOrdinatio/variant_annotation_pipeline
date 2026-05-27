@@ -1,8 +1,8 @@
 key	value
 figure_id	F3B
-case_id	err10619300
+case_id	ERR10619300
 input_f3b_semantic_branching_path	results/run_2026_05_22_071545/metrics/figure_f3b_semantic_branching.tsv
-output_prefix	err10619300_f3b_semantic_branching
+output_prefix	ERR10619300_f3b_semantic_branching
 run_id	run_2026_05_22_071545
 sample_id	ERR10619300
 assay_type	WES

@@ -1,0 +1,5 @@
+figure_id: f4a_consequence
+input: "{run_dir}/{f4a_collapsed}"
+semantic_domain: consequence
+title: "F4A Coding Variants: Consequences"
+output: "{output_dir}/{sample_id}_f4a_consequence.png"

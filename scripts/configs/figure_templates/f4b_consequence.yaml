@@ -1,0 +1,5 @@
+figure_id: f4b_consequence
+input: "{run_dir}/{f4b_collapsed}"
+semantic_domain: consequence
+title: "F4B Noncoding Variants: Consequences"
+output: "{output_dir}/{sample_id}_f4b_consequence.png"
