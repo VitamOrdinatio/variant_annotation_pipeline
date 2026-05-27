@@ -1,0 +1,9 @@
+case_id: ERR10619300
+case_dir: docs/case_studies/err10619300
+figure_title: ERR10619300 Deterministic Evidence Lineage
+comparison_label: Canonical telemetry-enabled WES run
+output_prefix: err10619300_f3a_deterministic_evidence_lineage
+f3a_flow_v2_path: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f3a_flow_v2.tsv
+scaling_mode: sqrt
+min_width: 1.6
+max_width: 10.0

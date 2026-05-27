@@ -1,0 +1,23 @@
+sample_id: ERR10619300
+run_id: run_2026_05_22_071545
+run_dir: results/run_2026_05_22_071545
+output_dir: results/run_2026_05_22_071545/figures
+
+substrates:
+  f3a_flow_v2: metrics/figure_f3a_flow_v2.tsv
+  f3b_semantic_branching: metrics/figure_f3b_semantic_branching.tsv
+  f4a_collapsed: metrics/figure_f4a_coding_semantic_composition_collapsed.tsv
+  f4b_collapsed: metrics/figure_f4b_noncoding_semantic_composition_collapsed.tsv
+  stage08_rdgp_seed: processed/stage_08_rdgp_gene_evidence_seed.tsv
+  stage08_vdb_ready: processed/stage_08_vdb_ready_variants.tsv
+
+figure_configs:
+  - scripts/configs/err10619300_f3a.yaml
+  - scripts/configs/err10619300_f3b.yaml
+  - scripts/configs/err10619300_f4a_clinvar.yaml
+  - scripts/configs/err10619300_f4a_consequence.yaml
+  - scripts/configs/err10619300_f4a_popfreq.yaml
+  - scripts/configs/err10619300_f4b_clinvar.yaml
+  - scripts/configs/err10619300_f4b_consequence.yaml
+  - scripts/configs/err10619300_f4b_popfreq.yaml
+  - scripts/configs/err10619300_f5.yaml

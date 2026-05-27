@@ -1,4 +1,5 @@
-input: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f4b_noncoding_semantic_composition_collapsed.tsv
+figure_id: f4b_population_frequency
+input: "{run_dir}/{f4b_collapsed}"
 semantic_domain: population_frequency_bin
 title: "F4B Noncoding Variants: Population Frequency Bins"
-output: docs/case_studies/err10619300/figures/err10619300_f4b_pop_freq_bins.png
+output: "{output_dir}/{sample_id}_f4b_pop_freq_bins.png"

@@ -1,4 +1,5 @@
-input: /mnt/storage/vap_runs/results/run_2026_05_22_071545/metrics/figure_f4a_coding_semantic_composition_collapsed.tsv
+figure_id: f4a_consequence
+input: "{run_dir}/{f4a_collapsed}"
 semantic_domain: consequence
 title: "F4A Coding Variants: Consequences"
-output: docs/case_studies/err10619300/figures/err10619300_f4a_consequence.png
+output: "{output_dir}/{sample_id}_f4a_consequence.png"
