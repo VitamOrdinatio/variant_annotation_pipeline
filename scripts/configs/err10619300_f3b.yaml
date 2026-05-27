@@ -1,6 +1,6 @@
 figure_id: f3b_semantic_branching
 case_id: "{sample_id}"
-case_dir: "{output_dir}"
+case_dir: "{run_dir}"
 figure_title: "{sample_id} Semantic Evidence Branching"
 output_prefix: "{sample_id}_f3b_semantic_branching"
 f3b_semantic_branching_path: "{run_dir}/{f3b_semantic_branching}"
