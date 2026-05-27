@@ -1,0 +1,24 @@
+sample_id: "{sample_id}"
+run_id: "{run_id}"
+run_dir: "{run_dir}"
+output_dir: "{run_dir}/figures"
+strict: "{strict}"
+
+substrates:
+  f3a_flow_v2: metrics/figure_f3a_flow_v2.tsv
+  f3b_semantic_branching: metrics/figure_f3b_semantic_branching.tsv
+  f4a_collapsed: metrics/figure_f4a_coding_semantic_composition_collapsed.tsv
+  f4b_collapsed: metrics/figure_f4b_noncoding_semantic_composition_collapsed.tsv
+  stage08_rdgp_seed: processed/stage_08_rdgp_gene_evidence_seed.tsv
+  stage08_vdb_ready: processed/stage_08_vdb_ready_variants.tsv
+
+figure_configs:
+  - scripts/configs/figure_templates/f3a.yaml
+  - scripts/configs/figure_templates/f3b.yaml
+  - scripts/configs/figure_templates/f4a_clinvar.yaml
+  - scripts/configs/figure_templates/f4a_consequence.yaml
+  - scripts/configs/figure_templates/f4a_popfreq.yaml
+  - scripts/configs/figure_templates/f4b_clinvar.yaml
+  - scripts/configs/figure_templates/f4b_consequence.yaml
+  - scripts/configs/figure_templates/f4b_popfreq.yaml
+  - scripts/configs/figure_templates/f5.yaml

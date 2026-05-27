@@ -96,6 +96,7 @@ def sha256_file(path: str | Path) -> str:
             digest.update(chunk)
     return digest.hexdigest()
 
+
 def get_git_commit(repo_root: str | Path = ".") -> str:
     try:
         result = subprocess.run(
@@ -108,6 +109,7 @@ def get_git_commit(repo_root: str | Path = ".") -> str:
         return result.stdout.strip()
     except Exception:
         return "unknown"
+
 
 def write_run_fingerprint(
     config: dict[str, Any],
@@ -490,6 +492,39 @@ def build_sidecar_figure_substrates(stage_name:str, run_paths:dict[str,str], log
         logger.warning(f"Sidecar figure substrate generation failed: {exc}")
 
 
+def write_resolved_figure_set_config(config, run_id, run_paths, logger):
+    import yaml
+
+    figures_cfg=config.get("figures",{})
+    template_path=figures_cfg.get("figure_set_template")
+
+    if not template_path:
+        return None
+
+    template_path=Path(template_path)
+    if not template_path.exists():
+        raise FileNotFoundError(f"Figure-set template not found: {template_path}")
+
+    with template_path.open("r",encoding="utf-8") as handle:
+        template=handle.read()
+
+    context={
+        "sample_id":config["input"]["sample_id"],
+        "run_id":run_id,
+        "run_dir":run_paths["run_dir"],
+        "strict":str(bool(figures_cfg.get("strict",False))).lower(),
+    }
+
+    resolved_text=template.format(**context)
+    resolved_path=Path(run_paths["metadata_dir"])/"figure_set_resolved.yaml"
+
+    with resolved_path.open("w",encoding="utf-8") as handle:
+        handle.write(resolved_text)
+
+    logger.info(f"Resolved figure-set config written to: {resolved_path}")
+    return resolved_path
+
+
 def write_runtime_profile(state: dict[str, Any], runtime_profile_path: str) -> None:
     fieldnames = ["stage", "status", "start_time", "end_time", "elapsed_seconds"]
     output_path = Path(runtime_profile_path)
@@ -678,15 +713,26 @@ def should_run_stage(config: dict[str, Any], stage_name: str) -> bool:
 
 
 def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str], logger) -> None:
+    # Check if auto-rendering is enabled in the config.
     figures_cfg=config.get("figures",{})
     if not figures_cfg.get("auto_render",False):
         return
-
-    figure_set_config=figures_cfg.get("figure_set_config")
+    # If enabled, attempt to resolve the figure set config from the template and context.
+    resolved_figure_set=write_resolved_figure_set_config(
+        config=config,
+        run_id=Path(run_paths["run_dir"]).name,
+        run_paths=run_paths,
+        logger=logger,
+    )
+    # If no template was provided or resolution failed, fall back to the figure_set_config directly from the config.
+    figure_set_config=resolved_figure_set or figures_cfg.get("figure_set_config")
     if not figure_set_config:
-        logger.warning("Figure auto-render requested but no figure_set_config was provided.")
+        logger.warning(
+            "Figure auto-render requested but no figure_set_template "
+            "or figure_set_config was provided."
+        )
         return
-
+    # If we have a figure set config at this point, attempt to run the rendering script.
     command=[
         sys.executable,
         "scripts/figures/render_case_study_figures.py",
