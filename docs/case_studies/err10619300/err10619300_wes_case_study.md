@@ -30,6 +30,8 @@ Importantly, this case study is not intended to demonstrate clinical interpretat
 
 The resulting artifact ecosystem demonstrates that VAP can reproducibly organize large-scale WES evidence into stable semantic interpretability structures while preserving biologically meaningful downstream computational reuse pathways.
 
+Within the broader VAP ecosystem, the `ERR10619300` campaign functions as the canonical flagship baseline semantic evidence organization case study against which future comparative case studies may be evaluated.
+
 Operationally, the `ERR10619300` execution campaign additionally established:
 
 - stable same-patch rerun behavior
@@ -350,6 +352,8 @@ rather than claims of computational optimization.
 
 Following operational reproducibility assessment and runtime observability characterization, the next major objective of the `ERR10619300` execution campaign was to evaluate whether VAP could reproducibly transform large-scale variant evidence into stable semantic interpretability-oriented evidence structures.
 
+Within the VAP ecosystem, evidence topology refers to the structured organizational architecture through which semantically related evidence populations remain connected while preserving interpretability-aware partitioning.
+
 Importantly, VAP does not conceptualize evidence organization as a simple binary filtering problem.
 
 Instead, VAP Phase 1A development emphasized:
@@ -357,7 +361,7 @@ Instead, VAP Phase 1A development emphasized:
 - deterministic semantic refinement
 - interpretability-aware routing
 - evidence-layer preservation
-- and reproducibility-aware semantic organization
+- and reproducibility-aware evidence architecture
 
 across repeated execution conditions.
 
@@ -727,7 +731,7 @@ However, these figures primarily describe:
 
 rather than the biological composition of the resulting evidence landscapes themselves.
 
-The next sections therefore examine the resulting coding and noncoding evidence landscapes emitted following semantic organization within the `ERR10619300` execution campaign.
+The next sections therefore examine the resulting coding and noncoding evidence landscapes emitted following interpretability framework within the `ERR10619300` execution campaign.
 
 ---
 
@@ -766,7 +770,7 @@ The resulting figures therefore summarize the composition of coding evidence aft
 
 ![Figure 5A — Consequence Composition for Coding Candidate Variants](figures/ERR10619300_f4a_consequence.png)
 
-**Figure 5A.** Coding semantic consequence composition following deterministic semantic organization within the `ERR10619300` execution campaign. Consequence classes were semantically collapsed into stable organizational categories for reproducibility-oriented evidence characterization.
+**Figure 5A.** Coding semantic consequence composition following deterministic evidence topology within the `ERR10619300` execution campaign. Consequence classes were semantically collapsed into stable organizational categories for reproducibility-oriented evidence characterization.
 
 Figure 5A summarizes the major coding consequence classes observed following semantic refinement.
 
@@ -853,7 +857,7 @@ Operationally, this is expected because large-scale genomic evidence naturally c
 
 Second, rare evidence populations remain comparatively small relative to total coding burden.
 
-This observation reinforces one of the central conceptual distinctions within VAP semantic organization:
+This observation reinforces one of the central conceptual distinctions within VAP interpretability framework:
 
 ```text
 rare evidence organization represents a semantic refinement boundary rather than a diagnostic claim.
@@ -964,7 +968,7 @@ Accordingly, VAP Phase 1A development emphasized preservation of:
 - intergenic evidence
 - and noncoding interpretability structure
 
-throughout downstream semantic organization.
+throughout downstream semantic substrate.
 
 As in the coding evidence landscape, the evidence examined throughout this section represents:
 
@@ -1012,7 +1016,7 @@ Preservation of intergenic evidence is strategically important because future bi
 
 into downstream interpretability models.
 
-VAP therefore intentionally preserves these evidence classes within the semantic organization framework.
+VAP therefore intentionally preserves these evidence classes within the evidence topology framework.
 
 ---
 
@@ -1060,7 +1064,7 @@ First, common noncoding evidence dominates the total noncoding burden.
 
 This observation is expected because the majority of genomic noncoding evidence represents common background variation.
 
-Second, rare noncoding evidence remains comparatively sparse but clearly identifiable following semantic organization.
+Second, rare noncoding evidence remains comparatively sparse but clearly identifiable following evidence architecture.
 
 Importantly, VAP preserves these evidence populations explicitly rather than aggressively collapsing noncoding evidence during early filtering stages.
 
@@ -1196,7 +1200,7 @@ Semantically organized evidence populations can be intersected reproducibly with
 - ClinVar-supported loci
 - and other phenotype-aware evidence frameworks.
 
-Operationally, this demonstrates that VAP semantic evidence substrate is sufficiently structured for downstream overlay-aware reuse without requiring redesign of the upstream semantic organization architecture.
+Operationally, this demonstrates that VAP semantic evidence substrate is sufficiently structured for downstream overlay-aware reuse without requiring redesign of the upstream evidence topology architecture.
 
 This observation is strategically important because it establishes that VAP evidence organization is not isolated from broader biological contextualization workflows.
 
@@ -1336,6 +1340,8 @@ Rather than functioning solely as a reporting endpoint, VAP therefore emits stru
 - curated overlay systems
 - cohort-scale semantic telemetry synthesis
 - and future ecosystem-oriented evidence reuse frameworks.
+
+Importantly, interoperability substrate emission preserves semantic cardinality and evidence multiplicity rather than collapsing downstream organizational structure into terminal reporting abstractions.
 
 ---
 
@@ -1697,7 +1703,7 @@ Importantly, VAP intentionally avoids:
 - overstated biological claims
 - or clinically suggestive language unsupported by the underlying evidence structure.
 
-This transparency materially strengthens the credibility of the broader semantic organization framework.
+This transparency materially strengthens the credibility of the broader evidence topology framework.
 
 ---
 
