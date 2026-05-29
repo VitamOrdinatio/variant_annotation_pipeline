@@ -40,7 +40,7 @@ It must:
 * write stable latest-copy outputs;
 * avoid scientific selection;
 * avoid manual curation;
-* avoid dropping biologically or operationally meaningful fields
+* avoid dropping biologically or operationally meaningful fields;
 * avoid overwriting existing manifests in output directory (`data/reference/sra_support/manifests/<bioproject_lower>/`)
 
 ## Output
@@ -160,6 +160,7 @@ rank_%
 depth_category
 base_count
 fastq_bytes
+fastq_md5
 fastq_ftp
 ```
 
@@ -194,18 +195,27 @@ It must:
 
 * read required columns by header name;
 * require `run_accession`, `library_layout`, and `fastq_ftp`;
+* strongly prefer `fastq_md5` when available and use it for checksum validation;
+* preserve `fastq_bytes` when available for logging and audit context;
 * support semicolon-delimited paired FASTQ URLs;
 * use polite download behavior;
-* support resumable downloads;
-* avoid overwriting existing validated FASTQs;
-* quarantine or report failed integrity checks;
+* support resumable downloads only for temporary `.part` files;
+* treat existing final FASTQ files as immutable trusted substrate;
+* never overwrite, modify, resume into, rename, or delete an existing final FASTQ file;
+* validate existing final FASTQs using gzip integrity and, when available, MD5 checksum;
+* log existing final FASTQs as pass or fail without modifying them;
+* download missing FASTQs into an incomplete temporary location;
+* validate newly downloaded temporary files using gzip integrity and, when available, MD5 checksum;
+* promote validated temporary files into the final FASTQ directory only after all required validations pass;
+* quarantine or retain failed temporary downloads for manual operator review;
 * continue past individual download failures;
 * log all download decisions.
+* require gzip integrity validation for all existing and newly downloaded FASTQ files;
+* treat `fastq_md5` and `fastq_bytes` as optional validation fields;
+* validate MD5 only when `fastq_md5` is present;
+* validate file size only when `fastq_bytes` is present;
+* log missing `fastq_md5` or `fastq_bytes` as warnings, not failures;
 
-Default input should be:
-data/reference/sra_support/<bioproject_lower>/<bioproject_lower>_selected_9_runs.tsv
-
-Script C must not default to downloading the full topology manifest unless explicitly supplied by the operator.
 
 ## Output
 
@@ -215,17 +225,33 @@ FASTQs are written to:
 /data/storage/fastq
 ```
 
-Logs are written to the same output directory:
+Temporary resumable downloads are written to:
+
+```text
+/data/storage/fastq/.incomplete
+```
+
+Logs are written to:
+
+```text
+data/reference/sra_support/download_logs/<bioproject_lower>/
+```
+
+Expected logs:
 
 ```text
 download_session_<TIMESTAMP>.log
 download_failures_<TIMESTAMP>.log
 gzip_integrity_<TIMESTAMP>.log
+md5_integrity_<TIMESTAMP>.log
+existing_fastq_audit_<TIMESTAMP>.log
 ```
 
 ## Contract Rule
 
-This script performs transfer only. It must not rank runs, select runs, calculate scientific design features, or modify the selected manifest.
+This script performs transfer and validation only. It must not rank runs, select runs, calculate scientific design features, modify the selected manifest, or modify any existing final FASTQ file in `/data/storage/fastq`.
+
+Script C should use `set -uo pipefail` rather than `set -euo pipefail` so row-level transfer or validation failures can be logged without aborting the entire manifest-driven download session.
 
 ---
 
@@ -274,7 +300,9 @@ data/reference/sra_support/
     └── prjeb57558/
         ├── download_session_<timestamp>.log
         ├── download_failures_<timestamp>.log
-        └── gzip_integrity_<timestamp>.log
+        ├── existing_fastq_audit_<timestamp>.log
+        ├── gzip_integrity_<timestamp>.log                
+        └── md5_integrity_<timestamp>.log
 ```
 
 Notes:
@@ -334,6 +362,16 @@ Scripts intended to write to MARK shared storage must include MARK guardrails un
 ALLOW_NON_MARK=1
 ```
 
+## FASTQ Immutability Boundary
+
+Existing final FASTQ files under `/data/storage/fastq` are immutable VAP substrate.
+
+If a manifest-listed FASTQ already exists, Script C may inspect it using gzip integrity and checksum validation, but must not overwrite, resume into, rename, delete, or repair it.
+
+Existing FASTQs that fail validation must be logged for manual operator review.
+
+New downloads must first be written to a temporary incomplete path and promoted to the final FASTQ directory only after required validations pass.
+
 ## Python Boundary
 
 This trilogy remains Bash-based while it lives under VAP `scripts/resources/`.
@@ -375,13 +413,17 @@ nice -n 19 ionice -c2 -n7 curl \
   ...
 ```
 
-Script C uses polite, resumable, low-priority wget for FASTQ downloads.
+Script C uses polite, resumable, low-priority wget for temporary downloads only.
 
-Ideal Usage for Script C:
+Ideal download behavior for Script C:
 
 ```bash
 nice -n 19 ionice -c2 -n7 wget -c \
-  --limit-rate=20m "$URL" -P "$OUTDIR"
+  --limit-rate=20m "$URL" -O "$PART_FILE"
+```
+
+```text
+$PART_FILE must live under /data/storage/fastq/.incomplete/, not directly in the final FASTQ substrate directory.
 ```
 
 ---
