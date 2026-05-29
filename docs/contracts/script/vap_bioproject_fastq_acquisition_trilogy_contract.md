@@ -195,7 +195,7 @@ It must:
 
 * read required columns by header name;
 * require `run_accession`, `library_layout`, and `fastq_ftp`;
-* strongly prefer `fastq_md5` when available and use it for checksum validation;
+* use `fastq_md5` for checksum validation when available;
 * preserve `fastq_bytes` when available for logging and audit context;
 * support semicolon-delimited paired FASTQ URLs;
 * use polite download behavior;
@@ -209,7 +209,7 @@ It must:
 * promote validated temporary files into the final FASTQ directory only after all required validations pass;
 * quarantine or retain failed temporary downloads for manual operator review;
 * continue past individual download failures;
-* log all download decisions.
+* log all download decisions;
 * require gzip integrity validation for all existing and newly downloaded FASTQ files;
 * treat `fastq_md5` and `fastq_bytes` as optional validation fields;
 * validate MD5 only when `fastq_md5` is present;
