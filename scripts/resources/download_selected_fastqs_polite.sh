@@ -1,49 +1,36 @@
 #!/usr/bin/env bash
 set -uo pipefail
 
-# Existing validated FASTQs are treated as immutable trusted substrate.
-#
-# If an existing file fails gzip integrity testing, the script will NOT
-# automatically overwrite or replace it. Manual operator review is required.
-#
-# LOG files are written to the output directory with a timestamped filename
-# to avoid overwriting previous logs. The main log captures all output, 
-# while separate logs track download failures and gzip integrity for review.
-#
-# This script assumes the manifest (TSV) file is well-formed and includes 
-# the expected columns. It processes each row, handling multiple URLs if
-# present, and applies a polite download policy using nice and ionice to
-# minimize system impact. The script also includes robust error handling and
-# logging to help troubleshooting and ensure transparency of the download process.
-#
-# This script should be located as scripts/resources/download_prjeb57558_fastqs_polite.sh.
-# The manifest TSV file should be located as data/reference/sra_support/prjeb57558_nine_runs.tsv.
-#
-# For ease of use, the output directory is specified as a variable for
-# flexibility. The script checks for the existence of the manifest file before
-# proceeding and logs all key actions and decisions for traceability.
-#
-#
-# Script Usage:
-#
-# 1. The OUTDIR folder path of /data/storage/fastq is also the read location for substrate FASTQs in the VAP pipeline.
-# 2. Ensure you have the necessary permissions to write to the output directory and that wget is installed on your system.
-# 3. Start a tmux session to run the script so that it can continue running in the background and you can monitor logs without interruption.
-# 4. Within tmux, run the script from the VAP repo root: ./scripts/resources/download_prjeb57558_fastqs_polite.sh
-# 5. Monitor the logs written to OUTDIR folder for progress and any potential issues with downloads or file integrity.
-
-
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-MANIFEST="${1:-${REPO_ROOT}/data/reference/sra_support/PRJEB57558_runs_topology.tsv}"
+DEFAULT_MANIFEST="${REPO_ROOT}/data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs.tsv"
+MANIFEST="${1:-${DEFAULT_MANIFEST}}"
 OUTDIR="${OUTDIR:-/data/storage/fastq}"
+INCOMPLETE_DIR="${OUTDIR}/.incomplete"
 LIMIT_RATE="${LIMIT_RATE:-20m}"
 TIMESTAMP="$(date +%Y_%m_%d_%H%M%S)"
-LOGFILE="${OUTDIR}/download_session_${TIMESTAMP}.log"
-FAILED_LOG="${OUTDIR}/download_failures_${TIMESTAMP}.log"
-INTEGRITY_LOG="${OUTDIR}/gzip_integrity_${TIMESTAMP}.log"
+
+if [[ ! -f "${MANIFEST}" ]]; then
+  echo "ERROR: Manifest not found: ${MANIFEST}"
+  exit 1
+fi
+
+BASENAME="$(basename "${MANIFEST}")"
+BIOPROJECT_LOWER="${BASENAME%%_selected_9_runs*}"
+if [[ -z "${BIOPROJECT_LOWER}" || "${BIOPROJECT_LOWER}" == "${BASENAME}" ]]; then
+  echo "ERROR: Could not infer BioProject from manifest filename: ${BASENAME}"
+  echo "Expected filename pattern: <bioproject_lower>_selected_9_runs.tsv"
+  exit 1
+fi
+
+LOGDIR="${REPO_ROOT}/data/reference/sra_support/download_logs/${BIOPROJECT_LOWER}"
+LOGFILE="${LOGDIR}/download_session_${TIMESTAMP}.log"
+FAILED_LOG="${LOGDIR}/download_failures_${TIMESTAMP}.log"
+GZIP_LOG="${LOGDIR}/gzip_integrity_${TIMESTAMP}.log"
+MD5_LOG="${LOGDIR}/md5_integrity_${TIMESTAMP}.log"
+EXISTING_LOG="${LOGDIR}/existing_fastq_audit_${TIMESTAMP}.log"
 EXTRACTED_MANIFEST=""
 
-mkdir -p "${OUTDIR}"
+mkdir -p "${OUTDIR}" "${INCOMPLETE_DIR}" "${LOGDIR}"
 exec > >(tee -a "${LOGFILE}") 2>&1
 
 cleanup() {
@@ -56,11 +43,62 @@ if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "$(hostname -s)" =~ [Mm][Aa][Rr][Kk] ]]
   exit 1
 fi
 
-for cmd in awk wget gunzip tee date hostname basename; do
+for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: Missing command: $cmd"; exit 1; }
 done
 
-[[ -f "${MANIFEST}" ]] || { echo "ERROR: Manifest not found: ${MANIFEST}"; exit 1; }
+validate_gzip() {
+  local file="$1"
+  local label="$2"
+  local run="$3"
+  if gunzip -t "${file}" >/dev/null 2>&1; then
+    echo -e "PASS_GZIP\t${label}\t${run}\t${file}" >> "${GZIP_LOG}"
+    return 0
+  else
+    echo -e "FAIL_GZIP\t${label}\t${run}\t${file}" >> "${GZIP_LOG}"
+    return 1
+  fi
+}
+
+validate_md5_if_available() {
+  local file="$1"
+  local expected_md5="$2"
+  local label="$3"
+  local run="$4"
+  if [[ -z "${expected_md5}" ]]; then
+    echo -e "WARNING_NO_MD5\t${label}\t${run}\t${file}" >> "${MD5_LOG}"
+    return 0
+  fi
+  local observed_md5
+  observed_md5="$(md5sum "${file}" | awk '{print $1}')"
+  if [[ "${observed_md5}" == "${expected_md5}" ]]; then
+    echo -e "PASS_MD5\t${label}\t${run}\t${file}\t${observed_md5}" >> "${MD5_LOG}"
+    return 0
+  else
+    echo -e "FAIL_MD5\t${label}\t${run}\t${file}\texpected=${expected_md5}\tobserved=${observed_md5}" >> "${MD5_LOG}"
+    return 1
+  fi
+}
+
+validate_bytes_if_available() {
+  local file="$1"
+  local expected_bytes="$2"
+  local label="$3"
+  local run="$4"
+  if [[ -z "${expected_bytes}" ]]; then
+    echo -e "WARNING_NO_BYTES\t${label}\t${run}\t${file}" >> "${FAILED_LOG}"
+    return 0
+  fi
+  local observed_bytes
+  observed_bytes="$(stat -c%s "${file}")"
+  if [[ "${observed_bytes}" == "${expected_bytes}" ]]; then
+    echo -e "PASS_BYTES\t${label}\t${run}\t${file}\t${observed_bytes}" >> "${FAILED_LOG}"
+    return 0
+  else
+    echo -e "FAIL_BYTES\t${label}\t${run}\t${file}\texpected=${expected_bytes}\tobserved=${observed_bytes}" >> "${FAILED_LOG}"
+    return 1
+  fi
+}
 
 EXTRACTED_MANIFEST="$(mktemp)"
 awk -F'\t' '
@@ -79,30 +117,35 @@ awk -F'\t' '
         exit 2
       }
     }
-    print "run_accession","library_layout","fastq_ftp"
+    print "run_accession","library_layout","fastq_ftp","fastq_md5","fastq_bytes"
     next
   }
   {
     run=$(idx["run_accession"])
     layout=$(idx["library_layout"])
     ftp=$(idx["fastq_ftp"])
+    md5=("fastq_md5" in idx ? $(idx["fastq_md5"]) : "")
+    bytes=("fastq_bytes" in idx ? $(idx["fastq_bytes"]) : "")
     gsub(/\r$/,"",run)
     gsub(/\r$/,"",layout)
     gsub(/\r$/,"",ftp)
-    if (run=="run_accession") next
-    if (run!="" && ftp!="") print run,layout,ftp
+    gsub(/\r$/,"",md5)
+    gsub(/\r$/,"",bytes)
+    if (run!="" && ftp!="") print run,layout,ftp,md5,bytes
   }
 ' "${MANIFEST}" > "${EXTRACTED_MANIFEST}"
 
-declare -a DOWNLOADED_FILES=()
-
+echo "BioProject: ${BIOPROJECT_LOWER}"
 echo "Manifest: ${MANIFEST}"
 echo "Extracted operational manifest: ${EXTRACTED_MANIFEST}"
-echo "Output directory: ${OUTDIR}"
-echo "Download policy: nice -n 19 ionice -c2 -n7 wget -c --limit-rate=${LIMIT_RATE}"
+echo "FASTQ output directory: ${OUTDIR}"
+echo "Incomplete download directory: ${INCOMPLETE_DIR}"
+echo "Log directory: ${LOGDIR}"
+echo "Download policy: nice -n 19 ionice -c2 -n7 wget -c --limit-rate=${LIMIT_RATE} -O <part_file>"
+echo "Final FASTQ immutability: existing final FASTQs will be audited but never modified"
 echo
 
-while IFS=$'\t' read -r run_accession library_layout fastq_ftp; do
+while IFS=$'\t' read -r run_accession library_layout fastq_ftp fastq_md5 fastq_bytes; do
   [[ "${run_accession}" == "run_accession" ]] && continue
   [[ -z "${run_accession:-}" || -z "${fastq_ftp:-}" ]] && continue
 
@@ -111,58 +154,87 @@ while IFS=$'\t' read -r run_accession library_layout fastq_ftp; do
   fi
 
   IFS=';' read -ra URLS <<< "${fastq_ftp}"
-  for url in "${URLS[@]}"; do
-    url="$(echo "${url}" | tr -d '\r')"
+  IFS=';' read -ra MD5S <<< "${fastq_md5:-}"
+  IFS=';' read -ra BYTES <<< "${fastq_bytes:-}"
+
+  for idx in "${!URLS[@]}"; do
+    url="$(echo "${URLS[$idx]}" | tr -d '\r')"
     [[ -z "${url}" ]] && continue
+
+    expected_md5="${MD5S[$idx]:-}"
+    expected_bytes="${BYTES[$idx]:-}"
 
     if [[ "${url}" != ftp://* && "${url}" != http://* && "${url}" != https://* ]]; then
       url="ftp://${url}"
     fi
 
     filename="$(basename "${url}")"
-    destination="${OUTDIR}/${filename}"
+    final_file="${OUTDIR}/${filename}"
+    part_file="${INCOMPLETE_DIR}/${filename}.part"
 
-    if [[ -f "${destination}" ]]; then
-      if gunzip -t "${destination}" >/dev/null 2>&1; then
-        echo "SKIP: ${filename} already exists and passed gzip integrity check"
-        continue
+    if [[ -f "${final_file}" ]]; then
+      echo "EXISTING: ${filename}; auditing without modification"
+      existing_ok=1
+      validate_gzip "${final_file}" "existing" "${run_accession}" || existing_ok=0
+      validate_md5_if_available "${final_file}" "${expected_md5}" "existing" "${run_accession}" || existing_ok=0
+      validate_bytes_if_available "${final_file}" "${expected_bytes}" "existing" "${run_accession}" || existing_ok=0
+
+      if [[ "${existing_ok}" -eq 1 ]]; then
+        echo -e "EXISTING_PASS\t${run_accession}\t${filename}" >> "${EXISTING_LOG}"
+        echo "SKIP: ${filename} exists and passed available integrity checks"
       else
-        echo "ERROR: ${filename} exists but failed gzip integrity check."
-        echo "Manual operator review required; not overwriting trusted substrate path."
-        echo -e "FAILED_EXISTING_GZIP\t${run_accession}\t${filename}" >> "${FAILED_LOG}"
-        continue
+        echo -e "EXISTING_FAIL\t${run_accession}\t${filename}" >> "${EXISTING_LOG}"
+        echo "ERROR: ${filename} exists but failed one or more integrity checks. Manual review required."
       fi
+      continue
     fi
 
     echo "DOWNLOAD: ${run_accession} -> ${filename}"
-    if nice -n 19 ionice -c2 -n7 wget -c --limit-rate="${LIMIT_RATE}" "${url}" -P "${OUTDIR}"; then
-      echo "SUCCESS: ${filename}"
-      DOWNLOADED_FILES+=("${destination}")
+    if nice -n 19 ionice -c2 -n7 wget -c --limit-rate="${LIMIT_RATE}" "${url}" -O "${part_file}"; then
+      echo "DOWNLOAD_COMPLETE_PART: ${part_file}"
     else
-      echo "FAILED: ${filename}" | tee -a "${FAILED_LOG}"
+      echo -e "FAILED_DOWNLOAD\t${run_accession}\t${filename}\t${url}" >> "${FAILED_LOG}"
+      echo "FAILED: ${filename}"
       continue
     fi
+
+    new_ok=1
+    validate_gzip "${part_file}" "new_part" "${run_accession}" || new_ok=0
+    validate_md5_if_available "${part_file}" "${expected_md5}" "new_part" "${run_accession}" || new_ok=0
+    validate_bytes_if_available "${part_file}" "${expected_bytes}" "new_part" "${run_accession}" || new_ok=0
+
+    if [[ "${new_ok}" -ne 1 ]]; then
+      echo -e "FAILED_VALIDATION_RETAIN_PART\t${run_accession}\t${filename}\t${part_file}" >> "${FAILED_LOG}"
+      echo "ERROR: Validation failed for ${filename}; retained part file for manual review."
+      continue
+    fi
+
+    if [[ -f "${final_file}" ]]; then
+      echo -e "FAILED_PROMOTION_FINAL_APPEARED\t${run_accession}\t${filename}" >> "${FAILED_LOG}"
+      echo "ERROR: Final file appeared before promotion; retained part file and did not overwrite."
+      continue
+    fi
+
+    if mv "${part_file}" "${final_file}"; then
+      echo "PROMOTED: ${part_file} -> ${final_file}"
+    else
+      echo -e "FAILED_PROMOTION\t${run_accession}\t${filename}\t${part_file}" >> "${FAILED_LOG}"
+      echo "ERROR: Could not promote ${filename}; retained part file if present."
+      continue
+    fi
+
     echo
   done
 
   echo "----------------------------------------"
-  echo "Completed processing for ${run_accession}. Total downloaded files this session: ${#DOWNLOADED_FILES[@]}"
+  echo "Completed processing for ${run_accession}"
   echo
 done < "${EXTRACTED_MANIFEST}"
-
-echo
-echo "Running gzip integrity checks for newly downloaded files..."
-for file in "${DOWNLOADED_FILES[@]}"; do
-  echo "CHECK: ${file}"
-  if gunzip -t "${file}" >/dev/null 2>&1; then
-    echo "PASS: ${file}" | tee -a "${INTEGRITY_LOG}"
-  else
-    echo "FAIL: ${file}" | tee -a "${INTEGRITY_LOG}"
-  fi
-done
 
 echo
 echo "Download pass complete."
 echo "Main log: ${LOGFILE}"
 echo "Failure log: ${FAILED_LOG}"
-echo "Integrity log: ${INTEGRITY_LOG}"
+echo "Gzip integrity log: ${GZIP_LOG}"
+echo "MD5 integrity log: ${MD5_LOG}"
+echo "Existing FASTQ audit log: ${EXISTING_LOG}"
