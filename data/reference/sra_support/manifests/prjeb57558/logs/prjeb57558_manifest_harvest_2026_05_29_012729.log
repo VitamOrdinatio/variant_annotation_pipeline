@@ -1,0 +1,19 @@
+BioProject: PRJEB57558
+Repo root: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline
+Output directory: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558
+Log: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558/logs/prjeb57558_manifest_harvest_2026_05_29_012729.log
+Curl policy: nice -n 19 ionice -c2 -n7 curl --retry 5 --retry-delay 10 --limit-rate 5M
+
+Discovering ENA read_run fields...
+Discovered run fields: 195
+Downloading full read_run report...
+Dropping completely empty columns...
+Validating harvested outputs...
+Validation passed.
+Updating stable latest-copy manifests after successful validation...
+
+Manifest harvest complete.
+Timestamped raw manifest: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558/prjeb57558_all_runs_2026_05_29_012729.tsv
+Timestamped topology manifest: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558/prjeb57558_runs_topology_2026_05_29_012729.tsv
+Stable raw manifest: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558/prjeb57558_all_runs.tsv
+Stable topology manifest: /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/manifests/prjeb57558/prjeb57558_runs_topology.tsv
