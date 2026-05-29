@@ -41,7 +41,15 @@ It must:
 * avoid scientific selection;
 * avoid manual curation;
 * avoid dropping biologically or operationally meaningful fields;
-* avoid overwriting existing manifests in output directory (`data/reference/sra_support/manifests/<bioproject_lower>/`)
+* rotate existing stable latest-copy manifests to `.backup` before replacement after successful validation;
+* avoid silent overwrite of existing manifests in output directory.
+
+Timestamped provenance manifests must never be overwritten.
+
+Stable latest-copy operational manifests (`*.tsv`, `*.txt`) may be rotated to a `.backup` version before replacement, but only after newly generated timestamped outputs successfully pass validation.
+
+If an existing `.backup` file already exists, it may be replaced by the newly rotated prior stable manifest.
+
 
 ## Output
 
@@ -107,7 +115,14 @@ It must:
 * preserve enough operational columns for download;
 * preserve enough scientific columns for human review;
 * document derived fields in the output header or log;
+* rotate existing stable latest-copy selected manifests to `.backup` before replacement after successful validation;
 * avoid downloading files.
+
+Timestamped selected manifests must never be overwritten.
+
+Stable latest-copy selected manifests may be rotated to a `.backup` version before replacement, but only after newly generated timestamped outputs successfully pass validation.
+
+If an existing `.backup` file already exists, it may be replaced by the newly rotated prior stable manifest.
 
 Default scientific design:
 
@@ -255,6 +270,68 @@ Script C should use `set -uo pipefail` rather than `set -euo pipefail` so row-le
 
 ---
 
+# Manifest Rotation Policy
+
+## Scope
+
+Manifest rotation only occurs for execution of:
+
+- script A (`harvest_bioproject_run_manifest.sh`)
+- script B (`select_bioproject_runs_by_depth.sh`)
+
+## Exclusion
+
+Manifest rotation functionality does not exist for script C (`download_selected_fastqs_polite.sh`)
+
+## Behavior
+
+Manifest rotation proceeds procedurally:
+
+  1. Generate timestamped output.
+  2. Validate timestamped output.
+  3. If validation passes:
+     a. rotate existing stable file to .backup
+     b. copy timestamped output to stable canonical filename
+  4. If validation fails:
+     a. leave old stable file untouched
+     b. do not rotate anything
+
+Thus the validation target is always
+
+```text
+the new timestamped manifest.
+```
+
+Stable latest-copy manifests inherit operational trust only from successfully validated timestamped outputs.
+
+## Example Rotation for Script A
+
+For Script A, validation checks the following newly timestamped files:
+
+- `prjeb57558_all_runs_YEAR_MO_DAY_XXXXXX.tsv`
+- `prjeb57558_runs_topology_YEAR_MO_DAY_XXXXXX.tsv`
+
+  * If validation passes, and `prjeb57558_all_runs.tsv` already exists, then:
+    - then rotate previous `prjeb57558_all_runs.tsv` to `prjeb57558_all_runs.tsv.backup`, overwriting any existing `prjeb57558_all_runs.tsv.backup` file
+    - then update `prjeb57558_all_runs.tsv` with the newly timestamped and validated `prjeb57558_all_runs_YEAR_MO_DAY_XXXXXX.tsv`
+
+
+  * If validation passes, and `prjeb57558_runs_topology.tsv` already exists, then:
+    - then rotate previous `prjeb57558_runs_topology.tsv` to `prjeb57558_runs_topology.tsv.backup`, overwriting any existing `prjeb57558_runs_topology.tsv.backup` file
+    - then update `prjeb57558_runs_topology.tsv` with the newly timestamped and validated `prjeb57558_runs_topology_YEAR_MO_DAY_XXXXXX.tsv`
+
+## Example Rotation for Script B
+
+For Script B, validation checks the following newly timestamped file:
+
+- `prjeb57558_selected_9_runs_YEAR_MO_DAY_XXXXXX.tsv`
+
+  * If validation passes, and `prjeb57558_selected_9_runs.tsv` already exists, then:
+    - then rotate previous `prjeb57558_selected_9_runs.tsv` to `prjeb57558_selected_9_runs.tsv.backup`, overwriting any existing `prjeb57558_selected_9_runs.tsv.backup` file
+    - then update `prjeb57558_selected_9_runs.tsv` with the newly timestamped and validated `prjeb57558_selected_9_runs_YEAR_MO_DAY_XXXXXX.tsv`
+
+---
+
 # End-to-End Data Flow
 
 ```text
@@ -309,7 +386,7 @@ Notes:
 
 - Script A writes to manifests/<bioproject_lower>/
 - Script B writes to selections/<bioproject_lower>/
-- Script C only writes logs to download_logs/<bioproject_lower>
+- Script C writes operational logs to download_logs/<bioproject_lower>
 - Script C downloads fastq files to MARK's `/data/storage/fastq`
 - Each <bioproject_lower> is a nested subfolder within manifests/, selections/, or download_logs/
 
@@ -380,13 +457,17 @@ Equivalent ingestion, selection, and acquisition logic may later be promoted int
 
 ## Cross-Script Operational Conventions
 
+Stable latest-copy manifests represent the current canonical operational handoff artifacts between scripts.
+
+Timestamped manifests remain the authoritative provenance-preserving historical artifacts and must never be modified or overwritten.
+
 All scripts must:
 
 - read TSV inputs by header name, not column position;
 - write timestamped logs to their primary output/destination directory;
 - preserve timestamped outputs before updating stable latest-copy outputs;
 - fail loudly on missing required columns;
-- avoid silent overwrite of existing trusted artifacts;
+- avoid silent overwrite or silent rotation of existing trusted artifacts;
 - tolerate row-level failures where appropriate;
 - record enough information in logs to reconstruct what was attempted, skipped, selected, downloaded, or failed.
 
