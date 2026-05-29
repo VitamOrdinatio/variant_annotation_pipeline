@@ -31,6 +31,9 @@ LOGDIR="${OUTDIR}/logs"
 TIMESTAMP="$(date +%Y_%m_%d_%H%M%S)"
 LOGFILE="${LOGDIR}/${BIOPROJECT_LOWER}_manifest_harvest_${TIMESTAMP}.log"
 
+MARK_HOST_PATTERN="${MARK_HOST_PATTERN:-^vandpymolgpuresearch[0-9]*$}"
+HOST_SHORT="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+
 BASE_URL="https://www.ebi.ac.uk/ena/portal/api"
 USER_AGENT="VAP-manifest-harvester/0.1"
 
@@ -41,8 +44,11 @@ CURL_RETRY_DELAY="${CURL_RETRY_DELAY:-10}"
 mkdir -p "${OUTDIR}" "${LOGDIR}"
 exec > >(tee -a "${LOGFILE}") 2>&1
 
-if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "$(hostname -s)" =~ [Mm][Aa][Rr][Kk] ]]; then
-  echo "ERROR: This script is intended for MARK. Set ALLOW_NON_MARK=1 only for dry testing."
+if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "${HOST_SHORT}" =~ ${MARK_HOST_PATTERN} ]]; then
+  echo "ERROR: This script is intended for MARK-compatible hosts."
+  echo "Current host: ${HOST_SHORT}"
+  echo "Expected host pattern: ${MARK_HOST_PATTERN}"
+  echo "Set ALLOW_NON_MARK=1 only for dry testing."
   exit 1
 fi
 
