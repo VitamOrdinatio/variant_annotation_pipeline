@@ -92,6 +92,7 @@ awk -F'\t' '
     optional[6]="library_selection"
     optional[7]="instrument_model"
     optional[8]="fastq_bytes"
+    optional[9]="fastq_md5"
   }
 
   NR==1 {
@@ -107,7 +108,7 @@ awk -F'\t' '
       }
     }
 
-    print "read_count_sort","run_accession","sample_accession","experiment_accession","study_accession","library_strategy","library_layout","library_source","library_selection","instrument_model","read_count","base_count","fastq_bytes","fastq_ftp"
+    print "read_count_sort","run_accession","sample_accession","experiment_accession","study_accession","library_strategy","library_layout","library_source","library_selection","instrument_model","read_count","base_count","fastq_bytes","fastq_md5","fastq_ftp"
     next
   }
 
@@ -137,8 +138,9 @@ awk -F'\t' '
     selection=("library_selection" in idx ? $(idx["library_selection"]) : "")
     instrument=("instrument_model" in idx ? $(idx["instrument_model"]) : "")
     fastq_bytes=("fastq_bytes" in idx ? $(idx["fastq_bytes"]) : "")
+    fastq_md5=("fastq_md5" in idx ? $(idx["fastq_md5"]) : "")
 
-    print read_count,run,sample,experiment,study,strategy,layout,source,selection,instrument,read_count,base_count,fastq_bytes,ftp
+    print read_count,run,sample,experiment,study,strategy,layout,source,selection,instrument,read_count,base_count,fastq_bytes,fastq_md5,ftp
     eligible++
   }
 
@@ -177,7 +179,7 @@ awk -F'\t' -v total="${ELIGIBLE_COUNT}" -v q1="${Q1_TARGET}" -v med="${MEDIAN_TA
   BEGIN { OFS="\t" }
 
   NR==1 {
-    print "run_accession","sample_accession","experiment_accession","study_accession","library_strategy","library_layout","library_source","library_selection","instrument_model","read_count","rank","rank_%","depth_category","base_count","fastq_bytes","fastq_ftp"
+    print "run_accession","sample_accession","experiment_accession","study_accession","library_strategy","library_layout","library_source","library_selection","instrument_model","read_count","rank","rank_%","depth_category","base_count","fastq_bytes","fastq_md5","fastq_ftp"
     next
   }
 
@@ -191,7 +193,7 @@ awk -F'\t' -v total="${ELIGIBLE_COUNT}" -v q1="${Q1_TARGET}" -v med="${MEDIAN_TA
     else if (rank==q3-1 || rank==q3 || rank==q3+1) category="q3"
 
     if (category!="") {
-      print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,rank,sprintf("%.2f",rank_pct),category,$12,$13,$14
+      print $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,rank,sprintf("%.2f",rank_pct),category,$12,$13,$14,$15
     }
   }
 ' "${TMP_RANKED}" > "${TMP_SELECTED}"
