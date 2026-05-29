@@ -1,0 +1,248 @@
+MARK Script C Probe
+Timestamp: 2026_05_29_050656
+Host short: VandPyMolGPUResearch
+Host full: VandPyMolGPUResearch.local
+User: root
+
+===== cd into VAP root =====
+/root/dev/portfolio_projects/variant_annotation_pipeline
+
+===== Git/script presence =====
+-rwxr-xr-x 1 root root 9.1K May 29 04:40 scripts/resources/download_selected_fastqs_polite.sh
+
+===== Script C syntax check =====
+bash -n exit code: 0
+
+===== MARK host guard variables from script =====
+12:MARK_HOST_PATTERN="${MARK_HOST_PATTERN:-^vandpymolgpuresearch[0-9]*$}"
+13:HOST_SHORT="$(hostname -s | tr '[:upper:]' '[:lower:]')"
+53:if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "${HOST_SHORT}" =~ ${MARK_HOST_PATTERN} ]]; then
+54:  echo "ERROR: This script is intended for MARK-compatible hosts."
+55:  echo "Current host: ${HOST_SHORT}"
+56:  echo "Expected host pattern: ${MARK_HOST_PATTERN}"
+57:  echo "Set ALLOW_NON_MARK=1 only for dry testing."
+
+===== Current hostname matching expectation =====
+HOST_SHORT=vandpymolgpuresearch
+MARK_HOST_PATTERN=^vandpymolgpuresearch[0-9]*$
+HOST_MATCH=YES
+
+===== Manifest discovery =====
+total 20K
+drwxr-xr-x 2 root root 4.0K May 29 04:41 logs
+-rw-r--r-- 1 root root 3.0K May 29 03:49 prjeb57558_selected_9_runs_2026_05_29_015007.tsv
+-rw-r--r-- 1 root root 3.6K May 29 04:40 prjeb57558_selected_9_runs_2026_05_29_041152.tsv
+-rw------- 1 root root 3.6K May 29 04:41 prjeb57558_selected_9_runs_2026_05_29_044122.tsv
+-rw-r--r-- 1 root root 3.6K May 29 04:41 prjeb57558_selected_9_runs.tsv
+
+-rw-r--r-- 1 root root 3.0K May 29 03:49 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_015007.tsv
+-rw-r--r-- 1 root root 3.6K May 29 04:40 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_041152.tsv
+-rw------- 1 root root 3.6K May 29 04:41 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
+-rw-r--r-- 1 root root 3.6K May 29 04:41 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs.tsv
+
+Chosen manifest: data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
+-rw------- 1 root root 3.6K May 29 04:41 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
+
+===== Manifest header and first records =====
+     1	run_accession
+     2	sample_accession
+     3	experiment_accession
+     4	study_accession
+     5	library_strategy
+     6	library_layout
+     7	library_source
+     8	library_selection
+     9	instrument_model
+    10	read_count
+    11	rank
+    12	rank_%
+    13	depth_category
+    14	base_count
+    15	fastq_bytes
+    16	fastq_md5
+    17	fastq_ftp
+
+Line count:
+10 data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
+
+Pretty first 12 lines:
+run_accession  sample_accession  experiment_accession  study_accession  library_strategy  library_layout  library_source  library_selection  instrument_model     read_count  rank  rank_%  depth_category  base_count   fastq_bytes            fastq_md5                                                          fastq_ftp
+ERR10619330    SAMEA112167106    ERX10090458           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  210460026   35    24.31   q1              20885354887  5157657320;5296771959  4b4ad4fad57254f90d00b18576f3da3f;5c85bab1afdddbddd00f953abb270336  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619330/ERR10619330_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619330/ERR10619330_2.fastq.gz
+ERR10619309    SAMEA112167085    ERX10090437           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  205213734   36    25.00   q1              20460848520  5188679211;5079684393  55399562e4918b0fb59a1da3f41069b7;9ddb5d70016e0e7e05d3bf187f517cea  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/009/ERR10619309/ERR10619309_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/009/ERR10619309/ERR10619309_2.fastq.gz
+ERR10619212    SAMEA112166988    ERX10090340           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  203719472   37    25.69   q1              20332941949  5045753921;5194886423  f5d328bf914001ebd493797a259b1b1b;755003fbdfbc8c1383531848e5bea227  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/012/ERR10619212/ERR10619212_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/012/ERR10619212/ERR10619212_2.fastq.gz
+ERR10619208    SAMEA112166984    ERX10090336           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  169773658   71    49.31   median          16976557003  4333114405;4294066479  afbbfb6880d604ee9a3964926db3f707;5219fd995cd1fb0dc4cf16615a5b1bf9  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/008/ERR10619208/ERR10619208_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/008/ERR10619208/ERR10619208_2.fastq.gz
+ERR10619285    SAMEA112167061    ERX10090413           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  167725712   72    50.00   median          16721376617  4172368786;4327415778  ee7b1cc1f7f33aef3d32d50002157fa8;83b862fadb0a0e8b8e2427cc6dee31eb  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/085/ERR10619285/ERR10619285_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/085/ERR10619285/ERR10619285_2.fastq.gz
+ERR10619281    SAMEA112167057    ERX10090409           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  167393032   73    50.69   median          16659409235  4176403962;4200386989  741f55fa128a53bbee195c48df349c8c;67900ee7e75ec991da01e08afb4abe97  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/081/ERR10619281/ERR10619281_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/081/ERR10619281/ERR10619281_2.fastq.gz
+ERR10619225    SAMEA112167001    ERX10090353           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  141637092   107   74.31   q3              14201488135  3634041975;3509027134  32b4d56d8489d714cc6050916152ada9;6878f75a22eecd42d653c5e6a413f9cf  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/025/ERR10619225/ERR10619225_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/025/ERR10619225/ERR10619225_2.fastq.gz
+ERR10619230    SAMEA112167006    ERX10090358           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  141194746   108   75.00   q3              14080570641  3503498472;3595140192  8c4d321c8714c6ba8df88d173555c8e3;68b47802155778d3112c32ec48c29d57  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619230/ERR10619230_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619230/ERR10619230_2.fastq.gz
+ERR10619203    SAMEA112166979    ERX10090331           PRJEB57558       AMPLICON          PAIRED          GENOMIC         unspecified        Illumina HiSeq 2500  140909888   109   75.69   q3              14085210196  3496640664;3594961711  d872fe4151cc6ce7a79891d30acdd374;3c6bc4fff01202ad7d1b0e03471b2f71  ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/003/ERR10619203/ERR10619203_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/003/ERR10619203/ERR10619203_2.fastq.gz
+
+===== Required commands =====
+FOUND: awk -> /usr/bin/awk
+FOUND: wget -> /usr/bin/wget
+FOUND: gunzip -> /usr/bin/gunzip
+FOUND: tee -> /usr/bin/tee
+FOUND: date -> /usr/bin/date
+FOUND: hostname -> /usr/bin/hostname
+FOUND: basename -> /usr/bin/basename
+FOUND: mktemp -> /usr/bin/mktemp
+FOUND: md5sum -> /usr/bin/md5sum
+FOUND: stat -> /usr/bin/stat
+FOUND: mv -> /usr/bin/mv
+FOUND: nice -> /usr/bin/nice
+FOUND: ionice -> /usr/bin/ionice
+
+===== FASTQ target directories =====
+/data/storage/fastq:
+drwxr-xr-x 3 root root 4096 May  1 16:45 /data/storage/fastq
+
+/data/storage/fastq/.incomplete:
+ls: cannot access '/data/storage/fastq/.incomplete': No such file or directory
+
+===== Existing FASTQs matching selected manifest =====
+MISSING: /data/storage/fastq/ERR10619330_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619330_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619309_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619309_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619212_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619212_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619208_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619208_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619285_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619285_1.fastq.gz
+EXISTS: /data/storage/fastq/ERR10619281_2.fastq.gz
+-rw-r--r-- 1 root root 4.0G May  1 13:23 /data/storage/fastq/ERR10619281_2.fastq.gz
+EXISTS: /data/storage/fastq/ERR10619281_1.fastq.gz
+-rw-r--r-- 1 root root 3.9G May  1 13:20 /data/storage/fastq/ERR10619281_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619225_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619225_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619230_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619230_1.fastq.gz
+MISSING: /data/storage/fastq/ERR10619203_2.fastq.gz
+MISSING: /data/storage/fastq/ERR10619203_1.fastq.gz
+
+===== Existing Script C logs =====
+
+===== Dry bash-x first 80 lines with OUTDIR redirected to /tmp, killed before wget would matter =====
+NOTE: This does not execute full download. It only verifies early startup path if timeout is available.
++ set -uo pipefail
++++ dirname scripts/resources/download_selected_fastqs_polite.sh
+++ cd scripts/resources/../..
+++ pwd
++ REPO_ROOT=/root/dev/portfolio_projects/variant_annotation_pipeline
++ DEFAULT_MANIFEST=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs.tsv
++ MANIFEST=data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
++ OUTDIR=/data/storage/fastq
++ INCOMPLETE_DIR=/data/storage/fastq/.incomplete
++ LIMIT_RATE=20m
+++ date +%Y_%m_%d_%H%M%S
++ TIMESTAMP=2026_05_29_050656
++ MARK_HOST_PATTERN='^vandpymolgpuresearch[0-9]*$'
+++ hostname -s
+++ tr '[:upper:]' '[:lower:]'
++ HOST_SHORT=vandpymolgpuresearch
++ [[ ! -f data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv ]]
+++ basename data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
++ BASENAME=prjeb57558_selected_9_runs_2026_05_29_044122.tsv
++ [[ prjeb57558_selected_9_runs_2026_05_29_044122.tsv =~ _selected_9_runs_[0-9]{4}_[0-9]{2}_[0-9]{2}_[0-9]{6}\.tsv$ ]]
++ BIOPROJECT_LOWER=prjeb57558
++ [[ -z prjeb57558 ]]
++ [[ prjeb57558 == \p\r\j\e\b\5\7\5\5\8\_\s\e\l\e\c\t\e\d\_\9\_\r\u\n\s\_\2\0\2\6\_\0\5\_\2\9\_\0\4\4\1\2\2\.\t\s\v ]]
++ LOGDIR=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558
++ LOGFILE=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/download_session_2026_05_29_050656.log
++ FAILED_LOG=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/download_failures_2026_05_29_050656.log
++ GZIP_LOG=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/gzip_integrity_2026_05_29_050656.log
++ MD5_LOG=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/md5_integrity_2026_05_29_050656.log
++ EXISTING_LOG=/root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/existing_fastq_audit_2026_05_29_050656.log
++ EXTRACTED_MANIFEST=
++ [[ 0 != \1 ]]
++ [[ ! vandpymolgpuresearch =~ ^vandpymolgpuresearch[0-9]*$ ]]
++ mkdir -p /data/storage/fastq /data/storage/fastq/.incomplete /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558
++ exec
+++ tee -a /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558/download_session_2026_05_29_050656.log
++ trap cleanup EXIT
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v awk
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v wget
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v gunzip
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v tee
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v date
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v hostname
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v basename
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v mktemp
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v md5sum
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v stat
++ for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv
++ command -v mv
+++ mktemp
++ EXTRACTED_MANIFEST=/tmp/tmp.98cyKyMfxO
++ awk '-F\t' '
+  BEGIN { OFS="\t" }
+  NR==1 {
+    for (i=1;i<=NF;i++) {
+      gsub(/\r$/,"",$i)
+      idx[$i]=i
+    }
+    required[1]="run_accession"
+    required[2]="library_layout"
+    required[3]="fastq_ftp"
+    for (r=1;r<=3;r++) {
+      if (!(required[r] in idx)) {
+        print "ERROR: Required column missing: " required[r] > "/dev/stderr"
+        exit 2
+      }
+    }
+    print "run_accession","library_layout","fastq_ftp","fastq_md5","fastq_bytes"
+    next
+  }
+  {
+    run=$(idx["run_accession"])
+    layout=$(idx["library_layout"])
+    ftp=$(idx["fastq_ftp"])
+    md5=("fastq_md5" in idx ? $(idx["fastq_md5"]) : "")
+    bytes=("fastq_bytes" in idx ? $(idx["fastq_bytes"]) : "")
+    gsub(/\r$/,"",run)
+    gsub(/\r$/,"",layout)
+    gsub(/\r$/,"",ftp)
+    gsub(/\r$/,"",md5)
+    gsub(/\r$/,"",bytes)
+    if (run!="" && ftp!="") print run,layout,ftp,md5,bytes
+  }
+' data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
++ echo 'BioProject: prjeb57558'
+BioProject: prjeb57558
++ echo 'Manifest: data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv'
+Manifest: data/reference/sra_support/selections/prjeb57558/prjeb57558_selected_9_runs_2026_05_29_044122.tsv
++ echo 'Extracted operational manifest: /tmp/tmp.98cyKyMfxO'
+Extracted operational manifest: /tmp/tmp.98cyKyMfxO
++ echo 'FASTQ output directory: /data/storage/fastq'
+FASTQ output directory: /data/storage/fastq
++ echo 'Incomplete download directory: /data/storage/fastq/.incomplete'
+Incomplete download directory: /data/storage/fastq/.incomplete
++ echo 'Log directory: /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558'
+Log directory: /root/dev/portfolio_projects/variant_annotation_pipeline/data/reference/sra_support/download_logs/prjeb57558
++ echo 'Download policy: nice -n 19 ionice -c2 -n7 wget -c --limit-rate=20m -O <part_file>'
+Download policy: nice -n 19 ionice -c2 -n7 wget -c --limit-rate=20m -O <part_file>
++ echo 'Final FASTQ immutability: existing final FASTQs will be audited but never modified'
+Final FASTQ immutability: existing final FASTQs will be audited but never modified
++ echo
+
++ IFS='	'
++ read -r run_accession library_layout fastq_ftp fastq_md5 fastq_bytes
++ [[ run_accession == \r\u\n\_\a\c\c\e\s\s\i\o\n ]]
++ continue
++ IFS='	'
++ read -r run_accession library_layout fastq_ftp fastq_md5 fastq_bytes
++ [[ ERR10619330 == \r\u\n\_\a\c\c\e\s\s\i\o\n ]]
++ [[ -z ERR10619330 ]]
++ [[ -z ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619330/ERR10619330_1.fastq.gz;ftp.sra.ebi.ac.uk/vol1/fastq/ERR106/030/ERR10619330/ERR10619330_2.fastq.gz ]]
+timeout/bash-x exit code: 141
