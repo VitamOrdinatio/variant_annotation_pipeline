@@ -18,10 +18,26 @@ if [[ ! -f "${MANIFEST}" ]]; then
 fi
 
 BASENAME="$(basename "${MANIFEST}")"
-BIOPROJECT_LOWER="${BASENAME%%_selected_9_runs*}"
+
+if [[ "${BASENAME}" =~ _selected_9_runs_[0-9]{4}_[0-9]{2}_[0-9]{2}_[0-9]{6}\.tsv$ ]]; then
+  BIOPROJECT_LOWER="${BASENAME%%_selected_9_runs_*}"
+elif [[ "${BASENAME}" =~ _selected_9_runs\.tsv$ ]]; then
+  BIOPROJECT_LOWER="${BASENAME%%_selected_9_runs.tsv}"
+else
+  echo "ERROR: Could not infer BioProject from manifest filename: ${BASENAME}"
+  echo "Expected filename pattern:"
+  echo "  <bioproject_lower>_selected_9_runs.tsv"
+  echo "or"
+  echo "  <bioproject_lower>_selected_9_runs_YYYY_MM_DD_HHMMSS.tsv"
+  exit 1
+fi
+
 if [[ -z "${BIOPROJECT_LOWER}" || "${BIOPROJECT_LOWER}" == "${BASENAME}" ]]; then
   echo "ERROR: Could not infer BioProject from manifest filename: ${BASENAME}"
-  echo "Expected filename pattern: <bioproject_lower>_selected_9_runs.tsv"
+  echo "Expected filename pattern:"
+  echo "  <bioproject_lower>_selected_9_runs.tsv"
+  echo "or"
+  echo "  <bioproject_lower>_selected_9_runs_YYYY_MM_DD_HHMMSS.tsv"
   exit 1
 fi
 
@@ -33,13 +49,6 @@ MD5_LOG="${LOGDIR}/md5_integrity_${TIMESTAMP}.log"
 EXISTING_LOG="${LOGDIR}/existing_fastq_audit_${TIMESTAMP}.log"
 EXTRACTED_MANIFEST=""
 
-mkdir -p "${OUTDIR}" "${INCOMPLETE_DIR}" "${LOGDIR}"
-exec > >(tee -a "${LOGFILE}") 2>&1
-
-cleanup() {
-  [[ -n "${EXTRACTED_MANIFEST}" && -f "${EXTRACTED_MANIFEST}" ]] && rm -f "${EXTRACTED_MANIFEST}"
-}
-trap cleanup EXIT
 
 if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "${HOST_SHORT}" =~ ${MARK_HOST_PATTERN} ]]; then
   echo "ERROR: This script is intended for MARK-compatible hosts."
@@ -48,6 +57,14 @@ if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "${HOST_SHORT}" =~ ${MARK_HOST_PATTERN}
   echo "Set ALLOW_NON_MARK=1 only for dry testing."
   exit 1
 fi
+
+mkdir -p "${OUTDIR}" "${INCOMPLETE_DIR}" "${LOGDIR}"
+exec > >(tee -a "${LOGFILE}") 2>&1
+
+cleanup() {
+  [[ -n "${EXTRACTED_MANIFEST}" && -f "${EXTRACTED_MANIFEST}" ]] && rm -f "${EXTRACTED_MANIFEST}"
+}
+trap cleanup EXIT
 
 for cmd in awk wget gunzip tee date hostname basename mktemp md5sum stat mv; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: Missing command: $cmd"; exit 1; }
