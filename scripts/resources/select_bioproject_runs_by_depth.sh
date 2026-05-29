@@ -37,10 +37,14 @@ if [[ ! -f "${MANIFEST}" ]]; then
 fi
 
 BASENAME="$(basename "${MANIFEST}")"
-BIOPROJECT_LOWER="${BASENAME%%_runs_topology.tsv}"
+BIOPROJECT_LOWER="$(echo "${BASENAME}" | sed -E 's/_runs_topology(_[0-9]{4}_[0-9]{2}_[0-9]{2}_[0-9]{6})?\.tsv$//')"
+
 if [[ -z "${BIOPROJECT_LOWER}" || "${BIOPROJECT_LOWER}" == "${BASENAME}" ]]; then
   echo "ERROR: Could not infer BioProject from manifest filename: ${BASENAME}"
-  echo "Expected filename pattern: <bioproject_lower>_runs_topology.tsv"
+  echo "Expected filename pattern:"
+  echo "  <bioproject_lower>_runs_topology.tsv"
+  echo "or"
+  echo "  <bioproject_lower>_runs_topology_YYYY_MM_DD_HHMMSS.tsv"
   exit 1
 fi
 
