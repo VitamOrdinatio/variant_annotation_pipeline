@@ -52,7 +52,7 @@ if [[ "${ALLOW_NON_MARK:-0}" != "1" && ! "${HOST_SHORT}" =~ ${MARK_HOST_PATTERN}
   exit 1
 fi
 
-for cmd in curl awk tee date hostname nice ionice cp wc paste; do
+for cmd in curl awk tee date hostname nice ionice cp mv wc paste; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: Missing command: $cmd"; exit 1; }
 done
 
@@ -109,6 +109,20 @@ drop_empty_columns() {
   ' "${infile}" > "${outfile}"
 }
 
+rotate_stable_if_present() {
+  local stable_file="$1"
+  local backup_file="${stable_file}.backup"
+  if [[ -f "${stable_file}" ]]; then
+    if [[ -f "${backup_file}" ]]; then
+      echo "ROTATE: replacing existing backup: ${backup_file}"
+    fi
+    echo "ROTATE: ${stable_file} -> ${backup_file}"
+    mv -f "${stable_file}" "${backup_file}"
+  else
+    echo "ROTATE: no existing stable file to rotate: ${stable_file}"
+  fi
+}
+
 echo "BioProject: ${BIOPROJECT}"
 echo "Repo root: ${REPO_ROOT}"
 echo "Output directory: ${OUTDIR}"
@@ -148,9 +162,17 @@ echo "Validation passed."
 
 echo "Updating stable latest-copy manifests after successful validation..."
 
-cp "${ALL_RUNS_TS}" "${OUTDIR}/${BIOPROJECT_LOWER}_all_runs.tsv"
-cp "${RUNS_TOPOLOGY_TS}" "${OUTDIR}/${BIOPROJECT_LOWER}_runs_topology.tsv"
-cp "${RUN_FIELDS_FILE}" "${OUTDIR}/${BIOPROJECT_LOWER}_read_run_fields.txt"
+STABLE_ALL_RUNS="${OUTDIR}/${BIOPROJECT_LOWER}_all_runs.tsv"
+STABLE_RUNS_TOPOLOGY="${OUTDIR}/${BIOPROJECT_LOWER}_runs_topology.tsv"
+STABLE_RUN_FIELDS="${OUTDIR}/${BIOPROJECT_LOWER}_read_run_fields.txt"
+
+rotate_stable_if_present "${STABLE_ALL_RUNS}"
+rotate_stable_if_present "${STABLE_RUNS_TOPOLOGY}"
+rotate_stable_if_present "${STABLE_RUN_FIELDS}"
+
+cp "${ALL_RUNS_TS}" "${STABLE_ALL_RUNS}"
+cp "${RUNS_TOPOLOGY_TS}" "${STABLE_RUNS_TOPOLOGY}"
+cp "${RUN_FIELDS_FILE}" "${STABLE_RUN_FIELDS}"
 
 echo
 echo "Manifest harvest complete."

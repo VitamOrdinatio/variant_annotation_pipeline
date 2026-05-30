@@ -1,0 +1,4 @@
+run_accession	read_count	rank	rank_%	depth_category
+ERR000001	1000000	1	25.00	q1
+ERR000002	2000000	2	50.00	median
+ERR000003	3000000	3	75.00	q3

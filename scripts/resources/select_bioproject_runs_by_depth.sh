@@ -68,7 +68,7 @@ mkdir -p "${OUTDIR}" "${LOGDIR}"
 LOGFILE="${LOGDIR}/${BIOPROJECT_LOWER}_run_selection_${TIMESTAMP}.log"
 exec > >(tee -a "${LOGFILE}") 2>&1
 
-for cmd in awk sort tee date basename mktemp cp wc; do
+for cmd in awk sort tee date basename mktemp cp mv wc; do
   command -v "$cmd" >/dev/null 2>&1 || { echo "ERROR: Missing command: $cmd"; exit 1; }
 done
 
@@ -79,6 +79,21 @@ TMP_SELECTED="$(mktemp)"
 cleanup() {
   rm -f "${TMP_ELIGIBLE}" "${TMP_RANKED}" "${TMP_SELECTED}"
 }
+
+rotate_stable_if_present() {
+  local stable_file="$1"
+  local backup_file="${stable_file}.backup"
+  if [[ -f "${stable_file}" ]]; then
+    if [[ -f "${backup_file}" ]]; then
+      echo "ROTATE: replacing existing backup: ${backup_file}"
+    fi
+    echo "ROTATE: ${stable_file} -> ${backup_file}"
+    mv -f "${stable_file}" "${backup_file}"
+  else
+    echo "ROTATE: no existing stable file to rotate: ${stable_file}"
+  fi
+}
+
 trap cleanup EXIT
 
 echo "BioProject: ${BIOPROJECT_LOWER}"
@@ -224,7 +239,21 @@ TIMESTAMPED_OUT="${OUTDIR}/${BIOPROJECT_LOWER}_selected_9_runs_${TIMESTAMP}.tsv"
 STABLE_OUT="${OUTDIR}/${BIOPROJECT_LOWER}_selected_9_runs.tsv"
 
 cp "${TMP_SELECTED}" "${TIMESTAMPED_OUT}"
-cp "${TMP_SELECTED}" "${STABLE_OUT}"
+
+echo "Validating timestamped selected manifest..."
+[[ -s "${TIMESTAMPED_OUT}" ]] || { echo "ERROR: Timestamped selected manifest is empty: ${TIMESTAMPED_OUT}"; exit 1; }
+
+TIMESTAMPED_SELECTED_COUNT="$(($(wc -l < "${TIMESTAMPED_OUT}") - 1))"
+if [[ "${TIMESTAMPED_SELECTED_COUNT}" -ne 9 ]]; then
+  echo "ERROR: Timestamped selected manifest should contain 9 selected runs; found ${TIMESTAMPED_SELECTED_COUNT}"
+  exit 1
+fi
+
+rotate_stable_if_present "${STABLE_OUT}"
+cp "${TIMESTAMPED_OUT}" "${STABLE_OUT}"
+
+# Set stable permissions to group-writable so collaborators can update if needed  
+chmod 664 "${TIMESTAMPED_OUT}" "${STABLE_OUT}"
 
 echo "Selected runs:"
 awk -F'\t' 'NR==1 {next} {print "  " $13 ": rank " $11 " (" $12 "%), " $1 ", read_count=" $10}' "${STABLE_OUT}"
