@@ -1,6 +1,6 @@
 # vap_depth_stratified_epilepsy_panel_design.md
 
-# VAP Depth-Stratified Epilepsy Panel Design (Draft v0.1)
+# VAP Depth-Stratified Epilepsy Panel Design
 
 ## Repository
 
