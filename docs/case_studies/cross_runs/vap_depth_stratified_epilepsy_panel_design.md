@@ -1,5 +1,7 @@
 # vap_depth_stratified_epilepsy_panel_design.md
 
+Experimental design to examine impact of sequencing breadth and depth as measured by read counts on VAP ouput.
+
 # VAP Depth-Stratified Epilepsy Panel Design
 
 ## Repository
