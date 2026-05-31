@@ -55,7 +55,10 @@ data/reference/sra_support/download_logs/*/*.log
 !data/reference/sra_support/selections/examples/**
 
 
-
+# Ignore duckdb artifacts
+*.duckdb
+*.duckdb-shm
+*.duckdb-wal
 
 
 # Large sequencing inputs
