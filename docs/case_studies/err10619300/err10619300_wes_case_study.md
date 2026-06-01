@@ -42,6 +42,12 @@ Operationally, the `ERR10619300` execution campaign additionally established:
 
 Collectively, these observations position `ERR10619300` as the flagship VAP v1 semantic evidence organization case study.
 
+# Flagship Semantic Evidence Refinery Architecture
+
+![Figure 1. ERR10619300 Semantic Evidence Refinery](figures/err10619300_hero_semantic_refinery_v4.png)
+
+**Figure 1.** Flagship VAP v1 semantic evidence refinery architecture illustrating deterministic semantic refinement, constrained contextual escalation, and interoperability substrate generation across large-scale epilepsy WES evidence organization. Generated deterministically from execution telemetry and semantic substrate artifacts.
+
 ---
 
 # 2. Dataset Background & Execution Context
@@ -106,22 +112,26 @@ Both executions incorporated:
 
 This controlled same-patch design therefore provides a useful operational baseline for evaluating whether repeated VAP execution preserves stable downstream semantic evidence organization under reproducibility-aware conditions.
 
-## Figure Reference Map
+## Narrative Figure and Artifact Map
+
+The following narrative figures correspond to deterministically generated execution artifacts. Additional tables, manifests, and governance substrate are provided within the Artifact Appendix.
 
 | Narrative Figure | Canonical Artifact                                       |
 | ---------------- | -------------------------------------------------------- |
-| Figure 1         | `ERR10619300_f1_same_patch_reproducibility.png`          |
-| Figure 2         | `ERR10619300_f2_runtime_observability_profile.png`       |
-| Figure 3         | `ERR10619300_f3a_deterministic_evidence_lineage.png`     |
-| Figure 4         | `ERR10619300_f3b_semantic_branching.png`                 |
-| Figure 5A        | `ERR10619300_f4a_consequence.png`                        |
-| Figure 5B        | `ERR10619300_f4a_clinvar_significance.png`               |
-| Figure 5C        | `ERR10619300_f4a_pop_freq_bins.png`                      |
-| Figure 6A        | `ERR10619300_f4b_consequence.png`                        |
-| Figure 6B        | `ERR10619300_f4b_clinvar_significance.png`               |
-| Figure 6C        | `ERR10619300_f4b_pop_freq_bins.png`                      |
-| Figure 7         | `vap_v1_harvest_ecosystem_overview.png`                  |
-| Figure 8         | `ERR10619300_f5_interoperability_substrates.png` |
+| Figure 1         | `ERR10619300_hero_semantic_refinery_v4.png`              |
+| Figure 2         | `ERR10619300_f1_same_patch_reproducibility_summary.png`  |
+| Figure 3         | `ERR10619300_f2_runtime_observability_profile.png`       |
+| Figure 4         | `ERR10619300_f3a_deterministic_evidence_lineage.png`     |
+| Figure 5         | `ERR10619300_f3b_semantic_branching.png`                 |
+| Figure 6A        | `ERR10619300_f4a_consequence.png`                        |
+| Figure 6B        | `ERR10619300_f4a_clinvar_significance.png`               |
+| Figure 6C        | `ERR10619300_f4a_pop_freq_bins.png`                      |
+| Figure 7A        | `ERR10619300_f4b_consequence.png`                        |
+| Figure 7B        | `ERR10619300_f4b_clinvar_significance.png`               |
+| Figure 7C        | `ERR10619300_f4b_pop_freq_bins.png`                      |
+| Figure 8         | `vap_v1_harvest_ecosystem_overview.png`                  |
+| Figure 9         | `ERR10619300_f5_interoperability_substrates.png`         |
+
 
 ---
 
@@ -149,13 +159,13 @@ This distinction becomes increasingly important in large-scale cohort execution 
 
 ---
 
-## Same-Patch Reproducibility Summary (F1)
+## Same-Patch Reproducibility Summary
 
-![Figure 1 — Same-Patch Operational Reproducibility](figures/ERR10619300_f1_same_patch_reproducibility_summary.png)
+![Figure 2. Same-Patch Operational Reproducibility](figures/ERR10619300_f1_same_patch_reproducibility_summary.png)
 
-**Figure 1.** Same-patch operational reproducibility assessment for repeated `ERR10619300` WES execution. Operational telemetry varies modestly between reruns while downstream semantic evidence organization remains structurally stable. Generated deterministically from case-study telemetry substrate.
+**Figure 2.** Same-patch operational reproducibility assessment for repeated `ERR10619300` WES execution. Operational telemetry varies modestly between reruns while downstream semantic evidence organization remains structurally stable. Generated deterministically from case-study telemetry substrate.
 
-Figure 1 summarizes repeated execution behavior across two fully instrumented same-patch WES runs.
+Figure 2 summarizes repeated execution behavior across two fully instrumented same-patch WES runs.
 
 Observed runtime telemetry demonstrated modest expected variability between executions:
 
@@ -265,13 +275,13 @@ This observability layer is operationally important because it allows downstream
 
 ---
 
-## Runtime Observability Profile (F2)
+## Runtime Observability Profile
 
-![Figure 2 — Runtime Observability Profile](figures/ERR10619300_f2_runtime_observability_profile.png)
+![Figure 3. Runtime Observability Profile](figures/ERR10619300_f2_runtime_observability_profile.png)
 
-**Figure 2.** Stage-resolved runtime observability profile for repeated `ERR10619300` execution. Runtime telemetry summarizes execution observability and stage decomposition rather than optimization benchmarking. Generated deterministically from telemetry substrate.
+**Figure 3.** Stage-resolved runtime observability profile for repeated `ERR10619300` execution. Runtime telemetry summarizes execution observability and stage decomposition rather than optimization benchmarking. Generated deterministically from telemetry substrate.
 
-Figure 2 summarizes stage-resolved runtime telemetry across repeated same-patch execution.
+Figure 3 summarizes stage-resolved runtime telemetry across repeated same-patch execution.
 
 The telemetry profile demonstrates that VAP execution behavior is dominated primarily by:
 
@@ -383,13 +393,13 @@ The purpose of this refinement architecture is therefore not to produce disease 
 
 ---
 
-## Deterministic Evidence Lineage (F3A)
+## Deterministic Evidence Lineage
 
-![Figure 3 — Deterministic Evidence Lineage](figures/ERR10619300_f3a_deterministic_evidence_lineage.png)
+![Figure 4. Deterministic Evidence Lineage](figures/ERR10619300_f3a_deterministic_evidence_lineage.png)
 
-**Figure 3.** Deterministic semantic evidence refinement lineage across the `ERR10619300` execution campaign. Sankey widths use square-root normalization for readability while labels preserve raw telemetry counts. Generated deterministically from sidecar telemetry substrate.
+**Figure 4.** Deterministic semantic evidence refinement lineage across the `ERR10619300` execution campaign. Sankey widths use square-root normalization for readability while labels preserve raw telemetry counts. Generated deterministically from sidecar telemetry substrate.
 
-Figure 3 summarizes semantic refinement pressure across major evidence-organization stages within the VAP ecosystem.
+Figure 4 summarizes semantic refinement pressure across major evidence-organization stages within the VAP ecosystem.
 
 The refinement structure illustrates progressive evidence transformation from:
 
@@ -434,7 +444,7 @@ Operationally, this demonstrates that VAP semantic refinement behavior itself is
 
 ## Refinement Philosophy
 
-The semantic refinement model illustrated in Figure 3 reflects several core architectural principles within VAP Phase 1A development.
+The semantic refinement model illustrated in Figure 4 reflects several core architectural principles within VAP Phase 1A development.
 
 ### Annotation Enables Interpretability
 
@@ -532,7 +542,7 @@ Operationally, this behavior is highly desirable because it suggests that VAP se
 
 ## Transition Toward Semantic Evidence Preservation
 
-Although Figure 3 demonstrates progressive semantic refinement pressure, it does not fully describe how VAP preserves evidence diversity across distinct semantic evidence classes.
+Although Figure 4 demonstrates progressive semantic refinement pressure, it does not fully describe how VAP preserves evidence diversity across distinct semantic evidence classes.
 
 Importantly, VAP does not reduce all downstream evidence organization into a single attrition-oriented prioritization funnel.
 
@@ -573,13 +583,13 @@ The resulting architecture therefore preserves multiple evidence populations sim
 
 ---
 
-## Semantic Evidence Branching (F3B)
+## Semantic Evidence Branching
 
-![Figure 4 — Semantic Evidence Branching](figures/ERR10619300_f3b_semantic_branching.png)
+![Figure 5. Semantic Evidence Branching](figures/ERR10619300_f3b_semantic_branching.png)
 
-**Figure 4.** Semantic evidence branching architecture across the `ERR10619300` execution campaign. Coding and noncoding evidence classes are preserved as distinct interpretability-oriented semantic populations rather than collapsed into a single prioritization funnel. Generated deterministically from sidecar semantic telemetry substrate.
+**Figure 5.** Semantic evidence branching architecture across the `ERR10619300` execution campaign. Coding and noncoding evidence classes are preserved as distinct interpretability-oriented semantic populations rather than collapsed into a single prioritization funnel. Generated deterministically from sidecar semantic telemetry substrate.
 
-Figure 4 summarizes semantic evidence partitioning across three major organizational states:
+Figure 5 summarizes semantic evidence partitioning across three major organizational states:
 
 - rare interpretable evidence
 - common or low-support evidence
@@ -598,7 +608,7 @@ Several important observations emerge from this structure.
 
 ## Noncoding Evidence Dominates Total Burden
 
-One of the clearest observations from Figure 4 is that noncoding evidence dominates total downstream evidence burden across all major semantic organizational states.
+One of the clearest observations from Figure 5 is that noncoding evidence dominates total downstream evidence burden across all major semantic organizational states.
 
 For example:
 
@@ -659,7 +669,7 @@ This interpretability-aware organization model becomes increasingly important du
 
 ## Strategic Importance of Semantic Branch Preservation
 
-The semantic branching architecture illustrated in Figure 4 is one of the major conceptual distinctions separating VAP from conventional variant filtering pipelines.
+The semantic branching architecture illustrated in Figure 5 is one of the major conceptual distinctions separating VAP from conventional variant filtering pipelines.
 
 Many traditional pipelines conceptually behave as:
 
@@ -696,7 +706,7 @@ Operationally, this architecture increases downstream flexibility for:
 
 ## Semantic Caveats
 
-The semantic evidence classes illustrated in Figure 4 should not be interpreted as:
+The semantic evidence classes illustrated in Figure 5 should not be interpreted as:
 
 - disease classifications
 - diagnostic categories
@@ -721,7 +731,7 @@ This distinction remains critical throughout the broader VAP ecosystem architect
 
 ## Transition Toward Biological Evidence Composition
 
-Figures 3 and 4 collectively establish that VAP reproducibly organizes evidence into stable semantic interpretability-oriented structures while preserving multiple evidence classes simultaneously.
+Figures 4 and 5 collectively establish that VAP reproducibly organizes evidence into stable semantic interpretability-oriented structures while preserving multiple evidence classes simultaneously.
 
 However, these figures primarily describe:
 
@@ -731,7 +741,7 @@ However, these figures primarily describe:
 
 rather than the biological composition of the resulting evidence landscapes themselves.
 
-The next sections therefore examine the resulting coding and noncoding evidence landscapes emitted following interpretability framework within the `ERR10619300` execution campaign.
+The next sections therefore examine the resulting coding and noncoding evidence landscapes emitted following the interpretability framework within the `ERR10619300` execution campaign.
 
 ---
 
@@ -766,13 +776,13 @@ The resulting figures therefore summarize the composition of coding evidence aft
 
 ---
 
-## Coding Consequence Composition (F4A-1)
+## Coding Consequence Composition
 
-![Figure 5A — Consequence Composition for Coding Candidate Variants](figures/ERR10619300_f4a_consequence.png)
+![Figure 6A. Consequence Composition for Coding Candidate Variants](figures/ERR10619300_f4a_consequence.png)
 
-**Figure 5A.** Coding semantic consequence composition following deterministic evidence topology within the `ERR10619300` execution campaign. Consequence classes were semantically collapsed into stable organizational categories for reproducibility-oriented evidence characterization.
+**Figure 6A.** Coding semantic consequence composition following deterministic evidence topology within the `ERR10619300` execution campaign. Consequence classes were semantically collapsed into stable organizational categories for reproducibility-oriented evidence characterization.
 
-Figure 5A summarizes the major coding consequence classes observed following semantic refinement.
+Figure 6A summarizes the major coding consequence classes observed following semantic refinement.
 
 Several important observations emerge from the resulting composition profile.
 
@@ -803,13 +813,13 @@ Importantly, however, VAP preserves these evidence classes explicitly rather tha
 
 ---
 
-## Coding ClinVar Significance Structure (F4A-2)
+## Coding ClinVar Significance Structure
 
-![Figure 5B — ClinVar Significance Composition for Coding Candidate Variants](figures/ERR10619300_f4a_clinvar_significance.png)
+![Figure 6B. ClinVar Significance Composition for Coding Candidate Variants](figures/ERR10619300_f4a_clinvar_significance.png)
 
-**Figure 5B.** Coding ClinVar semantic significance structure following deterministic semantic organization. ClinVar evidence classes are summarized observationally and do not imply pathogenicity assignment or diagnostic interpretation.
+**Figure 6B.** Coding ClinVar semantic significance structure following deterministic semantic organization. ClinVar evidence classes are summarized observationally and do not imply pathogenicity assignment or diagnostic interpretation.
 
-Figure 5B summarizes the distribution of ClinVar-associated semantic evidence states within the coding evidence landscape.
+Figure 6B summarizes the distribution of ClinVar-associated semantic evidence states within the coding evidence landscape.
 
 Several important observations emerge from this structure.
 
@@ -841,13 +851,13 @@ This observation highlights the persistent interpretability limitations that exi
 
 ---
 
-## Coding Population-Frequency Structure (F4A-3)
+## Coding Population-Frequency Structure
 
-![Figure 5C — Population Frequency Composition for Coding Candidate Variants](figures/ERR10619300_f4a_pop_freq_bins.png)
+![Figure 6C. Population Frequency Composition for Coding Candidate Variants](figures/ERR10619300_f4a_pop_freq_bins.png)
 
-**Figure 5C.** Coding population-frequency structure following deterministic semantic organization. Frequency classes summarize observational evidence distributions rather than pathogenicity or enrichment significance.
+**Figure 6C.** Coding population-frequency structure following deterministic semantic organization. Frequency classes summarize observational evidence distributions rather than pathogenicity or enrichment significance.
 
-Figure 5C summarizes coding evidence organization across population-frequency bins following semantic refinement.
+Figure 6C summarizes coding evidence organization across population-frequency bins following semantic refinement.
 
 Several important operational observations emerge from this structure.
 
@@ -877,7 +887,7 @@ Collectively, the coding evidence landscape demonstrates several important prope
 
 ### Stable Semantic Collapse Structure
 
-The coding consequence classes illustrated throughout Figure 5A were generated using deterministic semantic collapse layers designed to stabilize heterogeneous annotation structures into reproducibly interpretable organizational categories.
+The coding consequence classes illustrated throughout Figure 6A were generated using deterministic semantic collapse layers designed to stabilize heterogeneous annotation structures into reproducibly interpretable organizational categories.
 
 This approach is operationally important because it improves:
 
@@ -908,7 +918,7 @@ This distinction materially improves reviewer trust and scientific defensibility
 
 ### Coding Evidence Is Not Treated in Isolation
 
-Although Figure 5A focuses specifically on coding evidence organization, coding evidence represents only one component of the broader VAP semantic ecosystem.
+Although Figure 6A focuses specifically on coding evidence organization, coding evidence represents only one component of the broader VAP semantic ecosystem.
 
 Importantly, VAP does not conceptualize:
 
@@ -982,13 +992,13 @@ The resulting figures therefore characterize how noncoding evidence behaves afte
 
 ---
 
-## Noncoding Consequence Composition (F4B-1)
+## Noncoding Consequence Composition
 
-![Figure 6A — Consequence Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_consequence.png)
+![Figure 7A. Consequence Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_consequence.png)
 
-**Figure 6A.** Noncoding semantic consequence composition following deterministic semantic organization within the `ERR10619300` execution campaign. Noncoding evidence classes are preserved explicitly rather than collapsed into generalized background variation.
+**Figure 7A.** Noncoding semantic consequence composition following deterministic semantic organization within the `ERR10619300` execution campaign. Noncoding evidence classes are preserved explicitly rather than collapsed into generalized background variation.
 
-Figure 6A summarizes the major noncoding consequence classes preserved following semantic refinement.
+Figure 7A summarizes the major noncoding consequence classes preserved following semantic refinement.
 
 Several important observations emerge from the resulting evidence structure.
 
@@ -1020,13 +1030,13 @@ VAP therefore intentionally preserves these evidence classes within the evidence
 
 ---
 
-## Noncoding ClinVar Significance Structure (F4B-2)
+## Noncoding ClinVar Significance Structure
 
-![Figure 6B — ClinVar Significance Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_clinvar_significance.png)
+![Figure 7B. ClinVar Significance Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_clinvar_significance.png)
 
-**Figure 6B.** Noncoding ClinVar semantic significance structure following deterministic semantic organization. Noncoding ClinVar categories are summarized observationally and do not imply pathogenicity assignment or causal interpretation.
+**Figure 7B.** Noncoding ClinVar semantic significance structure following deterministic semantic organization. Noncoding ClinVar categories are summarized observationally and do not imply pathogenicity assignment or causal interpretation.
 
-Figure 6B demonstrates that uncertain-significance evidence dominates the noncoding semantic evidence landscape.
+Figure 7B demonstrates that uncertain-significance evidence dominates the noncoding semantic evidence landscape.
 
 Operationally, this observation reflects an important biological reality:
 
@@ -1050,13 +1060,13 @@ This distinction is strategically important because it preserves future interpre
 
 ---
 
-## Noncoding Population-Frequency Structure (F4B-3)
+## Noncoding Population-Frequency Structure
 
-![Figure 6C — Population Frequency Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_pop_freq_bins.png)
+![Figure 7C. Population Frequency Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_pop_freq_bins.png)
 
-**Figure 6C.** Noncoding population-frequency structure following deterministic semantic organization. Frequency classes summarize observational evidence distributions and do not imply biological enrichment significance.
+**Figure 7C.** Noncoding population-frequency structure following deterministic semantic organization. Frequency classes summarize observational evidence distributions and do not imply biological enrichment significance.
 
-Figure 6C summarizes population-frequency organization across noncoding evidence populations.
+Figure 7C summarizes population-frequency organization across noncoding evidence populations.
 
 Several important observations emerge from this structure.
 
@@ -1113,7 +1123,7 @@ This transparency materially improves:
 
 ### Coding and Noncoding Evidence Behave Differently
 
-Figures 5A-5C and 6A-6C collectively demonstrate that coding and noncoding evidence landscapes exhibit fundamentally different:
+Figures 6A-6C and 7A-7C collectively demonstrate that coding and noncoding evidence landscapes exhibit fundamentally different:
 
 - interpretability structures
 - ClinVar distributions
@@ -1126,7 +1136,7 @@ Preserving these evidence classes separately therefore improves downstream biolo
 
 ## Transition Toward Curated Overlay Integration
 
-The coding and noncoding evidence landscapes described throughout Figures 5A-5C and 6A-6C establish that VAP reproducibly emits structured semantic evidence populations following deterministic organization.
+The coding and noncoding evidence landscapes described throughout Figures 6A-6C and 7A-7C establish that VAP reproducibly emits structured semantic evidence populations following deterministic organization.
 
 However, semantic evidence organization alone does not fully contextualize how biologically meaningful loci may intersect curated disease-relevant interpretation frameworks.
 
@@ -1171,9 +1181,9 @@ This distinction is critical for maintaining scientific discipline throughout th
 
 ## Harvest Ecosystem Overview
 
-![Figure 7 — Cross-run Semantic Telemetry](../cross_run_figures/vap_v1_harvest_ecosystem_overview.png)
+![Figure 8. Cross-run Semantic Telemetry Harvest Ecosystem](../cross_runs/cross_run_figures/vap_v1_harvest_ecosystem_overview.png)
 
-**Figure 7.** Cross-run semantic telemetry harvest ecosystem overview generated from deterministically harvested VAP substrate prior to the data-loss event. Overlay-aware semantic evidence summaries are shown observationally and do not imply disease association or causal inference.
+**Figure 8.** Cross-run semantic telemetry harvest ecosystem overview generated from deterministically harvested VAP substrate prior to the data-loss event. Overlay-aware semantic evidence summaries are shown observationally and do not imply disease association or causal inference.
 
 The harvested ecosystem overview summarizes how semantically organized evidence emitted from VAP can subsequently intersect curated biological overlay frameworks.
 
@@ -1345,13 +1355,13 @@ Importantly, interoperability substrate emission preserves semantic cardinality 
 
 ---
 
-## Stage 08 Interoperability Substrates (F5)
+## Stage 08 Interoperability Substrates
 
-![Figure 8 — VAP Emits Interoperability Substrates](figures/ERR10619300_f5_interoperability_substrates.png)
+![Figure 9. VAP Emits Interoperability Substrates](figures/ERR10619300_f5_interoperability_substrates.png)
 
-**Figure 8.** Deterministic Stage 08 interoperability substrate emission within the `ERR10619300` execution campaign. VAP emits reusable downstream semantic substrate for both RDGP-oriented aggregation workflows and VDB-oriented normalized persistence workflows.
+**Figure 9.** Deterministic Stage 08 interoperability substrate emission within the `ERR10619300` execution campaign. VAP emits reusable downstream semantic substrate for both RDGP-oriented aggregation workflows and VDB-oriented normalized persistence workflows.
 
-Figure 8 summarizes two major downstream interoperability-oriented semantic substrates emitted during Stage 08 organization.
+Figure 9 summarizes two major downstream interoperability-oriented semantic substrates emitted during Stage 08 organization.
 
 These emitted substrates include:
 
@@ -1364,13 +1374,13 @@ Importantly, these interoperability substrates are emitted deterministically fro
 
 ## RDGP-Ready Gene Evidence Substrate
 
-The left panel of Figure 8 summarizes the:
+The left panel of Figure 9 summarizes the:
 
 ```text
 stage_08_rdgp_gene_evidence_seed.tsv
 ```
 
-semantic substrate emitted for future RDGP-oriented workflows.
+semantic substrate emitted from every successful VAP execution for future RDGP-oriented workflows.
 
 Operationally, this substrate represents:
 
@@ -1406,13 +1416,13 @@ Operationally, this distinction preserves clean architectural separation between
 
 ## VDB-Ready Normalized Variant Substrate
 
-The right panel of Figure 8 summarizes the:
+The right panel of Figure 9 summarizes the:
 
 ```text
 stage_08_vdb_ready_variants.tsv
 ```
 
-semantic substrate emitted for future VDB-oriented persistence workflows.
+semantic substrate emitted from every successful VAP execution for future VDB-oriented persistence workflows.
 
 Operationally, this substrate represents:
 
@@ -1435,7 +1445,7 @@ This distinction is strategically important because it demonstrates that VAP pre
 
 ## Interoperability Architecture Observations
 
-Several important architectural observations emerge from the interoperability substrate framework demonstrated in Figure 8.
+Several important architectural observations emerge from the interoperability substrate framework demonstrated in Figure 9.
 
 ### VAP Is Not Terminal Software
 
@@ -1578,7 +1588,7 @@ across repeated fully instrumented executions.
 
 Operationally, this distinction reinforces one of the central architectural observations within the broader VAP ecosystem:
 
-```text id="w20bd4"
+```text
 runtime telemetry variability does not necessarily imply downstream semantic instability.
 ```
 
@@ -1945,7 +1955,7 @@ Importantly, the current `ERR10619300` campaign now functions as the canonical f
 
 ---
 
-# Final Synthesis
+# 14. Final Synthesis
 
 The `ERR10619300` execution campaign established the first fully instrumented flagship semantic evidence organization case study within the broader VAP ecosystem.
 
@@ -1979,3 +1989,49 @@ capable of supporting future translational genomics ecosystems through:
 - and extensible downstream computational reuse pathways.
 
 ---
+
+# 15. Artifact Appendix
+
+## Figures List for VAP Execution of ERR10619300
+
+* [Figure 1. ERR10619300 Semantic Evidence Refinery](figures/err10619300_hero_semantic_refinery_v4.png)
+* [Figure 2. ERR10619300 Same-Patch Operational Reproducibility](figures/ERR10619300_f1_same_patch_reproducibility_summary.png)
+* [Figure 3. ERR10619300 Runtime Observability Profile](figures/ERR10619300_f2_runtime_observability_profile.png)
+* [Figure 4. ERR10619300 Deterministic Evidence Lineage](figures/ERR10619300_f3a_deterministic_evidence_lineage.png)
+* [Figure 5. ERR10619300 Semantic Evidence Branching](figures/ERR10619300_f3b_semantic_branching.png)
+* [Figure 6A. ERR10619300 Consequence Composition for Coding Candidate Variants](figures/ERR10619300_f4a_consequence.png)
+* [Figure 6B. ERR10619300 ClinVar Significance Composition for Coding Candidate Variants](figures/ERR10619300_f4a_clinvar_significance.png)
+* [Figure 6C. ERR10619300 Population Frequency Composition for Coding Candidate Variants](figures/ERR10619300_f4a_pop_freq_bins.png)
+* [Figure 7A. ERR10619300 Consequence Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_consequence.png)
+* [Figure 7B. ERR10619300 ClinVar Significance Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_clinvar_significance.png)
+* [Figure 7C. ERR10619300 Population Frequency Composition for Noncoding Candidate Variants](figures/ERR10619300_f4b_pop_freq_bins.png)
+* [Figure 8. ERR10619300 Cross-run Semantic Telemetry Harvest Ecosystem](../cross_runs/cross_run_figures/vap_v1_harvest_ecosystem_overview.png)
+* [Figure 9. ERR10619300 VAP Emits Interoperability Substrates](figures/ERR10619300_f5_interoperability_substrates.png)
+
+---
+
+## Supporting Tables for VAP Execution of ERR10619300
+
+* [Table 1. ERR10619300 Priority Tier Summary](tables/priority_tier_summary.tsv)
+* [Table 2. ERR10619300 Clinical Status Summary](tables/clinical_status_summary.tsv)
+* [Table 3. ERR10619300 Interpretation Label Summary](tables/interpretation_label_summary.tsv)
+* [Table 4. ERR10619300 Candidate Variant Reviewability Readiness](tables/candidate_reviewability_readiness.tsv)
+* [Table 5. ERR10619300 Runtime Stage Summary](tables/runtime_stage_summary.tsv)
+* [Table 6. ERR10619300 Provenance Summary](tables/provenance_summary.tsv)
+* [Table 7. ERR10619300 Mitochondrial / Epilepsy Overlay for Coding Variants with Clinical Evidence](tables/overlay_gene_coding_clinical_evidence.tsv)
+* [Table 8. ERR10619300 Mitochondrial / Epilepsy Overlay for Coding Variants with Frequency Profiles](tables/overlay_gene_coding_frequency_profiles.tsv)
+* [Table 9. ERR10619300 Mitochondrial / Epilepsy Overlay for Coding Variants with Functional Impacts](tables/overlay_gene_coding_functional_impact.tsv)
+* [Table 10. ERR10619300 Gene List Overlay Intersections](tables/gene_list_overlay_intersections.tsv)
+
+---
+
+## Manifest Governance for VAP Execution of ERR10619300
+
+Manifests for ERR10619300 case study artifacts are available:
+
+* [Manifest 1. Figure List](manifests/figure_manifest.tsv)
+* [Manifest 2. Table List](manifests/table_manifest.tsv)
+* [Manifest 3. SQL Bucket List](manifests/stage12_bucket_manifest.tsv)
+* [Manifest 4. Stage 12 Full SQL Extraction](manifests/stage12_sql_manifest.tsv)
+* [Manifest 5. Case Study Artifact List](manifests/case_study_artifact_manifest.tsv)
+* [Manifest 6. Run Identity List](manifests/run_identity_manifest.tsv)

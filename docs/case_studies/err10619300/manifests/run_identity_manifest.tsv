@@ -1,0 +1,12 @@
+field	value
+sample_id	ERR10619300
+assay_type	WES
+case_study_role	flagship_vertical_semantic_infrastructure_case_study
+case_study_markdown	docs/case_studies/err10619300/err10619300_wes_case_study.md
+baseline_markdown	docs/case_studies/err10619300/err10619300_wes_baseline.md
+figures_dir	docs/case_studies/err10619300/figures
+tables_dir	docs/case_studies/err10619300/tables
+manifests_dir	docs/case_studies/err10619300/manifests
+primary_narrative	large sequencing-derived evidence substrate to deterministic semantic refinement to interoperability substrate generation
+clinical_interpretation	no
+diagnostic_claims	no

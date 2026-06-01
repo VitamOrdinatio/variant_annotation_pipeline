@@ -1,0 +1,12 @@
+field	value
+sample_id	ERR10619281
+assay_type	WES
+case_study_role	comparative_semantic_governance_validation_case_study
+case_study_markdown	docs/case_studies/err10619281/err10619281_wes_case_study.md
+baseline_markdown	docs/case_studies/err10619281/err10619281_wes_reproducibility.md
+figures_dir	docs/case_studies/err10619281/figures
+tables_dir	docs/case_studies/err10619281/tables
+manifests_dir	docs/case_studies/err10619281/manifests
+primary_narrative	stable semantic governance architecture with individualized biological evidence topology
+clinical_interpretation	no
+diagnostic_claims	no

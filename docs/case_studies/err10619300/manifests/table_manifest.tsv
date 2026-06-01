@@ -1,0 +1,16 @@
+table_file	semantic_role	use_for_hero_figure	notes
+candidate_reviewability_readiness.tsv	validation/readiness summary	yes	Useful for constrained escalation and validation-routing narrative
+clinical_status_summary.tsv	clinical-status distribution	optional	Useful if visualizing clinical ambiguity
+coding_noncoding_consequence_summary.tsv	coding/noncoding consequence structure	yes	Useful for semantic evidence composition
+gene_burden_summary.tsv	raw gene burden substrate	no	Too large/noisy for hero figure; analysis substrate only
+gene_list_overlay_intersections.tsv	SRA-specific overlay intersections	yes	Use local SRA-specific version only
+interpretation_label_summary.tsv	interpretation label distribution	optional	Useful for semantic topology
+overlay_gene_coding_clinical_evidence.tsv	SRA-specific coding clinical overlay	yes	Good hero-figure semantic topology substrate
+overlay_gene_coding_frequency_profiles.tsv	SRA-specific coding frequency overlay	optional	Useful for rarity/frequency compression
+overlay_gene_coding_functional_impact.tsv	SRA-specific coding functional-impact overlay	optional	Useful for functional interpretation structure
+priority_tier_summary.tsv	priority-tier semantic compression	yes	Essential hero-figure quantitative anchor
+provenance_summary.tsv	provenance summary	yes	Useful for deterministic/governed artifact framing
+run_reproducibility_summary.tsv	rerun reproducibility summary	yes	Useful for F1-style stability
+runtime_stage_summary.tsv	stage runtime telemetry	yes	Useful for F2-style observability
+stage_funnel_summary.tsv	semantic evidence funnel	yes	Essential for refinement-funnel motif
+variant_consequence_summary.tsv	variant consequence distribution	optional	Useful but secondary

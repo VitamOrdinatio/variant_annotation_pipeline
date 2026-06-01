@@ -1,0 +1,13 @@
+artifact_path	artifact_type	semantic_role	hero_relevance
+docs/case_studies/err10619281/err10619281_wes_case_study.md	markdown	canonical case study	high
+docs/case_studies/err10619281/err10619281_wes_reproducibility.md	markdown	reproducibility/provenance context	medium
+docs/case_studies/err10619281/figures/err10619281_f1_provenance_transition_summary.png	figure	provenance/reproducibility	high
+docs/case_studies/err10619281/figures/err10619281_f2_runtime_observability_profile.png	figure	runtime observability	high
+docs/case_studies/err10619281/figures/ERR10619281_f3a_deterministic_evidence_lineage.png	figure	semantic refinement funnel	highest
+docs/case_studies/err10619281/figures/ERR10619281_f3b_semantic_branching.png	figure	semantic branching	high
+docs/case_studies/err10619281/figures/ERR10619281_f5_interoperability_substrates.png	figure	interoperability substrate	highest
+docs/case_studies/err10619281/tables/priority_tier_summary.tsv	table	semantic compression topology	highest
+docs/case_studies/err10619281/tables/stage_funnel_summary.tsv	table	deterministic evidence funnel	highest
+docs/case_studies/err10619281/tables/gene_list_overlay_intersections.tsv	table	SRA-specific overlay intersections	high
+docs/case_studies/err10619281/tables/overlay_gene_coding_clinical_evidence.tsv	table	SRA-specific clinical overlay	high
+docs/case_studies/err10619281/tables/candidate_reviewability_readiness.tsv	table	validation/readiness routing	high
