@@ -126,14 +126,14 @@ Extreme tails are intentionally avoided.
 
 | Category | Sample Count |
 | -------- | ------------ |
-| Q1       | n=3          |
-| Median   | n=3          |
-| Q3       | n=3          |
+| Q1       | n=4          |
+| Median   | n=4          |
+| Q3       | n=4          |
 
 Total:
 
 ```text
-9 epilepsy SRAs
+12 epilepsy SRAs
 ```
 
 ---
@@ -147,6 +147,7 @@ Total:
 | ERR10619330 | 210,460,026 | 35 / 144 | 24.31% | q1             |
 | ERR10619309 | 205,213,734 | 36 / 144 | 25.00% | q1             |
 | ERR10619212 | 203,719,472 | 37 / 144 | 25.69% | q1             |
+| ERR10619241 | 203,618,000 | 38 / 144 | 26.39% | q1             |
 
 ---
 
@@ -165,15 +166,16 @@ Total:
 
 | SRA         |  Read Count |      Rank | Rank_% | Depth Category |
 | ----------- | ----------: | --------: | -----: | -------------- |
-| ERR10619225 | 141,637,092 | 107 / 144 | 74.31% | q3
-| ERR10619230 | 141,194,746 | 108 / 144 | 75.00% | q3
-| ERR10619203 | 140,909,888 | 109 / 144 | 75.69% | q3
+| ERR10619225 | 141,637,092 | 107 / 144 | 74.31% | q3             |
+| ERR10619230 | 141,194,746 | 108 / 144 | 75.00% | q3             |
+| ERR10619203 | 140,909,888 | 109 / 144 | 75.69% | q3             |
+| ERR10619207 | 140,409,036 | 110 / 144 | 76.39% | q3             |
 
+---
 
-# Completed Legacy Median Group Runs
+## Completed Legacy Median Group Runs
 
 During VAP development, the following two SRAs were chosen since they fell adjacent to one another and in the middle of the entire 144 SRA spectrum with respect to read counts.
-
 
 | SRA         |  Read Count |     Rank | Rank_% | Depth Category |
 | ----------- | ----------: | -------: | -----: | -------------- |
@@ -230,7 +232,7 @@ a reproducible translational systems-biology demonstration panel
 The planned design uses:
 
 ```text
-n=3 per depth stratum
+n=4 per depth stratum
 ```
 
 This is considered sufficient for:
