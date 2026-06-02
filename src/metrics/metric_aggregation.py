@@ -24,6 +24,20 @@ def _metric_value_int(lookup:dict[tuple[str,str],dict[str,str]],stage_id:str,met
         raise ValueError(f"Metric not available: {metric_name}")
     return int(float(row["metric_value"]))
 
+def _metric_value_optional_int(lookup,stage_id,metric_name):
+    row=lookup.get((stage_id,metric_name))
+    if row is None:
+        return 0
+    if row.get("metric_status")!="available":
+        raise ValueError(f"Metric not available: {metric_name}")
+    return int(float(row["metric_value"]))
+
+def _metric_value_optional_sum(lookup,stage_metric_pairs):
+    total=0
+    for stage_name,metric_name in stage_metric_pairs:
+        total+=_metric_value_optional_int(lookup,stage_name,metric_name)
+    return total
+
 def build_f3a_flow_table(metrics_long_path:Path,out_path:Path)->Path:
     rows=read_stage_metrics_long(metrics_long_path)
     lookup=metric_lookup(rows)
@@ -163,7 +177,8 @@ def build_f3a_flow_table_v2(metrics_long_path,output_path):
         edge_value=int(float(tgt["metric_value"]))
 
         if tgt_label=="Rare interpretable evidence":
-            edge_value=_metric_value_sum(
+
+            edge_value=_metric_value_optional_sum(
                 lookup,
                 [
                     ("stage_11","counts_by_source_interpretation_label__lof_rare_clinically_supported"),
@@ -226,8 +241,18 @@ def build_f3b_semantic_branching_table(metrics_long_path,output_path):
     lookup={(r["stage_id"],r["metric_name"]):r for r in rows}
     generated_at=datetime.now(timezone.utc).isoformat()
 
-    def get(stage,metric):
-        row=lookup[(stage,metric)]
+    def get_optional_count(stage,metric):
+        row=lookup.get((stage,metric))
+        if row is None:
+            fallback={
+                "run_id":"unknown",
+                "sample_id":"unknown",
+                "assay_type":"unknown",
+                "run_classification":"unknown",
+            }
+            return 0,fallback
+        if row.get("metric_status")!="available":
+            raise ValueError(f"Metric not available: {metric}")
         return int(float(row["metric_value"])),row
 
     branches=[
@@ -311,7 +336,7 @@ def build_f3b_semantic_branching_table(metrics_long_path,output_path):
         metric,
         caveat
     ) in enumerate(branches,1):    
-        value,row=get(stage,metric)
+        value,row=get_optional_count(stage,metric)
         out.append({
             "figure_id":"F3B",
             "run_id":row.get("run_id","unknown"),
