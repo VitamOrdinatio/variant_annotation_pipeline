@@ -403,6 +403,62 @@ def main() -> None:
         """
 
         try:
+            debug_query = """
+            WITH src AS (
+                SELECT
+                    sample_id,
+                    run_id,
+                    NULLIF(TRIM(gene_id), '') AS gene_id,
+                    NULLIF(TRIM(gene_symbol), '') AS gene_symbol,
+                    LOWER(TRIM(variant_origin)) AS variant_origin
+                FROM read_csv(
+                    ?,
+                    delim = '\t',
+                    header = true,
+                    all_varchar = true
+                )
+            ),
+            annotated AS (
+                SELECT
+                    s.*,
+                    CASE WHEN m.gene_id IS NOT NULL THEN true ELSE false END AS mitocarta_hit_bool,
+                    CASE WHEN e.gene_id IS NOT NULL THEN true ELSE false END AS epi25_hit_bool
+                FROM src s
+                LEFT JOIN mitocarta_seed m
+                    ON s.gene_id = m.gene_id
+                LEFT JOIN epi25_seed e
+                    ON s.gene_id = e.gene_id
+            )
+            SELECT
+                COUNT(*) AS total_rows,
+                SUM(CASE WHEN variant_origin = 'coding' THEN 1 ELSE 0 END) AS coding_rows,
+                SUM(
+                    CASE
+                        WHEN variant_origin = 'coding'
+                        AND gene_id IS NOT NULL
+                        AND gene_symbol IS NOT NULL
+                        THEN 1 ELSE 0
+                    END
+                ) AS coding_gene_rows,
+                SUM(
+                    CASE
+                        WHEN variant_origin = 'coding'
+                        AND gene_id IS NOT NULL
+                        AND gene_symbol IS NOT NULL
+                        AND (mitocarta_hit_bool OR epi25_hit_bool)
+                        THEN 1 ELSE 0
+                    END
+                ) AS overlay_rows
+            FROM annotated
+            """
+
+            debug_df = con.execute(debug_query, [str(input_path)]).fetchdf()
+
+            print()
+            print(f"DEBUG {run_id}")
+            print(debug_df.to_string(index=False))
+            print()
+
             out_df = con.execute(
                 query,
                 [str(input_path), assay_type, run_classification],
