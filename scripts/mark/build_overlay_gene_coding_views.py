@@ -136,7 +136,6 @@ def candidate_path_for(run_id: str) -> Path:
     return (
         REPO_ROOT
         / "results"
-        / "processed"
         / run_id
         / "processed"
         / "stage_12_validation_candidates.tsv"
@@ -147,7 +146,6 @@ def metrics_path_for(run_id: str) -> Path:
     return (
         REPO_ROOT
         / "results"
-        / "processed"
         / run_id
         / "metrics"
         / "stage_metrics_long.tsv"
@@ -431,6 +429,9 @@ def main() -> None:
 
         audit_rows.append(audit)
         print(f"{sample_id}\t{run_id}\trows_written={audit['rows_written']}")
+
+    audit_df = pd.DataFrame(audit_rows)
+    audit_df.to_csv(AUDIT_PATH, sep="\t", index=False)
 
     if not all_outputs:
         raise SystemExit("No output rows produced")
