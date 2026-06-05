@@ -256,45 +256,45 @@ def main():
 
         tier1_unique_genes = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE LOWER(TRIM(priority_tier)) =
             'tier_1_high_confidence_candidate'
         """).fetchone()[0]
 
         tier2_unique_genes = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE LOWER(TRIM(priority_tier)) =
             'tier_2_moderate_candidate'
         """).fetchone()[0]
 
         tier3_unique_genes = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE LOWER(TRIM(priority_tier)) =
             'tier_3_low_support_or_common'
         """).fetchone()[0]
 
         occupied_priority_tiers = con.execute(f"""
             SELECT COUNT(DISTINCT priority_tier)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE priority_tier IS NOT NULL
         """).fetchone()[0]
 
         unique_variant_ids = con.execute(f"""
             SELECT COUNT(DISTINCT variant_id)
-            FROM read_csv_auto('{vdb_path}', delim='\t')
+            FROM read_csv_auto('{vdb_path}', delim='\t', header=true, all_varchar=true)
         """).fetchone()[0]
 
         unique_genes_in_vdb_substrate = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{vdb_path}', delim='\t')
+            FROM read_csv_auto('{vdb_path}', delim='\t', header=true, all_varchar=true)
             WHERE gene_id IS NOT NULL
         """).fetchone()[0]
 
         unique_rdgp_genes = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{rdgp_path}', delim='\t')
+            FROM read_csv_auto('{rdgp_path}', delim='\t', header=true, all_varchar=true)
             WHERE gene_id IS NOT NULL
         """).fetchone()[0]
 
@@ -303,7 +303,7 @@ def main():
                 SELECT
                     gene_id,
                     COUNT(DISTINCT variant_id) AS variant_count
-                FROM read_csv_auto('{vdb_path}', delim='\t')
+                FROM read_csv_auto('{vdb_path}', delim='\t', header=true, all_varchar=true)
                 WHERE gene_id IS NOT NULL
                 GROUP BY gene_id
             )
@@ -318,7 +318,7 @@ def main():
 
         overlay_rows = con.execute(f"""
             SELECT *
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE TRIM(gene_id) IN (
                 {",".join([f"'{x}'" for x in sorted(overlay_union)])}
             )
@@ -343,7 +343,7 @@ def main():
 
         overlay_tier_union = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE LOWER(TRIM(priority_tier)) IN (
                 'tier_1_high_confidence_candidate',
                 'tier_2_moderate_candidate',
@@ -353,49 +353,49 @@ def main():
 
         unique_consequence_classes = con.execute(f"""
             SELECT COUNT(DISTINCT consequence)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE consequence IS NOT NULL
         """).fetchone()[0]
 
         unique_clinvar_significance_values = con.execute(f"""
             SELECT COUNT(DISTINCT clinvar_significance)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE clinvar_significance IS NOT NULL
         """).fetchone()[0]
 
         unique_frequency_bins = con.execute(f"""
             SELECT COUNT(DISTINCT frequency_status)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE frequency_status IS NOT NULL
         """).fetchone()[0]
 
         unique_functional_impact_classes = con.execute(f"""
             SELECT COUNT(DISTINCT functional_impact)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE functional_impact IS NOT NULL
         """).fetchone()[0]
 
         unique_interpretation_labels = con.execute(f"""
             SELECT COUNT(DISTINCT source_interpretation_label)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE source_interpretation_label IS NOT NULL
         """).fetchone()[0]
 
         unique_clinical_status_values = con.execute(f"""
             SELECT COUNT(DISTINCT clinical_status)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE clinical_status IS NOT NULL
         """).fetchone()[0]
 
         unique_frequency_status_values = con.execute(f"""
             SELECT COUNT(DISTINCT frequency_status)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE frequency_status IS NOT NULL
         """).fetchone()[0]
 
         unique_functional_impact_values = con.execute(f"""
             SELECT COUNT(DISTINCT functional_impact)
-            FROM read_csv_auto('{stage12_path}', delim='\t')
+            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
             WHERE functional_impact IS NOT NULL
         """).fetchone()[0]
 
