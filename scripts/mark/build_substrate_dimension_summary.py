@@ -251,10 +251,17 @@ def main():
 
         reviewable_candidate_rows = validation_required_rows
 
-        candidate_reviewability_rows = (
-            validation_required_rows
-            + high_priority_validation_rows
-        )
+        CANDIDATE_REVIEWABILITY_METRICS = [
+            "candidate_reviewability_rows",
+            "reviewable_candidate_rows",
+            "validation_required_rows",
+            "high_priority_validation_rows",
+            "reviewable_candidate_density_vs_vdb",
+            "reviewable_candidate_density_vs_rdgp",
+            "candidate_reviewability_status",
+        ]
+
+        candidate_reviewability_rows = len(CANDIDATE_REVIEWABILITY_METRICS)
 
         tier1_unique_genes = con.execute(f"""
             SELECT COUNT(DISTINCT TRIM(gene_id))
