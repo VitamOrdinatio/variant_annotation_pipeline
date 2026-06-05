@@ -125,13 +125,15 @@ def metric_lookup(df: pd.DataFrame, metric_name: str, default=0):
 
 def load_overlay_ids(path: Path) -> set[str]:
     df = pd.read_csv(path, sep="\t", dtype=str)
-    cols = [c for c in df.columns if "gene" in c.lower()]
-    gene_col = cols[0]
+    df.columns = [c.strip() for c in df.columns]
+
+    gene_col = "ensembl_gene_id"
 
     genes = (
         df[gene_col]
         .astype(str)
         .str.strip()
+        .str.split(".").str[0]
     )
 
     genes = genes[
@@ -316,18 +318,25 @@ def main():
         variants_per_rdgp_gene_mean = round(gene_stats[0], 6)
         variants_per_rdgp_gene_median = gene_stats[1]
 
+
+        overlay_id_sql = ",".join([f"'{x}'" for x in sorted(overlay_union)])
+
         overlay_rows = con.execute(f"""
             SELECT *
-            FROM read_csv_auto('{stage12_path}', delim='\t', header=true, all_varchar=true)
-            WHERE TRIM(gene_id) IN (
-                {",".join([f"'{x}'" for x in sorted(overlay_union)])}
+            FROM read_csv_auto(
+                '{stage12_path}',
+                delim='\t',
+                header=true,
+                all_varchar=true
             )
+            WHERE SPLIT_PART(TRIM(gene_id), '.', 1) IN ({overlay_id_sql})
         """).fetchdf()
 
         overlay_gene_ids = set(
             overlay_rows["gene_id"]
             .astype(str)
             .str.strip()
+            .str.split(".").str[0]
             .tolist()
         )
 
