@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import gzip
 import json
 import shutil
 import subprocess
@@ -73,6 +74,97 @@ def require_executable(name: str) -> str:
     if resolved is None:
         fail(f"Required executable not found on PATH: {name}")
     return resolved
+
+
+def strip_chr(contig: str) -> str:
+    if contig.startswith("chr"):
+        return contig[3:]
+    return contig
+
+
+def harmonize_bed_namespace(input_bed: Path, output_bed: Path) -> None:
+    output_bed.parent.mkdir(parents=True, exist_ok=True)
+
+    with input_bed.open("r", encoding="utf-8") as src, output_bed.open("w", encoding="utf-8") as dst:
+        for line in src:
+            if not line.strip() or line.startswith("#"):
+                dst.write(line)
+                continue
+
+            fields = line.rstrip("\n").split("\t")
+            fields[0] = strip_chr(fields[0])
+            dst.write("\t".join(fields) + "\n")
+
+
+def harmonize_vcf_namespace(input_vcf_gz: Path, output_vcf_gz: Path) -> None:
+    output_vcf_gz.parent.mkdir(parents=True, exist_ok=True)
+
+    with gzip.open(input_vcf_gz, "rt", encoding="utf-8") as src, gzip.open(output_vcf_gz, "wt", encoding="utf-8") as dst:
+        for line in src:
+            if line.startswith("##contig=<ID=chr"):
+                line = line.replace("##contig=<ID=chr", "##contig=<ID=", 1)
+            elif not line.startswith("#"):
+                fields = line.rstrip("\n").split("\t")
+                fields[0] = strip_chr(fields[0])
+                line = "\t".join(fields) + "\n"
+
+            dst.write(line)
+
+
+def index_vcf_with_tabix(apptainer_exe: str, hap_container: Path, vcf_gz: Path) -> None:
+    cmd = [
+        apptainer_exe,
+        "exec",
+        "--bind",
+        "/data/storage:/data/storage",
+        "--bind",
+        f"{vcf_gz.parent}:{vcf_gz.parent}",
+        str(hap_container),
+        "tabix",
+        "-f",
+        "-p",
+        "vcf",
+        str(vcf_gz),
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+    if result.returncode != 0:
+        fail(
+            "tabix indexing failed for harmonized truth VCF.\n"
+            f"Command: {' '.join(cmd)}\n"
+            f"stderr:\n{result.stderr}"
+        )
+
+
+def prepare_namespace_harmonized_giab(
+    *,
+    truth_vcf: Path,
+    truth_bed: Path,
+    benchmarking_dir: Path,
+    apptainer_exe: str,
+    hap_container: Path,
+) -> tuple[Path, Path]:
+    interoperability_dir = benchmarking_dir / "interoperability"
+    harmonized_vcf = interoperability_dir / "HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.vcf.gz"
+    harmonized_bed = interoperability_dir / "HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.bed"
+
+    harmonize_vcf_namespace(truth_vcf, harmonized_vcf)
+    index_vcf_with_tabix(apptainer_exe, hap_container, harmonized_vcf)
+    harmonize_bed_namespace(truth_bed, harmonized_bed)
+
+    manifest = {
+        "generated_at": utc_now(),
+        "namespace_rule": "deterministically strip leading 'chr' prefix from GIAB truth contigs to match VAP Ensembl-style namespace",
+        "original_truth_vcf": str(truth_vcf),
+        "original_truth_bed": str(truth_bed),
+        "harmonized_truth_vcf": str(harmonized_vcf),
+        "harmonized_truth_bed": str(harmonized_bed),
+        "canonical_giab_files_mutated": False,
+    }
+
+    with (interoperability_dir / "namespace_harmonization_manifest.json").open("w", encoding="utf-8") as handle:
+        json.dump(manifest, handle, indent=2, sort_keys=True)
+
+    return harmonized_vcf, harmonized_bed
 
 
 def validate_hap_container(
@@ -335,6 +427,15 @@ def main() -> int:
         hap_container=hap_container,
     )    
 
+    benchmark_truth_vcf, benchmark_truth_bed = prepare_namespace_harmonized_giab(
+        truth_vcf=truth_vcf,
+        truth_bed=truth_bed,
+        benchmarking_dir=benchmarking_dir,
+        apptainer_exe=apptainer_exe,
+        hap_container=hap_container,
+    )
+
+
     output_prefix = happy_dir / "hg002_happy"
 
     apptainer_version = subprocess.run(
@@ -351,8 +452,10 @@ def main() -> int:
             f"run_id={run_id}",
             f"run_dir={run_dir}",
             f"query_vcf={query_vcf}",
-            f"truth_vcf={truth_vcf}",
-            f"truth_bed={truth_bed}",
+            f"original_truth_vcf={truth_vcf}",
+            f"original_truth_bed={truth_bed}",
+            f"benchmark_truth_vcf={benchmark_truth_vcf}",
+            f"benchmark_truth_bed={benchmark_truth_bed}",
             f"reference_fasta={reference_fasta}",
             f"apptainer_exe={apptainer_exe}",
             f"apptainer_version={apptainer_version}",
@@ -365,9 +468,9 @@ def main() -> int:
     run_happy(
         apptainer_exe=apptainer_exe,
         hap_container=hap_container,
-        truth_vcf=truth_vcf,
+        truth_vcf=benchmark_truth_vcf,
         query_vcf=query_vcf,
-        truth_bed=truth_bed,
+        truth_bed=benchmark_truth_bed,
         reference_fasta=reference_fasta,
         output_prefix=output_prefix,
         log_path=log_path,
@@ -384,8 +487,8 @@ def main() -> int:
         rows=rows,
         run_id=run_id,
         query_vcf=query_vcf,
-        truth_vcf=truth_vcf,
-        truth_bed=truth_bed,
+        truth_vcf=benchmark_truth_vcf,
+        truth_bed=benchmark_truth_bed,
         reference_fasta=reference_fasta,
     )
 
@@ -437,6 +540,8 @@ def main() -> int:
             f"summary_tsv={benchmarking_dir / 'hg002_benchmark_summary.tsv'}",
             f"summary_json={benchmarking_dir / 'hg002_benchmark_summary.json'}",
             f"snp_indel_tsv={benchmarking_dir / 'hg002_snp_indel_metrics.tsv'}",
+            f"benchmark_truth_vcf={benchmark_truth_vcf}",
+            f"benchmark_truth_bed={benchmark_truth_bed}",            
             f"[{utc_now()}] HG002 benchmarking completed successfully",
         ],
     )
