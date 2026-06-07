@@ -10,6 +10,11 @@
 #   --hap-container /data/storage/containers/hap.py_0.3.15--py27hcb73b3d_0.sif
 
 
+# Compilation and Tests:
+    # python -m py_compile scripts/benchmarking/run_hg002_happy_benchmark.py
+    # pytest tests/benchmarking/test_run_hg002_happy_benchmark.py -q
+
+
 from __future__ import annotations
 
 import argparse
@@ -96,10 +101,10 @@ def harmonize_bed_namespace(input_bed: Path, output_bed: Path) -> None:
             dst.write("\t".join(fields) + "\n")
 
 
-def harmonize_vcf_namespace(input_vcf_gz: Path, output_vcf_gz: Path) -> None:
-    output_vcf_gz.parent.mkdir(parents=True, exist_ok=True)
+def harmonize_vcf_namespace(input_vcf_gz: Path, output_vcf: Path) -> None:
+    output_vcf.parent.mkdir(parents=True, exist_ok=True)
 
-    with gzip.open(input_vcf_gz, "rt", encoding="utf-8") as src, gzip.open(output_vcf_gz, "wt", encoding="utf-8") as dst:
+    with gzip.open(input_vcf_gz, "rt", encoding="utf-8") as src, output_vcf.open("w", encoding="utf-8") as dst:
         for line in src:
             if line.startswith("##contig=<ID=chr"):
                 line = line.replace("##contig=<ID=chr", "##contig=<ID=", 1)
@@ -109,6 +114,38 @@ def harmonize_vcf_namespace(input_vcf_gz: Path, output_vcf_gz: Path) -> None:
                 line = "\t".join(fields) + "\n"
 
             dst.write(line)
+
+
+def bgzip_vcf(
+    apptainer_exe: str,
+    hap_container: Path,
+    input_vcf: Path,
+) -> Path:
+    output_vcf_gz = input_vcf.with_suffix(input_vcf.suffix + ".gz")
+
+    cmd = [
+        apptainer_exe,
+        "exec",
+        "--bind",
+        "/data/storage:/data/storage",
+        "--bind",
+        f"{input_vcf.parent.resolve()}:{input_vcf.parent.resolve()}",
+        str(hap_container),
+        "bgzip",
+        "-f",
+        str(input_vcf),
+    ]
+
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
+
+    if result.returncode != 0:
+        fail(
+            "bgzip compression failed for harmonized truth VCF.\n"
+            f"Command: {' '.join(cmd)}\n"
+            f"stderr:\n{result.stderr}"
+        )
+
+    return output_vcf_gz
 
 
 def index_vcf_with_tabix(apptainer_exe: str, hap_container: Path, vcf_gz: Path) -> None:
@@ -144,11 +181,23 @@ def prepare_namespace_harmonized_giab(
     hap_container: Path,
 ) -> tuple[Path, Path]:
     interoperability_dir = benchmarking_dir / "interoperability"
-    harmonized_vcf = interoperability_dir / "HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.vcf.gz"
+    harmonized_vcf = interoperability_dir / "HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.vcf"
     harmonized_bed = interoperability_dir / "HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.bed"
 
     harmonize_vcf_namespace(truth_vcf, harmonized_vcf)
-    index_vcf_with_tabix(apptainer_exe, hap_container, harmonized_vcf)
+
+    harmonized_vcf_gz = bgzip_vcf(
+        apptainer_exe,
+        hap_container,
+        harmonized_vcf,
+    )
+
+    index_vcf_with_tabix(
+        apptainer_exe,
+        hap_container,
+        harmonized_vcf_gz,
+    )
+
     harmonize_bed_namespace(truth_bed, harmonized_bed)
 
     manifest = {
@@ -156,7 +205,7 @@ def prepare_namespace_harmonized_giab(
         "namespace_rule": "deterministically strip leading 'chr' prefix from GIAB truth contigs to match VAP Ensembl-style namespace",
         "original_truth_vcf": str(truth_vcf),
         "original_truth_bed": str(truth_bed),
-        "harmonized_truth_vcf": str(harmonized_vcf),
+        "harmonized_truth_vcf": str(harmonized_vcf_gz),
         "harmonized_truth_bed": str(harmonized_bed),
         "canonical_giab_files_mutated": False,
     }
@@ -164,7 +213,7 @@ def prepare_namespace_harmonized_giab(
     with (interoperability_dir / "namespace_harmonization_manifest.json").open("w", encoding="utf-8") as handle:
         json.dump(manifest, handle, indent=2, sort_keys=True)
 
-    return harmonized_vcf, harmonized_bed
+    return harmonized_vcf_gz, harmonized_bed
 
 
 def validate_hap_container(
