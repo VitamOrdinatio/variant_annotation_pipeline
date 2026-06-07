@@ -208,6 +208,7 @@ Before benchmark execution, the script SHALL validate:
 * `interim/` exists,
 * exactly one normalized VCF candidate exists unless explicitly provided,
 * query VCF reference build is compatible with supplied GIAB truth resources,
+* query VCF, truth resources, BED resources, and reference FASTA are contig-namespace compatible,
 * truth VCF exists,
 * truth BED exists,
 * reference FASTA exists,
@@ -353,6 +354,7 @@ The script SHALL fail fast for:
 * containerized `hap.py` runtime execution failure,
 * `hap.py` nonzero exit status,
 * malformed expected hap.py summary outputs,
+* unresolved contig namespace incompatibility,
 * or inability to create the benchmarking output directory.
 
 The script SHALL NOT silently emit successful benchmark summaries if benchmarking failed.
@@ -383,6 +385,37 @@ The log SHALL include:
 * execution end time,
 * exit status,
 * and generated output paths.
+
+---
+
+# Contig Namespace Interoperability
+
+Namespace mediation SHALL preserve deterministic coordinate identity.
+
+The HG002 benchmarking component SHALL explicitly validate
+contig namespace compatibility across:
+
+* normalized query VCF,
+* GIAB truth VCF,
+* GIAB BED resources,
+* and reference FASTA.
+
+The component SHALL recognize that:
+* GRCh38 compatibility alone is insufficient,
+* and benchmarking resources may differ between:
+  * UCSC-style contigs (`chr1`)
+  * and Ensembl-style contigs (`1`).
+
+The component SHALL fail fast when namespace incompatibility
+is detected.
+
+The implementation MAY later support:
+* deterministic namespace harmonization overlays,
+* derived immutable interoperability resources,
+* or explicit namespace mediation strategies.
+
+Canonical VAP resources SHALL NOT be silently mutated
+during namespace mediation.
 
 ---
 
@@ -437,11 +470,16 @@ results/<HG002_run_id>/benchmarking/
 5. Confirm `apptainer` availability.
 6. Confirm `.sif` runtime image availability.
 7. Confirm GIAB resource paths.
-8. Run script against completed HG002 VAP run.
-9. Inspect `benchmarking.log`.
-10. Inspect structured TSV/JSON outputs.
-11. Upload MARK output summaries for review.
-12. Harden parser/output logic as needed.
+8. Confirm contig namespace compatibility across:
+   * query VCF,
+   * truth VCF,
+   * truth BED,
+   * and reference FASTA.
+9. Run script against completed HG002 VAP run.
+10. Inspect `benchmarking.log`.
+11. Inspect structured TSV/JSON outputs.
+12. Upload MARK output summaries for review.
+13. Harden parser/output logic as needed.
 
 ---
 
@@ -493,7 +531,7 @@ The implementation is acceptable when:
 1. The script runs against a completed HG002 VAP run on MARK.
 2. The script uses the VAP normalized VCF, not semantic outputs.
 3. The script restricts evaluation to GIAB confident BED regions.
-4. The script invokes `hap.py` with GRCh38-consistent resources.
+4. The script invokes `hap.py` with GRCh38-consistent and contig-namespace-compatible resources.
 5. The script emits structured outputs under `results/<run_id>/benchmarking/`.
 6. The script fails fast under missing or ambiguous resource conditions.
 7. The implementation does not modify the canonical 13-stage VAP pipeline.

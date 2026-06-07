@@ -137,9 +137,10 @@ These SHALL be:
 
 * GRCh38-consistent,
 * coordinate-compatible,
-* and benchmarking-compatible with the VAP operating environment.
+* benchmarking-compatible with the VAP operating environment,
+* and contig-namespace compatible with the benchmarking reference and query substrate.
 
-Benchmark execution SHALL fail if query VCF and GIAB truth resources are not reference-build compatible.
+Benchmark execution SHALL fail if query VCF, GIAB truth resources, BED resources, and reference FASTA are not reference-build and contig-namespace compatible.
 
 ---
 
@@ -233,6 +234,7 @@ Benchmark concordance SHALL explicitly recognize the importance of:
 * left-alignment,
 * normalization,
 * decomposition,
+* contig namespace harmonization,
 * and representation consistency.
 
 The benchmarking layer therefore evaluates:
@@ -371,6 +373,7 @@ The component SHALL fail fast for:
 * reference incompatibility,
 * hap.py unavailability,
 * malformed benchmark outputs,
+* unresolved contig namespace incompatibility,
 * or coordinate-build mismatches.
 
 The component SHALL NOT silently continue under unresolved benchmark conditions.
