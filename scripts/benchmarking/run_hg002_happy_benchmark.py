@@ -118,7 +118,7 @@ def index_vcf_with_tabix(apptainer_exe: str, hap_container: Path, vcf_gz: Path) 
         "--bind",
         "/data/storage:/data/storage",
         "--bind",
-        f"{vcf_gz.parent}:{vcf_gz.parent}",
+        f"{vcf_gz.parent.resolve()}:{vcf_gz.parent.resolve()}",
         str(hap_container),
         "tabix",
         "-f",
