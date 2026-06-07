@@ -82,6 +82,8 @@ def validate_hap_container(
     cmd = [
         apptainer_exe,
         "exec",
+        "--bind",
+        "/data/storage:/data/storage",
         str(hap_container),
         "hap.py",
         "--version",
@@ -125,6 +127,8 @@ def run_happy(
     cmd = [
         apptainer_exe,
         "exec",
+        "--bind",
+        "/data/storage:/data/storage",
         str(hap_container),
         "hap.py",
         str(truth_vcf),
