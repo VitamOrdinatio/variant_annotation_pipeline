@@ -1,4 +1,29 @@
 #!/usr/bin/env python3
+
+# Run from VAP repo root:
+    # python scripts/analysis/build_contrast_01_inputs.py
+
+# When validated, user manually runs this block to compress and package bundles:
+    # ```bash
+    # tar -czf \
+    # docs/case_studies/cross_runs/contrasts/contrast_01_analysis_bundle.tar.gz \
+    # -C docs/case_studies/cross_runs/contrasts \
+    # contrast_01_inputs
+    # ```
+
+    # Inspect it:
+
+    # ```bash
+    # tar -tzf docs/case_studies/cross_runs/contrasts/contrast_01_analysis_bundle.tar.gz | less
+    # ```
+
+    # Quick size check:
+
+    # ```bash
+    # ls -lh docs/case_studies/cross_runs/contrasts/contrast_01_analysis_bundle.tar.gz
+    # ```
+
+
 import json
 import shutil
 import pandas as pd
