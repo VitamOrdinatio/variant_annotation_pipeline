@@ -394,7 +394,16 @@ def aggregate_from_stratified_rows(
 
     truth_tp = sum(safe_number(row.get("truth_tp")) for row in stratified)
     truth_fn = sum(safe_number(row.get("truth_fn")) for row in stratified)
-    query_tp = sum(safe_number(row.get("query_tp")) for row in stratified)
+    
+    query_tp = sum(
+        safe_number(
+            row.get("query_tp")
+            if row.get("query_tp") not in {None, ""}
+            else row.get("truth_tp")
+        )
+        for row in stratified
+    )
+
     query_fp = sum(safe_number(row.get("query_fp")) for row in stratified)
 
     precision = query_tp / (query_tp + query_fp) if (query_tp + query_fp) else None
