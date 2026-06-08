@@ -311,6 +311,16 @@ Single-row or compact table containing:
 
 Machine-readable equivalent of the core summary.
 
+The parser SHALL support both:
+
+* aggregate-row-present hap.py summary outputs,
+* and SNP/INDEL-only summary outputs.
+
+When aggregate rows are absent, the implementation SHALL
+derive aggregate TP, FP, FN, precision, recall, and F1
+deterministically from available SNP and indel metrics.
+
+
 ## hg002_snp_indel_metrics.tsv
 
 Variant-type-stratified output containing at minimum:
@@ -410,12 +420,18 @@ The component SHALL fail fast when namespace incompatibility
 is detected.
 
 The implementation MAY later support:
-* deterministic namespace harmonization overlays,
+* explicit deterministic contig translation maps,
+* deterministic interoperability overlays,
 * derived immutable interoperability resources,
 * or explicit namespace mediation strategies.
 
 Canonical VAP resources SHALL NOT be silently mutated
 during namespace mediation.
+
+Future namespace mediation implementations SHOULD preserve
+explicit compatibility handling for mitochondrial contigs
+(e.g. `chrM` vs `MT`) and SHOULD avoid biologically unsafe
+naive namespace rewriting strategies.
 
 ---
 
@@ -442,6 +458,9 @@ Initial tests SHOULD cover:
 * command construction,
 * missing resource failure behavior,
 * parsing of representative hap.py summary outputs.
+* parsing of SNP/INDEL-only hap.py summary outputs,
+* deterministic aggregate metric derivation,
+* and namespace harmonization manifest validation.
 
 ## Integration / MARK Smoke Test
 

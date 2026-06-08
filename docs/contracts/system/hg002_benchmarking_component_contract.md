@@ -234,7 +234,7 @@ Benchmark concordance SHALL explicitly recognize the importance of:
 * left-alignment,
 * normalization,
 * decomposition,
-* contig namespace harmonization,
+* deterministic contig namespace harmonization,
 * and representation consistency.
 
 The benchmarking layer therefore evaluates:
@@ -248,6 +248,12 @@ NOT merely:
 ```text
 raw variant overlap
 ```
+
+Future namespace mediation strategies SHOULD prefer
+explicit contig translation mappings over naive string
+manipulation to preserve compatibility with mitochondrial,
+sex-chromosome, alt-contig, and future interoperability
+scenarios.
 
 ---
 
@@ -299,6 +305,11 @@ including:
 * SNP metrics,
 * and indel metrics.
 
+When hap.py summary outputs do not provide aggregate
+benchmark rows directly, the benchmarking component SHALL
+derive aggregate TP, FP, FN, precision, recall, and F1
+deterministically from available SNP and indel metrics.
+
 ---
 
 ## Error Inspection Outputs
@@ -343,6 +354,10 @@ for:
 * reproducibility,
 * execution traceability,
 * and failure interpretation.
+
+Benchmark logging SHOULD preserve run-clean provenance and
+SHOULD avoid mixing prior failed benchmark attempts with
+successful execution summaries where practical.
 
 ---
 
