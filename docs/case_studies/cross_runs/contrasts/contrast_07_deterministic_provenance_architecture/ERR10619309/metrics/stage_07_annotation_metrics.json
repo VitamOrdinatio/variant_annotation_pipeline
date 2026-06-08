@@ -1,0 +1,51 @@
+{
+  "assay_type": "WES",
+  "metrics": [
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count non-header VCF records",
+      "generated_at": "2026-06-03T00:20:42.747439+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "annotated_variants_vcf",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/ERR10619309_run_2026_06_02_181024.annotated_variants.vcf",
+      "source_column_or_rule": "count non-header VCF records",
+      "stage_id": "stage_07",
+      "stage_name": "annotate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:20:45.514427+00:00",
+      "intended_figure_support": [
+        "F3A",
+        "F4"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "annotated_variants_tsv",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/ERR10619309_run_2026_06_02_181024.annotated_variants.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_07",
+      "stage_name": "annotate_variants"
+    }
+  ],
+  "run_classification": "full_pipeline",
+  "run_id": "run_2026_06_02_181024",
+  "sample_id": "ERR10619309",
+  "stage_id": "stage_07",
+  "stage_name": "annotate_variants"
+}

@@ -1,0 +1,14 @@
+stage	status	start_time	end_time	elapsed_seconds
+stage_01_load_data	success	2026-06-01T12:41:34+00:00	2026-06-01T12:41:34+00:00	0.0
+stage_02_align_data	success	2026-06-01T12:41:34+00:00	2026-06-01T14:08:15+00:00	5201.0
+stage_03_process_bam	success	2026-06-01T14:08:15+00:00	2026-06-01T14:12:28+00:00	253.0
+stage_04_qc_aligned_reads	success	2026-06-01T14:12:28+00:00	2026-06-01T14:13:14+00:00	46.0
+stage_05_call_variants	success	2026-06-01T14:13:14+00:00	2026-06-01T16:48:54+00:00	9340.0
+stage_06_normalize_vcf	success	2026-06-01T16:48:54+00:00	2026-06-01T16:49:10+00:00	16.0
+stage_07_annotate_variants	success	2026-06-01T16:49:11+00:00	2026-06-01T17:07:27+00:00	1096.0
+stage_08_filter_and_partition	success	2026-06-01T17:07:30+00:00	2026-06-01T17:08:52+00:00	82.0
+stage_09_interpret_coding	success	2026-06-01T17:09:01+00:00	2026-06-01T17:09:02+00:00	1.0
+stage_10_interpret_noncoding	success	2026-06-01T17:09:04+00:00	2026-06-01T17:09:29+00:00	25.0
+stage_11_prioritize_variants	success	2026-06-01T17:10:14+00:00	2026-06-01T17:10:35+00:00	21.0
+stage_12_validate_variants	success	2026-06-01T17:10:40+00:00	2026-06-01T17:11:02+00:00	22.0
+stage_13_write_summary	success	2026-06-01T17:11:07+00:00	2026-06-01T17:11:07+00:00	0.0

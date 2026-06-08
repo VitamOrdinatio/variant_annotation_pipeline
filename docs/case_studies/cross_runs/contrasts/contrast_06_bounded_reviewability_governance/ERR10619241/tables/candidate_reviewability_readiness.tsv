@@ -1,0 +1,8 @@
+sample_id	run_id	metric	category	count
+ERR10619241	run_2026_06_02_052302	suggested_validation_method	IGV	34367
+ERR10619241	run_2026_06_02_052302	suggested_validation_method	none	875331
+ERR10619241	run_2026_06_02_052302	validation_priority	high	2
+ERR10619241	run_2026_06_02_052302	validation_priority	low	875331
+ERR10619241	run_2026_06_02_052302	validation_priority	medium	34365
+ERR10619241	run_2026_06_02_052302	validation_required	False	875331
+ERR10619241	run_2026_06_02_052302	validation_required	True	34367

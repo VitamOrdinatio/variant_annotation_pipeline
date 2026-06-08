@@ -1,0 +1,322 @@
+{
+  "assay_type": "WES",
+  "metrics": [
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json input_rows",
+      "generated_at": "2026-06-02T03:00:42.928995+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "stage12_validation_preparation",
+      "metric_name": "input_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 963426,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json input_rows",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json output_rows",
+      "generated_at": "2026-06-02T03:00:42.929029+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "stage12_validation_preparation",
+      "metric_name": "output_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 963426,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json output_rows",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json unrecognized_priority_rows",
+      "generated_at": "2026-06-02T03:00:42.929037+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage12_validation_preparation",
+      "metric_name": "unrecognized_priority_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 0,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json unrecognized_priority_rows",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_validation_required.False",
+      "generated_at": "2026-06-02T03:00:42.929045+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_validation_required__False",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 928676,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_validation_required.False",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_validation_required.True",
+      "generated_at": "2026-06-02T03:00:42.929052+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_validation_required__True",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 34750,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_validation_required.True",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_validation_priority.high",
+      "generated_at": "2026-06-02T03:00:42.929058+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_validation_priority__high",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_validation_priority.high",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_validation_priority.low",
+      "generated_at": "2026-06-02T03:00:42.929067+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_validation_priority__low",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 928676,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_validation_priority.low",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_validation_priority.medium",
+      "generated_at": "2026-06-02T03:00:42.929074+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_validation_priority__medium",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 34748,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_validation_priority.medium",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_suggested_validation_method.IGV",
+      "generated_at": "2026-06-02T03:00:42.929081+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_suggested_validation_method__IGV",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 34750,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_suggested_validation_method.IGV",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_suggested_validation_method.none",
+      "generated_at": "2026-06-02T03:00:42.929087+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_suggested_validation_method__none",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 928676,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_suggested_validation_method.none",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate",
+      "generated_at": "2026-06-02T03:00:42.929094+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_priority_tier__tier_1_high_confidence_candidate",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_priority_tier.tier_2_moderate_candidate",
+      "generated_at": "2026-06-02T03:00:42.929100+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_priority_tier__tier_2_moderate_candidate",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 34748,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_priority_tier.tier_2_moderate_candidate",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_priority_tier.tier_3_low_support_or_common",
+      "generated_at": "2026-06-02T03:00:42.929107+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_priority_tier__tier_3_low_support_or_common",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 751230,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_priority_tier.tier_3_low_support_or_common",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_12_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited",
+      "generated_at": "2026-06-02T03:00:42.929112+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage12_distribution",
+      "metric_name": "counts_by_priority_tier__tier_4_uninterpretable_or_qc_limited",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 177446,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_summary.json",
+      "source_column_or_rule": "stage_12_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-02T03:00:50.262091+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F5"
+      ],
+      "metric_category": "stage12_artifact_row_count",
+      "metric_name": "validation_candidates_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 963426,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_12_validation_candidates.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_12",
+      "stage_name": "validate_variants"
+    }
+  ],
+  "run_classification": "full_pipeline",
+  "run_id": "run_2026_06_01_203130",
+  "sample_id": "ERR10619330",
+  "stage_id": "stage_12",
+  "stage_name": "validate_variants"
+}

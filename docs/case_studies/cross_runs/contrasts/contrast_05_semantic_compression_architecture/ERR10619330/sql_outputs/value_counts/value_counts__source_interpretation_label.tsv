@@ -1,0 +1,8 @@
+source_interpretation_label	count
+noncoding_common_or_low_support	725798
+noncoding_uninterpretable	176946
+regulatory_or_transcript_rare	33551
+coding_common_or_low_support	25432
+lof_or_missense_rare	1197
+coding_uninterpretable	500
+lof_rare_clinically_supported	2

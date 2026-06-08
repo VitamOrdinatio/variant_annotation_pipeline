@@ -1,0 +1,17 @@
+{
+  "config_hash": "db0833b952a58fbd940152a10d6303234750e8453ea0b5cfd54b2a3f86a987dd",
+  "config_path": "config/config.mark.err10619309.sidecar_metrics.yaml",
+  "created_at": "2026-06-02T18:10:24+00:00",
+  "execution_mode": "full_pipeline",
+  "execution_profile": "mark_err10619309_sidecar_metrics_auto_render_test",
+  "git_commit": "a3f41791738dbb2bc6b1621ba0acfbcf84b12be4",
+  "hostname": "VandPyMolGPUResearch",
+  "pipeline_name": "variant_annotation_pipeline",
+  "pipeline_version": "v1.0",
+  "platform": "Linux-6.8.12-15-pve-x86_64-with-glibc2.36",
+  "python_version": "3.11.2 (main, Apr 28 2025, 14:11:48) [GCC 12.2.0]",
+  "reference_fasta_hash_or_size": 3151425851,
+  "reference_fasta_path": "/data/storage/reference/grch38/GRCh38.primary_assembly.genome.fa",
+  "reference_genome": "GRCh38",
+  "run_id": "run_2026_06_02_181024"
+}

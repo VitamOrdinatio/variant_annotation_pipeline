@@ -1,0 +1,8 @@
+sample_id	run_id	assay_type	run_classification	clinical_evidence	clinical_status	variant_count
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	benign	31383
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	conflicting	83
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	likely_benign	2061
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	likely_pathogenic	23
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	missing	644311
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	pathogenic	32
+ERR10619207	run_2026_06_01_124134	WES	q3	clinvar	vus	486

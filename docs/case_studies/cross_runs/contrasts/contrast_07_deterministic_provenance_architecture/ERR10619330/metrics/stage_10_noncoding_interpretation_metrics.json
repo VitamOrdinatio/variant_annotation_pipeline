@@ -1,0 +1,4111 @@
+{
+  "assay_type": "WES",
+  "metrics": [
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-02T02:58:36.399192+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "stage10_artifact_row_count",
+      "metric_name": "noncoding_interpreted_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 936295,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.3_prime_UTR_variant",
+      "generated_at": "2026-06-02T02:58:44.765884+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__3_prime_UTR_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11230,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.3_prime_UTR_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.3_prime_UTR_variant&NMD_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.765929+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__3_prime_UTR_variant&NMD_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 43,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.3_prime_UTR_variant&NMD_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.5_prime_UTR_variant",
+      "generated_at": "2026-06-02T02:58:44.765937+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__5_prime_UTR_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3191,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.5_prime_UTR_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.5_prime_UTR_variant&NMD_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.765944+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__5_prime_UTR_variant&NMD_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.5_prime_UTR_variant&NMD_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.coding_sequence_variant",
+      "generated_at": "2026-06-02T02:58:44.765950+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__coding_sequence_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.coding_sequence_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.downstream_gene_variant",
+      "generated_at": "2026-06-02T02:58:44.765956+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__downstream_gene_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 65990,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.downstream_gene_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.incomplete_terminal_codon_variant&coding_sequence_variant",
+      "generated_at": "2026-06-02T02:58:44.765962+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__incomplete_terminal_codon_variant&coding_sequence_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.incomplete_terminal_codon_variant&coding_sequence_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.intergenic_variant",
+      "generated_at": "2026-06-02T02:58:44.765968+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__intergenic_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 162498,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.intergenic_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.intron_variant",
+      "generated_at": "2026-06-02T02:58:44.765974+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__intron_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 401380,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.intron_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.intron_variant&NMD_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.765979+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__intron_variant&NMD_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1484,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.intron_variant&NMD_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.intron_variant&non_coding_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.765985+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__intron_variant&non_coding_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 194350,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.intron_variant&non_coding_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.mature_miRNA_variant",
+      "generated_at": "2026-06-02T02:58:44.765991+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__mature_miRNA_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 5,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.mature_miRNA_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.non_coding_transcript_exon_variant",
+      "generated_at": "2026-06-02T02:58:44.765997+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__non_coding_transcript_exon_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 18536,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.non_coding_transcript_exon_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_donor_5th_base_variant&intron_variant",
+      "generated_at": "2026-06-02T02:58:44.766003+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_donor_5th_base_variant&intron_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 96,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_donor_5th_base_variant&intron_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.766010+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 34,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_donor_region_variant&intron_variant",
+      "generated_at": "2026-06-02T02:58:44.766028+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_donor_region_variant&intron_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 400,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_donor_region_variant&intron_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_donor_region_variant&intron_variant&non_coding_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.766034+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_donor_region_variant&intron_variant&non_coding_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 95,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_donor_region_variant&intron_variant&non_coding_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant",
+      "generated_at": "2026-06-02T02:58:44.766039+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_polypyrimidine_tract_variant&intron_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2311,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant",
+      "generated_at": "2026-06-02T02:58:44.766044+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 313,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.stop_retained_variant",
+      "generated_at": "2026-06-02T02:58:44.766050+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__stop_retained_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.stop_retained_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.stop_retained_variant&3_prime_UTR_variant",
+      "generated_at": "2026-06-02T02:58:44.766055+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__stop_retained_variant&3_prime_UTR_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.stop_retained_variant&3_prime_UTR_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for consequence.upstream_gene_variant",
+      "generated_at": "2026-06-02T02:58:44.766061+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "consequence_distribution__upstream_gene_variant",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 74315,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for consequence.upstream_gene_variant",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.NA",
+      "generated_at": "2026-06-02T02:58:53.149229+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__NA",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 909630,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.NA",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.association",
+      "generated_at": "2026-06-02T02:58:53.149273+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 18,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.association&benign",
+      "generated_at": "2026-06-02T02:58:53.149282+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__association&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.association&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.association&drug_response&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149290+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__association&drug_response&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.association&drug_response&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.association&pathogenic&protective",
+      "generated_at": "2026-06-02T02:58:53.149296+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__association&pathogenic&protective",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.association&pathogenic&protective",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign",
+      "generated_at": "2026-06-02T02:58:53.149303+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 25008,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&association",
+      "generated_at": "2026-06-02T02:58:53.149309+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149316+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&benign/likely_benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149323+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&benign_likely_benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 10,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&benign/likely_benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:58:53.149329+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&drug_response",
+      "generated_at": "2026-06-02T02:58:53.149336+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&drug_response&likely_benign&pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149343+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&drug_response&likely_benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&drug_response&likely_benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149349+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 539,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&likely_benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149356+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&likely_benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 8,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&likely_benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&likely_benign&uncertain_significance&benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149363+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&likely_benign&uncertain_significance&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&likely_benign&uncertain_significance&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149370+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&not_provided",
+      "generated_at": "2026-06-02T02:58:53.149376+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&not_provided",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&not_provided",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&other",
+      "generated_at": "2026-06-02T02:58:53.149383+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&other",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&other",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149390+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&protective&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149396+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&protective&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&protective&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149402+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149408+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 17,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149424+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 6,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149430+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149437+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149443+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149449+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 19,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149456+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 9,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:58:53.149463+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.benign/likely_benign&uncertain_significance&likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149470+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__benign_likely_benign&uncertain_significance&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.benign/likely_benign&uncertain_significance&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:58:53.149476+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&benign",
+      "generated_at": "2026-06-02T02:58:53.149482+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149489+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149500+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&pathogenic&pathogenic/pathogenic&_low_penetrance",
+      "generated_at": "2026-06-02T02:58:53.149507+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity&pathogenic&pathogenic_pathogenic&_low_penetrance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&pathogenic&pathogenic/pathogenic&_low_penetrance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149514+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.drug_response",
+      "generated_at": "2026-06-02T02:58:53.149520+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 24,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.drug_response&benign",
+      "generated_at": "2026-06-02T02:58:53.149526+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__drug_response&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.drug_response&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149533+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 523,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149539+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 60,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149545+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 8,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149552+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 20,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149573+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 6,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149580+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&benign_likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&benign/likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&conflicting_classifications_of_pathogenicity&benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149593+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&conflicting_classifications_of_pathogenicity&benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&conflicting_classifications_of_pathogenicity&benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&drug_response",
+      "generated_at": "2026-06-02T02:58:53.149600+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&not_provided&benign",
+      "generated_at": "2026-06-02T02:58:53.149607+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149613+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149620+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_benign&uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:58:53.149626+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_benign&uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_benign&uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_risk_allele",
+      "generated_at": "2026-06-02T02:58:53.149632+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_risk_allele",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_risk_allele",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.likely_risk_allele&association&benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149639+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__likely_risk_allele&association&benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.likely_risk_allele&association&benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.not_provided",
+      "generated_at": "2026-06-02T02:58:53.149645+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__not_provided",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 29,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.not_provided",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.not_provided&association_not_found",
+      "generated_at": "2026-06-02T02:58:53.149652+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__not_provided&association_not_found",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.not_provided&association_not_found",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.not_provided&benign",
+      "generated_at": "2026-06-02T02:58:53.149658+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 10,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.not_provided&benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149664+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__not_provided&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.not_provided&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.not_provided&pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149670+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__not_provided&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.not_provided&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.other",
+      "generated_at": "2026-06-02T02:58:53.149676+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__other",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.other",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.other&benign",
+      "generated_at": "2026-06-02T02:58:53.149683+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__other&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.other&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.other&protective&benign&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149689+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__other&protective&benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.other&protective&benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.other&risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149695+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__other&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.other&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149709+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.protective",
+      "generated_at": "2026-06-02T02:58:53.149715+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__protective",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.protective",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor",
+      "generated_at": "2026-06-02T02:58:53.149722+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 16,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&affects&benign",
+      "generated_at": "2026-06-02T02:58:53.149728+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&affects&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&affects&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&benign",
+      "generated_at": "2026-06-02T02:58:53.149735+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&benign&drug_response",
+      "generated_at": "2026-06-02T02:58:53.149741+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&benign&drug_response&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149750+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&benign&drug_response&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&benign&drug_response&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149756+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.risk_factor&pathogenic/likely_pathogenic&uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:58:53.149763+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__risk_factor&pathogenic_likely_pathogenic&uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.risk_factor&pathogenic/likely_pathogenic&uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_risk_allele",
+      "generated_at": "2026-06-02T02:58:53.149769+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_risk_allele",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_risk_allele",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance",
+      "generated_at": "2026-06-02T02:58:53.149775+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 70,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&association",
+      "generated_at": "2026-06-02T02:58:53.149780+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:58:53.149787+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 61,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&benign&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149793+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 41,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149799+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&benign&pathogenic",
+      "generated_at": "2026-06-02T02:58:53.149806+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&benign/likely_benign&likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149812+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&benign_likely_benign&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&benign/likely_benign&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&likely_benign",
+      "generated_at": "2026-06-02T02:58:53.149818+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&likely_benign&benign",
+      "generated_at": "2026-06-02T02:58:53.149824+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&not_provided&benign",
+      "generated_at": "2026-06-02T02:58:53.149830+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinical_significance.uncertain_significance&risk_factor&drug_response&affects",
+      "generated_at": "2026-06-02T02:58:53.149836+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinical_significance_distribution__uncertain_significance&risk_factor&drug_response&affects",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinical_significance.uncertain_significance&risk_factor&drug_response&affects",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.NA",
+      "generated_at": "2026-06-02T02:59:01.422388+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__NA",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 909630,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.NA",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.association",
+      "generated_at": "2026-06-02T02:59:01.422429+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 18,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.association&benign",
+      "generated_at": "2026-06-02T02:59:01.422436+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__association&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.association&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.association&drug_response&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422443+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__association&drug_response&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.association&drug_response&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.association&pathogenic&protective",
+      "generated_at": "2026-06-02T02:59:01.422461+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__association&pathogenic&protective",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.association&pathogenic&protective",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign",
+      "generated_at": "2026-06-02T02:59:01.422467+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 25008,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&association",
+      "generated_at": "2026-06-02T02:59:01.422473+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422478+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&benign/likely_benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422484+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&benign_likely_benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 10,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&benign/likely_benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:59:01.422489+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&drug_response",
+      "generated_at": "2026-06-02T02:59:01.422495+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&drug_response&likely_benign&pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422500+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&drug_response&likely_benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&drug_response&likely_benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422506+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 539,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&likely_benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422511+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&likely_benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 8,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&likely_benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&likely_benign&uncertain_significance&benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422516+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&likely_benign&uncertain_significance&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&likely_benign&uncertain_significance&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422522+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&not_provided",
+      "generated_at": "2026-06-02T02:59:01.422527+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&not_provided",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&not_provided",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&other",
+      "generated_at": "2026-06-02T02:59:01.422533+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&other",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&other",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422539+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&protective&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422544+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&protective&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&protective&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422549+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422554+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 17,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422560+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 6,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422565+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422570+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422576+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422581+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 19,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422595+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 9,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:59:01.422601+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&likely_benign&conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.benign/likely_benign&uncertain_significance&likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422607+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__benign_likely_benign&uncertain_significance&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.benign/likely_benign&uncertain_significance&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity",
+      "generated_at": "2026-06-02T02:59:01.422612+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&benign",
+      "generated_at": "2026-06-02T02:59:01.422618+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422623+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422629+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&likely_pathogenic&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&pathogenic&pathogenic/pathogenic&_low_penetrance",
+      "generated_at": "2026-06-02T02:59:01.422635+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity&pathogenic&pathogenic_pathogenic&_low_penetrance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&pathogenic&pathogenic/pathogenic&_low_penetrance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422641+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.conflicting_classifications_of_pathogenicity&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.drug_response",
+      "generated_at": "2026-06-02T02:59:01.422646+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 24,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.drug_response&benign",
+      "generated_at": "2026-06-02T02:59:01.422652+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__drug_response&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.drug_response&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422657+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 523,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422663+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 60,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422668+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 8,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422674+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&benign_likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 20,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422692+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 6,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422697+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&benign_likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&benign/likely_benign&uncertain_significance&risk_factor&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&conflicting_classifications_of_pathogenicity&benign/likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422710+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&conflicting_classifications_of_pathogenicity&benign_likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&conflicting_classifications_of_pathogenicity&benign/likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&drug_response",
+      "generated_at": "2026-06-02T02:59:01.422715+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&not_provided&benign",
+      "generated_at": "2026-06-02T02:59:01.422721+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422743+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422748+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_benign&uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:59:01.422754+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_benign&uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_benign&uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_risk_allele",
+      "generated_at": "2026-06-02T02:59:01.422759+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_risk_allele",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_risk_allele",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.likely_risk_allele&association&benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422764+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__likely_risk_allele&association&benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.likely_risk_allele&association&benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.not_provided",
+      "generated_at": "2026-06-02T02:59:01.422770+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__not_provided",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 29,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.not_provided",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.not_provided&association_not_found",
+      "generated_at": "2026-06-02T02:59:01.422776+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__not_provided&association_not_found",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.not_provided&association_not_found",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.not_provided&benign",
+      "generated_at": "2026-06-02T02:59:01.422782+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 10,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.not_provided&benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422787+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__not_provided&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.not_provided&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.not_provided&pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422793+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__not_provided&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.not_provided&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.other",
+      "generated_at": "2026-06-02T02:59:01.422799+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__other",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 15,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.other",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.other&benign",
+      "generated_at": "2026-06-02T02:59:01.422805+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__other&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.other&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.other&protective&benign&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422810+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__other&protective&benign&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.other&protective&benign&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.other&risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422816+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__other&risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.other&risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422821+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.protective",
+      "generated_at": "2026-06-02T02:59:01.422826+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__protective",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.protective",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor",
+      "generated_at": "2026-06-02T02:59:01.422831+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 16,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&affects&benign",
+      "generated_at": "2026-06-02T02:59:01.422837+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&affects&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&affects&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&benign",
+      "generated_at": "2026-06-02T02:59:01.422842+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 3,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&benign&drug_response",
+      "generated_at": "2026-06-02T02:59:01.422848+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&benign&drug_response",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&benign&drug_response",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&benign&drug_response&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422853+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&benign&drug_response&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&benign&drug_response&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&benign&uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422858+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&benign&uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&benign&uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.risk_factor&pathogenic/likely_pathogenic&uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:59:01.422864+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__risk_factor&pathogenic_likely_pathogenic&uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.risk_factor&pathogenic/likely_pathogenic&uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_risk_allele",
+      "generated_at": "2026-06-02T02:59:01.422869+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_risk_allele",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 4,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_risk_allele",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance",
+      "generated_at": "2026-06-02T02:59:01.422874+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 70,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&association",
+      "generated_at": "2026-06-02T02:59:01.422880+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&association",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&association",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&benign",
+      "generated_at": "2026-06-02T02:59:01.422885+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 61,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422890+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&benign&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 41,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422896+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&likely_benign&likely_pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&pathogenic",
+      "generated_at": "2026-06-02T02:59:01.422901+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&benign&pathogenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&benign&pathogenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&benign/likely_benign&likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422907+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&benign_likely_benign&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&benign/likely_benign&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&likely_benign",
+      "generated_at": "2026-06-02T02:59:01.422912+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&likely_benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 11,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&likely_benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&likely_benign&benign",
+      "generated_at": "2026-06-02T02:59:01.422918+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&likely_benign&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&likely_benign&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&not_provided&benign",
+      "generated_at": "2026-06-02T02:59:01.422923+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&not_provided&benign",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&not_provided&benign",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for clinvar_significance.uncertain_significance&risk_factor&drug_response&affects",
+      "generated_at": "2026-06-02T02:59:01.422928+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "clinvar_significance_distribution__uncertain_significance&risk_factor&drug_response&affects",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 1,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for clinvar_significance.uncertain_significance&risk_factor&drug_response&affects",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for rarity_flag.common",
+      "generated_at": "2026-06-02T02:59:09.575450+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "rarity_flag_distribution__common",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 808043,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for rarity_flag.common",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for rarity_flag.low_frequency",
+      "generated_at": "2026-06-02T02:59:09.575494+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "rarity_flag_distribution__low_frequency",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 38260,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for rarity_flag.low_frequency",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for rarity_flag.missing",
+      "generated_at": "2026-06-02T02:59:09.575502+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "rarity_flag_distribution__missing",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 37007,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for rarity_flag.missing",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for rarity_flag.rare",
+      "generated_at": "2026-06-02T02:59:09.575509+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "rarity_flag_distribution__rare",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 52985,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for rarity_flag.rare",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for variant_context.intergenic",
+      "generated_at": "2026-06-02T02:59:17.624031+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "variant_context_distribution__intergenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 162498,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for variant_context.intergenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for variant_context.intronic",
+      "generated_at": "2026-06-02T02:59:17.624071+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "variant_context_distribution__intronic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 600463,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for variant_context.intronic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for variant_context.noncoding_transcript",
+      "generated_at": "2026-06-02T02:59:17.624080+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "variant_context_distribution__noncoding_transcript",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 18581,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for variant_context.noncoding_transcript",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for variant_context.regulatory",
+      "generated_at": "2026-06-02T02:59:17.624087+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "variant_context_distribution__regulatory",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 140310,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for variant_context.regulatory",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for variant_context.unknown",
+      "generated_at": "2026-06-02T02:59:17.624093+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "variant_context_distribution__unknown",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 14443,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for variant_context.unknown",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for noncoding_functional_context.intergenic",
+      "generated_at": "2026-06-02T02:59:25.932136+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "noncoding_functional_context_distribution__intergenic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 162498,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for noncoding_functional_context.intergenic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for noncoding_functional_context.intronic",
+      "generated_at": "2026-06-02T02:59:25.932181+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "noncoding_functional_context_distribution__intronic",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 404187,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for noncoding_functional_context.intronic",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for noncoding_functional_context.proximal",
+      "generated_at": "2026-06-02T02:59:25.932190+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "noncoding_functional_context_distribution__proximal",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 140305,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for noncoding_functional_context.proximal",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for noncoding_functional_context.transcript_associated",
+      "generated_at": "2026-06-02T02:59:25.932197+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "noncoding_functional_context_distribution__transcript_associated",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 214857,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for noncoding_functional_context.transcript_associated",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "exact string counts for noncoding_functional_context.unknown",
+      "generated_at": "2026-06-02T02:59:25.932203+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "noncoding_functional_context_distribution__unknown",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 14448,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "exact string counts for noncoding_functional_context.unknown",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "binned counts for population_frequency.common",
+      "generated_at": "2026-06-02T02:59:34.574095+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "population_frequency_bin__common",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 808043,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "binned counts for population_frequency.common",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "binned counts for population_frequency.low_frequency",
+      "generated_at": "2026-06-02T02:59:34.574134+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "population_frequency_bin__low_frequency",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 38260,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "binned counts for population_frequency.low_frequency",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "binned counts for population_frequency.missing",
+      "generated_at": "2026-06-02T02:59:34.574142+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "population_frequency_bin__missing",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 37007,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "binned counts for population_frequency.missing",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "binned counts for population_frequency.rare",
+      "generated_at": "2026-06-02T02:59:34.574149+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage10_semantic_distribution",
+      "metric_name": "population_frequency_bin__rare",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 52985,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_01_203130",
+      "sample_id": "ERR10619330",
+      "source_artifact": "results/run_2026_06_01_203130/processed/stage_10_noncoding_interpreted.tsv",
+      "source_column_or_rule": "binned counts for population_frequency.rare",
+      "stage_id": "stage_10",
+      "stage_name": "interpret_noncoding"
+    }
+  ],
+  "run_classification": "full_pipeline",
+  "run_id": "run_2026_06_01_203130",
+  "sample_id": "ERR10619330",
+  "stage_id": "stage_10",
+  "stage_name": "interpret_noncoding"
+}

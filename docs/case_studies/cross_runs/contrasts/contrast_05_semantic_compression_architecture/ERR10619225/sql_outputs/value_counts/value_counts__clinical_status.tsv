@@ -1,0 +1,8 @@
+clinical_status	count
+missing	721273
+benign	33588
+likely_benign	2210
+vus	439
+conflicting	67
+pathogenic	30
+likely_pathogenic	28

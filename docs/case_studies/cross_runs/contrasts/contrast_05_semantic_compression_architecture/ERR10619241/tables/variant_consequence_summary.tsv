@@ -1,0 +1,13 @@
+sample_id	run_id	assay_type	run_classification	interpretation_domain	molecular_consequence	count
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	loss_of_function	541
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	missense	11228
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	other_coding	381
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	splice_relevant	2303
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	synonymous	11651
+ERR10619241	run_2026_06_02_052302	WES	q1	coding	utr_regulatory	0
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	loss_of_function	0
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	missense	0
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	other_coding	734256
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	splice_relevant	3117
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	synonymous	10
+ERR10619241	run_2026_06_02_052302	WES	q1	noncoding	utr_regulatory	146211

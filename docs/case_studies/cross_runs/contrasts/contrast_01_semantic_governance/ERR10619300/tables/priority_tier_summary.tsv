@@ -1,0 +1,5 @@
+sample_id	run_id	priority_tier	count
+ERR10619300	run_2026_05_27_172531	tier_1_high_confidence_candidate	4
+ERR10619300	run_2026_05_27_172531	tier_2_moderate_candidate	27192
+ERR10619300	run_2026_05_27_172531	tier_3_low_support_or_common	580937
+ERR10619300	run_2026_05_27_172531	tier_4_uninterpretable_or_qc_limited	128335

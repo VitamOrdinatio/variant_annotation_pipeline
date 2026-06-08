@@ -1,0 +1,30 @@
+{
+  "assay_type": "WES",
+  "metrics": [
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count non-header VCF records",
+      "generated_at": "2026-05-31T03:35:39.218879+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "raw_called_variants",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 907952,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_05_30_214724",
+      "sample_id": "ERR10619212",
+      "source_artifact": "results/run_2026_05_30_214724/interim/ERR10619212_run_2026_05_30_214724.raw_variants.vcf",
+      "source_column_or_rule": "count non-header VCF records",
+      "stage_id": "stage_05",
+      "stage_name": "call_variants"
+    }
+  ],
+  "run_classification": "full_pipeline",
+  "run_id": "run_2026_05_30_214724",
+  "sample_id": "ERR10619212",
+  "stage_id": "stage_05",
+  "stage_name": "call_variants"
+}

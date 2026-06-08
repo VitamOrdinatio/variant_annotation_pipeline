@@ -1,0 +1,8 @@
+sample_id	run_id	assay_type	run_classification	clinical_evidence	clinical_status	variant_count
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	benign	31199
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	conflicting	74
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	likely_benign	1958
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	likely_pathogenic	24
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	missing	702717
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	pathogenic	37
+ERR10619300	run_2026_05_27_172531	WES	median	clinvar	vus	459

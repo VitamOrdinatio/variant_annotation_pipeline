@@ -1,0 +1,28 @@
+{
+  "artifacts": {
+    "gene_summary_table": null,
+    "prioritized_table": null,
+    "run_summary_report": null,
+    "validation_notes": null
+  },
+  "run": {
+    "config_path": "config/config.mark.err10619212.sidecar_metrics.yaml",
+    "config_snapshot_path": "results/run_2026_05_30_214724/metadata/config_snapshot.yaml",
+    "end_time": "2026-05-31T04:03:43+00:00",
+    "execution_mode": "full_pipeline",
+    "machine_id": "VandPyMolGPUResearch",
+    "pipeline_name": "variant_annotation_pipeline",
+    "pipeline_version": "v1.0",
+    "run_id": "run_2026_05_30_214724",
+    "start_time": "2026-05-30T21:47:24+00:00",
+    "status": "completed"
+  },
+  "summary": {
+    "error_count": 0,
+    "stage_count": 13,
+    "stage_status_counts": {
+      "success": 13
+    },
+    "warning_count": 2
+  }
+}

@@ -1,0 +1,13 @@
+sample_id	run_id	assay_type	run_classification	interpretation_domain	molecular_consequence	count
+ERR10619300	run_2026_05_27_172531	WES	median	coding	loss_of_function	467
+ERR10619300	run_2026_05_27_172531	WES	median	coding	missense	11375
+ERR10619300	run_2026_05_27_172531	WES	median	coding	other_coding	368
+ERR10619300	run_2026_05_27_172531	WES	median	coding	splice_relevant	2280
+ERR10619300	run_2026_05_27_172531	WES	median	coding	synonymous	11949
+ERR10619300	run_2026_05_27_172531	WES	median	coding	utr_regulatory	0
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	loss_of_function	0
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	missense	0
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	other_coding	588006
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	splice_relevant	3091
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	synonymous	14
+ERR10619300	run_2026_05_27_172531	WES	median	noncoding	utr_regulatory	118918

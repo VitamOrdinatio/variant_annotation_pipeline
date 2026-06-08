@@ -1,0 +1,1014 @@
+{
+  "assay_type": "WES",
+  "metrics": [
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json total_variants",
+      "generated_at": "2026-06-03T00:22:31.405499+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "partitioned_variants_total",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json total_variants",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json irreparably_malformed_rows",
+      "generated_at": "2026-06-03T00:22:31.405524+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "irreparably_malformed_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 0,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json irreparably_malformed_rows",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variant_summary_rows",
+      "generated_at": "2026-06-03T00:22:31.405532+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "f3_refinement_flow",
+      "metric_name": "variant_summary_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variant_summary_rows",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json rdgp_gene_evidence_seed_rows",
+      "generated_at": "2026-06-03T00:22:31.405543+00:00",
+      "intended_figure_support": [
+        "F5"
+      ],
+      "metric_category": "f5_overlay_readiness",
+      "metric_name": "rdgp_gene_evidence_seed_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 43429,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json rdgp_gene_evidence_seed_rows",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json partition_counts.coding_candidates",
+      "generated_at": "2026-06-03T00:22:31.405553+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "f3_semantic_decomposition",
+      "metric_name": "coding_candidates",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 23953,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json partition_counts.coding_candidates",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json partition_counts.noncoding_candidates",
+      "generated_at": "2026-06-03T00:22:31.405573+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "f3_semantic_decomposition",
+      "metric_name": "noncoding_candidates",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 852953,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json partition_counts.noncoding_candidates",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json partition_counts.qc_flagged",
+      "generated_at": "2026-06-03T00:22:31.405581+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "f3_semantic_decomposition",
+      "metric_name": "qc_flagged",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json partition_counts.qc_flagged",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json partition_counts.splice_region_candidates",
+      "generated_at": "2026-06-03T00:22:31.405589+00:00",
+      "intended_figure_support": [
+        "F3B",
+        "F4"
+      ],
+      "metric_category": "f3_semantic_decomposition",
+      "metric_name": "splice_region_candidates",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2981,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json partition_counts.splice_region_candidates",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.coding",
+      "generated_at": "2026-06-03T00:22:31.405598+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__coding",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 23467,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.coding",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.intergenic",
+      "generated_at": "2026-06-03T00:22:31.405605+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__intergenic",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 145244,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.intergenic",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.intronic",
+      "generated_at": "2026-06-03T00:22:31.405611+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__intronic",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 547879,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.intronic",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.noncoding_transcript",
+      "generated_at": "2026-06-03T00:22:31.405621+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__noncoding_transcript",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 17793,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.noncoding_transcript",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.regulatory",
+      "generated_at": "2026-06-03T00:22:31.405628+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__regulatory",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 128428,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.regulatory",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.splice_region",
+      "generated_at": "2026-06-03T00:22:31.405634+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__splice_region",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 2981,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.splice_region",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_context.unknown",
+      "generated_at": "2026-06-03T00:22:31.405657+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_context__unknown",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_context.unknown",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_severity.HIGH",
+      "generated_at": "2026-06-03T00:22:31.405665+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_severity__HIGH",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 511,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_severity.HIGH",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_severity.LOW",
+      "generated_at": "2026-06-03T00:22:31.405672+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_severity__LOW",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 17463,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_severity.LOW",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_severity.MODERATE",
+      "generated_at": "2026-06-03T00:22:31.405679+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_severity__MODERATE",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 11697,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_severity.MODERATE",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_severity.MODIFIER",
+      "generated_at": "2026-06-03T00:22:31.405685+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_severity__MODIFIER",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 849730,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_severity.MODIFIER",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json qc_status_counts.caution",
+      "generated_at": "2026-06-03T00:22:31.405692+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "qc_status_counts__caution",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json qc_status_counts.caution",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json qc_status_counts.pass",
+      "generated_at": "2026-06-03T00:22:31.405698+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "qc_status_counts__pass",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 865792,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json qc_status_counts.pass",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json interpretability_counts.interpretable_now",
+      "generated_at": "2026-06-03T00:22:31.405705+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "interpretability_counts__interpretable_now",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 26448,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json interpretability_counts.interpretable_now",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json interpretability_counts.needs_external_annotation",
+      "generated_at": "2026-06-03T00:22:31.405712+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "interpretability_counts__needs_external_annotation",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 839344,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json interpretability_counts.needs_external_annotation",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json interpretability_counts.unsupported_currently",
+      "generated_at": "2026-06-03T00:22:31.405719+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "interpretability_counts__unsupported_currently",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json interpretability_counts.unsupported_currently",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json frequency_status.common",
+      "generated_at": "2026-06-03T00:22:31.405725+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "frequency_status__common",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 759891,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json frequency_status.common",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json frequency_status.low_frequency",
+      "generated_at": "2026-06-03T00:22:31.405732+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "frequency_status__low_frequency",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 36012,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json frequency_status.low_frequency",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json frequency_status.missing",
+      "generated_at": "2026-06-03T00:22:31.405750+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "frequency_status__missing",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 33227,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json frequency_status.missing",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json frequency_status.rare",
+      "generated_at": "2026-06-03T00:22:31.405756+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "frequency_status__rare",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 50271,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json frequency_status.rare",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.benign",
+      "generated_at": "2026-06-03T00:22:31.405762+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__benign",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 32706,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.benign",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.conflicting",
+      "generated_at": "2026-06-03T00:22:31.405768+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__conflicting",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 75,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.conflicting",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.likely_benign",
+      "generated_at": "2026-06-03T00:22:31.405774+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__likely_benign",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 2137,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.likely_benign",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.likely_pathogenic",
+      "generated_at": "2026-06-03T00:22:31.405787+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__likely_pathogenic",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 22,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.likely_pathogenic",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.missing",
+      "generated_at": "2026-06-03T00:22:31.405793+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__missing",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 843974,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.missing",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.pathogenic",
+      "generated_at": "2026-06-03T00:22:31.405799+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__pathogenic",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 28,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.pathogenic",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json clinical_status.vus",
+      "generated_at": "2026-06-03T00:22:31.405805+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "clinical_status__vus",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 459,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json clinical_status.vus",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_type.complex",
+      "generated_at": "2026-06-03T00:22:31.405811+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_type__complex",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 5039,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_type.complex",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_type.deletion",
+      "generated_at": "2026-06-03T00:22:31.405817+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_type__deletion",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 97370,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_type.deletion",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_type.indel",
+      "generated_at": "2026-06-03T00:22:31.405822+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_type__indel",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 289,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_type.indel",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_type.insertion",
+      "generated_at": "2026-06-03T00:22:31.405828+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_type__insertion",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 66029,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_type.insertion",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_type.snv",
+      "generated_at": "2026-06-03T00:22:31.405834+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_type__snv",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 710674,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_type.snv",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_class.coding",
+      "generated_at": "2026-06-03T00:22:31.405840+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_class__coding",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 26448,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_class.coding",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_class.noncoding",
+      "generated_at": "2026-06-03T00:22:31.405846+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_class__noncoding",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 839344,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_class.noncoding",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "stage_08_summary.json variants_by_variant_class.unknown",
+      "generated_at": "2026-06-03T00:22:31.405852+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "f4_biological_landscape",
+      "metric_name": "variants_by_variant_class__unknown",
+      "metric_status": "available",
+      "metric_unit": "variants",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_summary.json",
+      "source_column_or_rule": "stage_08_summary.json variants_by_variant_class.unknown",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:35.249426+00:00",
+      "intended_figure_support": [
+        "F3A"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "selected_transcript_consequences_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_selected_transcript_consequences.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:39.057055+00:00",
+      "intended_figure_support": [
+        "F5"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "vdb_ready_variants_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 879401,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_vdb_ready_variants.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:39.158299+00:00",
+      "intended_figure_support": [
+        "F3B"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "coding_candidates_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 23953,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/coding_candidates.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:39.172916+00:00",
+      "intended_figure_support": [
+        "F3B"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "splice_region_candidates_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 2981,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/splice_region_candidates.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:42.887635+00:00",
+      "intended_figure_support": [
+        "F3B"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "noncoding_candidates_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 852953,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/noncoding_candidates.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:42.946892+00:00",
+      "intended_figure_support": [
+        "F4"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "qc_flagged_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 13609,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/qc_flagged.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    },
+    {
+      "assay_type": "WES",
+      "derivation_rule": "count TSV data rows excluding header",
+      "generated_at": "2026-06-03T00:22:43.085601+00:00",
+      "intended_figure_support": [
+        "F5"
+      ],
+      "metric_category": "stage08_artifact_row_count",
+      "metric_name": "rdgp_gene_evidence_seed_tsv_rows",
+      "metric_status": "available",
+      "metric_unit": "rows",
+      "metric_value": 43429,
+      "run_classification": "full_pipeline",
+      "run_id": "run_2026_06_02_181024",
+      "sample_id": "ERR10619309",
+      "source_artifact": "results/run_2026_06_02_181024/processed/stage_08_rdgp_gene_evidence_seed.tsv",
+      "source_column_or_rule": "count TSV data rows excluding header",
+      "stage_id": "stage_08",
+      "stage_name": "filter_and_partition"
+    }
+  ],
+  "run_classification": "full_pipeline",
+  "run_id": "run_2026_06_02_181024",
+  "sample_id": "ERR10619309",
+  "stage_id": "stage_08",
+  "stage_name": "filter_and_partition"
+}
