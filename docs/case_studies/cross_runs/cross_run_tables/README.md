@@ -1,15 +1,6 @@
 # VAP v1 Case-Study Tables
 
-## Intended Audience
-
-This directory is primarily intended for:
-- computational genomics reviewers
-- translational bioinformatics hiring committees
-- clinical genomics engineering stakeholders
-- reproducibility-oriented pipeline reviewers
-- downstream ecosystem developers
-
----
+This folder tracks successfully completed VAP executions and example VAP artifacts centered around those executions.  In a sense, these various TSV files act as a sort of digital lab notebook (aka bootstrap log) with respect to different facets of VAP output for any given SRA entering the VAP pipeline.
 
 ## Purpose 
 
@@ -305,10 +296,6 @@ Examples of future noncoding-oriented interpretation extensions could include:
 This table should not be interpreted as direct pathogenicity classification or diagnostic interpretation output.
 
 Instead, it documents how VAP organizes and preserves biologically contextualized evidence substrate across distinct interpretation pathways.
-
----
-
-## `gene_burden_summary.tsv.gz`
 
 ---
 
@@ -881,5 +868,92 @@ This table does NOT:
 - rank candidate genes
 
 Instead, it summarizes the current clinical annotation landscape across globally retained coding substrate.
+
+
+```text
+Clinical-status counts in post–May 22 runs derive from the richer
+stage_metrics_long telemetry substrate and therefore may not be
+numerically identical to the earlier May 22 aggregation layer,
+despite preserving stable relative clinical-status topology.
+```
+
+---
+
+## `substrate_dimension_summary.tsv`
+
+### Purpose
+
+Summarizes interoperability-oriented semantic substrate dimensions across harvested VAP production runs.
+
+### Highlights
+
+Tracks:
+
+* VDB-ready variant substrate dimensions
+* RDGP-ready gene substrate dimensions
+* coding vs noncoding substrate asymmetry
+* candidate reviewability surface structure
+* priority-tiered gene distributions
+* overlay gene-list contextualization surface
+* semantic breadth and interpretation diversity
+* overlay evidence richness
+* reproducible downstream evidence density metrics
+
+### Why It Matters
+
+This table provides a compact systems-level summary of how much reusable downstream evidence substrate a completed VAP run produced.
+
+Unlike raw telemetry tables, `substrate_dimension_summary.tsv` emphasizes:
+
+```text
+cross-run semantic infrastructure composition
+```
+
+rather than stage-level execution details.
+
+The table combines:
+
+* telemetry-native metrics harvested from `stage_metrics_long.tsv`
+* source-truth DISTINCT scans against Stage 08 and Stage 12 outputs
+* overlay-aware biological contextualization summaries
+* downstream interoperability-oriented density calculations
+
+Examples include:
+
+* variants per RDGP-ready gene
+* coding/noncoding substrate ratios
+* reviewability density
+* semantic breadth dimensionality
+* overlay gene contextualization density
+
+Importantly, the `semantic_breadth_score` is not a biological burden score or pathogenicity score.
+
+Instead, it represents a transparent additive dimensionality estimate describing how many distinct semantic interpretation axes are populated within a run.
+
+This table therefore helps communicate that VAP functions as a:
+
+```text
+semantic genomic evidence refinement framework
+```
+
+capable of generating reproducible downstream substrate suitable for future:
+
+* VDB persistence workflows
+* RDGP prioritization workflows
+* cross-run comparative analysis
+* systems-level narrative construction
+* biologically contextualized evidence exploration
+
+### Important Scope Boundary
+
+This table does NOT:
+
+* establish diagnosis
+* assign pathogenicity
+* perform phenotype matching
+* rank causal variants
+* establish disease association
+
+Instead, it summarizes the dimensional structure and interoperability composition of retained VAP evidence substrate.
 
 ---
