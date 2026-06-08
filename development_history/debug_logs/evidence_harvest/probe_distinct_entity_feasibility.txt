@@ -1,0 +1,144 @@
+=== PROBE: DISTINCT ENTITY FEASIBILITY ===
+
+RUN_ID: run_2026_05_27_172531
+
+VDB_PATH: results/run_2026_05_27_172531/processed/stage_08_vdb_ready_variants.tsv
+exists: True
+size_mb: 248.36
+
+RDGP_PATH: results/run_2026_05_27_172531/processed/stage_08_rdgp_gene_evidence_seed.tsv
+exists: True
+size_mb: 12.54
+
+STAGE12_PATH: results/run_2026_05_27_172531/processed/stage_12_validation_candidates.tsv
+exists: True
+size_mb: 434.11
+
+================================================================================
+HEADER INVENTORY
+================================================================================
+
+[VDB]
+sample_id
+run_id
+source_pipeline
+variant_id
+chromosome
+position
+reference_allele
+alternate_allele
+variant_type
+variant_class
+quality_flag
+gene_id
+gene_symbol
+transcript_id
+consequence
+impact_class
+clinical_significance
+clinvar_significance
+population_frequency
+gnomad_af
+exac_af
+thousand_genomes_af
+mito_flag
+epilepsy_flag
+annotation_source
+annotation_version
+gene_mapping_status
+variant_context
+variant_effect_severity
+qc_status
+interpretability_status
+frequency_status
+clinical_status
+
+[RDGP]
+sample_id
+gene_id
+gene_symbol
+variant_count
+high_impact_variant_count
+rare_variant_count
+pathogenic_variant_count
+max_variant_severity
+has_low_quality_evidence
+contributing_variant_ids
+
+[STAGE12]
+sample_id
+run_id
+source_pipeline
+variant_id
+chromosome
+position
+reference_allele
+alternate_allele
+variant_type
+variant_class
+quality_flag
+gene_id
+gene_symbol
+transcript_id
+consequence
+impact_class
+clinical_significance
+clinvar_significance
+population_frequency
+gnomad_af
+exac_af
+thousand_genomes_af
+mito_flag
+epilepsy_flag
+annotation_source
+annotation_version
+gene_mapping_status
+variant_context
+variant_effect_severity
+qc_status
+interpretability_status
+frequency_status
+clinical_status
+functional_impact
+rarity_flag
+clinical_evidence
+qc_reliability
+coding_interpretation_label
+is_lof_candidate
+is_rare_candidate
+is_clinically_supported
+is_high_quality
+is_potential_artifact
+variant_origin
+source_interpretation_label
+priority_tier
+priority_rank
+priority_reason
+is_high_priority_candidate
+is_moderate_priority_candidate
+is_low_priority_candidate
+is_uninterpretable
+validation_required
+validation_priority
+suggested_validation_method
+validation_reason
+
+================================================================================
+DISTINCT COUNTS
+================================================================================
+unique_variant_ids	736468
+unique_genes_in_vdb_substrate	41954
+unique_rdgp_genes	41953
+
+================================================================================
+VARIANTS PER GENE
+================================================================================
+variants_per_rdgp_gene_mean	17.5542
+variants_per_rdgp_gene_median	7.0
+
+================================================================================
+OVERLAY GENE INTERSECTIONS
+================================================================================
+epi25_gene_count	7
+mitocarta_gene_count	1133
+dual_epi_mito_overlay_genes	0

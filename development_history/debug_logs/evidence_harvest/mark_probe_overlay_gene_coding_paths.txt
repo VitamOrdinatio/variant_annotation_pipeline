@@ -1,0 +1,86 @@
+MARK overlay gene coding path probe
+Timestamp: 2026-06-04T19:40:16-04:00
+
+Working from: /root/Desktop
+Repo target: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+Now in repo: /root/dev/portfolio_projects/variant_annotation_pipeline
+
+Git status:
+ D data/reference/sra_support/README.md
+ D data/reference/sra_support/download_logs/README.md
+ D data/reference/sra_support/manifests/README.md
+ D data/reference/sra_support/selections/README.md
+?? data/reference/stage12_analytical_batch_exports/manifests/TESTRUN_stage12_analytical_batch_export_manifest_prjeb57558_3sra_2026_06_04_011900.tsv
+?? data/reference/stage12_analytical_batch_exports/manifests/TESTRUN_stage12_analytical_batch_export_manifest_prjeb57558_3sra_2026_06_04_012557.tsv
+?? data/reference/stage12_analytical_batch_exports/manifests/stage12_analytical_batch_export_manifest_hg002_2026_06_04_012955.tsv
+?? data/reference/stage12_analytical_batch_exports/manifests/stage12_analytical_batch_export_manifest_hg002_2026_06_04_013403.tsv
+?? data/reference/stage12_analytical_batch_exports/manifests/stage12_analytical_batch_export_manifest_hg002_2026_06_04_013657.tsv
+?? data/reference/stage12_analytical_batch_exports/manifests/stage12_analytical_batch_export_manifest_prjeb57558_12sra_2026_06_04_014447.tsv
+?? data/reference/stage12_analytical_batch_exports/summaries/
+
+Latest commit:
+8a62a21 Add MARK overlay gene coding clinical evidence builder
+
+Python:
+./mark_probe_overlay_gene_coding_paths.sh: line 31: python: command not found
+
+DuckDB import check:
+./mark_probe_overlay_gene_coding_paths.sh: line 35: python: command not found
+
+Script presence:
+-rwxr-xr-x 1 root root 15K Jun  4 19:31 scripts/mark/build_overlay_gene_coding_views.py
+
+Seed files:
+-rw-r--r-- 1 root root 690 May 22 11:00 data/reference/gene_lists/epi25_vap_overlay_seed.tsv
+-rw-r--r-- 1 root root 69K May 22 11:00 data/reference/gene_lists/mitocarta_vap_overlay_seed.tsv
+
+Seed headers:
+gene_id	gene_symbol	synonyms	ensembl_gene_id 	uniprot	hg19_chromosome
+gene_id	gene_symbol	synonyms	ensembl_gene_id 	uniprot	hg19_chromosome
+
+Check expected input path layouts for ERR10619281:
+
+PATH: results/processed/run_2026_05_27_233524/processed/stage_12_validation_candidates.tsv
+MISSING
+
+PATH: results/run_2026_05_27_233524/processed/stage_12_validation_candidates.tsv
+EXISTS
+-rw-r--r-- 1 root root 457M May 28 00:41 results/run_2026_05_27_233524/processed/stage_12_validation_candidates.tsv
+HEADER:
+sample_id	run_id	source_pipeline	variant_id	chromosome	position	reference_allele	alternate_allele	variant_type	variant_class	quality_flag	gene_id	gene_symbol	transcript_id	consequence	impact_class	clinical_significance	clinvar_significance	population_frequency	gnomad_af	exac_af	thousand_genomes_af	mito_flag	epilepsy_flag	annotation_source	annotation_version	gene_mapping_status	variant_context	variant_effect_severity	qc_status	interpretability_status	frequency_status	clinical_status	functional_impact	rarity_flag	clinical_evidence	qc_reliability	coding_interpretation_label	is_lof_candidate	is_rare_candidate	is_clinically_supported	is_high_quality	is_potential_artifact	variant_origin	source_interpretation_label	priority_tier	priority_rank	priority_reason	is_high_priority_candidate	is_moderate_priority_candidate	is_low_priority_candidate	is_uninterpretable	validation_required	validation_priority	suggested_validation_method	validation_reason
+FIRST DATA ROW sample/run/gene-ish columns:
+sample_id=ERR10619281 run_id=run_2026_05_27_233524 gene_id=ENSG00000186092 gene_symbol=OR4F5 variant_origin=coding clinical_evidence=missing clinical_status=missing
+
+Check expected metrics path layouts for ERR10619281:
+
+PATH: results/processed/run_2026_05_27_233524/metrics/stage_metrics_long.tsv
+MISSING
+
+PATH: results/run_2026_05_27_233524/metrics/stage_metrics_long.tsv
+EXISTS
+-rw-r--r-- 1 root root 280K May 28 00:41 results/run_2026_05_27_233524/metrics/stage_metrics_long.tsv
+HEADER:
+metric_name	metric_value	metric_unit	metric_status	metric_category	stage_id	stage_name	sample_id	run_id	assay_type	run_classification	source_artifact	source_column_or_rule	derivation_rule	generated_at	intended_figure_support
+validation_candidates_rows:
+validation_candidates_rows	811554	rows	available	stage12_artifact_row_count	stage_12	validate_variants	ERR10619281	run_2026_05_27_233524	WES	full_pipeline	results/run_2026_05_27_233524/processed/stage_12_validation_candidates.tsv	count TSV data rows excluding header	count TSV data rows excluding header	2026-05-28T04:41:51.324655+00:00	F3B;F5
+
+Available run dirs under results:
+results/run_2026_05_22_071545
+results/run_2026_05_27_172531
+results/run_2026_05_27_233524
+results/run_2026_05_28_063354
+results/run_2026_05_30_071639
+results/run_2026_05_30_151355
+results/run_2026_05_30_214724
+results/run_2026_05_31_091242
+results/run_2026_06_01_004903
+results/run_2026_06_01_124134
+results/run_2026_06_01_203130
+results/run_2026_06_02_052302
+results/run_2026_06_02_124300
+results/run_2026_06_02_181024
+results/run_2026_06_03_010030
+
+Existing output dir:
+total 0

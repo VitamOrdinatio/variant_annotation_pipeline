@@ -1,0 +1,1856 @@
+=== PROBE: METRIC PROVENANCE RESOLUTION ===
+
+metrics_path: results/run_2026_05_27_172531/metrics/stage_metrics_long.tsv
+selected_rows: 157
+
+
+================================================================================
+clinical_status__benign
+================================================================================
+metric_value: 31199
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.benign
+derivation_rule: stage_08_summary.json clinical_status.benign
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__conflicting
+================================================================================
+metric_value: 74
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.conflicting
+derivation_rule: stage_08_summary.json clinical_status.conflicting
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__likely_benign
+================================================================================
+metric_value: 1958
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.likely_benign
+derivation_rule: stage_08_summary.json clinical_status.likely_benign
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__likely_pathogenic
+================================================================================
+metric_value: 24
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.likely_pathogenic
+derivation_rule: stage_08_summary.json clinical_status.likely_pathogenic
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__missing
+================================================================================
+metric_value: 702717
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.missing
+derivation_rule: stage_08_summary.json clinical_status.missing
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__pathogenic
+================================================================================
+metric_value: 37
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.pathogenic
+derivation_rule: stage_08_summary.json clinical_status.pathogenic
+intended_figure_support: F4
+
+
+================================================================================
+clinical_status__vus
+================================================================================
+metric_value: 459
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json clinical_status.vus
+derivation_rule: stage_08_summary.json clinical_status.vus
+intended_figure_support: F4
+
+
+================================================================================
+coding_candidates_rows
+================================================================================
+metric_value: 24041
+stage_id: stage_08
+metric_category: stage08_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/coding_candidates.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B
+
+
+================================================================================
+coding_interpreted_rows
+================================================================================
+metric_value: 26439
+stage_id: stage_09
+metric_category: stage09_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B;F4
+
+
+================================================================================
+consequence_distribution__3_prime_UTR_variant
+================================================================================
+metric_value: 9235
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.3_prime_UTR_variant
+derivation_rule: exact string counts for consequence.3_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__3_prime_UTR_variant&NMD_transcript_variant
+================================================================================
+metric_value: 23
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.3_prime_UTR_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.3_prime_UTR_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__5_prime_UTR_variant
+================================================================================
+metric_value: 2821
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.5_prime_UTR_variant
+derivation_rule: exact string counts for consequence.5_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__coding_sequence_variant
+================================================================================
+metric_value: 2
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.coding_sequence_variant
+derivation_rule: exact string counts for consequence.coding_sequence_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__downstream_gene_variant
+================================================================================
+metric_value: 49795
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.downstream_gene_variant
+derivation_rule: exact string counts for consequence.downstream_gene_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant
+================================================================================
+metric_value: 205
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant
+derivation_rule: exact string counts for consequence.frameshift_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant&splice_donor_region_variant
+================================================================================
+metric_value: 3
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant&splice_donor_region_variant
+derivation_rule: exact string counts for consequence.frameshift_variant&splice_donor_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant&splice_region_variant
+================================================================================
+metric_value: 3
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant&splice_region_variant
+derivation_rule: exact string counts for consequence.frameshift_variant&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant&start_lost&start_retained_variant
+================================================================================
+metric_value: 4
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant&start_lost&start_retained_variant
+derivation_rule: exact string counts for consequence.frameshift_variant&start_lost&start_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant&start_retained_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant&start_retained_variant
+derivation_rule: exact string counts for consequence.frameshift_variant&start_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__frameshift_variant&stop_lost
+================================================================================
+metric_value: 3
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.frameshift_variant&stop_lost
+derivation_rule: exact string counts for consequence.frameshift_variant&stop_lost
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__incomplete_terminal_codon_variant&coding_sequence_variant
+================================================================================
+metric_value: 2
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.incomplete_terminal_codon_variant&coding_sequence_variant
+derivation_rule: exact string counts for consequence.incomplete_terminal_codon_variant&coding_sequence_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__inframe_deletion
+================================================================================
+metric_value: 202
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.inframe_deletion
+derivation_rule: exact string counts for consequence.inframe_deletion
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__inframe_deletion&splice_region_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.inframe_deletion&splice_region_variant
+derivation_rule: exact string counts for consequence.inframe_deletion&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__inframe_insertion
+================================================================================
+metric_value: 163
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.inframe_insertion
+derivation_rule: exact string counts for consequence.inframe_insertion
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__inframe_insertion&stop_retained_variant
+================================================================================
+metric_value: 5
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.inframe_insertion&stop_retained_variant
+derivation_rule: exact string counts for consequence.inframe_insertion&stop_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__intergenic_variant
+================================================================================
+metric_value: 115823
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.intergenic_variant
+derivation_rule: exact string counts for consequence.intergenic_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__intron_variant
+================================================================================
+metric_value: 315201
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.intron_variant
+derivation_rule: exact string counts for consequence.intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__intron_variant&NMD_transcript_variant
+================================================================================
+metric_value: 1134
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.intron_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.intron_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 139754
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__mature_miRNA_variant
+================================================================================
+metric_value: 6
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.mature_miRNA_variant
+derivation_rule: exact string counts for consequence.mature_miRNA_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__missense_variant
+================================================================================
+metric_value: 11130
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.missense_variant
+derivation_rule: exact string counts for consequence.missense_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__missense_variant&NMD_transcript_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.missense_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.missense_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__missense_variant&splice_region_variant
+================================================================================
+metric_value: 244
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.missense_variant&splice_region_variant
+derivation_rule: exact string counts for consequence.missense_variant&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__non_coding_transcript_exon_variant
+================================================================================
+metric_value: 16084
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.non_coding_transcript_exon_variant
+derivation_rule: exact string counts for consequence.non_coding_transcript_exon_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__protein_altering_variant
+================================================================================
+metric_value: 3
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.protein_altering_variant
+derivation_rule: exact string counts for consequence.protein_altering_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant
+================================================================================
+metric_value: 22
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant&5_prime_UTR_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant&5_prime_UTR_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant&5_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant&frameshift_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant&frameshift_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant&frameshift_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 31
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_acceptor_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_5th_base_variant&intron_variant
+================================================================================
+metric_value: 104
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_5th_base_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_5th_base_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 28
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_donor_5th_base_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_region_variant&intron_variant
+================================================================================
+metric_value: 360
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_region_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_region_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 81
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant
+================================================================================
+metric_value: 21
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 30
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&splice_donor_5th_base_variant&coding_sequence_variant&intron_variant
+================================================================================
+metric_value: 3
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&coding_sequence_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&coding_sequence_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&splice_donor_5th_base_variant&intron_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&splice_donor_5th_base_variant&non_coding_transcript_exon_variant&intron_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&non_coding_transcript_exon_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&splice_donor_5th_base_variant&non_coding_transcript_exon_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&splice_donor_region_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&splice_donor_region_variant&non_coding_transcript_exon_variant&intron_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&splice_donor_region_variant&non_coding_transcript_exon_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&splice_donor_region_variant&non_coding_transcript_exon_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_donor_variant&stop_gained&frameshift_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_donor_variant&stop_gained&frameshift_variant
+derivation_rule: exact string counts for consequence.splice_donor_variant&stop_gained&frameshift_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_polypyrimidine_tract_variant&intron_variant
+================================================================================
+metric_value: 2243
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+================================================================================
+metric_value: 1
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 274
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&3_prime_UTR_variant
+================================================================================
+metric_value: 4
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&3_prime_UTR_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&3_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&5_prime_UTR_variant
+================================================================================
+metric_value: 25
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&5_prime_UTR_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&5_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&intron_variant
+================================================================================
+metric_value: 458
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&intron_variant&NMD_transcript_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&intron_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&intron_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 47
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&non_coding_transcript_exon_variant
+================================================================================
+metric_value: 164
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&non_coding_transcript_exon_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&non_coding_transcript_exon_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant
+================================================================================
+metric_value: 1378
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&NMD_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+================================================================================
+metric_value: 198
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&splice_polypyrimidine_tract_variant&intron_variant&non_coding_transcript_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__splice_region_variant&synonymous_variant
+================================================================================
+metric_value: 239
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.splice_region_variant&synonymous_variant
+derivation_rule: exact string counts for consequence.splice_region_variant&synonymous_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__start_lost
+================================================================================
+metric_value: 13
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.start_lost
+derivation_rule: exact string counts for consequence.start_lost
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__start_lost&inframe_deletion&start_retained_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.start_lost&inframe_deletion&start_retained_variant
+derivation_rule: exact string counts for consequence.start_lost&inframe_deletion&start_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__start_lost&splice_region_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.start_lost&splice_region_variant
+derivation_rule: exact string counts for consequence.start_lost&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__start_lost&start_retained_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.start_lost&start_retained_variant
+derivation_rule: exact string counts for consequence.start_lost&start_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__start_lost&start_retained_variant&5_prime_UTR_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.start_lost&start_retained_variant&5_prime_UTR_variant
+derivation_rule: exact string counts for consequence.start_lost&start_retained_variant&5_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_gained
+================================================================================
+metric_value: 85
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_gained
+derivation_rule: exact string counts for consequence.stop_gained
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_gained&frameshift_variant
+================================================================================
+metric_value: 2
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_gained&frameshift_variant
+derivation_rule: exact string counts for consequence.stop_gained&frameshift_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_gained&frameshift_variant&splice_region_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_gained&frameshift_variant&splice_region_variant
+derivation_rule: exact string counts for consequence.stop_gained&frameshift_variant&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_gained&splice_region_variant
+================================================================================
+metric_value: 1
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_gained&splice_region_variant
+derivation_rule: exact string counts for consequence.stop_gained&splice_region_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_lost
+================================================================================
+metric_value: 19
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_lost
+derivation_rule: exact string counts for consequence.stop_lost
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_retained_variant
+================================================================================
+metric_value: 13
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_retained_variant
+derivation_rule: exact string counts for consequence.stop_retained_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__stop_retained_variant&3_prime_UTR_variant
+================================================================================
+metric_value: 1
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.stop_retained_variant&3_prime_UTR_variant
+derivation_rule: exact string counts for consequence.stop_retained_variant&3_prime_UTR_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__synonymous_variant
+================================================================================
+metric_value: 11705
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.synonymous_variant
+derivation_rule: exact string counts for consequence.synonymous_variant
+intended_figure_support: F4
+
+
+================================================================================
+consequence_distribution__upstream_gene_variant
+================================================================================
+metric_value: 57044
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: exact string counts for consequence.upstream_gene_variant
+derivation_rule: exact string counts for consequence.upstream_gene_variant
+intended_figure_support: F4
+
+
+================================================================================
+counts_by_priority_rank__1
+================================================================================
+metric_value: 4
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_rank.1
+derivation_rule: stage_11_summary.json counts_by_priority_rank.1
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_rank__2
+================================================================================
+metric_value: 27192
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_rank.2
+derivation_rule: stage_11_summary.json counts_by_priority_rank.2
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_rank__3
+================================================================================
+metric_value: 580937
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_rank.3
+derivation_rule: stage_11_summary.json counts_by_priority_rank.3
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_rank__4
+================================================================================
+metric_value: 128335
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_rank.4
+derivation_rule: stage_11_summary.json counts_by_priority_rank.4
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_tier__tier_1_high_confidence_candidate
+================================================================================
+metric_value: 4
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate
+derivation_rule: stage_11_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate
+intended_figure_support: F3B;F4
+
+metric_value: 4
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate
+derivation_rule: stage_12_summary.json counts_by_priority_tier.tier_1_high_confidence_candidate
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_tier__tier_2_moderate_candidate
+================================================================================
+metric_value: 27192
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_tier.tier_2_moderate_candidate
+derivation_rule: stage_11_summary.json counts_by_priority_tier.tier_2_moderate_candidate
+intended_figure_support: F3B;F4
+
+metric_value: 27192
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_priority_tier.tier_2_moderate_candidate
+derivation_rule: stage_12_summary.json counts_by_priority_tier.tier_2_moderate_candidate
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_tier__tier_3_low_support_or_common
+================================================================================
+metric_value: 580937
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_tier.tier_3_low_support_or_common
+derivation_rule: stage_11_summary.json counts_by_priority_tier.tier_3_low_support_or_common
+intended_figure_support: F3B;F4
+
+metric_value: 580937
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_priority_tier.tier_3_low_support_or_common
+derivation_rule: stage_12_summary.json counts_by_priority_tier.tier_3_low_support_or_common
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_priority_tier__tier_4_uninterpretable_or_qc_limited
+================================================================================
+metric_value: 128335
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited
+derivation_rule: stage_11_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited
+intended_figure_support: F3B;F4
+
+metric_value: 128335
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited
+derivation_rule: stage_12_summary.json counts_by_priority_tier.tier_4_uninterpretable_or_qc_limited
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__coding_common_or_low_support
+================================================================================
+metric_value: 24855
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.coding_common_or_low_support
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.coding_common_or_low_support
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__coding_uninterpretable
+================================================================================
+metric_value: 432
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.coding_uninterpretable
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.coding_uninterpretable
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__lof_or_missense_rare
+================================================================================
+metric_value: 1148
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.lof_or_missense_rare
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.lof_or_missense_rare
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__lof_rare_clinically_supported
+================================================================================
+metric_value: 4
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.lof_rare_clinically_supported
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.lof_rare_clinically_supported
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__noncoding_common_or_low_support
+================================================================================
+metric_value: 556082
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.noncoding_common_or_low_support
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.noncoding_common_or_low_support
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__noncoding_uninterpretable
+================================================================================
+metric_value: 127903
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.noncoding_uninterpretable
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.noncoding_uninterpretable
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_source_interpretation_label__regulatory_or_transcript_rare
+================================================================================
+metric_value: 26044
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_source_interpretation_label.regulatory_or_transcript_rare
+derivation_rule: stage_11_summary.json counts_by_source_interpretation_label.regulatory_or_transcript_rare
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_suggested_validation_method__IGV
+================================================================================
+metric_value: 27196
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_suggested_validation_method.IGV
+derivation_rule: stage_12_summary.json counts_by_suggested_validation_method.IGV
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_suggested_validation_method__none
+================================================================================
+metric_value: 709272
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_suggested_validation_method.none
+derivation_rule: stage_12_summary.json counts_by_suggested_validation_method.none
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_validation_priority__high
+================================================================================
+metric_value: 4
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_validation_priority.high
+derivation_rule: stage_12_summary.json counts_by_validation_priority.high
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_validation_priority__low
+================================================================================
+metric_value: 709272
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_validation_priority.low
+derivation_rule: stage_12_summary.json counts_by_validation_priority.low
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_validation_priority__medium
+================================================================================
+metric_value: 27192
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_validation_priority.medium
+derivation_rule: stage_12_summary.json counts_by_validation_priority.medium
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_validation_required__False
+================================================================================
+metric_value: 709272
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_validation_required.False
+derivation_rule: stage_12_summary.json counts_by_validation_required.False
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_validation_required__True
+================================================================================
+metric_value: 27196
+stage_id: stage_12
+metric_category: stage12_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_summary.json
+source_column_or_rule: stage_12_summary.json counts_by_validation_required.True
+derivation_rule: stage_12_summary.json counts_by_validation_required.True
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_variant_origin__coding
+================================================================================
+metric_value: 26439
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_variant_origin.coding
+derivation_rule: stage_11_summary.json counts_by_variant_origin.coding
+intended_figure_support: F3B;F4
+
+
+================================================================================
+counts_by_variant_origin__noncoding
+================================================================================
+metric_value: 710029
+stage_id: stage_11
+metric_category: stage11_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json counts_by_variant_origin.noncoding
+derivation_rule: stage_11_summary.json counts_by_variant_origin.noncoding
+intended_figure_support: F3B;F4
+
+
+================================================================================
+frequency_status__common
+================================================================================
+metric_value: 636061
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json frequency_status.common
+derivation_rule: stage_08_summary.json frequency_status.common
+intended_figure_support: F4
+
+
+================================================================================
+frequency_status__low_frequency
+================================================================================
+metric_value: 30205
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json frequency_status.low_frequency
+derivation_rule: stage_08_summary.json frequency_status.low_frequency
+intended_figure_support: F4
+
+
+================================================================================
+frequency_status__missing
+================================================================================
+metric_value: 27397
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json frequency_status.missing
+derivation_rule: stage_08_summary.json frequency_status.missing
+intended_figure_support: F4
+
+
+================================================================================
+frequency_status__rare
+================================================================================
+metric_value: 42805
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json frequency_status.rare
+derivation_rule: stage_08_summary.json frequency_status.rare
+intended_figure_support: F4
+
+
+================================================================================
+functional_impact_distribution__loss_of_function
+================================================================================
+metric_value: 467
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for functional_impact.loss_of_function
+derivation_rule: exact string counts for functional_impact.loss_of_function
+intended_figure_support: F4
+
+
+================================================================================
+functional_impact_distribution__missense
+================================================================================
+metric_value: 11375
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for functional_impact.missense
+derivation_rule: exact string counts for functional_impact.missense
+intended_figure_support: F4
+
+
+================================================================================
+functional_impact_distribution__other_coding
+================================================================================
+metric_value: 373
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for functional_impact.other_coding
+derivation_rule: exact string counts for functional_impact.other_coding
+intended_figure_support: F4
+
+
+================================================================================
+functional_impact_distribution__splice_relevant
+================================================================================
+metric_value: 2519
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for functional_impact.splice_relevant
+derivation_rule: exact string counts for functional_impact.splice_relevant
+intended_figure_support: F4
+
+
+================================================================================
+functional_impact_distribution__synonymous
+================================================================================
+metric_value: 11705
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: exact string counts for functional_impact.synonymous
+derivation_rule: exact string counts for functional_impact.synonymous
+intended_figure_support: F4
+
+
+================================================================================
+gene_id_count_unique
+================================================================================
+metric_value: 41954
+stage_id: stage_11
+metric_category: stage11_prioritization
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json gene_id_count_unique
+derivation_rule: stage_11_summary.json gene_id_count_unique
+intended_figure_support: F5
+
+
+================================================================================
+high_priority_candidate_count
+================================================================================
+metric_value: 4
+stage_id: stage_11
+metric_category: stage11_prioritization
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json high_priority_candidate_count
+derivation_rule: stage_11_summary.json high_priority_candidate_count
+intended_figure_support: F3B
+
+
+================================================================================
+low_priority_candidate_count
+================================================================================
+metric_value: 580937
+stage_id: stage_11
+metric_category: stage11_prioritization
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json low_priority_candidate_count
+derivation_rule: stage_11_summary.json low_priority_candidate_count
+intended_figure_support: F3B
+
+
+================================================================================
+moderate_priority_candidate_count
+================================================================================
+metric_value: 27192
+stage_id: stage_11
+metric_category: stage11_prioritization
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json moderate_priority_candidate_count
+derivation_rule: stage_11_summary.json moderate_priority_candidate_count
+intended_figure_support: F3B
+
+
+================================================================================
+noncoding_candidates_rows
+================================================================================
+metric_value: 710029
+stage_id: stage_08
+metric_category: stage08_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/noncoding_candidates.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B
+
+
+================================================================================
+noncoding_interpreted_rows
+================================================================================
+metric_value: 710029
+stage_id: stage_10
+metric_category: stage10_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B;F4
+
+
+================================================================================
+population_frequency_bin__common
+================================================================================
+metric_value: 23460
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.common
+derivation_rule: binned counts for population_frequency.common
+intended_figure_support: F4
+
+metric_value: 612601
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.common
+derivation_rule: binned counts for population_frequency.common
+intended_figure_support: F4
+
+
+================================================================================
+population_frequency_bin__low_frequency
+================================================================================
+metric_value: 1351
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.low_frequency
+derivation_rule: binned counts for population_frequency.low_frequency
+intended_figure_support: F4
+
+metric_value: 28854
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.low_frequency
+derivation_rule: binned counts for population_frequency.low_frequency
+intended_figure_support: F4
+
+
+================================================================================
+population_frequency_bin__missing
+================================================================================
+metric_value: 224
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.missing
+derivation_rule: binned counts for population_frequency.missing
+intended_figure_support: F4
+
+metric_value: 27173
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.missing
+derivation_rule: binned counts for population_frequency.missing
+intended_figure_support: F4
+
+
+================================================================================
+population_frequency_bin__rare
+================================================================================
+metric_value: 1404
+stage_id: stage_09
+metric_category: stage09_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_09_coding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.rare
+derivation_rule: binned counts for population_frequency.rare
+intended_figure_support: F4
+
+metric_value: 41401
+stage_id: stage_10
+metric_category: stage10_semantic_distribution
+source_artifact: results/run_2026_05_27_172531/processed/stage_10_noncoding_interpreted.tsv
+source_column_or_rule: binned counts for population_frequency.rare
+derivation_rule: binned counts for population_frequency.rare
+intended_figure_support: F4
+
+
+================================================================================
+prioritized_variants_rows
+================================================================================
+metric_value: 736468
+stage_id: stage_11
+metric_category: stage11_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_prioritized_variants.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B
+
+
+================================================================================
+rdgp_gene_evidence_seed_rows
+================================================================================
+metric_value: 41953
+stage_id: stage_08
+metric_category: f5_overlay_readiness
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json rdgp_gene_evidence_seed_rows
+derivation_rule: stage_08_summary.json rdgp_gene_evidence_seed_rows
+intended_figure_support: F5
+
+
+================================================================================
+rdgp_gene_evidence_seed_tsv_rows
+================================================================================
+metric_value: 41953
+stage_id: stage_08
+metric_category: stage08_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_rdgp_gene_evidence_seed.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F5
+
+
+================================================================================
+uninterpretable_count
+================================================================================
+metric_value: 128335
+stage_id: stage_11
+metric_category: stage11_prioritization
+source_artifact: results/run_2026_05_27_172531/processed/stage_11_summary.json
+source_column_or_rule: stage_11_summary.json uninterpretable_count
+derivation_rule: stage_11_summary.json uninterpretable_count
+intended_figure_support: F3B
+
+
+================================================================================
+validation_candidates_rows
+================================================================================
+metric_value: 736468
+stage_id: stage_12
+metric_category: stage12_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_12_validation_candidates.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F3B;F5
+
+
+================================================================================
+variants_by_context__coding
+================================================================================
+metric_value: 23548
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.coding
+derivation_rule: stage_08_summary.json variants_by_context.coding
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__intergenic
+================================================================================
+metric_value: 115823
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.intergenic
+derivation_rule: stage_08_summary.json variants_by_context.intergenic
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__intronic
+================================================================================
+metric_value: 459180
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.intronic
+derivation_rule: stage_08_summary.json variants_by_context.intronic
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__noncoding_transcript
+================================================================================
+metric_value: 16107
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.noncoding_transcript
+derivation_rule: stage_08_summary.json variants_by_context.noncoding_transcript
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__regulatory
+================================================================================
+metric_value: 106845
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.regulatory
+derivation_rule: stage_08_summary.json variants_by_context.regulatory
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__splice_region
+================================================================================
+metric_value: 2891
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.splice_region
+derivation_rule: stage_08_summary.json variants_by_context.splice_region
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_context__unknown
+================================================================================
+metric_value: 12074
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_context.unknown
+derivation_rule: stage_08_summary.json variants_by_context.unknown
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_severity__HIGH
+================================================================================
+metric_value: 467
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_severity.HIGH
+derivation_rule: stage_08_summary.json variants_by_severity.HIGH
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_severity__LOW
+================================================================================
+metric_value: 17329
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_severity.LOW
+derivation_rule: stage_08_summary.json variants_by_severity.LOW
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_severity__MODERATE
+================================================================================
+metric_value: 11750
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_severity.MODERATE
+derivation_rule: stage_08_summary.json variants_by_severity.MODERATE
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_severity__MODIFIER
+================================================================================
+metric_value: 706922
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_severity.MODIFIER
+derivation_rule: stage_08_summary.json variants_by_severity.MODIFIER
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_class__coding
+================================================================================
+metric_value: 26439
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_class.coding
+derivation_rule: stage_08_summary.json variants_by_variant_class.coding
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_class__noncoding
+================================================================================
+metric_value: 697955
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_class.noncoding
+derivation_rule: stage_08_summary.json variants_by_variant_class.noncoding
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_class__unknown
+================================================================================
+metric_value: 12074
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_class.unknown
+derivation_rule: stage_08_summary.json variants_by_variant_class.unknown
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_type__complex
+================================================================================
+metric_value: 3717
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_type.complex
+derivation_rule: stage_08_summary.json variants_by_variant_type.complex
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_type__deletion
+================================================================================
+metric_value: 80153
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_type.deletion
+derivation_rule: stage_08_summary.json variants_by_variant_type.deletion
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_type__indel
+================================================================================
+metric_value: 207
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_type.indel
+derivation_rule: stage_08_summary.json variants_by_variant_type.indel
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_type__insertion
+================================================================================
+metric_value: 53675
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_type.insertion
+derivation_rule: stage_08_summary.json variants_by_variant_type.insertion
+intended_figure_support: F4
+
+
+================================================================================
+variants_by_variant_type__snv
+================================================================================
+metric_value: 598716
+stage_id: stage_08
+metric_category: f4_biological_landscape
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_summary.json
+source_column_or_rule: stage_08_summary.json variants_by_variant_type.snv
+derivation_rule: stage_08_summary.json variants_by_variant_type.snv
+intended_figure_support: F4
+
+
+================================================================================
+vdb_ready_variants_rows
+================================================================================
+metric_value: 736468
+stage_id: stage_08
+metric_category: stage08_artifact_row_count
+source_artifact: results/run_2026_05_27_172531/processed/stage_08_vdb_ready_variants.tsv
+source_column_or_rule: count TSV data rows excluding header
+derivation_rule: count TSV data rows excluding header
+intended_figure_support: F5

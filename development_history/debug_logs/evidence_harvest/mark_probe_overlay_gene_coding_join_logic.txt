@@ -1,0 +1,114 @@
+MARK overlay gene coding join logic probe
+Timestamp: 2026-06-04T19:49:41-04:00
+
+Repo: /root/dev/portfolio_projects/variant_annotation_pipeline
+Git:
+3a74d05 Deployed new MARK probe to explore semantic dictionary lookups.
+
+Python availability:
+/usr/bin/python3
+Python 3.11.2
+
+Venv python availability:
+lrwxrwxrwx 1 root root 7 Apr 16 17:57 .venv/bin/python -> python3
+Python 3.11.2
+
+Using PY=.venv/bin/python
+
+FILES
+data/reference/gene_lists/epi25_vap_overlay_seed.tsv exists= True size= 690
+data/reference/gene_lists/mitocarta_vap_overlay_seed.tsv exists= True size= 70306
+results/run_2026_05_27_233524/processed/stage_12_validation_candidates.tsv exists= True size= 478429000
+results/run_2026_05_27_233524/metrics/stage_metrics_long.tsv exists= True size= 285963
+
+SEED HEADERS RAW
+epi25 ['gene_id', 'gene_symbol', 'synonyms', 'ensembl_gene_id ', 'uniprot', 'hg19_chromosome']
+epi25 stripped ['gene_id', 'gene_symbol', 'synonyms', 'ensembl_gene_id', 'uniprot', 'hg19_chromosome']
+gene_id gene_symbol  ensembl_gene_id
+ 340533      NEXMIF  ENSG00000050030
+   6323       SCN1A  ENSG00000144285
+   8831     SYNGAP1 ENSG00000197283 
+  18539       STX1B ENSG00000099365 
+  11152       WDR45 ENSG00000196998 
+unique ensembl: 5
+
+mitocarta ['gene_id', 'gene_symbol', 'synonyms', 'ensembl_gene_id ', 'uniprot', 'hg19_chromosome']
+mitocarta stripped ['gene_id', 'gene_symbol', 'synonyms', 'ensembl_gene_id', 'uniprot', 'hg19_chromosome']
+gene_id gene_symbol ensembl_gene_id
+   1537        CYC1 ENSG00000179091
+   6390        SDHB ENSG00000117118
+  10229        COQ7 ENSG00000167186
+   6389        SDHA ENSG00000073578
+   7384      UQCRC1 ENSG00000010256
+unique ensembl: 5
+
+KNOWN SEED ID EXAMPLES
+epi ids: ['ENSG00000050030', 'ENSG00000099365', 'ENSG00000100150', 'ENSG00000103148', 'ENSG00000144285', 'ENSG00000196998', 'ENSG00000197283']
+mito ids: ['ENSG00000002330', 'ENSG00000002549', 'ENSG00000003509', 'ENSG00000004059', 'ENSG00000004142', 'ENSG00000004455', 'ENSG00000004779', 'ENSG00000004799', 'ENSG00000004864', 'ENSG00000004961', 'ENSG00000005022', 'ENSG00000005059', 'ENSG00000005156', 'ENSG00000005187', 'ENSG00000005469', 'ENSG00000005882', 'ENSG00000006282', 'ENSG00000006530|ENSG00000262327', 'ENSG00000006695', 'ENSG00000006744']
+overlap ids: []
+
+CANDIDATE HEADER
+['sample_id', 'run_id', 'source_pipeline', 'variant_id', 'chromosome', 'position', 'reference_allele', 'alternate_allele', 'variant_type', 'variant_class', 'quality_flag', 'gene_id', 'gene_symbol', 'transcript_id', 'consequence', 'impact_class', 'clinical_significance', 'clinvar_significance', 'population_frequency', 'gnomad_af', 'exac_af', 'thousand_genomes_af', 'mito_flag', 'epilepsy_flag', 'annotation_source', 'annotation_version', 'gene_mapping_status', 'variant_context', 'variant_effect_severity', 'qc_status', 'interpretability_status', 'frequency_status', 'clinical_status', 'functional_impact', 'rarity_flag', 'clinical_evidence', 'qc_reliability', 'coding_interpretation_label', 'is_lof_candidate', 'is_rare_candidate', 'is_clinically_supported', 'is_high_quality', 'is_potential_artifact', 'variant_origin', 'source_interpretation_label', 'priority_tier', 'priority_rank', 'priority_reason', 'is_high_priority_candidate', 'is_moderate_priority_candidate', 'is_low_priority_candidate', 'is_uninterpretable', 'validation_required', 'validation_priority', 'suggested_validation_method', 'validation_reason']
+
+CANDIDATE BASIC COUNTS
+rows: 811554
+variant_origin value counts:
+variant_origin
+noncoding    783685
+coding        27869
+
+coding rows: 27869
+eligible coding gene rows: 27428
+candidate unique coding gene_ids: 10305
+candidate gene_id examples: ['ENSG00000000005', 'ENSG00000000419', 'ENSG00000000938', 'ENSG00000000971', 'ENSG00000001036', 'ENSG00000001460', 'ENSG00000001461', 'ENSG00000001561', 'ENSG00000001617', 'ENSG00000001626', 'ENSG00000001629', 'ENSG00000001630', 'ENSG00000002016', 'ENSG00000002549', 'ENSG00000002726', 'ENSG00000002745', 'ENSG00000002746', 'ENSG00000002822', 'ENSG00000002834', 'ENSG00000002933']
+
+JOIN COUNTS BY GENE_ID
+eligible rows with epi25 gene_id: 7
+eligible rows with mitocarta gene_id: 864
+eligible rows with either gene_id: 871
+unique epi25 matched genes: 3
+unique mitocarta matched genes: 459
+
+JOIN COUNTS BY GENE_SYMBOL
+eligible rows with epi25 gene_symbol: 7
+eligible rows with mitocarta gene_symbol: 918
+eligible rows with either gene_symbol: 925
+unique epi25 matched symbols: 3
+unique mitocarta matched symbols: 481
+
+TOP matched symbol examples
+        gene_id gene_symbol  n
+ENSG00000005022     SLC25A5 19
+ENSG00000076555       ACACB 11
+ENSG00000176715       ACSF3 10
+ENSG00000160072      ATAD3B  9
+ENSG00000051341        POLQ  8
+ENSG00000137411       VARS2  8
+ENSG00000107959      PITRM1  8
+ENSG00000134463      ECHDC3  7
+ENSG00000119927        GPAM  7
+ENSG00000181192      DHTKD1  7
+ENSG00000184428      TOP1MT  6
+ENSG00000100347      SAMM50  6
+ENSG00000073169     SELENOO  5
+ENSG00000159423     ALDH4A1  5
+ENSG00000183569      SERHL2  5
+ENSG00000109919       MTCH2  5
+ENSG00000184470      TXNRD2  5
+ENSG00000078618        NRDC  5
+ENSG00000108387     SEPTIN4  5
+ENSG00000112031      MTRF1L  5
+ENSG00000154719      MRPL39  5
+ENSG00000204099        NEU4  5
+ENSG00000125166        GOT2  5
+ENSG00000121289       CEP89  5
+ENSG00000019186     CYP24A1  5
+ENSG00000159231        CBR3  4
+ENSG00000133835     HSD17B4  4
+ENSG00000135972       MRPS9  4
+ENSG00000123453       SARDH  4
+ENSG00000103356       EARS2  4
+
+stage_metrics validation metadata
+  sample_id                run_id assay_type run_classification metric_value
+ERR10619281 run_2026_05_27_233524        WES      full_pipeline       811554
