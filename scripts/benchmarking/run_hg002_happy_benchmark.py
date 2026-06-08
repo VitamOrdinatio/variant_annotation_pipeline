@@ -50,7 +50,7 @@ def discover_query_vcf(run_dir: Path, explicit_query_vcf: str | None) -> Path:
     candidates = sorted(
         list(interim.glob("*.normalized_variants.vcf")) +
         list(interim.glob("*.normalized_variants.vcf.gz"))
-    )    
+    )
 
     if len(candidates) == 0:
         fail(f"No normalized VCF found in: {interim}")
@@ -82,8 +82,18 @@ def require_executable(name: str) -> str:
 
 
 def strip_chr(contig: str) -> str:
+    explicit_map = {
+        "chrX": "X",
+        "chrY": "Y",
+        "chrM": "MT",
+    }
+
+    if contig in explicit_map:
+        return explicit_map[contig]
+
     if contig.startswith("chr"):
         return contig[3:]
+
     return contig
 
 
@@ -243,7 +253,35 @@ def validate_hap_container(
             f"Command: {' '.join(cmd)}\n"
             f"stderr:\n{result.stderr}"
         )
+
     version_text = result.stdout.strip() or result.stderr.strip()
+
+    for tool_name in ["bgzip", "tabix"]:
+        tool_cmd = [
+            apptainer_exe,
+            "exec",
+            "--bind",
+            "/data/storage:/data/storage",
+            str(hap_container),
+            tool_name,
+            "--help",
+        ]
+
+        tool_result = subprocess.run(
+            tool_cmd,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+
+        if tool_result.returncode != 0:
+            fail(
+                "Required containerized tool unavailable.\n"
+                f"tool={tool_name}\n"
+                f"Command: {' '.join(tool_cmd)}\n"
+                f"stderr:\n{tool_result.stderr}"
+            )
+
     return version_text
 
 
@@ -289,7 +327,7 @@ def run_happy(
         capture_output=True,
         text=True,
         check=False,
-    )    
+    )
 
     write_log(
         log_path,
@@ -346,6 +384,32 @@ def f1_score(precision: float | None, recall: float | None) -> float | None:
     return 2 * precision * recall / (precision + recall)
 
 
+def aggregate_from_stratified_rows(
+    stratified: list[dict[str, object]],
+) -> dict[str, object]:
+    def safe_number(value: object) -> float:
+        if value in {None, ""}:
+            return 0.0
+        return float(value)
+
+    truth_tp = sum(safe_number(row.get("truth_tp")) for row in stratified)
+    truth_fn = sum(safe_number(row.get("truth_fn")) for row in stratified)
+    query_tp = sum(safe_number(row.get("query_tp")) for row in stratified)
+    query_fp = sum(safe_number(row.get("query_fp")) for row in stratified)
+
+    precision = query_tp / (query_tp + query_fp) if (query_tp + query_fp) else None
+    recall = truth_tp / (truth_tp + truth_fn) if (truth_tp + truth_fn) else None
+
+    return {
+        "tp": int(query_tp),
+        "fp": int(query_fp),
+        "fn": int(truth_fn),
+        "precision": precision,
+        "recall": recall,
+        "f1": f1_score(precision, recall),
+    }
+
+
 def summarize_happy(
     *,
     rows: list[dict[str, str]],
@@ -382,13 +446,25 @@ def summarize_happy(
     snp = next((r for r in stratified if r["variant_type"] == "SNP"), {})
     indel = next((r for r in stratified if r["variant_type"] == "INDEL"), {})
 
-    # Prefer aggregate ALL row if hap.py emits it; otherwise leave global values null.
+    # Prefer aggregate rows if hap.py emits them; otherwise derive from SNP + INDEL.
     all_row = (
         metric_from_rows(rows, "ALL")
         or metric_from_rows(rows, "Locations")
-    )    
-    all_precision = to_float(all_row.get("METRIC.Precision")) if all_row else None
-    all_recall = to_float(all_row.get("METRIC.Recall")) if all_row else None
+    )
+
+    if all_row:
+        all_precision = to_float(all_row.get("METRIC.Precision"))
+        all_recall = to_float(all_row.get("METRIC.Recall"))
+        aggregate = {
+            "tp": all_row.get("QUERY.TP"),
+            "fp": all_row.get("QUERY.FP"),
+            "fn": all_row.get("TRUTH.FN"),
+            "precision": all_precision,
+            "recall": all_recall,
+            "f1": f1_score(all_precision, all_recall),
+        }
+    else:
+        aggregate = aggregate_from_stratified_rows(stratified)
 
     summary = {
         "run_id": run_id,
@@ -396,12 +472,12 @@ def summarize_happy(
         "truth_vcf": str(truth_vcf),
         "truth_bed": str(truth_bed),
         "reference_fasta": str(reference_fasta),
-        "precision": all_precision,
-        "recall": all_recall,
-        "f1": f1_score(all_precision, all_recall),
-        "tp": all_row.get("QUERY.TP") if all_row else None,
-        "fp": all_row.get("QUERY.FP") if all_row else None,
-        "fn": all_row.get("TRUTH.FN") if all_row else None,
+        "precision": aggregate["precision"],
+        "recall": aggregate["recall"],
+        "f1": aggregate["f1"],
+        "tp": aggregate["tp"],
+        "fp": aggregate["fp"],
+        "fn": aggregate["fn"],
         "snp_precision": snp.get("precision"),
         "snp_recall": snp.get("recall"),
         "indel_precision": indel.get("precision"),
@@ -445,7 +521,7 @@ def main() -> int:
         "--hap-container",
         required=True,
         help="Path to Apptainer hap.py .sif runtime image.",
-    )    
+    )
     args = parser.parse_args()
 
     run_dir = Path(args.run_dir)
@@ -458,6 +534,9 @@ def main() -> int:
     happy_dir.mkdir(parents=True, exist_ok=True)
 
     log_path = benchmarking_dir / "benchmarking.log"
+
+    if log_path.exists():
+        log_path.unlink()
 
     query_vcf = discover_query_vcf(run_dir, args.query_vcf)
     truth_vcf = require_file(Path(args.truth_vcf), "GIAB truth VCF")
@@ -474,7 +553,7 @@ def main() -> int:
     hap_container_version = validate_hap_container(
         apptainer_exe=apptainer_exe,
         hap_container=hap_container,
-    )    
+    )
 
     benchmark_truth_vcf, benchmark_truth_bed = prepare_namespace_harmonized_giab(
         truth_vcf=truth_vcf,
@@ -529,7 +608,7 @@ def main() -> int:
     write_log(
         log_path,
         [f"[{utc_now()}] summary_csv={summary_csv}"],
-    )    
+    )
     rows = parse_happy_summary(summary_csv)
 
     summary, stratified = summarize_happy(
