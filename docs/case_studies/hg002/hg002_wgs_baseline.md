@@ -12,7 +12,7 @@
 
 # Overview
 
-This case study documents the operational evolution of VAP from an initially minimally instrumented production pipeline into a telemetry-aware, provenance-aware, and reproducibility-oriented execution framework.
+This case study documents the operational evolution of VAP from a minimally instrumented production pipeline into a telemetry-aware, provenance-aware, and reproducibility-oriented execution framework.
 
 Unlike the Saudi epilepsy WES reproducibility campaigns, this case study focuses primarily on:
 
@@ -23,7 +23,7 @@ Unlike the Saudi epilepsy WES reproducibility campaigns, this case study focuses
 - provenance infrastructure development
 - production execution introspection
 
-The HG002 execution history therefore represents the foundational operational maturation layer of the VAP ecosystem.
+The HG002 execution history therefore represents the foundational operational maturation phase of the VAP ecosystem.
 
 ---
 
@@ -41,7 +41,7 @@ An early production HG002 execution completed successfully prior to implementati
 - run fingerprinting
 - canonical logging architecture
 
-Although biologically successful, the original execution exposed an important systems-engineering limitation:
+Although operationally successful, the original execution exposed an important systems-engineering limitation:
 
 ```text
 successful execution alone was insufficient for operational interpretation
@@ -88,7 +88,7 @@ Important execution artifacts were therefore harvested manually and partially re
 - ad hoc telemetry recovery
 - Artificer-assisted artifact extraction
 
-This experience became operationally important because it exposed the need for:
+This experience became operationally important because it exposed the necessity for:
 
 - canonical metadata emission
 - structured telemetry persistence
@@ -113,7 +113,7 @@ These included:
 - operational execution harnesses
 - reusable comparison tooling foundations
 
-Importantly, these changes were implemented prior to broad optimization efforts in order to preserve trustworthy baseline telemetry conditions.
+Importantly, these changes were implemented prior to broad optimization efforts in order to preserve trustworthy baseline observability conditions.
 
 This represented a deliberate strategic decision:
 
@@ -135,7 +135,7 @@ The Phase 1A rerun completed successfully with an observed runtime near:
 ~22 h 44 m
 ```
 
-This materially revised the earlier historical estimate near:
+This materially revised the earlier historical runtime estimate near:
 
 ```text
 ~36 hours
@@ -154,7 +154,7 @@ Primary runtime bottlenecks were identified as:
 - Stage 05 — Variant Calling
 - Stage 02 — Alignment
 
-Importantly, early telemetry suggested that:
+Importantly, instrumented telemetry suggested that:
 
 - VEP annotation was not the dominant runtime bottleneck
 - runtime behavior differed from initial intuition
@@ -174,7 +174,7 @@ The HG002 execution history ultimately demonstrated the operational importance o
 - stage-level introspection
 - operational metadata generation
 
-The transition from the original minimally instrumented execution toward the fully instrumented rerun therefore represents a major operational maturation milestone within VAP.
+The transition from the original minimally instrumented execution toward the fully instrumented rerun therefore represents a major operational maturation milestone within the VAP ecosystem.
 
 This maturation included emergence of:
 
@@ -185,7 +185,7 @@ This maturation included emergence of:
 - canonical pipeline logs
 - structured execution telemetry
 
-These artifacts fundamentally changed the operational interpretability of VAP execution behavior.
+These artifacts fundamentally improved the operational interpretability of VAP execution behavior.
 
 ---
 
@@ -204,7 +204,7 @@ Without:
 - structured metadata emission
 - operational reproducibility infrastructure
 
-large-scale execution behavior becomes difficult to interpret retrospectively.
+large-scale execution behavior becomes increasingly difficult to interpret retrospectively.
 
 The HG002 rerun therefore became an early proof-of-concept demonstrating that:
 
@@ -258,7 +258,7 @@ must be treated as core operational infrastructure.
 
 The original HG002 execution required substantial manual artifact reconstruction effort.
 
-This operational burden motivated development of:
+This operational burden directly motivated development of:
 
 - canonical telemetry emission
 - reusable metadata artifacts
@@ -282,7 +282,7 @@ The HG002 operational maturation campaign established foundational infrastructur
 - future RDGP ingestion planning
 - future GSC overlay integration
 
-In this sense, HG002 represents the operational origin point of the modern telemetry-aware VAP ecosystem.
+In this sense, HG002 represents the operational origin point of the modern observability-aware VAP ecosystem.
 
 ---
 
@@ -311,10 +311,21 @@ The HG002 operational maturation campaign demonstrated:
 - the operational value of stage-level runtime visibility
 - the strategic importance of observability-first systems engineering
 
-Most importantly, the HG002 experience directly motivated the telemetry and reproducibility infrastructure that later enabled:
+Most importantly, the HG002 experience directly motivated the observability and reproducibility infrastructure that later enabled:
 
 - metadata-transition reproducibility assessment (`ERR10619281`)
 - same-patch operational reproducibility assessment (`ERR10619300`)
 - and future ecosystem-scale evidence persistence planning.
 
 In this sense, HG002 serves as the foundational operational maturation case study of the VAP ecosystem.
+
+---
+
+# Related HG002 Documents
+
+* [`README.md`](./README.md)
+* [`hg002_artifact_navigation_guide.md`](./hg002_artifact_navigation_guide.md)
+* [`artifact_inventory.md`](./artifact_inventory.md)
+* [`hg002_semantic_evidence_landscape.md`](./hg002_semantic_evidence_landscape.md)
+* [`hg002_benchmarking_design_philosophy.md`](./hg002_benchmarking_design_philosophy.md)
+* [`hg002_wgs_baseline.md`](./hg002_wgs_baseline.md)

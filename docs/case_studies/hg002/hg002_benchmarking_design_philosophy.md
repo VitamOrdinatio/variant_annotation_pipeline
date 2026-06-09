@@ -16,7 +16,7 @@ The purpose of this document is NOT:
 * benchmarking execution details
 * operational scripting guidance
 
-Those concerns belong in:
+Those concerns instead belong in:
 
 * system contracts
 * implementation plans
@@ -52,7 +52,7 @@ through comparison against:
 * representation-aware concordance methods
 * reproducible benchmarking methodology
 
-This benchmarking layer validates:
+This benchmarking layer primarily validates:
 
 * engineering correctness
 * substrate integrity
@@ -216,7 +216,7 @@ This creates a critical distinction between:
 
 # Left-Alignment Principle
 
-Insertion/deletion variants may often be represented at multiple valid positions within repetitive sequence contexts.
+Insertion/deletion variants may be represented at multiple valid positions within repetitive sequence contexts.
 
 The genomics community therefore adopted:
 
@@ -290,7 +290,7 @@ NOT merely:
 textual VCF overlap
 ```
 
-This distinction is one of the strongest indicators of genomics-engineering maturity.
+Recognition of this distinction is one of the strongest indicators of genomics-engineering maturity.
 
 ---
 
@@ -448,7 +448,7 @@ scientifically mature architecture
 
 # Comparative Rather Than Absolute Benchmarking
 
-Benchmark metrics should be interpreted:
+Benchmark metrics should therefore be interpreted:
 
 ```text
 comparatively rather than absolutely
@@ -508,7 +508,7 @@ engineering trust anchoring
 
 for the broader VAP ecosystem.
 
-This trust anchor strengthens:
+This engineering trust anchor strengthens:
 
 * future VDB interoperability
 * future RDGP substrate confidence
@@ -531,6 +531,15 @@ Instead, it exists to demonstrate:
 scientifically literate, benchmark-aware, representation-conscious genomics engineering
 ```
 
-within a reproducible and semantically extensible ecosystem.
+within a reproducible, provenance-aware, and semantically extensible ecosystem.
 
-# End of hg002_benchmarking_design_philosophy.md
+---
+
+# Related HG002 Documents
+
+* [`README.md`](./README.md)
+* [`hg002_artifact_navigation_guide.md`](./hg002_artifact_navigation_guide.md)
+* [`artifact_inventory.md`](./artifact_inventory.md)
+* [`hg002_semantic_evidence_landscape.md`](./hg002_semantic_evidence_landscape.md)
+* [`hg002_benchmarking_design_philosophy.md`](./hg002_benchmarking_design_philosophy.md)
+* [`hg002_wgs_baseline.md`](./hg002_wgs_baseline.md)

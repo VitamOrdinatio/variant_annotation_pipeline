@@ -1,0 +1,14 @@
+key	value
+figure_id	F3A
+case_id	HG002
+input_f3a_flow_v2_path	results/run_2026_06_03_010030/metrics/figure_f3a_flow_v2.tsv
+output_prefix	HG002_f3a_deterministic_evidence_lineage
+run_id	run_2026_06_03_010030
+sample_id	HG002
+assay_type	WGS
+run_classification	full_pipeline
+scaling_rule	log10(edge_metric_value + 1)
+renderer	generate_case_study_f3a_deterministic_evidence_lineage.py
+semantic_scope	deterministic evidence lineage; not clinical interpretation
+stage08_policy	Stage 08 overlap compressed into Partitioned evidence
+qc_policy	QC not rendered as destructive branch
