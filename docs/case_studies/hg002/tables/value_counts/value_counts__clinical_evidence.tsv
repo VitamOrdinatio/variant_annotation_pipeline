@@ -1,0 +1,8 @@
+clinical_evidence	count
+missing	4595778
+benign	38317
+likely_benign	1809
+vus	540
+conflicting	74
+pathogenic	48
+likely_pathogenic	18

@@ -1,0 +1,18 @@
+{
+  "f1": 0.9707513259158367,
+  "fn": 151011,
+  "fp": 74335,
+  "generated_at": "2026-06-08T04:22:12+00:00",
+  "indel_precision": 0.9457260000000001,
+  "indel_recall": 0.8471870000000001,
+  "precision": 0.9805094778186662,
+  "query_vcf": "results/run_2026_06_03_010030/interim/HG002_run_2026_06_03_010030.normalized_variants.vcf",
+  "recall": 0.9611854887483386,
+  "reference_fasta": "/data/storage/reference/grch38/GRCh38.primary_assembly.genome.fa",
+  "run_id": "run_2026_06_03_010030",
+  "snp_precision": 0.985593,
+  "snp_recall": 0.978986,
+  "tp": 3739570,
+  "truth_bed": "results/run_2026_06_03_010030/benchmarking/interoperability/HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.bed",
+  "truth_vcf": "results/run_2026_06_03_010030/benchmarking/interoperability/HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.vcf.gz"
+}

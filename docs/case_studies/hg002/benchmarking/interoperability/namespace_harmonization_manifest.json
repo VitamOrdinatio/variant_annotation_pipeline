@@ -1,0 +1,9 @@
+{
+  "canonical_giab_files_mutated": false,
+  "generated_at": "2026-06-08T03:58:10+00:00",
+  "harmonized_truth_bed": "results/run_2026_06_03_010030/benchmarking/interoperability/HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.bed",
+  "harmonized_truth_vcf": "results/run_2026_06_03_010030/benchmarking/interoperability/HG002_GRCh38_1_22_v4.2.1_benchmark.nochr.vcf.gz",
+  "namespace_rule": "deterministically strip leading 'chr' prefix from GIAB truth contigs to match VAP Ensembl-style namespace",
+  "original_truth_bed": "/data/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.bed",
+  "original_truth_vcf": "/data/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz"
+}
