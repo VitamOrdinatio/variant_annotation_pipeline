@@ -13,3 +13,10 @@ HG002	run_2026_05_13_060859	WGS	hg002_full_telemetry	likely_pathogenic	likely_pa
 HG002	run_2026_05_13_060859	WGS	hg002_full_telemetry	missing	missing	19758
 HG002	run_2026_05_13_060859	WGS	hg002_full_telemetry	pathogenic	pathogenic	20
 HG002	run_2026_05_13_060859	WGS	hg002_full_telemetry	vus	vus	184
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	benign	38317
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	conflicting	74
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	likely_benign	1809
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	likely_pathogenic	18
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	missing	4595778
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	pathogenic	48
+HG002	run_2026_06_03_010030	WGS	benchmark_wgs	clinvar	vus	540

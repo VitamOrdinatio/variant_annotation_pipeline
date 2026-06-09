@@ -1,0 +1,17 @@
+source_file	status	rows_in	rows_written	destination
+candidate_reviewability_readiness.tsv	subset_written	133	21	docs/case_studies/hg002/tables/candidate_reviewability_readiness.tsv
+clinical_status_summary.tsv	subset_written	133	21	docs/case_studies/hg002/tables/clinical_status_summary.tsv
+coding_noncoding_consequence_summary.tsv	subset_written	836	132	docs/case_studies/hg002/tables/coding_noncoding_consequence_summary.tsv
+gene_list_overlay_intersections.tsv	subset_written	21660	3420	docs/case_studies/hg002/tables/gene_list_overlay_intersections.tsv
+interpretation_label_summary.tsv	subset_written	169	25	docs/case_studies/hg002/tables/interpretation_label_summary.tsv
+overlay_gene_coding_clinical_evidence.tsv	subset_written	9289	1422	docs/case_studies/hg002/tables/overlay_gene_coding_clinical_evidence.tsv
+overlay_gene_coding_frequency_profiles.tsv	subset_written	9167	1404	docs/case_studies/hg002/tables/overlay_gene_coding_frequency_profiles.tsv
+overlay_gene_coding_functional_impact.tsv	subset_written	11463	1776	docs/case_studies/hg002/tables/overlay_gene_coding_functional_impact.tsv
+priority_tier_summary.tsv	subset_written	74	10	docs/case_studies/hg002/tables/priority_tier_summary.tsv
+provenance_summary.tsv	subset_written	19	3	docs/case_studies/hg002/tables/provenance_summary.tsv
+run_reproducibility_summary.tsv	subset_written	3	1	docs/case_studies/hg002/tables/run_reproducibility_summary.tsv
+runtime_stage_summary.tsv	subset_written	234	26	docs/case_studies/hg002/tables/runtime_stage_summary.tsv
+sra_run_depth_metadata.tsv	skipped_no_sample_id	12	0	
+stage_funnel_summary.tsv	subset_written	19	3	docs/case_studies/hg002/tables/stage_funnel_summary.tsv
+substrate_dimension_summary.tsv	skipped_no_sample_id	13	0	
+variant_consequence_summary.tsv	subset_written	228	36	docs/case_studies/hg002/tables/variant_consequence_summary.tsv
