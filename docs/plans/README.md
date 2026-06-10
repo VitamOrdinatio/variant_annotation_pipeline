@@ -23,7 +23,7 @@ rather than a collection of abandoned planning artifacts.
 
 # Planning Topology
 
-```text id="qqg4h9"
+```text
 docs/plans/
 ├── case_studies/
 ├── infrastructure/
