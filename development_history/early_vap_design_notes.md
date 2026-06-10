@@ -1,4 +1,6 @@
-# Notes
+# early_vap_design_notes.md
+
+This document preserves early architectural and planning notes from initial VAP development prior to semantic-governance maturation and ecosystem expansion.
 
 ## `variant_annotation_pipeline`
 
