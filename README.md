@@ -1,6 +1,17 @@
 # Variant Annotation Pipeline (VAP)
 
-Traceable genomic evidence infrastructure for transforming sequencing-derived variant substrates into interoperable biological evidence layers.
+Deterministic, benchmark-aware genomic variant annotation and semantic reviewability pipeline.
+
+![tests](https://github.com/VitamOrdinatio/variant_annotation_pipeline/actions/workflows/tests.yml/badge.svg)
+![python](https://img.shields.io/badge/python-3.12-blue)
+![license](https://img.shields.io/badge/license-MIT-green)
+![release](https://img.shields.io/badge/release-v1.0--rc-orange)
+
+![GRCh38](https://img.shields.io/badge/reference-GRCh38-informational)
+![HG002](https://img.shields.io/badge/benchmark-HG002-success)
+![WES/WGS](https://img.shields.io/badge/validated-WES%2FWGS-blueviolet)
+
+VAP is a traceable genomic evidence infrastructure for transforming sequencing-derived variant substrates into interoperable biological evidence layers.
 
 ---
 
