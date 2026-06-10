@@ -1,307 +1,470 @@
-# Environment Setup  
-## variant_annotation_pipeline v1.0  
-## environment/README.md
+# VAP Environment Ecosystem
+
+The `environment/` namespace documents the execution environments, dependency infrastructure, storage architecture, and runtime assumptions underlying the Variant Annotation Pipeline (VAP).
+
+VAP was developed and operationally validated across:
+
+* local Linux development systems,
+* HPC execution environments,
+* large-scale WGS/WES cohort workflows,
+* and benchmarking-aware containerized validation infrastructure.
+
+This environment ecosystem therefore captures:
+
+* reproducibility assumptions,
+* infrastructure expectations,
+* execution topology,
+* dependency management,
+* storage strategy,
+* and containerized benchmarking workflows.
 
 ---
 
-## 1. Purpose
+# Environment Philosophy
 
-This document describes the execution environment expected by  
-`variant_annotation_pipeline` v1.0.
+The VAP environment ecosystem intentionally prioritizes:
 
-The pipeline is designed as a **real single-sample genomics workflow** for the locked HG002 dataset and therefore expects:
+* reproducible execution,
+* infrastructure portability,
+* provenance continuity,
+* deterministic runtime behavior,
+* and operational transparency.
 
-- Linux or WSL-style execution
-- Python-based orchestration
-- external bioinformatics tools available on the system
-- external data and reference paths provided through `config/config.yaml`
-
-This document describes:
-
-- software expectations
-- environment setup
-- external tool assumptions
-- storage and path philosophy
-
----
-
-## 2. Governing Principle
+Importantly:
 
 ```text
-The repository contains code and documentation.
-Large sequencing inputs, reference genomes, annotation caches, and benchmark resources live outside the repo and are injected through config.yaml.
+VAP was engineered through real operational execution rather than synthetic toy-only development.
 ```
 
-This keeps the repo:
+The repository therefore preserves explicit documentation regarding:
 
-- lightweight
-- portable
-- versionable
-- compatible with external storage mounts
-
----
-
-## 3. Supported Platform Model
-
-Recommended environment:
-
-- Linux workstation
-- Pop!_OS / Ubuntu-like distribution
-- or WSL on Windows with mounted external storage
-
-Expected shell:
-
-- bash-compatible shell
-
-Expected Python:
-
-- Python 3.9+
+* development systems,
+* execution systems,
+* resource assumptions,
+* storage organization,
+* and benchmarking infrastructure.
 
 ---
 
-## 4. Python Environment
+# Environment Topology
 
-A per-repo virtual environment is recommended.
+```text
+environment/
+├── README.md
+├── ...
+```
 
-### Create virtual environment
+The broader repository environment ecosystem additionally includes:
+
+| Namespace                | Purpose                                         |
+| ------------------------ | ----------------------------------------------- |
+| `requirements.txt`       | Python dependency specification                 |
+| `resources/`             | external biological resource acquisition        |
+| `tools/`                 | dependency installation workflows               |
+| `scripts/environment/`   | environment validation utilities                |
+| `scripts/orchestration/` | setup orchestration                             |
+| `docs/status/`           | runtime characterization and execution findings |
+
+---
+
+# Primary Development Environment
+
+VAP development was primarily performed within Linux-based Python virtual environments (`.venv`) using:
+
+* Python 3.12
+* pytest-based validation
+* deterministic TSV-oriented workflows
+* and provenance-aware runtime infrastructure.
+
+The development ecosystem intentionally favors:
+
+* lightweight reproducibility,
+* explicit dependency control,
+* and operational transparency.
+
+Representative development tooling includes:
+
+* Python
+* Bash
+* bcftools
+* samtools
+* BWA
+* GATK
+* VEP
+* ANNOVAR
+* pytest
+* DuckDB
+* pandas
+* matplotlib
+
+---
+
+# Python Dependency Infrastructure
+
+Primary Python dependencies are defined in:
+
+* `requirements.txt`
+
+The repository intentionally uses:
+
+```text
+one repository = one virtual environment
+```
+
+to preserve:
+
+* dependency isolation,
+* reproducibility,
+* and execution stability.
+
+The canonical environment setup pattern is:
 
 ```bash
 python -m venv .venv
-```
-
-### Activate virtual environment
-
-```bash
 source .venv/bin/activate
-```
-
-### Install Python dependencies
-
-```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 5. External Tool Requirements
+# Representative Execution Hardware
 
-Repo 2 v1.0 expects the following tools to be installed outside Python:
+VAP development and execution were intentionally separated across:
 
-- `bwa`
-- `samtools`
-- `gatk`
-- `vep`
+- a local Linux development workstation (`sys76`)
+- and a dedicated HPC execution node (`MARK`)
 
-Optional / downstream manual review:
-
-- `igv`
-
-These tools are referenced by executable name in `config/config.yaml`.
-
-### Important rule
-
-Tool paths must be configurable through YAML and must not be hardcoded in pipeline code.
+This separation preserved lightweight local development while enabling large-scale cohort execution and benchmarking workflows.
 
 ---
 
-## 6. External Data Path Model
+## sys76 Development Environment
 
-Repo 2 v1.0 is designed for external storage paths, not repo-local FASTQ storage.
+Primary development environment:
 
-Example development-machine layout:
+| Component | Specification |
+|---|---|
+| OS | Pop!_OS 24.04 LTS |
+| CPU | Intel i7-1165G7 |
+| RAM | 64 GB |
+| Storage | Dual Samsung NVMe SSDs (~4 TB total) |
+| Primary role | development, governance, lightweight testing, figure generation |
+
+The sys76 environment was primarily used for:
+
+- repository engineering
+- documentation
+- analytical substrate generation
+- deterministic figure rendering
+- lightweight testing
+- and governance workflows
+
+---
+
+## MARK HPC Execution Environment
+
+Primary execution environment:
+
+| Component | Specification |
+|---|---|
+| OS | Debian GNU/Linux 12 |
+| CPU | 40-core HPC node |
+| Primary role | cohort-scale execution, HG002 benchmarking, observability workflows |
+
+The MARK environment was used for:
+
+- WGS execution
+- heterogeneous WES cohort processing
+- benchmarking workflows
+- telemetry characterization
+- cross-run governance analysis
+- and reproducibility validation
+
+---
+
+# Local Development Systems
+
+Local development workflows emphasized:
+
+* iterative testing,
+* fixture validation,
+* lightweight substrate generation,
+* and documentation maturation.
+
+Typical local development responsibilities included:
+
+* analytical substrate generation,
+* deterministic figure rendering,
+* cross-run aggregation,
+* and governance analysis.
+
+---
+
+# MARK HPC Execution Environment
+
+Large-scale operational execution was performed on the MARK execution environment.
+
+The MARK environment supported:
+
+* HG002 WGS execution
+* heterogeneous WES cohort execution
+* stage-level checkpoint execution
+* observability-aware telemetry workflows
+* and reproducibility-oriented rerun analysis
+
+Representative execution characteristics included:
+
+* multi-core alignment execution
+* large BAM/VCF handling
+* long-running orchestration workflows
+* and telemetry-aware runtime monitoring
+
+MARK execution workflows were especially important for:
+
+* HG002 benchmarking
+* cross-run governance analysis
+* and observability maturation.
+
+---
+
+# Storage Philosophy
+
+VAP intentionally separates:
 
 ```text
-/mnt/storage/sra/SRR12898354/SRR12898354.sra
-/mnt/storage/fastq/SRR12898354_1.fastq.gz
-/mnt/storage/fastq/SRR12898354_2.fastq.gz
+tracked semantic infrastructure
 ```
 
-These paths are configured in:
+from:
 
 ```text
-config/config.yaml
+large generated genomic artifacts.
 ```
 
-The pipeline validates them during Stage 01.
+Large generated artifacts are intentionally excluded from Git, including:
+
+* FASTQ files
+* BAM / BAI files
+* raw VCF files
+* normalized VCF files
+* annotated VCF files
+* and large TSV substrates
+
+The repository instead tracks:
+
+* contracts
+* manifests
+* schemas
+* summary artifacts
+* example excerpts
+* analytical substrates
+* and reproducibility-oriented evidence surfaces
+
+This storage philosophy preserves:
+
+* repository portability,
+* reviewer accessibility,
+* and semantic reproducibility
+
+without requiring storage of multi-terabyte execution artifacts.
 
 ---
 
-## 7. Reference Resource Requirements
+# Runtime Organization
 
-The following reference resources are expected to exist outside the repo and be referenced via config:
-
-- reference FASTA
-- FASTA index (`.fai`)
-- BWA index prefix
-- sequence dictionary
-- GIAB benchmark VCF (optional but recommended for validation)
-- VEP cache directory
-- gene-set TSV files
-
-### Example categories
+VAP execution generates provenance-aware runtime organization using structured run directories:
 
 ```text
-/mnt/storage/references/
-/mnt/storage/giab/
-/mnt/storage/vep/
-/mnt/storage/gene_sets/
+results/run_<timestamp>/
 ```
 
-These are examples only; actual paths are config-driven.
+Representative runtime outputs include:
+
+| Artifact               | Purpose                          |
+| ---------------------- | -------------------------------- |
+| `run_metadata.json`    | execution metadata               |
+| `runtime_profile.tsv`  | runtime telemetry                |
+| `run_fingerprint.json` | deterministic execution identity |
+| `stage_summaries/`     | stage-level telemetry            |
+| `logs/`                | execution logging                |
+
+This runtime organization became foundational infrastructure for:
+
+* observability analysis,
+* reproducibility validation,
+* and cross-run governance studies.
 
 ---
 
-## 8. Locked Dataset for v1.0
+# Benchmarking Environment
 
-Repo 2 v1.0 is locked to:
+HG002 benchmarking workflows required specialized benchmarking infrastructure.
 
-- BioProject: `PRJNA200694`
-- Sample: `HG002`
-- Alias: `NA24385`
-- SRA: `SRR12898354`
-- Reference genome: `GRCh38`
+Benchmark validation used:
 
-This lock is enforced through configuration validation and Stage 01 metadata checks.
+* `hap.py`
+* RTG Tools
+* GIAB benchmark resources
+* BED-restricted evaluation
+* and representation-aware normalization workflows
+
+Because benchmarking dependencies are operationally complex and highly specialized, VAP used:
+
+```text
+containerized benchmarking infrastructure
+```
+
+for reproducible HG002 validation.
 
 ---
 
-## 9. Execution Model
+# Containerization Strategy
 
-Pipeline entry point:
+Benchmarking workflows leveraged Apptainer-based container execution for controlled benchmarking reproducibility.
+
+Containerization supported:
+
+* dependency isolation,
+* benchmarking reproducibility,
+* namespace stability,
+* and execution portability
+
+without contaminating the primary VAP runtime environment.
+
+This separation was especially important for:
+
+* `hap.py`
+* RTG Tools
+* benchmarking normalization utilities
+* and representation-aware comparison workflows.
+
+Importantly:
+
+```text
+containerization was selectively applied to benchmarking infrastructure rather than forcing full-pipeline containerization.
+```
+
+This hybrid strategy preserved:
+
+* pipeline flexibility,
+* HPC compatibility,
+* and operational transparency.
+
+---
+
+# Observability Infrastructure
+
+The environment ecosystem increasingly incorporated observability-aware execution infrastructure, including:
+
+* stage-level telemetry
+* runtime profiling
+* provenance-linked metrics
+* execution fingerprints
+* resource snapshots
+* and structured runtime manifests
+
+This infrastructure enabled:
+
+* deterministic rerun analysis,
+* runtime characterization,
+* and cross-run semantic governance evaluation.
+
+---
+
+# Relationship to Testing
+
+The environment ecosystem directly supports:
+
+* fixture-mode execution,
+* runtime validation,
+* telemetry validation,
+* benchmarking tests,
+* and deterministic schema testing.
+
+Environment stability is therefore tightly coupled to:
+
+* reproducibility guarantees,
+* operational observability,
+* and release readiness.
+
+---
+
+# Relationship to Case Studies
+
+The environment ecosystem enabled the later development of:
+
+| Case Study       | Environment Contribution                      |
+| ---------------- | --------------------------------------------- |
+| HG002            | benchmarking and HPC execution                |
+| ERR10619281      | deterministic rerun validation                |
+| ERR10619300      | semantic-governance analytical infrastructure |
+| 12-SRA cross-run | telemetry-aware cohort-scale execution        |
+
+The environment ecosystem therefore acts as:
+
+```text
+the operational substrate underlying VAP reproducibility claims.
+```
+
+---
+
+# Recommended Setup Workflow
+
+Typical setup progression:
+
+1. Create Python virtual environment
+2. Install Python dependencies
+3. Install biological tooling
+4. Acquire reference resources
+5. Validate environment
+6. Execute lightweight fixture tests
+7. Execute cohort-scale workflows
+
+Representative validation commands include:
 
 ```bash
-python run_pipeline.py --config config/config.yaml
+pytest tests/
 ```
 
-This performs:
+and:
 
-- config loading
-- config validation
-- run directory creation
-- stage-based execution
-- metadata emission
+```bash
+python pipeline_runner.py --config config/example.yaml
+```
+
+depending on execution context.
 
 ---
 
-## 10. Storage Philosophy
+# Operational Maturity Themes
 
-### Inside the repo
+The VAP environment ecosystem consistently emphasizes:
 
-Tracked:
+* reproducible execution
+* infrastructure transparency
+* provenance continuity
+* observability-aware runtime organization
+* benchmarking-aware validation
+* and storage-aware operational discipline
 
-- source code
-- documentation
-- tests
-- config
-- lightweight text assets
-
-### Outside the repo
-
-Untracked / external:
-
-- FASTQ
-- BAM
-- VCF
-- reference genomes
-- VEP cache
-- benchmark resources
-
-### Runtime outputs
-
-Produced inside the repo under:
+Collectively, these environmental decisions enabled VAP to mature into:
 
 ```text
-results/<run_id>/
+reproducible semantic evidence infrastructure
 ```
 
----
-
-## 11. Reproducibility Expectations
-
-Each run should preserve:
-
-- run identifier
-- config snapshot
-- tool versions
-- logs
-- structured output files
-- metadata.json
-
-This supports:
-
-- deterministic reruns
-- traceability
-- later aggregation in future versions
+rather than an ad hoc genomics workflow collection.
 
 ---
 
-## 12. Tool Version Capture
+# Final Positioning
 
-Where feasible, the pipeline should record tool versions for:
+The VAP environment ecosystem demonstrates that the repository was engineered and validated through:
 
-- `bwa`
-- `samtools`
-- `gatk`
-- `vep`
+* real operational execution,
+* reproducibility-aware infrastructure design,
+* telemetry-aware runtime instrumentation,
+* containerized benchmarking validation,
+* and provenance-oriented storage organization.
 
-Version capture is part of reproducibility, even if exact version enforcement is not pinned in v1.
-
----
-
-## 13. Path Safety Rules
-
-Pipeline code must:
-
-- read paths from config
-- validate existence before execution
-- avoid hardcoded machine-specific absolute paths
-- treat external storage as authoritative input location
-
-The only place machine-specific paths should appear is:
-
-```text
-config/config.yaml
-```
-
----
-
-## 14. What v1 Does Not Require
-
-v1.0 does **not** require:
-
-- containerization
-- conda
-- Snakemake / Nextflow
-- SLURM integration
-- distributed execution
-- cloud execution
-
-These may be added in future versions.
-
----
-
-## 15. Troubleshooting Checklist
-
-If the pipeline fails early:
-
-1. confirm `.venv` is activated
-2. confirm `requirements.txt` is installed
-3. confirm external FASTQ paths exist
-4. confirm reference paths exist
-5. confirm tool executables are available in `PATH`
-6. inspect:
-   ```text
-   results/<run_id>/logs/pipeline.log
-   ```
-
----
-
-## 16. Summary Rule
-
-```text
-Repo 2 v1.0 is a config-driven pipeline that runs inside the repo but operates on external sequencing and reference resources.
-```
-
----
-
-# End of Environment Setup
+These environmental surfaces therefore form a critical foundation for the broader architectural and scientific maturity of the VAP ecosystem.
