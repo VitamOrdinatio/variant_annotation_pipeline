@@ -7,14 +7,14 @@ from src.config_loader import load_config, validate_config
 from src.pipeline_runner import STAGE_ORDER, run_pipeline
 
 def test_post_vep_fixture_outputs_exist_and_statuses_are_correct(tmp_path):
-    config = load_config("config/config.example.post_vep.yaml")
+    config = load_config("config/templates/config.example.post_vep.yaml")
     validate_config(config)
     config["output"]["base_results_dir"] = str(tmp_path / "results")
 
     logger = logging.getLogger("post_vep_fixture_output_test")
     state, paths = run_pipeline(
         config=config,
-        config_path="config/config.example.post_vep.yaml",
+        config_path="config/templates/config.example.post_vep.yaml",
         logger=logger,
     )
 

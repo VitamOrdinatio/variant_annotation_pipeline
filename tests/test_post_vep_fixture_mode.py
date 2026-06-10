@@ -2,12 +2,12 @@ from src.config_loader import load_config, validate_config
 from src.pipeline_runner import should_run_stage
 
 def test_post_vep_fixture_config_validates():
-    config = load_config("config/config.example.post_vep.yaml")
+    config = load_config("config/templates/config.example.post_vep.yaml")
     validate_config(config)
     assert config["mode"]["execution_mode"] == "post_vep_fixture"
 
 def test_post_vep_fixture_stage_skipping():
-    config = load_config("config/config.example.post_vep.yaml")
+    config = load_config("config/templates/config.example.post_vep.yaml")
     skipped = {
         "stage_01_load_data",
         "stage_02_align_data",
