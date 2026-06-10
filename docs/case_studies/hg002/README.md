@@ -279,3 +279,23 @@ Internal implementation governance and benchmarking evaluation artifacts additio
 * Interoperability-oriented substrate emission enabled downstream ecosystem reuse through deterministic semantic artifact generation.
 
 The HG002 case study therefore demonstrates both benchmark-aware upstream substrate validation and deterministic downstream semantic evidence organization within the broader VAP architecture.
+
+---
+
+# References
+
+1. Zook JM, McDaniel J, Olson ND, et al. Extensive sequencing of seven human genomes to characterize benchmark reference materials. *Scientific Data*. 2016;3:160025.
+
+2. Kurtzer GM, Sochat V, Bauer MW. Singularity: Scientific containers for mobility of compute. *PLoS ONE*. 2017;12(5):e0177459.
+
+3. Krusche P, Trigg L, Boutros PC, et al. Best practices for benchmarking germline small-variant calls in human genomes. *Nature Biotechnology*. 2019;37(5):555–560.
+
+4. Illumina. hap.py variant benchmarking toolkit. https://github.com/Illumina/hap.py
+
+5. Cleary JG, Braithwaite R, Gaastra K, et al. Comparing variant call files for performance benchmarking of next-generation sequencing variant calling pipelines. *bioRxiv*. 2015. doi:10.1101/023754
+
+6. McLaren W, Gil L, Hunt SE, et al. The Ensembl Variant Effect Predictor. *Genome Biology*. 2016;17:122.
+
+7. Landrum MJ, Lee JM, Benson M, et al. ClinVar: improving access to variant interpretations and supporting evidence. *Nucleic Acids Research*. 2018;46(D1):D1062–D1067.
+
+8. Li H. Toward better understanding of artifacts in variant calling from high-coverage samples. *Bioinformatics*. 2014;30(20):2843–2851.

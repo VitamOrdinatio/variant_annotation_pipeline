@@ -359,3 +359,13 @@ The broader architecture therefore establishes VAP as a:
 > reproducibility-aware deterministic semantic infrastructure ecosystem
 
 capable of supporting composable interoperability, provenance-aware reconstruction, bounded interpretability, and systems-level translational infrastructure coherence across heterogeneous but controlled semantic substrate environments.
+
+# References
+
+1. European Nucleotide Archive (ENA) BioProject PRJEB57558. *Whole‐Exome Sequencing of a Saudi Epilepsy Cohort Reveals Association Signals in Known and Potentially Novel Loci.* https://www.ebi.ac.uk/ena/browser/view/PRJEB57558
+
+2. Epi25 Collaborative. Exome sequencing of 20,979 individuals with epilepsy reveals shared and distinct ultra-rare genetic risk across disorder subtypes. *Nature Neuroscience*. 2024;27(10):1864–1879.
+
+3. Rath S, Sharma R, Gupta R, et al. MitoCarta3.0: an updated mitochondrial proteome now with sub-organelle localization and pathway annotations. *Nucleic Acids Research*. 2021;49(D1):D1541-D1547.
+
+4. Landrum MJ, Lee JM, Benson M, et al. ClinVar: improving access to variant interpretations and supporting evidence. *Nucleic Acids Research*. 2018;46(D1):D1062–D1067.

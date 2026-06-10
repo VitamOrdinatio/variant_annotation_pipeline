@@ -558,3 +558,21 @@ These extraction products collectively support:
 * deterministic evidence extraction,
 * future VDB persistence,
 * and future RDGP interoperability.
+
+---
+
+# References
+
+1. Zook JM, McDaniel J, Olson ND, et al. Extensive sequencing of seven human genomes to characterize benchmark reference materials. *Scientific Data*. 2016;3:160025.
+
+2. Krusche P, Trigg L, Boutros PC, et al. Best practices for benchmarking germline small-variant calls in human genomes. *Nature Biotechnology*. 2019;37(5):555–560.
+
+3. Illumina. hap.py variant benchmarking toolkit. https://github.com/Illumina/hap.py
+
+4. McLaren W, Gil L, Hunt SE, et al. The Ensembl Variant Effect Predictor. *Genome Biology*. 2016;17:122.
+
+5. Landrum MJ, Lee JM, Benson M, et al. ClinVar: improving access to variant interpretations and supporting evidence. *Nucleic Acids Research*. 2018;46(D1):D1062–D1067.
+
+6. Epi25 Collaborative. Exome sequencing of 20,979 individuals with epilepsy reveals shared and distinct ultra-rare genetic risk across disorder subtypes. *Nature Neuroscience*. 2024;27(10):1864–1879.
+
+7. Rath S, Sharma R, Gupta R, et al. MitoCarta3.0: an updated mitochondrial proteome now with sub-organelle localization and pathway annotations. *Nucleic Acids Research*. 2021;49(D1):D1541-D1547.
