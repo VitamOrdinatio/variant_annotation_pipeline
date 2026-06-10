@@ -227,10 +227,10 @@ Validated:
 
 * [ ] release tag prepared
 * [x] release notes drafted
-* [ ] validation summary included
+* [x] validation summary included
 * [x] reproducibility claims verified
 * [x] roadmap updated
-* [ ] status snapshot finalized
+* [x] status snapshot finalized
 
 ---
 
@@ -242,7 +242,7 @@ Validated:
 pytest
 ```
 
-* [ ] final validation passed immediately before tagging
+* [x] final validation passed immediately before tagging
 
 ---
 
