@@ -1,140 +1,314 @@
 # Roadmap
 
-This roadmap reflects planned development priorities and may evolve as repositories mature and framework standards improve.
+This roadmap reflects the evolving development priorities of the broader VAP-centered semantic infrastructure ecosystem.
 
-## Overview
+The ecosystem increasingly emphasizes:
 
-This repository is part of a broader effort to build a **modular, reproducible, and clinically-relevant bioinformatics ecosystem** for variant analysis, gene prioritization, and disease-focused interpretation.
+* reproducibility,
+* semantic governance,
+* interoperability-oriented substrate generation,
+* provenance continuity,
+* telemetry-aware execution,
+* and composable analytical infrastructure.
 
-Development proceeds in stages, with emphasis on:
-
-* reproducibility
-* clarity of pipeline design
-* alignment with real-world clinical genomics workflows
-
----
-
-## Immediate Next Step
-
-### Stabilization and Framework Consolidation
-
-Following the release of `variant_annotation_pipeline` v1.0:
-
-* Pause major feature development
-* Consolidate and refine the underlying framework:
-
-  * `reproducible_pipeline_framework`
-  * `AI_Workspace` (governance, documentation, agent coordination)
-* Standardize:
-
-  * pipeline conventions
-  * documentation structure
-  * reproducibility practices
-
-This phase ensures that future repositories build on a stable foundation.
+Priorities may evolve as repositories mature and interoperability layers become operational.
 
 ---
 
-## Near-Term Development
+# Overview
 
-### 1. Gene Set Consensus Layer
+The broader repository ecosystem is designed to support:
 
-**Repository:** `gene_set_consensus`
+```text
+reproducible semantic transformation of biological evidence into interoperable analytical substrates.
+```
 
-* Aggregate and harmonize gene sets from:
+Rather than functioning as isolated tools, the repositories increasingly form a composable ecosystem spanning:
 
-  * curated databases
-  * literature sources
-  * disease-specific resources
-* Provide reusable overlays for downstream analysis
-* Enable integration into variant interpretation pipelines
+* sequencing analysis,
+* annotation infrastructure,
+* semantic decomposition,
+* evidence governance,
+* interoperability routing,
+* gene-set harmonization,
+* and downstream prioritization workflows.
 
----
+The ecosystem now increasingly operates as:
 
-### 2. Variant Annotation Pipeline Enhancements
-
-**Repository:** `variant_annotation_pipeline`
-
-Planned improvements include:
-
-* integration of gene set overlays
-* expanded annotation layers
-* improved prioritization strategies
+```text
+modular semantic infrastructure for governed biological evidence transformation.
+```
 
 ---
 
-### 3. Variant Database Layer
+# Current Ecosystem Status
+
+| Repository                                | Current Status                              |
+| ----------------------------------------- | ------------------------------------------- |
+| `variant_annotation_pipeline` (VAP)       | v1.0 release-ready                          |
+| `gene_set_consensus` (GSC)                | v1.0 released                               |
+| `rare_disease_gene_prioritization` (RDGP) | near v1.0 integration-ready                 |
+| `variant_database` (VDB)                  | planned central interoperability layer      |
+| `rnaseq_pipeline` (RSP)                   | future transcriptomic expansion             |
+| `reproducible_pipeline_framework` (RPF)   | foundational framework stabilization        |
+| `AI_Workspace`                            | governance and orchestration infrastructure |
+
+---
+
+# Immediate Priorities
+
+## 1. VAP v1.0 Release Consolidation
+
+Following VAP v1.0 stabilization:
+
+* preserve release integrity,
+* refine documentation consistency,
+* maintain reproducibility infrastructure,
+* and stabilize interoperability-oriented substrate surfaces.
+
+Major post-v1 architectural rewrites are intentionally deferred during this stabilization phase.
+
+---
+
+## 2. Framework Consolidation
+
+**Repositories:**
+
+* `reproducible_pipeline_framework`
+* `AI_Workspace`
+
+Current focus areas include:
+
+* governance refinement,
+* documentation consistency,
+* orchestration standardization,
+* semantic naming conventions,
+* reproducibility practices,
+* and interoperability-oriented architectural coherence.
+
+This consolidation phase helps ensure future repositories evolve on stable operational foundations.
+
+---
+
+# Near-Term Ecosystem Development
+
+## 1. Variant Database Layer (VDB)
 
 **Repository:** `variant_database`
 
-* Develop a structured storage layer using:
+VDB is increasingly expected to become the central interoperability nexus of the broader ecosystem.
 
-  * SQL
-  * SQLAlchemy
-* Support:
+Planned capabilities include:
 
-  * persistent variant storage
-  * queryable annotation results
-  * integration with upstream pipelines
+* structured variant storage,
+* SQL-oriented analytical routing,
+* semantic substrate normalization,
+* cross-pipeline interoperability,
+* provenance-aware evidence integration,
+* and downstream analytical coordination.
 
----
+VDB is expected to increasingly mediate interactions between:
 
-## Mid-Term Development
-
-### RNA-seq Pipeline
-
-**Repository:** `rnaseq_pipeline`
-
-* Extend the framework to transcriptomic workflows
-* Enable differential expression and downstream analysis
-* Maintain consistency with existing pipeline conventions
+* VAP,
+* GSC,
+* RDGP,
+* and future downstream systems.
 
 ---
 
-### Rare Disease Gene Prioritization
+## 2. RDGP Ecosystem Integration
 
 **Repository:** `rare_disease_gene_prioritization`
 
-* Combine:
+RDGP has progressed substantially beyond early conceptual planning.
 
-  * variant annotation outputs
-  * gene set overlays
-  * disease-specific knowledge
-* Develop prioritization strategies for candidate gene identification
+Current architecture includes:
 
----
+* scoring infrastructure,
+* semantic prioritization logic,
+* interoperability-oriented schemas,
+* validation frameworks,
+* and composable evidence-routing doctrine.
 
-### SeroStrat
+Near-term priorities include:
 
-**Repository:** `SeroStrat`
+* integration with VAP-derived substrates,
+* future VDB-mediated ingestion,
+* semantic continuity across repositories,
+* and downstream candidate prioritization workflows.
 
-* Develop tools for integrating clinical and biological datasets
-* Focus on:
-
-  * schema standardization
-  * cohort engineering
-  * data cleaning and normalization
-  * downstream compatibility with analysis pipelines
+RDGP increasingly functions as a downstream semantic prioritization layer rather than an isolated prioritization engine.
 
 ---
 
-## Longer-Term Directions
+## 3. Gene Set Consensus Expansion
 
-* Integration of AI-assisted prediction tools
-* Incorporation of external resources (e.g., GTR)
-* Cross-repository interoperability via shared framework standards
-* Expansion toward clinically-oriented decision support workflows
+**Repository:** `gene_set_consensus`
+
+GSC v1.0 established the foundational gene-set harmonization architecture.
+
+Future directions include:
+
+* expanded source integration,
+* richer semantic overlays,
+* interoperability refinement,
+* and composable downstream substrate generation.
+
+GSC increasingly functions as reusable semantic overlay infrastructure supporting:
+
+* VAP,
+* RDGP,
+* VDB,
+* and future analytical systems.
 
 ---
 
-## Philosophy
+## 4. VAP Post-v1 Evolution
 
-This roadmap is intentionally ambitious.
+**Repository:** `variant_annotation_pipeline`
 
-The focus is not on rapid feature accumulation, but on building a **coherent, extensible system** where:
+Post-v1 development is expected to emphasize:
 
-* each repository serves a clear role
-* components integrate cleanly
-* workflows remain reproducible and interpretable
+* interoperability refinement,
+* substrate stabilization,
+* semantic governance maturation,
+* observability improvements,
+* and composable downstream routing.
 
-Priorities may evolve as the framework matures and new insights are gained.
+Recent development increasingly emphasized:
+
+* deterministic semantic decomposition,
+* telemetry-aware execution,
+* manifest-oriented orchestration,
+* bounded reviewability,
+* and interoperability-oriented analytical infrastructure.
+
+Future VAP evolution will likely prioritize ecosystem composability over monolithic feature expansion.
+
+---
+
+# Mid-Term Ecosystem Development
+
+## RNA-seq Infrastructure
+
+**Repository:** `rnaseq_pipeline`
+
+RSP is expected to extend the semantic infrastructure framework into transcriptomic workflows.
+
+Future directions include:
+
+* differential expression analysis,
+* transcriptomic interoperability substrates,
+* semantic overlay integration,
+* and cross-modal analytical coordination.
+
+A long-term goal is increasingly coherent interoperability between:
+
+* genomic,
+* transcriptomic,
+* and downstream semantic prioritization systems.
+
+---
+
+## Cross-Repository Interoperability
+
+A major mid-term focus is increasingly:
+
+```text
+composable interoperability across semantic infrastructure layers.
+```
+
+This includes:
+
+* shared schemas,
+* semantic normalization,
+* provenance continuity,
+* interoperable analytical substrates,
+* and reusable orchestration surfaces.
+
+Interoperability increasingly influences architectural decisions across all repositories.
+
+---
+
+# Longer-Term Directions
+
+Longer-term ecosystem directions may include:
+
+* AI-assisted analytical support,
+* richer semantic reasoning systems,
+* cross-modal biological evidence integration,
+* expanded cohort-scale interoperability,
+* and reusable downstream clinical research infrastructure.
+
+Importantly, the ecosystem intentionally emphasizes:
+
+```text
+governed semantic infrastructure
+```
+
+rather than unrestricted autonomous inference systems.
+
+---
+
+# Architectural Philosophy
+
+The ecosystem increasingly prioritizes:
+
+| Principle                       | Description                               |
+| ------------------------------- | ----------------------------------------- |
+| Reproducibility                 | deterministic and reviewable execution    |
+| Semantic governance             | bounded evidence transformation           |
+| Provenance continuity           | preservation of execution lineage         |
+| Interoperability                | reusable downstream analytical substrates |
+| Manifest-oriented orchestration | lightweight reproducible coordination     |
+| Reviewability                   | constrained interpretive overload         |
+| Composability                   | clean integration across repositories     |
+
+The goal is not rapid feature accumulation.
+
+The goal is development of:
+
+```text
+a coherent, extensible, and interoperable semantic infrastructure ecosystem.
+```
+
+---
+
+# Current Strategic Direction
+
+The ecosystem is increasingly transitioning from:
+
+```text
+independent repository development
+```
+
+toward:
+
+```text
+cross-repository semantic interoperability.
+```
+
+This transition increasingly shapes:
+
+* substrate architecture,
+* orchestration strategy,
+* schema design,
+* telemetry infrastructure,
+* and downstream analytical workflows.
+
+---
+
+# Summary
+
+The broader repository ecosystem is evolving toward a composable semantic infrastructure architecture for governed biological evidence transformation.
+
+Current development increasingly emphasizes:
+
+* interoperability,
+* semantic continuity,
+* reproducibility,
+* telemetry-aware execution,
+* manifest-oriented orchestration,
+* and reusable analytical substrate generation
+
+across a growing ecosystem of interoperable repositories and downstream semantic systems.
