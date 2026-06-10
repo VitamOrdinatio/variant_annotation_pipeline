@@ -144,4 +144,5 @@ Stage 10 is intentionally conservative:
 
 > Stage 10 identifies noncoding candidates while explicitly preserving the limits of biological interpretation.
 
-See also: [Interpretation Layer Overview](../../interpretation_layer.md)
+See also: [Interpretation Layer Overview](../../interpretation_framework.md)
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

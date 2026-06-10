@@ -87,3 +87,5 @@ It is the **last stage of biological annotation** before data engineering (Stage
 ## Bottom Line
 
 Stage 07 demonstrates successful large-scale variant annotation, producing structured outputs suitable for filtering, partitioning, and downstream system integration.
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

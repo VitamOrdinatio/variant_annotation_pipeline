@@ -357,3 +357,7 @@ human-readable semantic evidence surfaces
 ```
 
 supporting the broader reproducibility and operational maturity of the VAP ecosystem.
+
+---
+
+See also: [HG002 Benchmarking Case Study](../case_studies/hg002/README.md)

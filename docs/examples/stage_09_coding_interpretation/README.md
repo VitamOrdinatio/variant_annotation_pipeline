@@ -65,4 +65,5 @@ The presence of missense, loss-of-function, and ClinVar-annotated â€œpathogenicâ
 
 Stage 09 identifies candidate variants based on structural and statistical criteria, not clinical diagnosis.
 
-See also: [Interpretation Layer Overview](../../interpretation_layer.md)
+See also: [Interpretation Layer Overview](../../interpretation_framework.md)
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

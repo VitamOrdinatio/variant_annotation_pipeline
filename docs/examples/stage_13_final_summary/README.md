@@ -53,3 +53,5 @@ These results reflect expected behavior for a healthy reference genome and confi
 - Descriptive summaries are not authoritative analytical outputs unless produced by VAP itself.
 
 ---
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

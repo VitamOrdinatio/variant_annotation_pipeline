@@ -68,3 +68,5 @@ These results are consistent with expected properties of the HG002 benchmark gen
 ## Artifact Notes
 
 Artifacts are generated deterministically using Artificer and curated for clarity and interpretability.
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

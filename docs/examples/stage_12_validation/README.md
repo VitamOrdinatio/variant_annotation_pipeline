@@ -127,3 +127,5 @@ These artifacts provide additional context for QC behavior and filtering:
 ## Bottom Line
 
 > Stage 12 enforces disciplined validation by ensuring that only biologically plausible and prioritized candidates are advanced for review.
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

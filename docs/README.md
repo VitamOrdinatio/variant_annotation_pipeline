@@ -157,7 +157,7 @@ Primary entrypoints:
 
 * [`case_studies/hg002/`](case_studies/hg002/)
 * [`case_studies/cross_runs/`](case_studies/cross_runs/)
-* [`case_studies/index.md`](case_studies/index.md)
+* [`case_studies/README.md`](../docs/case_studies/README.md)
 
 ---
 
@@ -210,9 +210,9 @@ Implementation documentation captures:
 
 Primary entrypoints:
 
-* [`implementation/architecture.md`](implementation/architecture.md)
-* [`implementation/workflow.md`](implementation/workflow.md)
-* [`implementation/distributed_execution.md`](implementation/distributed_execution.md)
+* [`Architectural Implementation`](./architecture/README.md)
+* [`Workflow Implementation`](./implementation/workflows/workflow.md)
+* [`Distributed Execution`](./implementation/execution/distributed_execution.md)
 
 ---
 

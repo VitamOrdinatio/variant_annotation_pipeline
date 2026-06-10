@@ -164,3 +164,5 @@ interpretable, and prioritization-ready data layers.
 ```
 
 ---
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)

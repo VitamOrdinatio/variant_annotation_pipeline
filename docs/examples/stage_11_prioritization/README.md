@@ -140,3 +140,5 @@ Stage 13 (reporting)
 ## Bottom Line
 
 > Stage 11 identifies candidate variants while correctly avoiding disease inference in a healthy genome.
+
+See also: [HG002 Benchmarking Case Study](../../case_studies/hg002/README.md)
