@@ -225,7 +225,7 @@ Validated:
 
 ## Release Metadata
 
-* [ ] release tag prepared
+* [x] release tag prepared
 * [x] release notes drafted
 * [x] validation summary included
 * [x] reproducibility claims verified
@@ -255,7 +255,7 @@ git tag -a v1.0.0 -m "VAP v1.0.0"
 git push origin v1.0.0
 ```
 
-* [ ] tag pushed
+* [x] tag pushed
 
 ---
 
