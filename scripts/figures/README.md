@@ -1,6 +1,6 @@
 # README.md
 
-These scripts are used to generated figures and tables in a transparent and deterministic fashion for select case studies using TSV artifacts generated directly from VAP end-to-end operation.
+These scripts are used to generate figures and tables in a transparent and deterministic fashion for select case studies using TSV artifacts generated directly from VAP end-to-end operation.
 
 ---
 

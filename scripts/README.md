@@ -1,297 +1,355 @@
-# scripts/ — Variant Annotation Pipeline (VAP) Setup & Operations
+# VAP Script Ecosystem
 
-## Overview
+The `scripts/` namespace contains the operational utility layer of the Variant Annotation Pipeline (VAP).
 
-The `scripts/` directory contains all operational utilities required to:
+Unlike the core pipeline implementation located within:
 
-* provision the execution environment
-* install and validate external tools
-* download and validate reference and annotation resources
-* prepare input sequencing data
-* orchestrate full pipeline setup
+* `src/`
+* `pipeline/`
+* and governed stage infrastructure,
 
-This directory is intentionally structured to separate **concerns** and ensure:
+the `scripts/` ecosystem intentionally contains:
 
-* reproducibility across systems (Sys76, Mark HPC, future nodes)
-* idempotent setup behavior
-* clear ownership of responsibilities per script
-* minimal cross-contamination between environment, tools, and data
+```text
+bounded operational utilities,
+analytical helpers,
+execution wrappers,
+resource setup workflows,
+and one-off infrastructure tooling.
+```
+
+These scripts support:
+
+* benchmarking,
+* substrate generation,
+* telemetry harvesting,
+* figure rendering,
+* cohort preparation,
+* cross-run analysis,
+* and operational reproducibility workflows.
 
 ---
 
-## Directory Structure
+# Script Philosophy
+
+The VAP script ecosystem intentionally prioritizes:
+
+* operational pragmatism,
+* deterministic outputs,
+* reproducible substrate generation,
+* infrastructure portability,
+* and analytical decomposability.
+
+Importantly:
+
+```text
+scripts are intentionally allowed to be task-specific and operationally bounded.
+```
+
+Not every script is intended to evolve into reusable generalized infrastructure.
+
+Instead, many scripts represent:
+
+* controlled operational probes,
+* substrate builders,
+* analysis orchestrators,
+* or reproducible one-off evidence-generation utilities.
+
+This design philosophy preserves:
+
+* repository agility,
+* analytical transparency,
+* and operational traceability
+
+without forcing premature abstraction.
+
+---
+
+# Script Topology
 
 ```text
 scripts/
-  environment/     # Python runtime (venv) setup and validation
-  tools/           # External executables (bwa, samtools, gatk, vep, annovar)
-  resources/       # Reference genomes, benchmarks, annotation datasets
-  data_prep/       # Sample-specific preprocessing (e.g., SRA → FASTQ)
-  orchestration/   # High-level setup entrypoints
-  mark/            # Execution testing and validation on HPC
-  README.md        # This file
+├── analysis/
+├── benchmarking/
+├── configs/
+├── data_prep/
+├── environment/
+├── figures/
+├── mark/
+├── orchestration/
+├── resources/
+└── tools/
+```
+
+| Namespace        | Purpose                                                          |
+| ---------------- | ---------------------------------------------------------------- |
+| `analysis/`      | analytical substrate generation and cross-run evidence workflows |
+| `benchmarking/`  | HG002 benchmarking orchestration                                 |
+| `configs/`       | figure and analysis configuration substrates                     |
+| `data_prep/`     | sequencing and dataset preparation                               |
+| `environment/`   | environment validation and setup                                 |
+| `figures/`       | case-study figure rendering                                      |
+| `mark/`          | MARK HPC execution workflows                                     |
+| `orchestration/` | top-level orchestration setup                                    |
+| `resources/`     | external reference and annotation acquisition                    |
+| `tools/`         | pipeline dependency installation and validation                  |
+
+---
+
+# Analysis Ecosystem
+
+The `analysis/` namespace contains one of the largest operational substrate-generation layers within VAP.
+
+These scripts support deterministic generation of:
+
+* semantic governance surfaces,
+* telemetry summaries,
+* interoperability analyses,
+* reviewability metrics,
+* and cross-run evidence abstractions.
+
+Representative workflows include:
+
+| Script Class                                  | Purpose                                               |
+| --------------------------------------------- | ----------------------------------------------------- |
+| `build_*`                                     | deterministic substrate aggregation and summarization |
+| `append_*`                                    | semantic enrichment and annotation augmentation       |
+| `compare_vap_runs.py`                         | cross-run semantic reproducibility analysis           |
+| `harvest_vap_case_metrics.py`                 | cohort-scale evidence harvesting                      |
+| `export_stage12_duckdb_exploration.py`        | analytical substrate export                           |
+| `run_stage12_duckdb_exports_from_manifest.py` | batch export orchestration                            |
+
+This namespace directly enabled the later:
+
+* HG002 benchmarking ecosystem,
+* ERR10619281 semantic stability analysis,
+* ERR10619300 semantic-governance studies,
+* and 12-SRA cross-run governance workflows.
+
+---
+
+# Benchmarking Ecosystem
+
+The `benchmarking/` namespace governs benchmark-aware validation workflows.
+
+| Script                         | Purpose                                               |
+| ------------------------------ | ----------------------------------------------------- |
+| `run_hg002_happy_benchmark.py` | representation-aware HG002 benchmarking orchestration |
+
+This infrastructure supports:
+
+* `hap.py` benchmarking,
+* representation-aware normalization,
+* namespace mediation,
+* and benchmark-governed validation workflows.
+
+These scripts contributed directly to the HG002 case-study ecosystem.
+
+---
+
+# Configuration Ecosystem
+
+The `configs/` namespace contains deterministic configuration substrates used throughout:
+
+* figure generation,
+* semantic governance analyses,
+* interoperability rendering,
+* and case-study workflows.
+
+This namespace intentionally preserves:
+
+* reproducible figure inputs,
+* parameter continuity,
+* and configuration traceability.
+
+---
+
+# Figure Generation Ecosystem
+
+The `figures/` namespace governs deterministic rendering of case-study visual infrastructure.
+
+Representative figure workflows include:
+
+| Script                                                          | Purpose                                 |
+| --------------------------------------------------------------- | --------------------------------------- |
+| `generate_case_study_f1_reproducibility_summary.py`             | deterministic rerun visualization       |
+| `generate_case_study_f2_runtime_observability_profile.py`       | runtime telemetry visualization         |
+| `generate_case_study_f3a_deterministic_evidence_lineage.py`     | semantic lineage visualization          |
+| `generate_case_study_f3b_semantic_branching.py`                 | semantic branching topology             |
+| `generate_case_study_f4_semantic_categories.py`                 | semantic compression visualization      |
+| `generate_case_study_f5_stage08_interoperability_substrates.py` | Stage 08 interoperability visualization |
+
+Importantly:
+
+```text
+many VAP figures are generated deterministically from analytical substrates rather than manually assembled.
+```
+
+This reinforces:
+
+* reproducibility,
+* provenance continuity,
+* and governance transparency.
+
+---
+
+# MARK Execution Ecosystem
+
+The `mark/` namespace contains HPC-oriented execution workflows associated with the MARK execution environment.
+
+These scripts support:
+
+* staged checkpoint execution,
+* HG002 benchmarking,
+* WES/WGS baseline execution,
+* lightweight export workflows,
+* substrate generation,
+* and execution reproducibility.
+
+Representative workflows include:
+
+| Script Class | Purpose                                |
+| ------------ | -------------------------------------- |
+| `mark_run_*` | deterministic stage execution wrappers |
+| `build_*`    | cohort-scale substrate generation      |
+| `export_*`   | lightweight evidence export workflows  |
+
+This namespace reflects the operational reality that VAP matured through:
+
+```text
+real HPC execution infrastructure
+```
+
+rather than exclusively local lightweight experimentation.
+
+---
+
+# Resource & Environment Ecosystem
+
+The `resources/`, `environment/`, and `tools/` namespaces govern operational infrastructure setup.
+
+These workflows support:
+
+* annotation-resource acquisition,
+* reference setup,
+* GIAB benchmarking resources,
+* dependency installation,
+* and environment validation.
+
+Representative infrastructure includes:
+
+| Namespace      | Purpose                                      |
+| -------------- | -------------------------------------------- |
+| `resources/`   | external biological resource acquisition     |
+| `environment/` | Python environment validation                |
+| `tools/`       | dependency installation and pipeline tooling |
+
+These scripts emphasize:
+
+* infrastructure reproducibility,
+* operational portability,
+* and controlled environment initialization.
+
+---
+
+# Relationship to Contracts
+
+Many operationally important scripts are governed by contracts located within:
+
+* `docs/contracts/script/`
+
+These contracts formalize:
+
+* execution expectations,
+* substrate guarantees,
+* interoperability continuity,
+* and analytical export behavior.
+
+The script ecosystem therefore balances:
+
+```text
+operational flexibility
+```
+
+with:
+
+```text
+governed reproducibility.
 ```
 
 ---
 
-## Execution Model
+# Relationship to Case Studies
 
-### Recommended setup order
+The script ecosystem directly generated many substrates later surfaced throughout:
 
-Run scripts in the following order when provisioning a new system:
+* HG002 benchmarking,
+* semantic reproducibility studies,
+* interoperability analyses,
+* and cross-run governance case studies.
 
-1. `environment/setup_python_env.sh`
-2. `tools/setup_pipeline_tools.sh`
-3. `resources/setup_grch38_reference_resources.sh`
-4. `resources/setup_giab_benchmark_resources.sh`
-5. `resources/setup_annotation_resources.sh`
+Importantly, many later public-facing artifacts originated from:
 
-Then validate:
-
-6. `environment/validate_python_env.sh`
-7. `tools/validate_pipeline_tools.sh`
-8. `resources/validate_resources.sh`
-
-Optional:
-
-* `orchestration/setup_vap.sh` can automate this sequence
+* deterministic analytical builders,
+* substrate aggregators,
+* telemetry harvesters,
+* and figure-generation workflows contained here.
 
 ---
 
-## Design Principles
+# Operational Maturity Themes
 
-### 1. Separation of Concerns
+The script ecosystem consistently emphasizes:
 
-Each subdirectory owns a distinct layer:
+* reproducible evidence generation,
+* analytical decomposition,
+* telemetry-aware execution,
+* provenance continuity,
+* interoperability-oriented substrate generation,
+* and deterministic figure rendering.
 
-| Layer         | Responsibility                |
-| ------------- | ----------------------------- |
-| environment   | Python virtual environment    |
-| tools         | External executables          |
-| resources     | Large datasets and references |
-| data_prep     | Sample-specific preprocessing |
-| orchestration | Workflow coordination         |
-| mark          | Pipeline testing / validation |
+Collectively, these scripts reveal how VAP evolved operationally through:
 
-Scripts must not cross boundaries.
-
----
-
-### 2. Idempotency
-
-All setup scripts must be safe to re-run:
-
-* do not overwrite valid existing data
-* skip completed steps
-* validate before downloading or installing
+* iterative execution,
+* governed analysis generation,
+* and reproducible semantic evidence construction.
 
 ---
 
-### 3. Validation-First Behavior
+# Recommended Reading Order
 
-Each setup script should:
+Most reviewers should begin with:
 
-1. check if requirement is already satisfied
-2. validate correctness
-3. only perform work if needed
+1. `benchmarking/run_hg002_happy_benchmark.py`
+2. `analysis/compare_vap_runs.py`
+3. `analysis/harvest_vap_case_metrics.py`
+4. `figures/README.md`
+5. `mark/README.md`
 
----
+This sequence progressively exposes:
 
-### 4. Explicit Failure
-
-Scripts must fail early with clear messages if:
-
-* required tools are missing
-* directories are invalid
-* expected files are absent or corrupted
-
-No silent fallbacks.
+* benchmarking infrastructure,
+* reproducibility analysis,
+* evidence harvesting,
+* deterministic figure generation,
+* and HPC execution orchestration.
 
 ---
 
-### 5. System Portability
+# Final Positioning
 
-Scripts must support multiple environments (e.g., Sys76 vs Mark HPC) via:
+The `scripts/` ecosystem demonstrates that VAP matured through:
 
-* environment variables (e.g., `REF_BASE_DIR`, `GIAB_DIR`)
-* config-driven paths (preferred long-term)
+* operational execution,
+* deterministic analytical generation,
+* substrate-oriented engineering,
+* telemetry-aware workflows,
+* and reproducible evidence construction.
 
-Avoid hardcoding system-specific paths.
+These scripts therefore function as:
 
----
+```text
+operational infrastructure utilities
+```
 
-## Subdirectory Contracts
-
----
-
-### `environment/`
-
-Owns Python runtime setup.
-
-#### Scripts
-
-* `setup_python_env.sh`
-
-  * creates `.venv`
-  * installs dependencies from `requirements.txt`
-
-* `validate_python_env.sh`
-
-  * verifies required Python modules (e.g., `yaml`, `pandas`)
-  * confirms environment integrity
-
-#### Must NOT:
-
-* install system tools
-* download large datasets
-
----
-
-### `tools/`
-
-Owns external executables.
-
-#### Scripts
-
-* `setup_pipeline_tools.sh`
-
-  * installs or validates tools such as:
-
-    * `bwa`
-    * `samtools`
-    * `gatk`
-    * `vep`
-    * ANNOVAR prerequisites
-
-* `validate_pipeline_tools.sh`
-
-  * confirms executables are available on PATH
-  * reports versions
-
-#### Must NOT:
-
-* manage `.venv`
-* download reference or annotation datasets
-
----
-
-### `resources/`
-
-Owns all large, reusable datasets.
-
-#### Scripts
-
-* `setup_grch38_reference_resources.sh`
-
-  * downloads GRCh38 FASTA
-  * builds indexes (BWA, `.fai`, `.dict`)
-
-* `setup_giab_benchmark_resources.sh`
-
-  * downloads GIAB benchmark VCF, index, BED
-
-* `setup_annotation_resources.sh`
-
-  * provisions:
-
-    * VEP cache
-    * ANNOVAR humandb
-
-* `validate_resources.sh`
-
-  * verifies all required resources exist and are valid
-
-#### Must NOT:
-
-* install executables
-* manage Python environment
-
----
-
-### `data_prep/`
-
-Owns sample-specific preprocessing.
-
-#### Scripts
-
-* `prepare_srr_hg002.py`
-
-  * downloads SRA
-  * converts to FASTQ
-  * performs validation and logging
-
-#### Notes
-
-This layer operates on **data instances**, not global environment or resources.
-
----
-
-### `orchestration/`
-
-Owns high-level coordination.
-
-#### Scripts
-
-* `setup_vap.sh`
-
-  * optional top-level setup entrypoint
-  * calls scripts in correct order
-  * should remain thin (no heavy logic)
-
----
-
-### `mark/`
-
-Owns probes to HPC, pipeline checkpoint validation, and testing.
-
-#### Scripts
-
-* `mark_test_setup_pipeline_tools.sh`
-
-  * first checks for existing pipeline tools (bash or python)
-  * then sets up missing pipeline tools (bash or python)
-
-* `mark_stage07_vep_smoketest_v2.sh`
-
-  * performs a trial run smoketest of the vep annotation layer
-
-* `mark_run_stage07_checkpoint.sh`
-
-  * executes a stage 07 (annotate variants) run on real world data
-
-* `mark_run_stage08_checkpoint.sh`
-
-  * executes a stage 08 (filter and partition variants into coding + noncoding) run on real world data
-
----
-
-## Logging and Outputs
-
-All scripts should:
-
-* print clear `[INFO]`, `[WARN]`, `[ERROR]` messages
-* log critical actions and decisions
-* avoid excessive verbosity unless debugging
-
----
-
-## Future Extensions
-
-Planned improvements:
-
-* unified CLI interface (`--mode status|validate|provision`)
-* shared logging utilities across scripts
-* integration with pipeline config (`config.yaml`)
-* version tracking for tools and resources
-
----
-
-## Summary
-
-This directory enforces a disciplined setup model:
-
-* **environment → tools → resources → data → orchestration**
-* each layer is isolated, testable, and reusable
-* scripts are safe, explicit, and portable
-
-Maintaining this structure will prevent configuration drift and simplify scaling to new systems and datasets.
+supporting the broader semantic evidence ecosystem of VAP without forcing unnecessary abstraction of every analytical workflow.
