@@ -104,14 +104,15 @@ Planned improvements include:
 
 ---
 
-### PICU Data Harmonization
+### SeroStrat
 
-**Repository:** `picu_harmonization`
+**Repository:** `SeroStrat`
 
 * Develop tools for integrating clinical and biological datasets
 * Focus on:
 
   * schema standardization
+  * cohort engineering
   * data cleaning and normalization
   * downstream compatibility with analysis pipelines
 
