@@ -45,7 +45,7 @@ FN = 151,011
 
 ---
 
-## Step 4: Quick Validation Aginst Final Benchmark Summary
+## Step 4: Quick Validation Against Final Benchmark Summary
 
 ```text
 TP = 3,739,570
@@ -170,4 +170,4 @@ Recall    = 0.9612 (96.12%)
 F1        = 0.9708 (97.08%)
 ```
 
-> `hap.py` benchmarking reveals that VAP performance on HG002 exhibits robust precision, recall and F1 metrics.
+> `hap.py` benchmarking against `GIAB` `HG002` v4.2.1 high-confidence regions demonstrates strong small-variant concordance for VAP, with high aggregate precision, recall, and F1 metrics under representation-aware comparison.
