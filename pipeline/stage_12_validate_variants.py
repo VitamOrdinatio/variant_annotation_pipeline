@@ -11,6 +11,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -62,7 +63,7 @@ def _get_stage_input(state: dict[str, Any]) -> Path:
     )
 
 
-def _validate_header(fieldnames: list[str] | None, path: Path) -> list[str]:
+def _validate_header(fieldnames: Sequence[str] | None, path: Path) -> list[str]:
     if fieldnames is None:
         raise ValueError(f"Could not read header from Stage 12 input: {path}")
     missing = [field for field in REQUIRED_FIELDS if field not in fieldnames]

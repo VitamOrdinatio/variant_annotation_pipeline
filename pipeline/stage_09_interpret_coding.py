@@ -17,6 +17,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import defaultdict
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -279,7 +280,7 @@ def _assign_coding_interpretation_label(
     return "coding_common_or_low_support"
 
 
-def _validate_header(fieldnames: list[str] | None, path: Path) -> list[str]:
+def _validate_header(fieldnames: Sequence[str] | None, path: Path) -> list[str]:
     if fieldnames is None:
         raise ValueError(f"Could not read header from Stage 09 input: {path}")
     missing = [field for field in REQUIRED_FIELDS if field not in fieldnames]

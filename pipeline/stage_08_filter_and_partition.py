@@ -25,6 +25,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter, defaultdict
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -526,7 +527,7 @@ def _validate_required_file(path_str: str | None, label: str) -> Path:
     return path
 
 
-def _validate_input_header(fieldnames: list[str] | None, input_tsv: Path) -> None:
+def _validate_input_header(fieldnames: Sequence[str] | None, input_tsv: Path) -> None:
     if fieldnames is None:
         raise ValueError(f"Could not read header from Stage 08 input TSV: {input_tsv}")
     missing = [column for column in REQUIRED_INPUT_COLUMNS if column not in fieldnames]

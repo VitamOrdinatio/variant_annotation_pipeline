@@ -18,6 +18,7 @@ from __future__ import annotations
 import csv
 import json
 from collections import Counter
+from collections.abc import Sequence
 from pathlib import Path
 from typing import Any
 
@@ -144,7 +145,7 @@ def _get_stage_inputs(state: dict[str, Any]) -> tuple[Path, Path]:
     return coding, noncoding
 
 
-def _validate_header(fieldnames: list[str] | None, path: Path, origin: str) -> list[str]:
+def _validate_header(fieldnames: Sequence[str] | None, path: Path, origin: str) -> list[str]:
     if fieldnames is None:
         raise ValueError(f"Could not read header from Stage 11 input: {path}")
 
