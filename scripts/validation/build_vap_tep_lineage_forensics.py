@@ -6,7 +6,7 @@ Outputs:
   - vap_tep_lineage_artifact_inventory.tsv
   - vap_tep_lineage_transition_summary.tsv
   - vap_tep_lineage_column_catalog.tsv
-  - vap_tep_lineage_column_recommendations.tsv
+  - vap_tep_lineage_column_policy_candidates.tsv
   - vap_tep_lineage_report.md
 """
 
@@ -385,7 +385,7 @@ def main() -> None:
     surface_rank = {surface: i for i, surface in enumerate(SURFACE_ORDER)}
 
     catalog_rows = []
-    recommendation_rows = []
+    policy_candidate_rows = []
 
     for column in sorted(column_observations):
         surfaces = sorted(column_observations[column], key=lambda s: surface_rank.get(s, 999))
@@ -393,18 +393,28 @@ def main() -> None:
         last_surface = surfaces[-1]
         role, tep_rec, vdb_rec, notes = classify_column(column)
 
-        row = {
-            "column": column,
-            "first_surface": first_surface,
-            "last_surface": last_surface,
-            "observed_surfaces": ",".join(surfaces),
-            "semantic_role": role,
-            "tep_recommendation": tep_rec,
-            "vdb_recommendation": vdb_rec,
-            "notes": notes,
-        }
-        catalog_rows.append(row)
-        recommendation_rows.append(row)
+        catalog_rows.append(
+            {
+                "column": column,
+                "first_surface": first_surface,
+                "last_surface": last_surface,
+                "observed_surfaces": ",".join(surfaces),
+            }
+        )
+
+        policy_candidate_rows.append(
+            {
+                "column": column,
+                "first_surface": first_surface,
+                "last_surface": last_surface,
+                "observed_surfaces": ",".join(surfaces),
+                "semantic_role": role,
+                "tep_policy_candidate": tep_rec,
+                "vdb_policy_candidate": vdb_rec,
+                "review_status": "provisional",
+                "rationale": notes,
+            }
+        )
 
     write_tsv(
         out_dir / "vap_tep_lineage_artifact_inventory.tsv",
@@ -434,17 +444,16 @@ def main() -> None:
         catalog_rows,
         [
             "column", "first_surface", "last_surface", "observed_surfaces",
-            "semantic_role", "tep_recommendation", "vdb_recommendation", "notes",
         ],
     )
 
     write_tsv(
-        out_dir / "vap_tep_lineage_column_recommendations.tsv",
-        recommendation_rows,
+        out_dir / "vap_tep_lineage_column_policy_candidates.tsv",
+        policy_candidate_rows,
         [
-            "column", "semantic_role", "tep_recommendation",
-            "vdb_recommendation", "first_surface", "last_surface",
-            "observed_surfaces", "notes",
+            "column", "first_surface", "last_surface", "observed_surfaces",
+            "semantic_role", "tep_policy_candidate", "vdb_policy_candidate",
+            "review_status", "rationale",
         ],
     )
 
@@ -457,7 +466,7 @@ def main() -> None:
             "vap_tep_lineage_artifact_inventory.tsv",
             "vap_tep_lineage_transition_summary.tsv",
             "vap_tep_lineage_column_catalog.tsv",
-            "vap_tep_lineage_column_recommendations.tsv",
+            "vap_tep_lineage_column_policy_candidates.tsv",
         ]:
             handle.write(f"- `{filename}`\n")
         handle.write("\n## High-Level QA\n\n")
