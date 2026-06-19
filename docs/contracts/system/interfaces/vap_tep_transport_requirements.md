@@ -1,0 +1,452 @@
+# VAP Transitional Evidence Product (VAP-TEP) Transport Requirements
+
+The `vap_tep_transport_requirements.md` defines how a compliant VAP-TEP is exchanged between systems, and is supported by:
+
+```text
+vap_tep_contract.md
+        ↓
+vap_tep_transport_requirements.md (this document)
+        ↓
+vap_tep_acceptance_criteria.md
+        ↓
+implementation
+```
+
+See also:
+
+- [VAP TEP Core Contract](../core/vap_tep_contract.md)
+- [VAP TEP Acceptance Criteria](../validation/vap_tep_acceptance_criteria.md)
+
+
+This document (`vap_tep_transport_requirements.md`) thus answers:
+
+```text
+How is a TEP packaged?
+How are artifacts referenced?
+What identifiers are mandatory?
+What lineage metadata is required?
+What must a consumer be able to discover?
+```
+
+---
+
+## Purpose
+
+This document defines the transport requirements for a VAP Transitional Evidence Product (VAP-TEP).
+
+The VAP-TEP Contract defines the required preservation entities that must exist within a VAP-TEP.
+
+This document defines how those entities must be packaged, identified, referenced, validated, and exchanged between systems.
+
+The primary transport target for VAP-TEP v1 is:
+
+```text
+VAP
+    →
+VAP-TEP
+    →
+VDB
+```
+
+Future consumers may include additional repositories and services.
+
+---
+
+# 1. Scope
+
+This document governs:
+
+* VAP-TEP packaging
+* VAP-TEP identity
+* VAP-TEP lineage transport
+* VAP-TEP interoperability requirements
+
+This document does not govern:
+
+* VDB persistence behavior
+* VDB storage implementation
+* VDB query implementation
+* downstream evidence federation
+
+---
+
+# 2. Transport Philosophy
+
+A VAP-TEP is a transport artifact.
+
+Transport must preserve:
+
+```text
+identity
+lineage
+provenance
+preservation semantics
+```
+
+Transport must not require reconstruction of scientific context.
+
+A downstream consumer must be able to determine:
+
+```text
+what evidence exists
+where it originated
+how it evolved
+```
+
+without requiring access to the original VAP run directory.
+
+---
+
+# 3. Required Transport Package
+
+A VAP-TEP transport package MUST contain:
+
+```text
+Observation Entity
+Normalization Entity
+Routing Entity
+Coding Interpretation Overlay
+Noncoding Interpretation Overlay
+Prioritization Overlay
+Validation Overlay
+Lineage Manifest
+Context Sidecar
+```
+
+as defined by the VAP-TEP Contract.
+
+A compliant transport package MUST contain all required evidence entities
+and a Context Sidecar.
+
+Partial transport packages are non-compliant.
+
+---
+
+# 4. Transport Identity Requirements
+
+Every VAP-TEP MUST possess a globally unique identifier.
+
+## Required Identifier
+
+```text
+tep_id
+```
+
+The `tep_id` serves as the authoritative identity for the transported evidence product.
+
+## Required Associated Identifiers
+
+```text
+sample_id
+run_id
+```
+
+These identifiers MUST remain discoverable from the transport package.
+
+---
+
+# 5. Entity Identity Requirements
+
+Each transported entity MUST possess a stable transport identity.
+
+At minimum:
+
+```text
+entity_id
+entity_role
+```
+
+MUST be preserved.
+
+Example:
+
+```text
+observation_entity
+normalization_entity
+routing_entity
+coding_interpretation_overlay
+noncoding_interpretation_overlay
+prioritization_overlay
+validation_overlay
+```
+
+Transport consumers MUST be able to determine entity role without inspecting entity contents.
+
+---
+
+# 6. Artifact Provenance Requirements
+
+Every transported entity MUST preserve provenance information.
+
+At minimum:
+
+```text
+source_artifact
+source_stage
+```
+
+MUST be preserved.
+
+Examples:
+
+```text
+HG002_run_2026_06_03_010030.annotated_variants.tsv
+
+stage_08_vdb_ready_variants.tsv
+
+stage_09_coding_interpreted.tsv
+```
+
+Transport consumers MUST be able to determine the original VAP artifact from which an entity was derived.
+
+---
+
+# 7. Lineage Manifest Requirements
+
+A compliant VAP-TEP MUST contain a lineage manifest.
+
+The lineage manifest serves as the authoritative transport index.
+
+## Required Fields
+
+At minimum:
+
+```text
+tep_id
+tep_schema_version
+
+sample_id
+run_id
+
+entity_id
+entity_role
+
+source_stage
+source_artifact
+
+source_artifact_sha256
+
+row_count
+column_count
+
+parent_entities
+child_entities
+```
+
+MUST be preserved.
+
+---
+
+# 8. Stage07–Stage08 Linkage Requirements
+
+The relationship between observation and normalization entities is mandatory.
+
+A compliant transport package MUST preserve:
+
+```text
+Stage07 Observation Entity
+```
+
+and
+
+```text
+Stage08 Normalization Entity
+```
+
+as distinct transport entities.
+
+The lineage manifest MUST preserve evidence demonstrating:
+
+```text
+Stage07
+    →
+Stage08
+```
+
+lineage continuity.
+
+At minimum:
+
+```text
+sample_id
+run_id
+variant_id
+```
+
+MUST support this linkage.
+
+---
+
+# 9. Variant Identity Requirements
+
+Variant identity is the primary transport join mechanism.
+
+The following identifier MUST remain transport-stable:
+
+```text
+variant_id
+```
+
+Transport consumers MUST be able to reconstruct variant lineage using `variant_id`.
+
+Variant identity MUST NOT be regenerated by downstream consumers.
+
+---
+
+# 10. Integrity Requirements
+
+Every transported entity MUST support integrity verification.
+
+At minimum:
+
+```text
+sha256
+```
+
+checksums MUST be preserved for:
+
+```text
+source artifacts
+transport entities
+```
+
+A transport consumer MUST be able to verify that transported content has not been altered.
+
+---
+
+# 11. Packaging Requirements
+
+The transport package MUST be self-describing.
+
+A consumer MUST be able to discover:
+
+```text
+tep identity
+entity inventory
+lineage relationships
+source provenance
+```
+
+without requiring access to external metadata systems.
+
+The transport package MUST contain:
+
+```text
+lineage_manifest
+```
+
+at package root level.
+
+---
+
+# 12. Context Sidecar Requirements
+
+Stage13-derived context MAY be transported separately from evidence entities.
+
+Examples include:
+
+```text
+stage_funnel_summary.tsv
+variant_summary.tsv
+run_metadata.json
+runtime_profile.tsv
+```
+
+The Context Sidecar preserves execution context but does not constitute primary evidence lineage.
+
+
+The Context Sidecar MUST NOT replace:
+
+```text
+Observation Entity
+Normalization Entity
+Interpretation Overlays
+Prioritization Overlay
+Validation Overlay
+```
+
+The Context Sidecar exists to provide:
+
+```text
+audit context
+execution context
+run summaries
+```
+
+only.
+
+---
+
+# 13. Consumer Requirements
+
+A compliant VAP-TEP consumer MUST be capable of:
+
+```text
+reading lineage manifest
+enumerating entities
+verifying transport identity
+verifying integrity metadata
+```
+
+A compliant consumer MUST NOT assume:
+
+```text
+merged evidence views
+candidate-only preservation
+single-entity payloads
+```
+
+---
+
+# 14. Future Compatibility Requirements
+
+Transport implementations MUST support future expansion.
+
+Consumers MUST NOT assume:
+
+```text
+single-transcript models
+current Stage08 artifact equivalence
+current interpretation schema
+```
+
+Future VAP releases may introduce:
+
+```text
+multi-transcript interpretation
+expanded noncoding interpretation
+additional interoperability entities
+```
+
+Transport implementations MUST preserve forward compatibility with such additions.
+
+Consumers MUST NOT assume:
+
+```text
+stage_08_selected_transcript_consequences.tsv
+=
+stage_08_vdb_ready_variants.tsv
+```
+
+These artifacts are equivalent in VAP v1 but may diverge in future releases as transcript modeling evolves.
+
+
+---
+
+# 15. Compliance
+
+A VAP-TEP transport package is compliant only if:
+
+```text
+all required entities exist
+
+all required identifiers exist
+
+all required lineage metadata exists
+
+all required provenance metadata exists
+
+all required integrity metadata exists
+```
+
+and transport consumers can reconstruct evidence lineage without requiring access to the original VAP execution directory.
