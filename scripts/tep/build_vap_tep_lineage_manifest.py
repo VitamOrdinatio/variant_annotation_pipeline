@@ -24,6 +24,7 @@ python scripts/tep/build_vap_tep_lineage_manifest.py \
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from datetime import datetime, timezone
 from pathlib import Path
@@ -72,6 +73,29 @@ def write_json(path: Path, payload: dict[str, Any]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         json.dump(payload, handle, indent=2, sort_keys=True)
         handle.write("\n")
+
+
+def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        while True:
+            chunk = handle.read(chunk_size)
+            if not chunk:
+                break
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def update_lineage_manifest_entity_sha256(
+    manifest: dict[str, Any],
+    manifest_sha256: str,
+) -> None:
+    for entity in manifest["entities"]:
+        if entity.get("entity_id") == "lineage_manifest":
+            entity["sha256"] = manifest_sha256
+            return
+
+    raise ValueError("lineage_manifest entity not found.")
 
 
 def validate_inventory(inventory: dict[str, Any], inventory_path: Path) -> None:
@@ -217,9 +241,9 @@ def build_lineage_edges() -> list[dict[str, str]]:
     for role in REQUIRED_ENTITY_ROLES:
         edges.append(
             {
-                "parent_entity_id": "lineage_manifest",
-                "child_entity_id": role,
-                "relationship": "indexes",
+                "parent_entity_id": role,
+                "child_entity_id": "lineage_manifest",
+                "relationship": "indexed_by",
                 "validation_basis": "vap_tep_transport_requirements_v1",
             }
         )
@@ -299,6 +323,10 @@ def main() -> None:
     validate_inventory(inventory, inventory_path)
 
     manifest = build_lineage_manifest(inventory, inventory_path)
+    write_json(output_path, manifest)
+
+    manifest_sha256 = sha256_file(output_path)
+    update_lineage_manifest_entity_sha256(manifest, manifest_sha256)
     write_json(output_path, manifest)
 
     print("VAP-TEP lineage manifest construction complete.")
