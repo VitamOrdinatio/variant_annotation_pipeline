@@ -69,13 +69,19 @@ class EntityInventoryRecord:
     entity_role: str
     source_stage: str
     required: bool
+
     artifact_count: int
     copied_artifacts: int
     missing_required_artifacts: int
+
+    metric_semantics: str
+
     total_size_bytes: int | None
+
     row_count: int | None
     column_count: int | None
     variant_id_count: int | None
+
     artifacts: list[dict]
 
 
@@ -359,6 +365,8 @@ def build_entity_records(
             if record.required and not record.source_artifact_exists
         ]
 
+        single_artifact_entity = len(records) == 1
+
         entities.append(
             EntityInventoryRecord(
                 entity_id=entity_id,
@@ -369,9 +377,31 @@ def build_entity_records(
                 copied_artifacts=sum(1 for record in records if record.copied),
                 missing_required_artifacts=len(missing_required),
                 total_size_bytes=sum(size_values) if size_values else None,
-                row_count=max(row_values) if row_values else None,
-                column_count=max(column_values) if column_values else None,
-                variant_id_count=max(variant_id_values) if variant_id_values else None,
+
+                metric_semantics=(
+                    "single_artifact_entity_metrics"
+                    if single_artifact_entity
+                    else "multi_artifact_entity_metrics_available_per_artifact"
+                ),
+
+                row_count=(
+                    row_values[0]
+                    if single_artifact_entity and row_values
+                    else None
+                ),
+
+                column_count=(
+                    column_values[0]
+                    if single_artifact_entity and column_values
+                    else None
+                ),
+
+                variant_id_count=(
+                    variant_id_values[0]
+                    if single_artifact_entity and variant_id_values
+                    else None
+                ),
+
                 artifacts=[asdict(record) for record in records],
             )
         )
