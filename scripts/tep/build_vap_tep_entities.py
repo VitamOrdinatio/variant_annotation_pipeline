@@ -63,6 +63,22 @@ class ArtifactInventoryRecord:
     sha256: str | None
 
 
+@dataclass
+class EntityInventoryRecord:
+    entity_id: str
+    entity_role: str
+    source_stage: str
+    required: bool
+    artifact_count: int
+    copied_artifacts: int
+    missing_required_artifacts: int
+    total_size_bytes: int | None
+    row_count: int | None
+    column_count: int | None
+    variant_id_count: int | None
+    artifacts: list[dict]
+
+
 ARTIFACT_SPECS = [
     ArtifactSpec(
         entity_id="observation_entity",
@@ -299,6 +315,70 @@ def build_record(
     )
 
 
+def build_entity_records(
+    artifact_records: list[ArtifactInventoryRecord],
+) -> list[EntityInventoryRecord]:
+    grouped: dict[str, list[ArtifactInventoryRecord]] = {}
+
+    for record in artifact_records:
+        grouped.setdefault(record.entity_id, []).append(record)
+
+    entities: list[EntityInventoryRecord] = []
+
+    for entity_id in sorted(grouped):
+        records = grouped[entity_id]
+        first = records[0]
+
+        size_values = [
+            record.size_bytes
+            for record in records
+            if record.size_bytes is not None
+        ]
+
+        row_values = [
+            record.row_count
+            for record in records
+            if record.row_count is not None
+        ]
+
+        column_values = [
+            record.column_count
+            for record in records
+            if record.column_count is not None
+        ]
+
+        variant_id_values = [
+            record.variant_id_count
+            for record in records
+            if record.variant_id_count is not None
+        ]
+
+        missing_required = [
+            record
+            for record in records
+            if record.required and not record.source_artifact_exists
+        ]
+
+        entities.append(
+            EntityInventoryRecord(
+                entity_id=entity_id,
+                entity_role=first.entity_role,
+                source_stage=first.source_stage,
+                required=any(record.required for record in records),
+                artifact_count=len(records),
+                copied_artifacts=sum(1 for record in records if record.copied),
+                missing_required_artifacts=len(missing_required),
+                total_size_bytes=sum(size_values) if size_values else None,
+                row_count=max(row_values) if row_values else None,
+                column_count=max(column_values) if column_values else None,
+                variant_id_count=max(variant_id_values) if variant_id_values else None,
+                artifacts=[asdict(record) for record in records],
+            )
+        )
+
+    return entities
+
+
 def write_json(path: Path, payload: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:
@@ -356,6 +436,8 @@ def build_entities(
         if record.required and not record.source_artifact_exists
     ]
 
+    entity_records = build_entity_records(records)
+
     inventory = {
         "inventory_type": "vap_tep_entity_inventory",
         "inventory_schema_version": "0.1.0",
@@ -375,10 +457,12 @@ def build_entities(
             "package_format": "directory",
         },
         "summary": {
+            "entity_records": len(entity_records),
             "artifact_records": len(records),
             "missing_required_artifacts": len(missing_required),
             "copied_artifacts": sum(1 for record in records if record.copied),
         },
+        "entities": [asdict(record) for record in entity_records],
         "artifacts": [asdict(record) for record in records],
     }
 
@@ -398,6 +482,7 @@ def build_entities(
     print(f"  run_id: {run_id}")
     print(f"  tep_id: {tep_id}")
     print(f"  package_root: {package_root}")
+    print(f"  entity_records: {len(entity_records)}")
     print(f"  artifact_records: {len(records)}")
     print(f"  copied_artifacts: {sum(1 for record in records if record.copied)}")
     print(f"  missing_required_artifacts: {len(missing_required)}")
