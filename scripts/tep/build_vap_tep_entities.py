@@ -83,6 +83,7 @@ class EntityInventoryRecord:
     variant_id_count: int | None
 
     artifacts: list[dict]
+    artifact_metrics: dict[str, dict[str, int | None]]
 
 
 ARTIFACT_SPECS = [
@@ -367,6 +368,16 @@ def build_entity_records(
 
         single_artifact_entity = len(records) == 1
 
+        artifact_metrics = {
+            record.source_artifact_role: {
+                "row_count": record.row_count,
+                "column_count": record.column_count,
+                "variant_id_count": record.variant_id_count,
+                "size_bytes": record.size_bytes,
+            }
+            for record in records
+        }
+
         entities.append(
             EntityInventoryRecord(
                 entity_id=entity_id,
@@ -374,6 +385,7 @@ def build_entity_records(
                 source_stage=first.source_stage,
                 required=any(record.required for record in records),
                 artifact_count=len(records),
+                artifact_metrics=artifact_metrics,
                 copied_artifacts=sum(1 for record in records if record.copied),
                 missing_required_artifacts=len(missing_required),
                 total_size_bytes=sum(size_values) if size_values else None,
