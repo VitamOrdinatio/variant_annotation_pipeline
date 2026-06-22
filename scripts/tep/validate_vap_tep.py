@@ -32,7 +32,7 @@ from pathlib import Path
 from typing import Any
 
 
-VALIDATOR_VERSION = "0.1.0"
+VALIDATOR_VERSION = "0.2.0"
 
 REQUIRED_ENTITY_ROLES = [
     "observation_entity",
@@ -62,6 +62,84 @@ REQUIRED_INDEXED_BY_EDGES = [
     for role in REQUIRED_ENTITY_ROLES
     if role != "lineage_manifest"
 ]
+
+SEMANTIC_SURFACE_REQUIREMENTS = {
+    "AC-040": {
+        "description": "Stage08 normalization semantic surface preserved",
+        "artifact_roles": [
+            "stage08_selected_transcript_consequences",
+            "stage08_vdb_ready_variants",
+        ],
+        "required_columns": {
+            "annotation_source",
+            "annotation_version",
+            "gene_mapping_status",
+            "variant_context",
+            "variant_effect_severity",
+            "qc_status",
+            "interpretability_status",
+            "frequency_status",
+            "clinical_status",
+        },
+    },
+    "AC-041": {
+        "description": "Stage09 coding interpretation semantic surface preserved",
+        "artifact_roles": ["stage09_coding_interpreted"],
+        "required_columns": {
+            "functional_impact",
+            "rarity_flag",
+            "clinical_evidence",
+            "qc_reliability",
+            "coding_interpretation_label",
+            "is_lof_candidate",
+            "is_rare_candidate",
+            "is_clinically_supported",
+            "is_high_quality",
+            "is_potential_artifact",
+        },
+    },
+    "AC-042": {
+        "description": "Stage10 noncoding interpretation semantic surface preserved",
+        "artifact_roles": ["stage10_noncoding_interpreted"],
+        "required_columns": {
+            "noncoding_functional_context",
+            "rarity_flag",
+            "clinical_evidence",
+            "qc_reliability",
+            "noncoding_interpretation_label",
+            "is_regulatory_candidate",
+            "is_rare_candidate",
+            "is_clinically_supported",
+            "is_high_quality",
+            "is_potential_artifact",
+        },
+    },
+    "AC-043": {
+        "description": "Stage11 prioritization semantic surface preserved",
+        "artifact_roles": ["stage11_prioritized_variants"],
+        "required_columns": {
+            "variant_origin",
+            "source_interpretation_label",
+            "priority_tier",
+            "priority_rank",
+            "priority_reason",
+            "is_high_priority_candidate",
+            "is_moderate_priority_candidate",
+            "is_low_priority_candidate",
+            "is_uninterpretable",
+        },
+    },
+    "AC-044": {
+        "description": "Stage12 validation semantic surface preserved",
+        "artifact_roles": ["stage12_validation_candidates"],
+        "required_columns": {
+            "validation_required",
+            "validation_priority",
+            "suggested_validation_method",
+            "validation_reason",
+        },
+    },
+}
 
 
 @dataclass
@@ -555,6 +633,65 @@ def check_stage07_stage08_continuity(manifest: dict[str, Any]) -> list[Validatio
     return checks
 
 
+def check_semantic_surfaces(manifest: dict[str, Any]) -> list[ValidationCheck]:
+    checks: list[ValidationCheck] = []
+
+    artifact_metrics_by_role: dict[str, dict[str, Any]] = {}
+
+    for entity in manifest.get("entities", []):
+        artifact_metrics = entity.get("artifact_metrics", {})
+        if isinstance(artifact_metrics, dict):
+            for artifact_role, metrics in artifact_metrics.items():
+                if isinstance(metrics, dict):
+                    artifact_metrics_by_role[str(artifact_role)] = metrics
+
+    for criterion, requirement in SEMANTIC_SURFACE_REQUIREMENTS.items():
+        description = str(requirement["description"])
+        artifact_roles = requirement["artifact_roles"]
+        required_columns = set(requirement["required_columns"])
+
+        failures: list[str] = []
+
+        for artifact_role in artifact_roles:
+            metrics = artifact_metrics_by_role.get(artifact_role)
+
+            if metrics is None:
+                failures.append(f"{artifact_role}: missing artifact_metrics")
+                continue
+
+            observed_columns = metrics.get("observed_columns")
+
+            if not isinstance(observed_columns, list):
+                failures.append(f"{artifact_role}: missing observed_columns")
+                continue
+
+            observed_column_set = set(str(column) for column in observed_columns)
+            missing_columns = sorted(required_columns - observed_column_set)
+
+            if missing_columns:
+                failures.append(
+                    f"{artifact_role}: missing columns {missing_columns}"
+                )
+
+        if failures:
+            checks.append(
+                fail_check(
+                    criterion,
+                    description,
+                    "; ".join(failures),
+                )
+            )
+        else:
+            checks.append(
+                pass_check(
+                    criterion,
+                    description,
+                )
+            )
+
+    return checks
+
+
 def check_preservation_context(manifest: dict[str, Any]) -> list[ValidationCheck]:
     checks: list[ValidationCheck] = []
 
@@ -671,6 +808,7 @@ def validate_vap_tep(
     checks.extend(check_transport_paths_and_hashes(manifest, package_root))
     checks.extend(check_lineage_edges(manifest))
     checks.extend(check_stage07_stage08_continuity(manifest))
+    checks.extend(check_semantic_surfaces(manifest))
     checks.extend(check_preservation_context(manifest))
 
     update_validation_summary(manifest, checks)
