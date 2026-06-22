@@ -60,6 +60,7 @@ class ArtifactInventoryRecord:
     row_count: int | None
     column_count: int | None
     variant_id_count: int | None
+    observed_columns: list[str] | None
     sha256: str | None
 
 
@@ -83,7 +84,7 @@ class EntityInventoryRecord:
     variant_id_count: int | None
 
     artifacts: list[dict]
-    artifact_metrics: dict[str, dict[str, int | None]]
+    artifact_metrics: dict[str, dict[str, int | list[str] | None]]
 
 
 ARTIFACT_SPECS = [
@@ -234,9 +235,9 @@ def sha256_file(path: Path, chunk_size: int = 1024 * 1024) -> str:
     return digest.hexdigest()
 
 
-def tabular_counts(path: Path) -> tuple[int | None, int | None, int | None]:
+def tabular_counts(path: Path) -> tuple[int | None, int | None, int | None, list[str] | None]:
     if path.suffix.lower() != ".tsv":
-        return None, None, None
+        return None, None, None, None
 
     row_count = 0
     column_count: int | None = None
@@ -247,9 +248,10 @@ def tabular_counts(path: Path) -> tuple[int | None, int | None, int | None]:
         try:
             header = next(reader)
         except StopIteration:
-            return 0, 0, None
+            return 0, 0, None, []
 
         header = [field.strip().replace("\ufeff", "") for field in header]
+        observed_columns = list(header)
         column_count = len(header)
 
         variant_idx = header.index("variant_id") if "variant_id" in header else None
@@ -262,7 +264,7 @@ def tabular_counts(path: Path) -> tuple[int | None, int | None, int | None]:
                 assert variant_ids is not None
                 variant_ids.add(row[variant_idx])
 
-    return row_count, column_count, len(variant_ids) if variant_ids is not None else None
+    return row_count, column_count, len(variant_ids) if variant_ids is not None else None, observed_columns
 
 
 def copy_artifact(source: Path, destination: Path, dry_run: bool) -> bool:
@@ -294,6 +296,7 @@ def build_record(
             size_bytes=None,
             row_count=None,
             column_count=None,
+            observed_columns=None,
             variant_id_count=None,
             sha256=None,
         )
@@ -302,7 +305,12 @@ def build_record(
     destination = entity_dir / source.name
     copied = copy_artifact(source, destination, dry_run=dry_run)
 
-    row_count, column_count, variant_id_count = tabular_counts(source)
+    (
+        row_count,
+        column_count,
+        variant_id_count,
+        observed_columns,
+    ) = tabular_counts(source)    
 
     return ArtifactInventoryRecord(
         entity_id=spec.entity_id,
@@ -317,6 +325,7 @@ def build_record(
         size_bytes=source.stat().st_size,
         row_count=row_count,
         column_count=column_count,
+        observed_columns=observed_columns,
         variant_id_count=variant_id_count,
         sha256=sha256_file(source),
     )
@@ -369,11 +378,13 @@ def build_entity_records(
         single_artifact_entity = len(records) == 1
 
         artifact_metrics = {
-            record.source_artifact_role: {
+            record.source_artifact_role: 
+            {
                 "row_count": record.row_count,
                 "column_count": record.column_count,
                 "variant_id_count": record.variant_id_count,
                 "size_bytes": record.size_bytes,
+                "observed_columns": record.observed_columns,
             }
             for record in records
         }

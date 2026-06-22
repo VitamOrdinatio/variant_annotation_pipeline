@@ -561,7 +561,7 @@ def check_preservation_context(manifest: dict[str, Any]) -> list[ValidationCheck
     required_roles = {
         "AC-029": "observation_entity",
         "AC-030": "normalization_entity",
-        "AC-031": "coding_interpretation_overlay",
+        "AC-031A": "coding_interpretation_overlay",
         "AC-032": "prioritization_overlay",
         "AC-033": "validation_overlay",
     }
@@ -577,14 +577,14 @@ def check_preservation_context(manifest: dict[str, Any]) -> list[ValidationCheck
     if grouped.get("coding_interpretation_overlay") and grouped.get("noncoding_interpretation_overlay"):
         checks.append(
             pass_check(
-                "AC-031",
+                "AC-031B",
                 "Coding and noncoding interpretation overlays remain present",
             )
         )
     else:
         checks.append(
             fail_check(
-                "AC-031",
+                "AC-031B",
                 "Coding and noncoding interpretation overlays remain present",
                 "One or both interpretation overlays missing",
             )

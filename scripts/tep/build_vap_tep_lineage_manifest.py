@@ -150,6 +150,33 @@ def entity_sha256(entity: dict[str, Any]) -> str | None:
     return str(value) if value else None
 
 
+def entity_bundle_sha256(entity: dict[str, Any]) -> str | None:
+    """
+    Deterministic integrity anchor for multi-artifact entities.
+
+    Bundle hash is derived from the ordered collection of
+    source_artifact_sha256 values rather than file contents.
+    """
+
+    source_artifacts = entity.get("artifacts", [])
+
+    if not source_artifacts:
+        return None
+
+    digest = hashlib.sha256()
+
+    for artifact in sorted(
+        source_artifacts,
+        key=lambda x: x["source_artifact_role"],
+    ):
+        sha = artifact.get("sha256")
+
+        if sha:
+            digest.update(sha.encode("utf-8"))
+
+    return digest.hexdigest()
+
+
 def entity_transport_paths(entity: dict[str, Any]) -> list[str]:
     paths: list[str] = []
     for artifact in entity.get("artifacts", []):
@@ -199,7 +226,11 @@ def build_manifest_entities(inventory: dict[str, Any]) -> list[dict[str, Any]]:
                 "metric_semantics": entity.get("metric_semantics"),
                 "artifact_metrics": entity.get("artifact_metrics"),
                 "total_size_bytes": entity.get("total_size_bytes"),
-                "sha256": entity_sha256(entity),
+                "sha256": (
+                    entity_sha256(entity)
+                    if entity_sha256(entity) is not None
+                    else entity_bundle_sha256(entity)
+                ),
             }
         )
 
