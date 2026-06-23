@@ -2,6 +2,8 @@
 """
 ERR10619300 VAP-TEP Certification Probe
 
+Of the 144 SRAs, ERR10619300 is part of the median cohort with respect to read counts.
+
 Run from the VAP repository root on MARK:
 
     python probe_err10619300_vap_tep_certification.py
