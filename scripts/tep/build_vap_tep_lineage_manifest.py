@@ -32,7 +32,7 @@ from typing import Any
 
 
 MANIFEST_SCHEMA_VERSION = "0.1.0"
-LINEAGE_BUILDER_VERSION = "0.1.0"
+LINEAGE_BUILDER_VERSION = "0.2.0"
 
 REQUIRED_ENTITY_ROLES = [
     "observation_entity",
@@ -43,6 +43,7 @@ REQUIRED_ENTITY_ROLES = [
     "prioritization_overlay",
     "validation_overlay",
     "context_sidecar",
+    "package_metadata",
 ]
 
 LINEAGE_EDGES = [
@@ -256,7 +257,7 @@ def build_manifest_entities(inventory: dict[str, Any]) -> list[dict[str, Any]]:
     return manifest_entities
 
 
-def build_lineage_edges() -> list[dict[str, str]]:
+def build_lineage_edges(entity_roles: list[str] | None = None) -> list[dict[str, str]]:
     edges: list[dict[str, str]] = []
 
     for parent, child, relationship in LINEAGE_EDGES:
@@ -269,7 +270,9 @@ def build_lineage_edges() -> list[dict[str, str]]:
             }
         )
 
-    for role in REQUIRED_ENTITY_ROLES:
+    roles_to_index = entity_roles or REQUIRED_ENTITY_ROLES
+
+    for role in sorted(set(roles_to_index)):
         edges.append(
             {
                 "parent_entity_id": role,
@@ -304,7 +307,9 @@ def build_lineage_manifest(inventory: dict[str, Any], inventory_path: Path) -> d
             "self_describing": True,
         },
         "entities": build_manifest_entities(inventory),
-        "lineage_edges": build_lineage_edges(),
+        "lineage_edges": build_lineage_edges(
+            [entity["entity_role"] for entity in inventory["entities"]]
+        ),
         "validation_summary": {
             "validation_status": "not_validated",
             "criteria_version": "vap_tep_acceptance_criteria_v1",

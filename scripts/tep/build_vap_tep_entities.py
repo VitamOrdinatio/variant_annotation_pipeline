@@ -31,7 +31,7 @@ from typing import Iterable
 
 
 TEP_SCHEMA_VERSION = "vap_tep_v1"
-ENTITY_BUILDER_VERSION = "0.1.0"
+ENTITY_BUILDER_VERSION = "0.2.0"
 
 
 @dataclass(frozen=True)
@@ -43,6 +43,7 @@ class ArtifactSpec:
     source_pattern: str
     entity_subdir: str
     required: bool = True
+    source_root: str = "processed"
 
 
 @dataclass
@@ -191,6 +192,16 @@ ARTIFACT_SPECS = [
         source_artifact_role="stage13_run_report",
         source_pattern="stage_13_run_report.md",
         entity_subdir="context",
+    ),
+    ArtifactSpec(
+        entity_id="package_metadata",
+        entity_role="package_metadata",
+        source_stage="run_metadata",
+        source_artifact_role="config_snapshot",
+        source_pattern="config_snapshot.yaml",
+        entity_subdir="metadata",
+        required=True,
+        source_root="metadata",
     ),
 ]
 
@@ -446,10 +457,13 @@ def build_entities(
     overwrite: bool,
 ) -> Path:
     processed_dir = run_dir / "processed"
+    metadata_dir = run_dir / "metadata"
     if not run_dir.exists():
         raise FileNotFoundError(f"Run directory does not exist: {run_dir}")
     if not processed_dir.exists():
         raise FileNotFoundError(f"Processed directory does not exist: {processed_dir}")
+    if not metadata_dir.exists():
+        raise FileNotFoundError(f"Metadata directory does not exist: {metadata_dir}")
 
     run_id = run_dir.name
     sample_id = infer_sample_id(run_dir, processed_dir)
@@ -473,7 +487,14 @@ def build_entities(
     records: list[ArtifactInventoryRecord] = []
 
     for spec in ARTIFACT_SPECS:
-        source = find_one(processed_dir, spec.source_pattern)
+        if spec.source_root == "processed":
+            source_dir = processed_dir
+        elif spec.source_root == "metadata":
+            source_dir = metadata_dir
+        else:
+            raise ValueError(f"Unsupported source_root for {spec.source_artifact_role}: {spec.source_root}")
+
+        source = find_one(source_dir, spec.source_pattern)
         records.append(
             build_record(
                 spec=spec,
@@ -504,6 +525,7 @@ def build_entities(
             "run_id": run_id,
             "run_directory": str(run_dir),
             "processed_directory": str(processed_dir),
+            "metadata_directory": str(metadata_dir),
         },
         "package": {
             "package_root": str(package_root),

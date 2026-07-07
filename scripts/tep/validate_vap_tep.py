@@ -32,7 +32,7 @@ from pathlib import Path
 from typing import Any
 
 
-VALIDATOR_VERSION = "0.2.0"
+VALIDATOR_VERSION = "0.3.0"
 
 REQUIRED_ENTITY_ROLES = [
     "observation_entity",
@@ -43,6 +43,7 @@ REQUIRED_ENTITY_ROLES = [
     "prioritization_overlay",
     "validation_overlay",
     "context_sidecar",
+    "package_metadata",
     "lineage_manifest",
 ]
 
@@ -333,6 +334,7 @@ def check_required_entities(manifest: dict[str, Any]) -> list[ValidationCheck]:
         "validation_overlay": "AC-007",
         "lineage_manifest": "AC-008",
         "context_sidecar": "AC-009",
+        "package_metadata": "AC-045",
     }
 
     for role in REQUIRED_ENTITY_ROLES:
@@ -701,6 +703,7 @@ def check_preservation_context(manifest: dict[str, Any]) -> list[ValidationCheck
         "AC-031A": "coding_interpretation_overlay",
         "AC-032": "prioritization_overlay",
         "AC-033": "validation_overlay",
+        "AC-045": "package_metadata",
     }
 
     grouped = entity_by_role(manifest)
