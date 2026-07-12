@@ -29,6 +29,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from pipeline.genotype_projection import project_genotype_observations
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
 from src.metrics.metric_aggregation import (
     build_f3a_flow_table,
@@ -286,6 +287,9 @@ def initialize_state(
             "normalized_vcf": None,
             "annotated_vcf": None,
             "annotated_table": None,
+            "genotype_observations": None,
+            "genotype_projection_summary": None,
+            "genotype_source_header_context": None,
             "filtered_table": None,
             "coding_table": None,
             "noncoding_table": None,
@@ -317,6 +321,7 @@ def initialize_state(
             "variant_calling_qc": {},
             "normalization_qc": {},
             "annotation_qc": {},
+            "genotype_projection_qc": {},
             "filtering_qc": {},
             "interpretation_qc": {},
             "validation_qc": {},
@@ -600,12 +605,27 @@ def stable_json_dumps(payload: dict[str, Any]) -> str:
 
 def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
     stage_outputs = state.get("stage_outputs", {})
+    numbered_stage_outputs = {
+        stage_name: stage_outputs.get(stage_name, {})
+        for stage_name in STAGE_ORDER
+    }
+
     stage_status_counts: dict[str, int] = {}
-    for stage_data in stage_outputs.values():
+    for stage_data in numbered_stage_outputs.values():
         status = stage_data.get("status", "unknown")
         stage_status_counts[status] = stage_status_counts.get(status, 0) + 1
 
+    projection_name = "genotype_observation_projection"
+    projection_data = stage_outputs.get(projection_name)
+    projection_status_counts: dict[str, int] = {}
+    if projection_data is not None:
+        projection_status = projection_data.get("status", "unknown")
+        projection_status_counts[projection_status] = 1
+
+    genotype_qc = state.get("qc", {}).get("genotype_projection_qc", {})
+    artifacts = state.get("artifacts", {})
     run = state.get("run", {})
+
     run_metadata = {
         "run": {
             "run_id": run.get("run_id"),
@@ -620,16 +640,45 @@ def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
             "config_snapshot_path": run.get("config_snapshot_path"),
         },
         "summary": {
-            "stage_count": len(stage_outputs),
+            "stage_count": len(numbered_stage_outputs),
             "stage_status_counts": stage_status_counts,
+            "projection_count": 1 if projection_data is not None else 0,
+            "projection_status_counts": projection_status_counts,
             "warning_count": len(state.get("warnings", [])),
             "error_count": len(state.get("errors", [])),
+        },
+        "genotype_projection": {
+            "status": (
+                projection_data.get("status")
+                if projection_data is not None
+                else "not_recorded"
+            ),
+            "projection_status": genotype_qc.get("projection_status"),
+            "projection_complete": genotype_qc.get(
+                "projection_complete",
+                False,
+            ),
+            "artifact_set_complete": genotype_qc.get(
+                "artifact_set_complete",
+                False,
+            ),
+            "source_record_count": genotype_qc.get("source_record_count"),
+            "genotype_observation_row_count": genotype_qc.get(
+                "genotype_observation_row_count"
+            ),
         },
         "artifacts": {
             "run_summary_report": state.get("reports", {}).get("run_summary_report"),
             "gene_summary_table": state.get("reports", {}).get("gene_summary_table"),
-            "prioritized_table": state.get("artifacts", {}).get("prioritized_table"),
-            "validation_notes": state.get("artifacts", {}).get("validation_notes"),
+            "prioritized_table": artifacts.get("prioritized_table"),
+            "validation_notes": artifacts.get("validation_notes"),
+            "genotype_observations": artifacts.get("genotype_observations"),
+            "genotype_projection_summary": artifacts.get(
+                "genotype_projection_summary"
+            ),
+            "genotype_source_header_context": artifacts.get(
+                "genotype_source_header_context"
+            ),
         },
     }
 
@@ -711,6 +760,293 @@ def should_run_stage(config: dict[str, Any], stage_name: str) -> bool:
 
     return True
 
+
+
+def _read_annotated_table_identity(
+    annotated_table_path: str | Path,
+) -> dict[str, str]:
+    """
+    Read producer identity from the first annotated-TSV data row.
+
+    This is used only when replaying a retained post-VEP fixture, where the
+    source evidence run identity is distinct from the current orchestration
+    run directory.
+    """
+    path = Path(annotated_table_path)
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Annotated TSV identity source not found: {path}"
+        )
+
+    with path.open("r", encoding="utf-8", errors="replace", newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        if reader.fieldnames is None:
+            raise ValueError(f"Annotated TSV has no header: {path}")
+
+        required = {"sample_id", "run_id", "source_pipeline"}
+        missing = sorted(required - set(reader.fieldnames))
+        if missing:
+            raise ValueError(
+                "Annotated TSV is missing producer identity columns: "
+                + ", ".join(missing)
+            )
+
+        first_row = next(reader, None)
+
+    if first_row is None:
+        raise ValueError(f"Annotated TSV contains no data rows: {path}")
+
+    identity = {
+        key: str(first_row.get(key, "")).strip()
+        for key in required
+    }
+    empty = sorted(key for key, value in identity.items() if not value)
+    if empty:
+        raise ValueError(
+            "Annotated TSV has empty producer identity values: "
+            + ", ".join(empty)
+        )
+
+    return identity
+
+
+def resolve_genotype_projection_context(
+    config: dict[str, Any],
+    state: dict[str, Any],
+    run_paths: dict[str, str],
+) -> dict[str, Any]:
+    """
+    Resolve the complete producer context required for genotype projection.
+    """
+    sample_state = state.get("sample", {})
+    run_state = state.get("run", {})
+    artifacts = state.get("artifacts", {})
+    execution_mode = config["mode"]["execution_mode"]
+
+    sample_id = sample_state.get("sample_id") or config["input"].get("sample_id")
+    run_id = run_state.get("run_id")
+    source_pipeline = (
+        run_state.get("pipeline_name")
+        or config["project"].get("pipeline_name")
+    )
+
+    if execution_mode == "post_vep_fixture":
+        annotated_table = artifacts.get("annotated_table")
+        if not annotated_table:
+            raise ValueError(
+                "Post-VEP fixture mode requires an annotated TSV identity source."
+            )
+        source_identity = _read_annotated_table_identity(annotated_table)
+
+        configured_sample = str(config["input"].get("sample_id", "")).strip()
+        configured_alias = str(
+            config["input"].get("sample_alias", "")
+        ).strip()
+        source_sample = source_identity["sample_id"]
+
+        if source_sample not in {configured_sample, configured_alias}:
+            raise ValueError(
+                "Post-VEP fixture sample identity mismatch: "
+                f"TSV={source_sample}; config_sample={configured_sample}; "
+                f"config_alias={configured_alias}"
+            )
+
+        configured_pipeline = str(
+            config["project"].get("pipeline_name", "")
+        ).strip()
+        if source_identity["source_pipeline"] != configured_pipeline:
+            raise ValueError(
+                "Post-VEP fixture source pipeline mismatch: "
+                f"TSV={source_identity['source_pipeline']}; "
+                f"config={configured_pipeline}"
+            )
+
+        sample_id = source_sample
+        run_id = source_identity["run_id"]
+        source_pipeline = source_identity["source_pipeline"]
+
+    source_vcf = artifacts.get("annotated_vcf")
+    source_label = str(source_vcf) if source_vcf else None
+
+    return {
+        "annotated_vcf_path": source_vcf,
+        "output_directory": run_paths["processed_dir"],
+        "sample_id": sample_id,
+        "sample_alias": (
+            sample_state.get("sample_alias")
+            or config["input"].get("sample_alias")
+        ),
+        "sra_accession": (
+            sample_state.get("sra_accession")
+            or config["input"].get("sra_accession")
+        ),
+        "run_id": run_id,
+        "reference_build": (
+            sample_state.get("reference_genome")
+            or config["reference"].get("genome_build")
+        ),
+        "source_pipeline": source_pipeline,
+        "assay_type": (
+            sample_state.get("assay_type")
+            or config["input"].get("assay_type")
+        ),
+        "explicit_vcf_sample_name": sample_id,
+        "source_vcf_path_label": source_label,
+        "normalization_policy_id": (
+            "post_vep_fixture_source_policy_v1"
+            if execution_mode == "post_vep_fixture"
+            else "vap_stage06_normalization_policy_v1"
+        ),
+        "normalization_state": (
+            "retained_post_vep_fixture"
+            if execution_mode == "post_vep_fixture"
+            else "normalized_annotated_vcf"
+        ),
+    }
+
+
+def genotype_projection_is_eligible(
+    context: dict[str, Any],
+) -> tuple[bool, str]:
+    """
+    Determine whether the resolved context can support projection.
+    """
+    source_value = context.get("annotated_vcf_path")
+    if not source_value:
+        return False, "annotated_vcf_not_registered"
+
+    source = Path(str(source_value))
+    if not source.exists():
+        return False, "annotated_vcf_missing"
+    if not source.is_file():
+        return False, "annotated_vcf_not_file"
+    if source.stat().st_size == 0:
+        return False, "annotated_vcf_empty"
+
+    for key, reason in [
+        ("sample_id", "sample_identity_unavailable"),
+        ("run_id", "run_identity_unavailable"),
+        ("reference_build", "reference_build_unavailable"),
+        ("source_pipeline", "source_pipeline_unavailable"),
+    ]:
+        value = context.get(key)
+        if value is None or str(value).strip() == "":
+            return False, reason
+
+    return True, "eligible"
+
+
+def run_genotype_projection_if_ready(
+    *,
+    config: dict[str, Any],
+    state: dict[str, Any],
+    run_paths: dict[str, str],
+    logger,
+) -> dict[str, Any]:
+    """
+    Invoke genotype projection exactly once without blocking Stages 08-13.
+    """
+    projection_name = "genotype_observation_projection"
+    existing = state.get("stage_outputs", {}).get(projection_name)
+    if existing is not None and existing.get("status") in {
+        "success",
+        "failed",
+        "not_eligible",
+    }:
+        return state
+
+    state.setdefault("stage_outputs", {})
+    state.setdefault("artifacts", {})
+    state.setdefault("qc", {})
+    state.setdefault("errors", [])
+
+    try:
+        context = resolve_genotype_projection_context(
+            config=config,
+            state=state,
+            run_paths=run_paths,
+        )
+        eligible, reason = genotype_projection_is_eligible(context)
+
+        if not eligible:
+            logger.info(
+                "Genotype projection not eligible: "
+                f"{reason}"
+            )
+            state["stage_outputs"][projection_name] = {
+                "status": "not_eligible",
+                "reason": reason,
+            }
+            state["qc"]["genotype_projection_qc"] = {
+                "projection_attempted": False,
+                "projection_complete": False,
+                "artifact_set_complete": False,
+                "projection_status": "not_eligible",
+                "reason": reason,
+            }
+            return state
+
+        logger.info(
+            "Starting non-numbered genotype observation projection."
+        )
+        result = project_genotype_observations(**context)
+
+        state["artifacts"]["genotype_observations"] = result[
+            "genotype_observations"
+        ]
+        state["artifacts"]["genotype_projection_summary"] = result[
+            "genotype_projection_summary"
+        ]
+        state["artifacts"]["genotype_source_header_context"] = result[
+            "genotype_source_header_context"
+        ]
+
+        state["qc"]["genotype_projection_qc"] = {
+            "projection_attempted": True,
+            "projection_complete": True,
+            "artifact_set_complete": True,
+            "projection_status": result["projection_status"],
+            "source_record_count": result["source_record_count"],
+            "genotype_observation_row_count": result["row_count"],
+        }
+        state["stage_outputs"][projection_name] = {
+            "status": "success",
+            "projection_status": result["projection_status"],
+            "source_record_count": result["source_record_count"],
+            "genotype_observation_row_count": result["row_count"],
+            "output_artifacts": [
+                result["genotype_observations"],
+                result["genotype_projection_summary"],
+                result["genotype_source_header_context"],
+            ],
+        }
+        logger.info(
+            "Completed genotype observation projection: "
+            f"rows={result['row_count']}; "
+            f"status={result['projection_status']}"
+        )
+        return state
+
+    except Exception as exc:
+        message = f"Genotype projection failed: {exc}"
+        logger.error(message)
+        logger.error(traceback.format_exc())
+
+        state["errors"].append(message)
+        state["stage_outputs"][projection_name] = {
+            "status": "failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        }
+        state["qc"]["genotype_projection_qc"] = {
+            "projection_attempted": True,
+            "projection_complete": False,
+            "artifact_set_complete": False,
+            "projection_status": "failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        }
+        return state
 
 def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str], logger) -> None:
     # Check if auto-rendering is enabled in the config.
@@ -828,6 +1164,14 @@ def run_pipeline(
                     stage_summaries_dir=run_paths["stage_summaries_dir"],
                 )                
                 continue
+
+            if stage_name == "stage_08_filter_and_partition":
+                state = run_genotype_projection_if_ready(
+                    config=config,
+                    state=state,
+                    run_paths=run_paths,
+                    logger=logger,
+                )
 
             stage_start = utc_now_iso()
             state["stage_outputs"][stage_name] = {

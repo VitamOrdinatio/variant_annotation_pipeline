@@ -119,7 +119,14 @@ def _artifact_record(name: str, path: Path, required: bool) -> dict[str, Any]:
 
 def _discover_optional_artifacts(run_dir: Path, required_paths: set[Path], output_paths: set[Path]) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
-    patterns = ["stage_*_summary.json", "*.tsv", "*.vcf", "*.log"]
+    patterns = [
+        "stage_*_summary.json",
+        "*.tsv",
+        "*.vcf",
+        "*.log",
+        "genotype_projection_summary.json",
+        "genotype_source_header_context.json",
+    ]
 
     seen: set[Path] = set(required_paths | output_paths)
     for pattern in patterns:
