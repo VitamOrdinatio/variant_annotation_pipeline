@@ -32,6 +32,7 @@ def test_run_metadata_schema_contract(tmp_path):
 
     assert set(data.keys()) == {
         "artifacts",
+        "genotype_projection",
         "run",
         "summary",
     }
@@ -49,8 +50,22 @@ def test_run_metadata_schema_contract(tmp_path):
         "status",
     }
 
+    assert set(data["genotype_projection"].keys()) == {
+        "artifact_set_complete",
+        "genotype_observation_row_count",
+        "projection_complete",
+        "projection_status",
+        "source_record_count",
+        "status",
+    }
+    assert data["genotype_projection"]["status"] == "not_recorded"
+    assert data["genotype_projection"]["projection_complete"] is False
+    assert data["genotype_projection"]["artifact_set_complete"] is False
+
     assert set(data["summary"].keys()) == {
         "error_count",
+        "projection_count",
+        "projection_status_counts",
         "stage_count",
         "stage_status_counts",
         "warning_count",

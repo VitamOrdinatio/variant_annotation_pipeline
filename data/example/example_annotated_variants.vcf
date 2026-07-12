@@ -1,12 +1,17 @@
 ##fileformat=VCFv4.2
 ##source=VAP_example_fixture
 ##reference=GRCh38
-#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
-1	69091	.	A	G	.	PASS	.
-1	925952	.	G	A	.	PASS	.
-1	930248	.	C	T	.	PASS	.
-1	1000000	.	G	T	.	PASS	.
-2	166199365	.	C	T	.	PASS	.
-12	56608200	.	G	A	.	PASS	.
-15	89859537	.	G	A	.	PASS	.
-15	89877214	.	C	T	.	PASS	.
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for the ref and alt alleles">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Approximate read depth">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype quality">
+##FORMAT=<ID=PL,Number=G,Type=Integer,Description="Normalized phred-scaled genotype likelihoods">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	EXAMPLE
+1	69091	.	A	G	.	PASS	.	GT:AD:DP:GQ:PL	0/1:18,12:30:99:120,0,180
+1	925952	.	G	A	.	PASS	.	GT:AD:DP:GQ:PL	0/1:21,14:35:92:110,0,170
+1	930248	.	C	T	.	PASS	.	GT:AD:DP:GQ:PL	1/1:1,28:29:96:300,90,0
+1	1000000	.	G	T	.	PASS	.	GT:AD:DP:GQ:PL	0/1:16,11:27:84:100,0,150
+2	166199365	.	C	T	.	PASS	.	GT:AD:DP:GQ:PL	0/1:24,17:41:99:130,0,190
+12	56608200	.	G	A	.	PASS	.	GT:AD:DP:GQ:PL	0/1:19,13:32:88:105,0,160
+15	89859537	.	G	A	.	PASS	.	GT:AD:DP:GQ:PL	0|1:27,18:45:99:140,0,210
+15	89877214	.	C	T	.	PASS	.	GT:AD:DP:GQ:PL	1/1:0,36:36:99:360,110,0

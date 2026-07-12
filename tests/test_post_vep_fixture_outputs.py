@@ -32,6 +32,9 @@ def test_post_vep_fixture_outputs_exist_and_statuses_are_correct(tmp_path):
     assert (run_dir / "metadata.json").exists()
 
     expected_processed = [
+        "genotype_observations.tsv",
+        "genotype_projection_summary.json",
+        "genotype_source_header_context.json",
         "stage_08_selected_transcript_consequences.tsv",
         "stage_08_variant_summary.tsv",
         "stage_08_vdb_ready_variants.tsv",
@@ -75,6 +78,24 @@ def test_post_vep_fixture_outputs_exist_and_statuses_are_correct(tmp_path):
         if stage not in skipped:
             assert state["stage_outputs"][stage]["status"] == "success"
 
+    projection = state["stage_outputs"]["genotype_observation_projection"]
+    assert projection["status"] == "success"
+    assert projection["genotype_observation_row_count"] == 8
+    assert state["qc"]["genotype_projection_qc"]["artifact_set_complete"] is True
+
+    manifest = json.loads(
+        (processed_dir / "stage_13_artifact_manifest.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    manifested_names = {
+        record["artifact_name"]
+        for record in manifest["artifacts"]
+    }
+    assert "genotype_observations.tsv" in manifested_names
+    assert "genotype_projection_summary.json" in manifested_names
+    assert "genotype_source_header_context.json" in manifested_names
+
     with (metadata_dir / "runtime_profile.tsv").open("r", encoding="utf-8", newline="") as handle:
         rows = list(csv.DictReader(handle, delimiter="\t"))
 
@@ -85,3 +106,8 @@ def test_post_vep_fixture_outputs_exist_and_statuses_are_correct(tmp_path):
     assert run_metadata["run"]["status"] == "completed"
     assert run_metadata["summary"]["stage_status_counts"]["skipped"] == 7
     assert run_metadata["summary"]["stage_status_counts"]["success"] == 6
+    assert run_metadata["summary"]["stage_count"] == len(STAGE_ORDER)
+    assert run_metadata["summary"]["projection_count"] == 1
+    assert run_metadata["summary"]["projection_status_counts"]["success"] == 1
+    assert run_metadata["genotype_projection"]["status"] == "success"
+    assert run_metadata["genotype_projection"]["artifact_set_complete"] is True

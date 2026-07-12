@@ -20,6 +20,19 @@ def test_write_run_metadata(tmp_path):
             "stage_01_load_data": {"status": "success"},
             "stage_02_align_data": {"status": "success"},
             "stage_03_process_bam": {"status": "skipped"},
+            "genotype_observation_projection": {
+                "status": "success",
+                "projection_status": "pass",
+            },
+        },
+        "qc": {
+            "genotype_projection_qc": {
+                "projection_complete": True,
+                "artifact_set_complete": True,
+                "projection_status": "pass",
+                "source_record_count": 8,
+                "genotype_observation_row_count": 8,
+            }
         },
         "warnings": ["warning one"],
         "errors": [],
@@ -30,6 +43,13 @@ def test_write_run_metadata(tmp_path):
         "artifacts": {
             "prioritized_table": "processed/stage_11_prioritized_variants.tsv",
             "validation_notes": None,
+            "genotype_observations": "processed/genotype_observations.tsv",
+            "genotype_projection_summary": (
+                "processed/genotype_projection_summary.json"
+            ),
+            "genotype_source_header_context": (
+                "processed/genotype_source_header_context.json"
+            ),
         },
     }
 
@@ -39,8 +59,15 @@ def test_write_run_metadata(tmp_path):
 
     assert data["run"]["run_id"] == "run_2099_01_01_000000"
     assert data["run"]["status"] == "completed"
-    assert data["summary"]["stage_count"] == 3
+    assert data["summary"]["stage_count"] == 13
     assert data["summary"]["stage_status_counts"]["success"] == 2
+    assert data["summary"]["stage_status_counts"]["skipped"] == 1
+    assert data["summary"]["stage_status_counts"]["unknown"] == 10
+    assert data["summary"]["projection_count"] == 1
+    assert data["summary"]["projection_status_counts"]["success"] == 1
+    assert data["genotype_projection"]["status"] == "success"
+    assert data["genotype_projection"]["projection_status"] == "pass"
+    assert data["genotype_projection"]["artifact_set_complete"] is True
     assert data["summary"]["stage_status_counts"]["skipped"] == 1
     assert data["summary"]["warning_count"] == 1
     assert data["summary"]["error_count"] == 0
