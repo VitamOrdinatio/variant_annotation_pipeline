@@ -89,6 +89,85 @@ entities/genotype/genotype_source_header_context.json
 
 ---
 
+## Implementation Wave Roadmap
+
+The implementation phases below are grouped into operational delivery waves.
+
+The waves provide the intended engineering execution sequence while the phases
+remain the authoritative implementation decomposition.
+
+```text
+Wave 1
+    Repository surveillance
+    Variant identity substrate
+    Lightweight fixture framework
+
+    Corresponding phases:
+        Phase 0
+        Phase 1
+
+Wave 2
+    Canonical genotype projection implementation
+
+    Corresponding phases:
+        Phase 2
+
+Wave 2.1
+    Policy-alignment hardening
+
+    Objectives:
+
+        governed multiallelic relationship handling
+
+        advisory versus warning separation
+
+        symbolic ALT classification
+
+        spanning-deletion classification
+
+        called allele index validation
+
+        relationship resolution targets
+
+    No VDB brokerage or RDGP reasoning shall be implemented during this wave.
+
+Wave 3
+    Local engineering proof
+
+    Corresponding phases:
+        Phase 3
+        Phase 4
+
+Wave 4
+    TEP integration
+
+    Corresponding phases:
+        Phase 5
+        Phase 6
+
+Wave 5
+    Full local repository validation
+
+    Corresponding phases:
+        Phase 7
+
+Wave 6
+    Production rehearsal
+
+    Corresponding phases:
+        Phase 8
+        Phase 9
+
+Wave 7
+    MARK production rollout
+
+    Corresponding phases:
+        Phase 10
+        Phase 11
+```
+
+---
+
 ## Non-Goals
 
 This implementation shall not:
@@ -474,15 +553,60 @@ atomic artifact finalization
 summary finalization
 ```
 
-## Gate
+### Wave 2.1 — Policy Alignment Hardening
 
-Proceed when all projection, schema, summary, header-context, and local
-non-interference unit tests pass, including:
+Before projection integration proceeds, implementation shall be aligned with
+the certified repository ecosystem multiallelic relationship policy.
+
+Required hardening includes:
 
 ```text
-plain-versus-gzipped logical record hash equivalence
+relationship_resolution_target
 
-reserved-character percent encoding for unknown FORMAT fields
+projection_advisory_codes
+
+governed multiallelic relationship deferral
+
+symbolic ALT handling
+
+spanning deletion handling
+
+called allele index validation
+
+malformed GT relationship classification
+
+missing/no-call/partial-no-call distinction
+
+optional FORMAT availability accounting
+
+policy-aligned projection status semantics
+```
+
+This wave shall preserve source-record fidelity and shall not implement
+downstream VDB relationship brokerage or RDGP reasoning.
+
+## Gate
+
+Proceed when:
+
+```text
+all projection tests pass
+
+policy-alignment tests pass
+
+schema tests pass
+
+summary tests pass
+
+header-context tests pass
+
+local non-interference tests pass
+
+plain-versus-gzipped logical record hash equivalence passes
+
+reserved-character percent encoding passes
+
+multiallelic relationship advisories conform to certified policy
 ```
 
 ---
@@ -880,6 +1004,24 @@ no variant-centric test behavior changes
 ## Gate
 
 No canonical backfill script shall run on MARK until this phase passes.
+
+Policy-conformance validation shall additionally confirm:
+
+```text
+multiallelic observations remain unsplit
+
+symbolic ALT observations remain producer-preserved
+
+spanning deletions remain producer-preserved
+
+relationship advisories replace governed warnings
+
+relationship resolution targets match certified policy
+
+no VDB brokerage behavior has been introduced
+
+no RDGP reasoning behavior has been introduced
+```
 
 ---
 
@@ -1327,6 +1469,12 @@ future eligible VAP runs emit genotype automatically
 all 13 canonical runs are backfilled additively
 
 all genotype pytest suites pass
+
+policy-alignment tests pass
+
+governed multiallelic observations remain producer-preserved
+
+relationship deferral remains explicit and VDB-directed
 
 all existing VAP tests continue to pass
 
