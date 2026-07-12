@@ -38,6 +38,8 @@ import shutil
 from pathlib import Path
 from typing import Any
 
+from pipeline.variant_identity import build_variant_id
+
 
 def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
     rendered = " ".join(shlex.quote(part) for part in command)
@@ -467,7 +469,12 @@ def _build_annotation_output_row(
             population_frequency = candidate
             break
 
-    variant_id = f"{chrom}:{pos}:{ref}:{alt}"
+    variant_id = build_variant_id(
+        chromosome=chrom,
+        position=pos,
+        reference_allele=ref,
+        alternate_allele=alt,
+    )
 
     overlay_gene_id = union_symbol_to_gene_id.get(gene_symbol, "NA")
     resolved_gene_id = gene_id if gene_id not in {"", ".", "-", "NA"} else overlay_gene_id
