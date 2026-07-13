@@ -32,7 +32,7 @@ from typing import Any
 
 
 MANIFEST_SCHEMA_VERSION = "0.1.0"
-LINEAGE_BUILDER_VERSION = "0.2.0"
+LINEAGE_BUILDER_VERSION = "0.3.0"
 
 REQUIRED_ENTITY_ROLES = [
     "observation_entity",
@@ -45,6 +45,20 @@ REQUIRED_ENTITY_ROLES = [
     "context_sidecar",
     "package_metadata",
 ]
+
+
+OPTIONAL_ENTITY_ROLES = [
+    "genotype_observation_entity",
+]
+
+OPTIONAL_LINEAGE_EDGES = {
+    "genotype_observation_entity": {
+        "parent_entity_id": "observation_entity",
+        "child_entity_id": "genotype_observation_entity",
+        "relationship": "projects_genotype",
+        "validation_basis": "vap_genotype_observation_contract_v1",
+    },
+}
 
 LINEAGE_EDGES = [
     ("observation_entity", "normalization_entity", "normalizes"),
@@ -141,6 +155,31 @@ def validate_inventory(inventory: dict[str, Any], inventory_path: Path) -> None:
             for artifact in missing_artifacts
         ]
         raise ValueError(f"Missing required source artifacts: {roles}")
+
+
+    genotype_entities = [
+        entity
+        for entity in entities
+        if isinstance(entity, dict)
+        and entity.get("entity_role") == "genotype_observation_entity"
+    ]
+
+    if len(genotype_entities) > 1:
+        raise ValueError(
+            "Expected at most one genotype_observation_entity, "
+            f"found {len(genotype_entities)}"
+        )
+
+    if genotype_entities:
+        genotype_entity = genotype_entities[0]
+        if genotype_entity.get("entity_id") != "genotype_observation_entity":
+            raise ValueError(
+                "Genotype entity_id must be genotype_observation_entity"
+            )
+        if genotype_entity.get("artifact_count") != 3:
+            raise ValueError(
+                "Genotype entity must declare exactly three artifacts"
+            )
 
 
 def entity_sha256(entity: dict[str, Any]) -> str | None:
@@ -270,9 +309,13 @@ def build_lineage_edges(entity_roles: list[str] | None = None) -> list[dict[str,
             }
         )
 
-    roles_to_index = entity_roles or REQUIRED_ENTITY_ROLES
+    roles_to_index = set(entity_roles or REQUIRED_ENTITY_ROLES)
 
-    for role in sorted(set(roles_to_index)):
+    for optional_role, edge in OPTIONAL_LINEAGE_EDGES.items():
+        if optional_role in roles_to_index:
+            edges.append(dict(edge))
+
+    for role in sorted(roles_to_index):
         edges.append(
             {
                 "parent_entity_id": role,
