@@ -40,6 +40,12 @@ def test_write_run_metadata(tmp_path):
             "run_summary_report": "reports/stage_13_run_report.md",
             "gene_summary_table": "processed/stage_11_gene_variant_counts.tsv",
         },
+        "tep": {
+            "attempted": True,
+            "status": "success",
+            "tep_id": "vap_tep_HG002_run_test_v1",
+            "validation_status": "pass",
+        },
         "artifacts": {
             "prioritized_table": "processed/stage_11_prioritized_variants.tsv",
             "validation_notes": None,
@@ -68,6 +74,8 @@ def test_write_run_metadata(tmp_path):
     assert data["genotype_projection"]["status"] == "success"
     assert data["genotype_projection"]["projection_status"] == "pass"
     assert data["genotype_projection"]["artifact_set_complete"] is True
+    assert data["tep"]["status"] == "success"
+    assert data["tep"]["validation_status"] == "pass"
     assert data["summary"]["stage_status_counts"]["skipped"] == 1
     assert data["summary"]["warning_count"] == 1
     assert data["summary"]["error_count"] == 0

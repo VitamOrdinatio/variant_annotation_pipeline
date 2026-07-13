@@ -30,6 +30,7 @@ from pathlib import Path
 from typing import Any
 
 from pipeline.genotype_projection import project_genotype_observations
+from src.tep_orchestration import build_and_validate_fresh_vap_tep
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
 from src.metrics.metric_aggregation import (
     build_f3a_flow_table,
@@ -334,6 +335,10 @@ def initialize_state(
             "summary_table": None,
             "gene_summary_table": None,
             "report_line_count": None,
+        },
+        "tep": {
+            "attempted": False,
+            "status": "not_attempted",
         },
     }
 
@@ -667,6 +672,15 @@ def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
                 "genotype_observation_row_count"
             ),
         },
+        "tep": dict(
+            state.get(
+                "tep",
+                {
+                    "attempted": False,
+                    "status": "not_attempted",
+                },
+            )
+        ),
         "artifacts": {
             "run_summary_report": state.get("reports", {}).get("run_summary_report"),
             "gene_summary_table": state.get("reports", {}).get("gene_summary_table"),
@@ -1048,6 +1062,67 @@ def run_genotype_projection_if_ready(
         }
         return state
 
+
+def run_fresh_tep_if_ready(
+    *,
+    state: dict[str, Any],
+    run_paths: dict[str, str],
+    logger,
+) -> dict[str, Any]:
+    """
+    Emit and validate a fresh TEP exactly once after stage completion.
+    """
+    existing = state.get("tep", {})
+    if existing.get("status") in {"success", "failed"}:
+        return state
+
+    if state.get("run", {}).get("status") != "completed":
+        state["tep"] = {
+            "attempted": False,
+            "status": "not_attempted",
+            "reason": "numbered_pipeline_not_completed",
+        }
+        return state
+
+    projection = state.get("stage_outputs", {}).get(
+        "genotype_observation_projection",
+        {},
+    )
+    if projection.get("status") == "failed":
+        state["tep"] = {
+            "attempted": False,
+            "status": "failed",
+            "reason": "genotype_projection_failed",
+        }
+        state.setdefault("errors", []).append(
+            "Fresh TEP emission blocked because genotype projection failed."
+        )
+        return state
+
+    try:
+        logger.info("Starting native fresh TEP-VAP emission.")
+        state["tep"] = build_and_validate_fresh_vap_tep(
+            state=state,
+            run_paths=run_paths,
+        )
+        logger.info(
+            "Fresh TEP-VAP emission completed: "
+            f"{state['tep']['package_root']}"
+        )
+    except Exception as exc:
+        message = f"Fresh TEP-VAP emission failed: {exc}"
+        logger.error(message)
+        logger.error(traceback.format_exc())
+        state.setdefault("errors", []).append(message)
+        state["tep"] = {
+            "attempted": True,
+            "status": "failed",
+            "error_type": type(exc).__name__,
+            "error": str(exc),
+        }
+
+    return state
+
 def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str], logger) -> None:
     # Check if auto-rendering is enabled in the config.
     figures_cfg=config.get("figures",{})
@@ -1259,6 +1334,7 @@ def run_pipeline(
                 "warnings",
                 "errors",
                 "reports",
+                "tep",
             ]:
                 if required_key not in state:
                     state = stage_state_before
@@ -1301,10 +1377,26 @@ def run_pipeline(
         write_runtime_profile(state, run_paths["runtime_profile_path"])
         logger.info(f"Runtime profile written to: {run_paths['runtime_profile_path']}")        
         write_run_metadata(state, run_paths["run_metadata_path"])
-        logger.info(f"Run metadata written to: {run_paths['run_metadata_path']}")        
+        logger.info(
+            "Initial run metadata written before TEP emission: "
+            f"{run_paths['run_metadata_path']}"
+        )
+        write_metadata(state, run_paths["legacy_metadata_path"])
+
+        state = run_fresh_tep_if_ready(
+            state=state,
+            run_paths=run_paths,
+            logger=logger,
+        )
+
+        write_run_metadata(state, run_paths["run_metadata_path"])
+        logger.info(
+            f"Final run metadata written to: "
+            f"{run_paths['run_metadata_path']}"
+        )
         write_metadata(state, run_paths["legacy_metadata_path"])
         logger.info(
-            f"Legacy metadata written to: "
+            f"Final legacy metadata written to: "
             f"{run_paths['legacy_metadata_path']}"
         )
         render_run_figures_if_enabled(

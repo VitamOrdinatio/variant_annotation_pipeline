@@ -130,8 +130,15 @@ def main() -> int:
         print(f"Run status: {state['run']['status']}")
         print(f"Run ID: {state['run']['run_id']}")
         print(f"Run directory: {run_paths['run_dir']}")
+        print(f"TEP status: {state.get('tep', {}).get('status')}")
+        if state.get("tep", {}).get("package_root"):
+            print(f"TEP package: {state['tep']['package_root']}")
 
-        return 0 if state["run"]["status"] == "completed" else 1
+        end_to_end_success = (
+            state["run"]["status"] == "completed"
+            and state.get("tep", {}).get("status") == "success"
+        )
+        return 0 if end_to_end_success else 1
 
     except Exception as exc:
         print(f"Pipeline bootstrap failed: {exc}", file=sys.stderr)
