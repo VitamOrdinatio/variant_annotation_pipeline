@@ -31,7 +31,7 @@ from typing import Iterable
 
 
 TEP_SCHEMA_VERSION = "vap_tep_v1"
-ENTITY_BUILDER_VERSION = "0.2.0"
+ENTITY_BUILDER_VERSION = "0.3.0"
 
 
 @dataclass(frozen=True)
@@ -88,7 +88,7 @@ class EntityInventoryRecord:
     artifact_metrics: dict[str, dict[str, int | list[str] | None]]
 
 
-ARTIFACT_SPECS = [
+BASE_ARTIFACT_SPECS = [
     ArtifactSpec(
         entity_id="observation_entity",
         entity_role="observation_entity",
@@ -204,6 +204,80 @@ ARTIFACT_SPECS = [
         source_root="metadata",
     ),
 ]
+
+GENOTYPE_ARTIFACT_SPECS = [
+    ArtifactSpec(
+        entity_id="genotype_observation_entity",
+        entity_role="genotype_observation_entity",
+        source_stage="genotype_observation_projection",
+        source_artifact_role="genotype_observations",
+        source_pattern="genotype_observations.tsv",
+        entity_subdir="genotype",
+        required=True,
+    ),
+    ArtifactSpec(
+        entity_id="genotype_observation_entity",
+        entity_role="genotype_observation_entity",
+        source_stage="genotype_observation_projection",
+        source_artifact_role="genotype_projection_summary",
+        source_pattern="genotype_projection_summary.json",
+        entity_subdir="genotype",
+        required=True,
+    ),
+    ArtifactSpec(
+        entity_id="genotype_observation_entity",
+        entity_role="genotype_observation_entity",
+        source_stage="genotype_observation_projection",
+        source_artifact_role="genotype_source_header_context",
+        source_pattern="genotype_source_header_context.json",
+        entity_subdir="genotype",
+        required=True,
+    ),
+]
+
+GENOTYPE_SOURCE_FILENAMES = tuple(
+    spec.source_pattern
+    for spec in GENOTYPE_ARTIFACT_SPECS
+)
+
+
+def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
+    """
+    Select the artifact contract for this run.
+
+    Genotype is an optional package capability, but its three source artifacts
+    are atomic: none preserves legacy compatibility; all three enables the
+    genotype entity; a partial set is a construction error.
+    """
+    present = {
+        filename: (processed_dir / filename).is_file()
+        for filename in GENOTYPE_SOURCE_FILENAMES
+    }
+    present_count = sum(present.values())
+
+    if present_count == 0:
+        return list(BASE_ARTIFACT_SPECS)
+
+    if present_count != len(GENOTYPE_SOURCE_FILENAMES):
+        missing = sorted(
+            filename
+            for filename, exists in present.items()
+            if not exists
+        )
+        observed = sorted(
+            filename
+            for filename, exists in present.items()
+            if exists
+        )
+        raise FileNotFoundError(
+            "Incomplete genotype projection artifact set. "
+            f"Observed: {observed}; missing: {missing}"
+        )
+
+    return [
+        *BASE_ARTIFACT_SPECS,
+        *GENOTYPE_ARTIFACT_SPECS,
+    ]
 
 
 def utc_now() -> str:
@@ -455,6 +529,8 @@ def build_entities(
     output_root: Path | None,
     dry_run: bool,
     overwrite: bool,
+    sample_id_override: str | None = None,
+    run_id_override: str | None = None,
 ) -> Path:
     processed_dir = run_dir / "processed"
     metadata_dir = run_dir / "metadata"
@@ -465,8 +541,9 @@ def build_entities(
     if not metadata_dir.exists():
         raise FileNotFoundError(f"Metadata directory does not exist: {metadata_dir}")
 
-    run_id = run_dir.name
-    sample_id = infer_sample_id(run_dir, processed_dir)
+    execution_run_id = run_dir.name
+    run_id = run_id_override or execution_run_id
+    sample_id = sample_id_override or infer_sample_id(run_dir, processed_dir)
     tep_id = f"vap_tep_{safe_id(sample_id)}_{safe_id(run_id)}_v1"
 
     tep_root = output_root or (run_dir / "tep")
@@ -485,8 +562,9 @@ def build_entities(
         package_root.mkdir(parents=True, exist_ok=True)
 
     records: list[ArtifactInventoryRecord] = []
+    artifact_specs = resolve_artifact_specs(processed_dir)
 
-    for spec in ARTIFACT_SPECS:
+    for spec in artifact_specs:
         if spec.source_root == "processed":
             source_dir = processed_dir
         elif spec.source_root == "metadata":
@@ -523,6 +601,7 @@ def build_entities(
         "source_run": {
             "sample_id": sample_id,
             "run_id": run_id,
+            "execution_run_id": execution_run_id,
             "run_directory": str(run_dir),
             "processed_directory": str(processed_dir),
             "metadata_directory": str(metadata_dir),
@@ -536,6 +615,14 @@ def build_entities(
             "artifact_records": len(records),
             "missing_required_artifacts": len(missing_required),
             "copied_artifacts": sum(1 for record in records if record.copied),
+            "genotype_capability": (
+                "available"
+                if any(
+                    entity.entity_role == "genotype_observation_entity"
+                    for entity in entity_records
+                )
+                else "not_available"
+            ),
         },
         "entities": [asdict(record) for record in entity_records],
         "artifacts": [asdict(record) for record in records],
