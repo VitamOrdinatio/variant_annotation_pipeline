@@ -23,6 +23,7 @@ This validator does not yet inspect TSV headers for required semantic fields.
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import sys
@@ -31,8 +32,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from pipeline.genotype_projection import GENOTYPE_COLUMNS
 
-VALIDATOR_VERSION = "0.3.0"
+
+VALIDATOR_VERSION = "0.4.0"
 
 REQUIRED_ENTITY_ROLES = [
     "observation_entity",
@@ -141,6 +144,21 @@ SEMANTIC_SURFACE_REQUIREMENTS = {
         },
     },
 }
+
+GENOTYPE_ENTITY_ROLE = "genotype_observation_entity"
+
+GENOTYPE_ARTIFACT_CONTRACT = {
+    "genotype_observations": "entities/genotype/genotype_observations.tsv",
+    "genotype_projection_summary": "entities/genotype/genotype_projection_summary.json",
+    "genotype_source_header_context": "entities/genotype/genotype_source_header_context.json",
+}
+
+ACCEPTABLE_GENOTYPE_PROJECTION_STATUSES = {
+    "pass",
+    "pass_with_advisory",
+    "pass_with_warnings",
+}
+
 
 
 @dataclass
@@ -754,6 +772,155 @@ def check_preservation_context(manifest: dict[str, Any]) -> list[ValidationCheck
     return checks
 
 
+
+def _genotype_artifacts_by_role(entity: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    result: dict[str, dict[str, Any]] = {}
+    for artifact in entity.get("source_artifacts", []):
+        if isinstance(artifact, dict):
+            role = str(artifact.get("source_artifact_role", ""))
+            if role:
+                result[role] = artifact
+    return result
+
+
+def _read_genotype_tsv(path: Path) -> tuple[list[str], int, set[str], set[str]]:
+    with path.open("r", encoding="utf-8", errors="replace", newline="") as handle:
+        reader = csv.DictReader(handle, delimiter="\t")
+        header = list(reader.fieldnames or [])
+        rows = 0
+        sample_ids: set[str] = set()
+        run_ids: set[str] = set()
+        for row in reader:
+            rows += 1
+            sample_id = str(row.get("sample_id", "")).strip()
+            run_id = str(row.get("run_id", "")).strip()
+            if sample_id:
+                sample_ids.add(sample_id)
+            if run_id:
+                run_ids.add(run_id)
+    return header, rows, sample_ids, run_ids
+
+
+def check_genotype_capability(manifest: dict[str, Any], package_root: Path) -> list[ValidationCheck]:
+    """Validate optional genotype capability; legacy packages emit no checks."""
+    entities = entity_by_role(manifest).get(GENOTYPE_ENTITY_ROLE, [])
+    if not entities:
+        return []
+    if len(entities) != 1:
+        return [fail_check("AC-050", "Exactly one genotype observation entity exists", f"Observed: {len(entities)}")]
+
+    checks: list[ValidationCheck] = []
+    entity = entities[0]
+    artifacts = _genotype_artifacts_by_role(entity)
+    expected_roles = set(GENOTYPE_ARTIFACT_CONTRACT)
+    failures: list[str] = []
+    if entity.get("entity_id") != GENOTYPE_ENTITY_ROLE:
+        failures.append(f"entity_id={entity.get('entity_id')}")
+    if entity.get("artifact_count") != 3:
+        failures.append(f"artifact_count={entity.get('artifact_count')}")
+    if set(artifacts) != expected_roles:
+        failures.append(f"artifact_roles={sorted(artifacts)}")
+    checks.append(fail_check("AC-050", "Genotype entity structure is valid", "; ".join(failures)) if failures else pass_check("AC-050", "Genotype entity structure is valid"))
+
+    path_failures: list[str] = []
+    paths: dict[str, Path] = {}
+    for role, expected in GENOTYPE_ARTIFACT_CONTRACT.items():
+        artifact = artifacts.get(role)
+        if artifact is None:
+            path_failures.append(f"{role}: missing")
+            continue
+        observed = artifact.get("transport_path")
+        if observed != expected:
+            path_failures.append(f"{role}: expected {expected}, observed {observed}")
+            continue
+        path = package_root / expected
+        paths[role] = path
+        if not path.is_file():
+            path_failures.append(f"{role}: transport file missing")
+    if path_failures:
+        checks.append(fail_check("AC-051", "Genotype artifact roles and transport paths are valid", "; ".join(path_failures)))
+        return checks
+    checks.append(pass_check("AC-051", "Genotype artifact roles and transport paths are valid"))
+
+    observations = paths["genotype_observations"]
+    summary_path = paths["genotype_projection_summary"]
+    context_path = paths["genotype_source_header_context"]
+    try:
+        header, row_count, sample_ids, run_ids = _read_genotype_tsv(observations)
+    except Exception as exc:
+        checks.append(fail_check("AC-052", "Genotype observation schema is readable", str(exc)))
+        return checks
+    checks.append(pass_check("AC-052", "Genotype observation schema is canonical", f"columns={len(header)}") if header == GENOTYPE_COLUMNS else fail_check("AC-052", "Genotype observation schema is canonical", "Observed header differs from GENOTYPE_COLUMNS"))
+
+    try:
+        summary = load_json(summary_path)
+        context = load_json(context_path)
+    except Exception as exc:
+        checks.append(fail_check("AC-053", "Genotype companion JSON artifacts are readable", str(exc)))
+        return checks
+
+    counts = summary.get("counts", {})
+    source_count = counts.get("source_record_count")
+    if source_count is None:
+        source_count = summary.get("source_vcf", {}).get("source_record_count")
+    summary_rows = counts.get("genotype_observation_row_count")
+    count_failures=[]
+    if summary_rows != row_count:
+        count_failures.append(f"summary rows={summary_rows}; TSV rows={row_count}")
+    if source_count != row_count:
+        count_failures.append(f"source records={source_count}; TSV rows={row_count}")
+    checks.append(fail_check("AC-053", "Genotype artifact row counts reconcile", "; ".join(count_failures)) if count_failures else pass_check("AC-053", "Genotype artifact row counts reconcile", f"rows={row_count}"))
+
+    outputs = summary.get("outputs", {})
+    checksum_failures=[]
+    if outputs.get("genotype_observations_sha256") != sha256_file(observations):
+        checksum_failures.append("genotype_observations checksum mismatch")
+    if outputs.get("header_context_sha256") != sha256_file(context_path):
+        checksum_failures.append("header_context checksum mismatch")
+    checks.append(fail_check("AC-054", "Genotype summary checksums reconcile", "; ".join(checksum_failures)) if checksum_failures else pass_check("AC-054", "Genotype summary checksums reconcile"))
+
+    source_run = manifest.get("source_run", {})
+    package_sample = str(source_run.get("sample_id", ""))
+    package_run = str(source_run.get("run_id", ""))
+    identity_failures=[]
+    if sample_ids != {package_sample}:
+        identity_failures.append(f"TSV sample_ids={sorted(sample_ids)}; package={package_sample}")
+    if run_ids != {package_run}:
+        identity_failures.append(f"TSV run_ids={sorted(run_ids)}; package={package_run}")
+    sample_resolution = summary.get("sample_resolution", {})
+    if str(sample_resolution.get("sample_id", "")) != package_sample:
+        identity_failures.append("summary sample_id mismatch")
+    if str(sample_resolution.get("run_id", "")) != package_run:
+        identity_failures.append("summary run_id mismatch")
+    checks.append(fail_check("AC-055", "Genotype sample and run identity are coherent", "; ".join(identity_failures)) if identity_failures else pass_check("AC-055", "Genotype sample and run identity are coherent"))
+
+    context_failures=[]
+    if summary.get("schema_version") != "genotype_projection_summary_v1":
+        context_failures.append("unexpected summary schema_version")
+    if context.get("schema_version") != "genotype_source_header_context_v1":
+        context_failures.append("unexpected header-context schema_version")
+    reference_build = summary.get("projection", {}).get("reference_build")
+    source_vcf = summary.get("source_vcf", {})
+    if not reference_build:
+        context_failures.append("reference_build missing")
+    if not source_vcf.get("sha256"):
+        context_failures.append("source VCF sha256 missing")
+    if not source_vcf.get("header_hash"):
+        context_failures.append("source header hash missing")
+    checks.append(fail_check("AC-056", "Genotype source and header context are preserved", "; ".join(context_failures)) if context_failures else pass_check("AC-056", "Genotype source and header context are preserved", f"reference_build={reference_build}"))
+
+    status = summary.get("projection", {}).get("projection_status")
+    warning_count = counts.get("projection_warning_count", 0)
+    checks.append(pass_check("AC-057", "Genotype projection status is transportable", f"status={status}; warning_count={warning_count}") if status in ACCEPTABLE_GENOTYPE_PROJECTION_STATUSES else fail_check("AC-057", "Genotype projection status is transportable", f"Observed: {status}"))
+
+    required_edges = {
+        ("observation_entity", "genotype_observation_entity", "projects_genotype"),
+        ("genotype_observation_entity", "lineage_manifest", "indexed_by"),
+    }
+    missing = sorted(required_edges - edge_set(manifest))
+    checks.append(fail_check("AC-058", "Genotype lineage branch is present", f"Missing edges: {missing}") if missing else pass_check("AC-058", "Genotype lineage branch is present"))
+    return checks
+
 def update_validation_summary(
     manifest: dict[str, Any],
     checks: list[ValidationCheck],
@@ -813,6 +980,7 @@ def validate_vap_tep(
     checks.extend(check_stage07_stage08_continuity(manifest))
     checks.extend(check_semantic_surfaces(manifest))
     checks.extend(check_preservation_context(manifest))
+    checks.extend(check_genotype_capability(manifest, package_root))
 
     update_validation_summary(manifest, checks)
 
