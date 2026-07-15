@@ -921,6 +921,50 @@ def check_genotype_capability(manifest: dict[str, Any], package_root: Path) -> l
     checks.append(fail_check("AC-058", "Genotype lineage branch is present", f"Missing edges: {missing}") if missing else pass_check("AC-058", "Genotype lineage branch is present"))
     return checks
 
+def check_execution_provenance_transport(
+    manifest: dict[str, Any],
+    package_root: Path,
+) -> list[ValidationCheck]:
+    context_entities = entity_by_role(manifest).get("context_sidecar", [])
+    artifacts = []
+    for entity in context_entities:
+        for artifact in entity.get("source_artifacts", []):
+            if isinstance(artifact, dict) and artifact.get("source_artifact_role") == "execution_provenance":
+                artifacts.append(artifact)
+
+    if not artifacts:
+        return []
+    if len(artifacts) != 1:
+        return [fail_check("AC-059", "Exactly one execution provenance artifact is transported", f"Observed: {len(artifacts)}")]
+
+    checks = []
+    artifact = artifacts[0]
+    expected_path = "entities/context/execution_provenance.json"
+    observed_path = artifact.get("transport_path")
+    path = package_root / expected_path
+    if observed_path != expected_path or not path.is_file():
+        return [fail_check("AC-059", "Execution provenance transport path is canonical", f"expected={expected_path}; observed={observed_path}")]
+    checks.append(pass_check("AC-059", "Execution provenance transport path is canonical"))
+
+    observed_sha = sha256_file(path)
+    declared_sha = artifact.get("source_artifact_sha256")
+    checks.append(pass_check("AC-060", "Execution provenance checksum is preserved") if declared_sha == observed_sha else fail_check("AC-060", "Execution provenance checksum is preserved", f"inventory={declared_sha}; observed={observed_sha}"))
+
+    try:
+        payload = load_json(path)
+    except Exception as exc:
+        checks.append(fail_check("AC-061", "Execution provenance receipt is readable JSON", str(exc)))
+        return checks
+
+    required = {"contract_status", "resolution_mode"}
+    missing = sorted(required - set(payload))
+    checks.append(pass_check("AC-061", "Execution provenance receipt has required fields", f"schema_version={payload.get('schema_version')}; status={payload.get('contract_status')}; mode={payload.get('resolution_mode')}") if not missing else fail_check("AC-061", "Execution provenance receipt has required fields", f"Missing: {missing}"))
+
+    indexed_edge = ("context_sidecar", "lineage_manifest", "indexed_by")
+    checks.append(pass_check("AC-062", "Execution provenance context is lineage indexed") if indexed_edge in edge_set(manifest) else fail_check("AC-062", "Execution provenance context is lineage indexed", f"Missing edge: {indexed_edge}"))
+    return checks
+
+
 def update_validation_summary(
     manifest: dict[str, Any],
     checks: list[ValidationCheck],
@@ -981,6 +1025,7 @@ def validate_vap_tep(
     checks.extend(check_semantic_surfaces(manifest))
     checks.extend(check_preservation_context(manifest))
     checks.extend(check_genotype_capability(manifest, package_root))
+    checks.extend(check_execution_provenance_transport(manifest, package_root))
 
     update_validation_summary(manifest, checks)
 

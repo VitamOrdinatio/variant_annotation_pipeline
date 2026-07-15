@@ -30,6 +30,11 @@ from pathlib import Path
 from typing import Any
 
 from pipeline.genotype_projection import project_genotype_observations
+from src.execution_provenance import (
+    assert_contract_pass,
+    resolve_execution_provenance,
+    write_execution_provenance_receipt,
+)
 from src.tep_orchestration import build_and_validate_fresh_vap_tep
 from src.metrics.stage_metric_emitters import emit_metrics_for_stage
 from src.metrics.metric_aggregation import (
@@ -339,6 +344,10 @@ def initialize_state(
         "tep": {
             "attempted": False,
             "status": "not_attempted",
+        },
+        "execution_provenance": {
+            "contract_status": "not_resolved",
+            "resolution_mode": "not_resolved",
         },
     }
 
@@ -681,6 +690,24 @@ def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
                 },
             )
         ),
+        "execution_provenance": {
+            "contract_status": state.get(
+                "execution_provenance",
+                {},
+            ).get("contract_status", "not_recorded"),
+            "resolution_mode": state.get(
+                "execution_provenance",
+                {},
+            ).get("resolution_mode", "not_recorded"),
+            "provenance_completeness": state.get(
+                "execution_provenance",
+                {},
+            ).get("provenance_completeness"),
+            "receipt_path": state.get(
+                "execution_provenance",
+                {},
+            ).get("receipt_path"),
+        },
         "artifacts": {
             "run_summary_report": state.get("reports", {}).get("run_summary_report"),
             "gene_summary_table": state.get("reports", {}).get("gene_summary_table"),
@@ -1164,6 +1191,62 @@ def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str],
         logger.warning(f"Optional figure auto-render failed but pipeline will continue: {message}")
 
 
+
+def resolve_execution_provenance_if_required(
+    *,
+    config: dict[str, Any],
+    state: dict[str, Any],
+    run_paths: dict[str, str],
+    logger,
+) -> dict[str, Any]:
+    """
+    Resolve and gate execution provenance before scientific stages begin.
+    """
+    declaration = config.get("execution_provenance")
+    execution_mode = config["mode"]["execution_mode"]
+
+    if declaration is None and execution_mode != "post_vep_fixture":
+        state["execution_provenance"] = {
+            "contract_status": "not_declared",
+            "resolution_mode": "legacy_unmigrated_config",
+            "provenance_completeness": "legacy_partial",
+        }
+        logger.warning(
+            "Execution provenance is not declared for this legacy config; "
+            "live provenance resolution was not performed."
+        )
+        receipt_path = write_execution_provenance_receipt(
+            provenance=state["execution_provenance"],
+            output_path=Path(run_paths["metadata_dir"])
+            / "execution_provenance.json",
+        )
+        state["execution_provenance"]["receipt_path"] = str(
+            receipt_path
+        )
+        return state
+
+    logger.info("Resolving execution provenance before Stage 01.")
+    provenance = resolve_execution_provenance(config)
+
+    if execution_mode != "post_vep_fixture":
+        assert_contract_pass(provenance)
+
+    receipt_path = write_execution_provenance_receipt(
+        provenance=provenance,
+        output_path=Path(run_paths["metadata_dir"])
+        / "execution_provenance.json",
+    )
+    provenance["receipt_path"] = str(receipt_path)
+    state["execution_provenance"] = provenance
+    logger.info(
+        "Execution provenance resolved: "
+        f"status={provenance['contract_status']}; "
+        f"mode={provenance['resolution_mode']}; "
+        f"receipt={receipt_path}"
+    )
+    return state
+
+
 def run_pipeline(
     config: dict[str, Any],
     config_path: str,
@@ -1214,6 +1297,13 @@ def run_pipeline(
     if config["mode"]["execution_mode"] == "post_vep_fixture":
         state["artifacts"]["annotated_table"] = config["input"]["annotated_tsv"]
         state["artifacts"]["annotated_vcf"] = config["input"]["vcf"]["input_vcf"]
+
+    state = resolve_execution_provenance_if_required(
+        config=config,
+        state=state,
+        run_paths=run_paths,
+        logger=logger,
+    )
 
     state["run"]["status"] = "running"
 
@@ -1335,6 +1425,7 @@ def run_pipeline(
                 "errors",
                 "reports",
                 "tep",
+                "execution_provenance",
             ]:
                 if required_key not in state:
                     state = stage_state_before

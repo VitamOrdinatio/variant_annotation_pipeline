@@ -39,6 +39,7 @@ from pathlib import Path
 from typing import Any
 
 from pipeline.variant_identity import build_variant_id
+from src.execution_provenance import require_annotation_environment
 
 
 def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
@@ -152,32 +153,6 @@ def _validate_annovar_runtime_requirements(config: dict[str, Any]) -> dict[str, 
         "annovar_humandb_dir": str(humandb_dir),
     }
 
-def _record_vep_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
-    vep_executable = config["tools"]["vep"]["executable"]
-    try:
-        result = subprocess.run(
-            [vep_executable, "--help"],
-            capture_output=True,
-            text=True,
-            check=False,
-        )
-        text = (result.stdout or result.stderr or "").strip().splitlines()
-        first_version_line = None
-        for line in text:
-            if "variant effect predictor" in line.lower() or "ensembl" in line.lower():
-                first_version_line = line.strip()
-                break
-        if first_version_line is None and text:
-            first_version_line = text[0].strip()
-        if first_version_line:
-            state["run"].setdefault("tool_versions", {})
-            state["run"]["tool_versions"]["vep"] = first_version_line
-            logger.info(f"Recorded VEP version: {first_version_line}")
-    except Exception as exc:
-        state["warnings"].append(f"Unable to record VEP version: {exc}")
-        logger.warning(f"Unable to record VEP version: {exc}")
-
-
 def _load_gene_set_table(path: Path, label: str) -> tuple[set[str], dict[str, str]]:
     """
     Load a 2-column gene-set TSV with required columns:
@@ -287,6 +262,37 @@ def _get_annotation_engine(config: dict[str, Any]) -> str:
         )
     return engine
 
+
+def _centralized_annotation_runtime(
+    config: dict[str, Any],
+    state: dict[str, Any],
+    annotation_engine: str,
+) -> dict[str, str] | None:
+    """
+    Consume centralized execution provenance when the config is migrated.
+    """
+    if annotation_engine != "vep":
+        return None
+
+    provenance = state.get("execution_provenance", {})
+    if provenance.get("contract_status") != "pass":
+        return None
+
+    annotation = require_annotation_environment(state)
+    return {
+        "vep_executable_resolved": annotation["software"][
+            "resolved_executable"
+        ],
+        "vep_cache_dir": annotation["cache"][
+            "configured_cache_directory"
+        ],
+        "vep_cache_resolved": annotation["cache"][
+            "resolved_cache_directory"
+        ],
+        "vep_assembly": annotation["cache"]["observed_assembly"],
+    }
+
+
 def _validate_annotation_runtime_requirements(
     config: dict[str, Any],
     annotation_engine: str,
@@ -304,23 +310,43 @@ def _build_annotation_command(
     annotation_engine: str,
     input_vcf: Path,
     output_vcf: Path,
+    runtime_requirements: dict[str, str] | None = None,
 ) -> list[str]:
     if annotation_engine == "vep":
-        return _build_vep_command(config, input_vcf, output_vcf)
+        return _build_vep_command(
+            config,
+            input_vcf,
+            output_vcf,
+            runtime_requirements=runtime_requirements,
+        )
 
     if annotation_engine == "annovar":
         return _build_annovar_command(config, input_vcf, output_vcf)
 
     raise ValueError(f"Unsupported annotation engine for command build: {annotation_engine}")
 
-def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path) -> list[str]:
+def _build_vep_command(
+    config: dict[str, Any],
+    input_vcf: Path,
+    output_vcf: Path,
+    runtime_requirements: dict[str, str] | None = None,
+) -> list[str]:
     vep_cfg = config["tools"]["vep"]
-    assembly = str(vep_cfg.get("assembly", "")).strip()
+    runtime_requirements = runtime_requirements or {}
+    assembly = str(
+        runtime_requirements.get(
+            "vep_assembly",
+            vep_cfg.get("assembly", ""),
+        )
+    ).strip()
     if not assembly:
         raise ValueError("VEP assembly missing in config.tools.vep.assembly")
 
     command = [
-        vep_cfg["executable"],
+        runtime_requirements.get(
+            "vep_executable_resolved",
+            vep_cfg["executable"],
+        ),
         "--input_file",
         str(input_vcf),
         "--output_file",
@@ -336,7 +362,10 @@ def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path
         "--cache",
         "--offline",
         "--dir_cache",
-        vep_cfg["cache_dir"],
+        runtime_requirements.get(
+            "vep_cache_dir",
+            vep_cfg["cache_dir"],
+        ),
         "--symbol",
         "--biotype",
         "--transcript_version",
@@ -599,10 +628,24 @@ def run_stage(
         "gene_sets.genes4epilepsy_path",
     )
 
-    runtime_requirements = _validate_annotation_runtime_requirements(
+    runtime_requirements = _centralized_annotation_runtime(
         config,
+        state,
         annotation_engine,
     )
+    if runtime_requirements is None:
+        runtime_requirements = _validate_annotation_runtime_requirements(
+            config,
+            annotation_engine,
+        )
+        logger.warning(
+            "Stage 07 used legacy local annotation runtime validation "
+            "because centralized execution provenance was unavailable."
+        )
+    else:
+        logger.info(
+            "Stage 07 is consuming the centralized annotation environment."
+        )
 
     if annotation_engine == "vep":
         logger.info(
@@ -630,6 +673,7 @@ def run_stage(
         annotation_engine,
         normalized_vcf,
         annotated_vcf,
+        runtime_requirements=runtime_requirements,
     )
 
     _run_command(
@@ -818,9 +862,6 @@ def run_stage(
         "required_fields_present": required_fields_present,
         "unresolved_symbol_count": unresolved_symbol_count,
     }
-
-    if config["runtime"]["record_tool_versions"] and annotation_engine == "vep":
-        _record_vep_version(config, state, logger)
 
     logger.info(f"Annotated VCF written to: {annotated_vcf}")
     logger.info(f"Annotated variant table written to: {annotated_table}")

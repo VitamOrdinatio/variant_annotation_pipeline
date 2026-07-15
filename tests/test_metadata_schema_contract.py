@@ -32,10 +32,18 @@ def test_run_metadata_schema_contract(tmp_path):
 
     assert set(data.keys()) == {
         "artifacts",
+        "execution_provenance",
         "genotype_projection",
         "run",
         "summary",
         "tep",
+    }
+
+    assert data["execution_provenance"] == {
+        "contract_status": "not_recorded",
+        "resolution_mode": "not_recorded",
+        "provenance_completeness": None,
+        "receipt_path": None,
     }
 
     assert set(data["run"].keys()) == {

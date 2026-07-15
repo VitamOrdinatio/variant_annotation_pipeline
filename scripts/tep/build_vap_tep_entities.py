@@ -205,6 +205,18 @@ BASE_ARTIFACT_SPECS = [
     ),
 ]
 
+EXECUTION_PROVENANCE_ARTIFACT_SPEC = ArtifactSpec(
+    entity_id="context_sidecar",
+    entity_role="context_sidecar",
+    source_stage="pipeline_initialization",
+    source_artifact_role="execution_provenance",
+    source_pattern="execution_provenance.json",
+    entity_subdir="context",
+    required=True,
+    source_root="metadata",
+)
+
+
 GENOTYPE_ARTIFACT_SPECS = [
     ArtifactSpec(
         entity_id="genotype_observation_entity",
@@ -241,7 +253,10 @@ GENOTYPE_SOURCE_FILENAMES = tuple(
 )
 
 
-def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
+def resolve_artifact_specs(
+    processed_dir: Path,
+    metadata_dir: Path | None = None,
+) -> list[ArtifactSpec]:
     """
     Select the artifact contract for this run.
 
@@ -255,8 +270,18 @@ def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
     }
     present_count = sum(present.values())
 
+    provenance_specs = []
+    if (
+        metadata_dir is not None
+        and (metadata_dir / "execution_provenance.json").is_file()
+    ):
+        provenance_specs.append(EXECUTION_PROVENANCE_ARTIFACT_SPEC)
+
     if present_count == 0:
-        return list(BASE_ARTIFACT_SPECS)
+        return [
+            *BASE_ARTIFACT_SPECS,
+            *provenance_specs,
+        ]
 
     if present_count != len(GENOTYPE_SOURCE_FILENAMES):
         missing = sorted(
@@ -277,6 +302,7 @@ def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
     return [
         *BASE_ARTIFACT_SPECS,
         *GENOTYPE_ARTIFACT_SPECS,
+        *provenance_specs,
     ]
 
 
@@ -562,7 +588,10 @@ def build_entities(
         package_root.mkdir(parents=True, exist_ok=True)
 
     records: list[ArtifactInventoryRecord] = []
-    artifact_specs = resolve_artifact_specs(processed_dir)
+    artifact_specs = resolve_artifact_specs(
+        processed_dir,
+        metadata_dir,
+    )
 
     for spec in artifact_specs:
         if spec.source_root == "processed":
@@ -620,6 +649,15 @@ def build_entities(
                 if any(
                     entity.entity_role == "genotype_observation_entity"
                     for entity in entity_records
+                )
+                else "not_available"
+            ),
+            "execution_provenance_capability": (
+                "available"
+                if any(
+                    artifact.source_artifact_role == "execution_provenance"
+                    and artifact.source_artifact_exists
+                    for artifact in records
                 )
                 else "not_available"
             ),
