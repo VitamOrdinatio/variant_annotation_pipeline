@@ -1,0 +1,140 @@
+============================================================
+CURRENT SYS76 RUN — PROCESSED-TO-TEP TRANSPORT BYTE IDENTITY
+============================================================
+generated_at: 2026-07-15T13:28:02-04:00
+repository:   /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline
+run:          results/run_2026_07_14_114546
+tep:          results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1
+
+
+------------------------------------------------------------
+ARTIFACT: genotype_observations.tsv
+------------------------------------------------------------
+processed_path: results/run_2026_07_14_114546/processed/genotype_observations.tsv
+packaged_path:  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_observations.tsv
+PROCESSED_EXISTS=PASS
+PACKAGED_EXISTS=PASS
+
+SHA256:
+50af11d7e13197a0a1241343c32d88dfb1a26bef666d4b7b23f970784bfd715f  results/run_2026_07_14_114546/processed/genotype_observations.tsv
+50af11d7e13197a0a1241343c32d88dfb1a26bef666d4b7b23f970784bfd715f  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_observations.tsv
+
+FILE METADATA:
+  File: results/run_2026_07_14_114546/processed/genotype_observations.tsv
+  Size: 705943953 	Blocks: 1378808    IO Block: 4096   regular file
+Device: 252,1	Inode: 11028545    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:06.997436376 -0400
+Modify: 2026-07-14 11:54:39.820992315 -0400
+Change: 2026-07-14 11:54:40.314776554 -0400
+ Birth: 2026-07-14 11:54:06.997436376 -0400
+  File: results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_observations.tsv
+  Size: 705943953 	Blocks: 1378808    IO Block: 4096   regular file
+Device: 252,1	Inode: 11028617    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:06.997436376 -0400
+Modify: 2026-07-14 11:54:39.820992315 -0400
+Change: 2026-07-14 11:57:16.176686300 -0400
+ Birth: 2026-07-14 11:57:15.965688252 -0400
+
+BYTE_IDENTITY=PASS
+
+------------------------------------------------------------
+ARTIFACT: genotype_projection_summary.json
+------------------------------------------------------------
+processed_path: results/run_2026_07_14_114546/processed/genotype_projection_summary.json
+packaged_path:  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_projection_summary.json
+PROCESSED_EXISTS=PASS
+PACKAGED_EXISTS=PASS
+
+SHA256:
+f6217f5e94607eb874783448e25c16e423cbd03db0f7f4f6a5cb31a4d700f30e  results/run_2026_07_14_114546/processed/genotype_projection_summary.json
+f6217f5e94607eb874783448e25c16e423cbd03db0f7f4f6a5cb31a4d700f30e  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_projection_summary.json
+
+FILE METADATA:
+  File: results/run_2026_07_14_114546/processed/genotype_projection_summary.json
+  Size: 3044      	Blocks: 8          IO Block: 4096   regular file
+Device: 252,1	Inode: 11028547    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:40.314128168 -0400
+Modify: 2026-07-14 11:54:40.314776554 -0400
+Change: 2026-07-14 11:54:40.314855117 -0400
+ Birth: 2026-07-14 11:54:40.314128168 -0400
+  File: results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_projection_summary.json
+  Size: 3044      	Blocks: 8          IO Block: 4096   regular file
+Device: 252,1	Inode: 11028618    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:40.314128168 -0400
+Modify: 2026-07-14 11:54:40.314776554 -0400
+Change: 2026-07-14 11:57:21.115791844 -0400
+ Birth: 2026-07-14 11:57:21.114640619 -0400
+
+BYTE_IDENTITY=PASS
+
+------------------------------------------------------------
+ARTIFACT: genotype_source_header_context.json
+------------------------------------------------------------
+processed_path: results/run_2026_07_14_114546/processed/genotype_source_header_context.json
+packaged_path:  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_source_header_context.json
+PROCESSED_EXISTS=PASS
+PACKAGED_EXISTS=PASS
+
+SHA256:
+721745129e3c1bcf3ee10abc6c1f3acaa15983215f63473d79cf11d115001f5e  results/run_2026_07_14_114546/processed/genotype_source_header_context.json
+721745129e3c1bcf3ee10abc6c1f3acaa15983215f63473d79cf11d115001f5e  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_source_header_context.json
+
+FILE METADATA:
+  File: results/run_2026_07_14_114546/processed/genotype_source_header_context.json
+  Size: 48099     	Blocks: 96         IO Block: 4096   regular file
+Device: 252,1	Inode: 11028546    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:39.820992315 -0400
+Modify: 2026-07-14 11:54:39.821132729 -0400
+Change: 2026-07-14 11:54:40.314776554 -0400
+ Birth: 2026-07-14 11:54:39.820992315 -0400
+  File: results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/genotype/genotype_source_header_context.json
+  Size: 48099     	Blocks: 96         IO Block: 4096   regular file
+Device: 252,1	Inode: 11028619    Links: 1
+Access: (0600/-rw-------)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 11:54:39.820992315 -0400
+Modify: 2026-07-14 11:54:39.821132729 -0400
+Change: 2026-07-14 11:57:21.116022318 -0400
+ Birth: 2026-07-14 11:57:21.115791844 -0400
+
+BYTE_IDENTITY=PASS
+
+============================================================
+EXECUTION PROVENANCE TRANSPORT
+============================================================
+source_path:   results/run_2026_07_14_114546/metadata/execution_provenance.json
+packaged_path: results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/context/execution_provenance.json
+SOURCE_PROVENANCE_EXISTS=PASS
+PACKAGED_PROVENANCE_EXISTS=PASS
+
+SHA256:
+0d3993070833bbc89f112f78931bf09bc7fa3161b4ff70882d5b1ac948234db2  results/run_2026_07_14_114546/metadata/execution_provenance.json
+0d3993070833bbc89f112f78931bf09bc7fa3161b4ff70882d5b1ac948234db2  results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/context/execution_provenance.json
+
+FILE METADATA:
+  File: results/run_2026_07_14_114546/metadata/execution_provenance.json
+  Size: 13920     	Blocks: 32         IO Block: 4096   regular file
+Device: 252,1	Inode: 11028517    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 07:45:59.873787839 -0400
+Modify: 2026-07-14 07:45:59.874973140 -0400
+Change: 2026-07-14 07:45:59.874973140 -0400
+ Birth: 2026-07-14 07:45:59.873787839 -0400
+  File: results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entities/context/execution_provenance.json
+  Size: 13920     	Blocks: 32         IO Block: 4096   regular file
+Device: 252,1	Inode: 11028620    Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/steelsparrow)   Gid: ( 1000/steelsparrow)
+Access: 2026-07-14 07:45:59.873787839 -0400
+Modify: 2026-07-14 07:45:59.874973140 -0400
+Change: 2026-07-14 11:57:21.124640527 -0400
+ Birth: 2026-07-14 11:57:21.116022318 -0400
+
+EXECUTION_PROVENANCE_BYTE_IDENTITY=PASS
+
+============================================================
+PROBE_A_OVERALL=PASS
+============================================================

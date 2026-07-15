@@ -1,0 +1,396 @@
+============================================================
+PROBE C — INITIALIZATION ORDER AND TEST CONFORMANCE
+============================================================
+generated_at: 2026-07-15T13:28:31-04:00
+repository:   /home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline
+run:          results/run_2026_07_14_114546
+
+============================================================
+1. REPOSITORY AND ENVIRONMENT IDENTITY
+============================================================
+
+$ git rev-parse HEAD
+46a814a23cf0fb838950d7052bd1c2b542f52916
+
+$ git branch --show-current
+main
+
+$ git status --short
+
+$ git diff --quiet && git diff --cached --quiet
+REPOSITORY_TRACKED_STATE=CLEAN
+REPOSITORY_UNTRACKED_STATE=CLEAN
+
+$ python --version
+Python 3.12.3
+
+$ which python
+/home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/.venv/bin/python
+
+$ pytest --version
+pytest 9.0.3
+
+$ uname -a
+Linux pop-os 7.0.11-76070011-generic #202606011647~1780583645~24.04~5c4cc15 SMP PREEMPT_DYNAMIC Thu J x86_64 x86_64 x86_64 GNU/Linux
+
+$ hostname
+pop-os
+
+============================================================
+2. PROVENANCE INITIALIZATION ORDER
+============================================================
+
+--- matching provenance / Stage 01 lines with line numbers ---
+4:2026-07-14 07:45:46,716 | INFO | Resolving execution provenance before Stage 01.
+5:2026-07-14 07:45:59,875 | INFO | Execution provenance resolved: status=pass; mode=live_runtime_resolution; receipt=results/run_2026_07_14_114546/metadata/execution_provenance.json
+10:2026-07-14 07:45:59,875 | INFO | Starting stage: stage_01_load_data
+11:2026-07-14 07:45:59,884 | INFO | Stage 01: loading input data context.
+12:2026-07-14 07:45:59,884 | INFO | Stage 01 operating in full_pipeline mode.
+15:2026-07-14 07:45:59,884 | INFO | Completed stage: stage_01_load_data
+8429:2026-07-14 11:55:36,901 | INFO | Starting stage: stage_10_interpret_noncoding
+8430:2026-07-14 11:55:36,902 | INFO | Stage 10: interpreting noncoding variants.
+8431:2026-07-14 11:55:36,902 | INFO | Stage 10 noncoding input: results/run_2026_07_14_114546/processed/noncoding_candidates.tsv
+8432:2026-07-14 11:55:36,902 | INFO | Stage 10 Stage 08 variant summary validation input: results/run_2026_07_14_114546/processed/stage_08_variant_summary.tsv
+8433:2026-07-14 11:55:36,902 | INFO | Stage 10 selected transcript validation input: results/run_2026_07_14_114546/processed/stage_08_selected_transcript_consequences.tsv
+8434:2026-07-14 11:55:36,902 | INFO | Reading Stage 10 input: results/run_2026_07_14_114546/processed/noncoding_candidates.tsv
+8435:2026-07-14 11:55:53,861 | INFO | Stage 10 interpreted noncoding variants written to: results/run_2026_07_14_114546/processed/stage_10_noncoding_interpreted.tsv
+8436:2026-07-14 11:55:53,861 | INFO | Stage 10 summary JSON written to: results/run_2026_07_14_114546/processed/stage_10_summary.json
+8437:2026-07-14 11:55:53,861 | INFO | Stage 10 input rows processed: 710057
+8438:2026-07-14 11:55:53,861 | INFO | Stage 10 interpreted rows written: 710057
+8439:2026-07-14 11:55:53,975 | INFO | Completed stage: stage_10_interpret_noncoding
+8440:2026-07-14 11:56:23,320 | INFO | Sidecar metrics emitted for stage_10_interpret_noncoding
+8441:2026-07-14 11:56:23,321 | INFO | Starting stage: stage_11_prioritize_variants
+8442:2026-07-14 11:56:23,321 | INFO | Stage 11: prioritizing interpreted variants.
+8443:2026-07-14 11:56:23,321 | INFO | Stage 11 coding input: results/run_2026_07_14_114546/processed/stage_09_coding_interpreted.tsv
+8444:2026-07-14 11:56:23,321 | INFO | Stage 11 noncoding input: results/run_2026_07_14_114546/processed/stage_10_noncoding_interpreted.tsv
+8445:2026-07-14 11:56:23,322 | INFO | Reading Stage 11 coding input: results/run_2026_07_14_114546/processed/stage_09_coding_interpreted.tsv
+8446:2026-07-14 11:56:23,814 | INFO | Reading Stage 11 noncoding input: results/run_2026_07_14_114546/processed/stage_10_noncoding_interpreted.tsv
+8447:2026-07-14 11:56:37,521 | INFO | Stage 11 prioritized variants written to: results/run_2026_07_14_114546/processed/stage_11_prioritized_variants.tsv
+8448:2026-07-14 11:56:37,521 | INFO | Stage 11 gene variant counts written to: results/run_2026_07_14_114546/processed/stage_11_gene_variant_counts.tsv
+8449:2026-07-14 11:56:37,521 | INFO | Stage 11 summary JSON written to: results/run_2026_07_14_114546/processed/stage_11_summary.json
+8450:2026-07-14 11:56:37,521 | INFO | Stage 11 input rows processed: 736508
+8451:2026-07-14 11:56:37,521 | INFO | Stage 11 output rows written: 736508
+8452:2026-07-14 11:56:37,521 | INFO | Stage 11 malformed/unassigned rows: 0
+8453:2026-07-14 11:56:37,522 | INFO | Completed stage: stage_11_prioritize_variants
+8454:2026-07-14 11:56:40,194 | INFO | Sidecar metrics emitted for stage_11_prioritize_variants
+8455:2026-07-14 11:56:40,194 | INFO | Starting stage: stage_12_validate_variants
+8456:2026-07-14 11:56:40,195 | INFO | Stage 12: preparing validation candidates.
+8457:2026-07-14 11:56:40,195 | INFO | Stage 12 prioritized variants input: results/run_2026_07_14_114546/processed/stage_11_prioritized_variants.tsv
+8458:2026-07-14 11:56:55,702 | INFO | Stage 12 validation candidates written to: results/run_2026_07_14_114546/processed/stage_12_validation_candidates.tsv
+8459:2026-07-14 11:56:55,702 | INFO | Stage 12 summary JSON written to: results/run_2026_07_14_114546/processed/stage_12_summary.json
+8460:2026-07-14 11:56:55,702 | INFO | Stage 12 input rows processed: 736508
+8461:2026-07-14 11:56:55,703 | INFO | Stage 12 output rows written: 736508
+8462:2026-07-14 11:56:55,703 | INFO | Stage 12 unrecognized priority rows: 0
+8463:2026-07-14 11:56:55,703 | INFO | Completed stage: stage_12_validate_variants
+8464:2026-07-14 11:56:58,566 | INFO | Sidecar metrics emitted for stage_12_validate_variants
+8472:2026-07-14 11:56:58,581 | INFO | Starting stage: stage_13_write_summary
+8473:2026-07-14 11:56:58,582 | INFO | Stage 13: writing final summary and manifest.
+8474:2026-07-14 11:56:58,586 | INFO | Stage 13 final summary written to: results/run_2026_07_14_114546/processed/stage_13_final_summary.json
+8475:2026-07-14 11:56:58,586 | INFO | Stage 13 artifact manifest written to: results/run_2026_07_14_114546/processed/stage_13_artifact_manifest.json
+8476:2026-07-14 11:56:58,586 | INFO | Stage 13 run report written to: results/run_2026_07_14_114546/processed/stage_13_run_report.md
+8477:2026-07-14 11:56:58,586 | INFO | Completed stage: stage_13_write_summary
+
+--- first 250 pipeline-log lines ---
+2026-07-14 07:45:46,708 | INFO | Transitioned from bootstrap logger to canonical run logger.
+2026-07-14 07:45:46,708 | INFO | Canonical log path: results/run_2026_07_14_114546/logs/pipeline.log
+2026-07-14 07:45:46,716 | INFO | Run fingerprint written to: results/run_2026_07_14_114546/metadata/run_fingerprint.json
+2026-07-14 07:45:46,716 | INFO | Resolving execution provenance before Stage 01.
+2026-07-14 07:45:59,875 | INFO | Execution provenance resolved: status=pass; mode=live_runtime_resolution; receipt=results/run_2026_07_14_114546/metadata/execution_provenance.json
+2026-07-14 07:45:59,875 | INFO | Pipeline run started.
+2026-07-14 07:45:59,875 | INFO | Run ID: run_2026_07_14_114546
+2026-07-14 07:45:59,875 | INFO | Execution mode: full_pipeline
+2026-07-14 07:45:59,875 | INFO | Run directory: results/run_2026_07_14_114546
+2026-07-14 07:45:59,875 | INFO | Starting stage: stage_01_load_data
+2026-07-14 07:45:59,884 | INFO | Stage 01: loading input data context.
+2026-07-14 07:45:59,884 | INFO | Stage 01 operating in full_pipeline mode.
+2026-07-14 07:45:59,884 | INFO | Validated FASTQ R1: /mnt/storage/fastq/ERR10619300_1.fastq.gz
+2026-07-14 07:45:59,884 | INFO | Validated FASTQ R2: /mnt/storage/fastq/ERR10619300_2.fastq.gz
+2026-07-14 07:45:59,884 | INFO | Completed stage: stage_01_load_data
+2026-07-14 07:45:59,885 | INFO | Starting stage: stage_02_align_data
+2026-07-14 07:45:59,886 | INFO | Stage 02: aligning sequencing reads.
+2026-07-14 07:49:17,820 | INFO | FASTQ R1 reads detected: 83673287
+2026-07-14 07:49:17,820 | INFO | FASTQ R2 reads detected: 83673287
+2026-07-14 07:49:17,820 | INFO | Temporary SAM output path: results/run_2026_07_14_114546/interim/ERR10619300_run_2026_07_14_114546.aligned.sam
+2026-07-14 09:37:59,394 | INFO | BWA stderr: [M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 602300 sequences (60000171 bp)...
+[M::process] read 602110 sequences (60000080 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (18, 230346, 2, 13)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (128, 524, 818)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2198)
+[M::mem_pestat] mean and std.dev: (467.94, 323.23)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2888)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (152, 191, 236)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 404)
+[M::mem_pestat] mean and std.dev: (195.89, 63.55)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 488)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (137, 269, 443)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1055)
+[M::mem_pestat] mean and std.dev: (273.46, 175.45)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1361)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 602300 reads in 109.784 CPU sec, 18.356 real sec
+[M::process] read 601804 sequences (60000134 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (13, 230515, 3, 11)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (275, 1084, 2872)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 8066)
+[M::mem_pestat] mean and std.dev: (1636.92, 1949.43)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 10663)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (153, 193, 238)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 408)
+[M::mem_pestat] mean and std.dev: (197.94, 64.12)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 493)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (186, 231, 978)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2562)
+[M::mem_pestat] mean and std.dev: (406.40, 394.94)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 3354)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 602110 reads in 118.795 CPU sec, 20.247 real sec
+[M::process] read 601702 sequences (60000066 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (11, 230343, 5, 7)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (152, 869, 1741)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 4919)
+[M::mem_pestat] mean and std.dev: (1205.73, 1263.81)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 6508)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (155, 195, 240)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 410)
+[M::mem_pestat] mean and std.dev: (199.99, 64.51)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 495)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 601804 reads in 119.520 CPU sec, 20.159 real sec
+[M::process] read 601698 sequences (60000089 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (13, 230254, 2, 10)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (151, 192, 628)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1582)
+[M::mem_pestat] mean and std.dev: (289.25, 211.26)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2059)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (155, 195, 241)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 413)
+[M::mem_pestat] mean and std.dev: (200.62, 64.91)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 499)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (184, 752, 827)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2113)
+[M::mem_pestat] mean and std.dev: (559.10, 408.47)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 2756)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 601702 reads in 124.348 CPU sec, 21.362 real sec
+[M::process] read 601836 sequences (60000111 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (16, 229931, 5, 8)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (220, 289, 640)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1480)
+[M::mem_pestat] mean and std.dev: (377.00, 313.83)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1900)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (156, 196, 242)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 414)
+[M::mem_pestat] mean and std.dev: (201.00, 64.85)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 500)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 601698 reads in 111.829 CPU sec, 18.611 real sec
+[M::process] read 602154 sequences (60000156 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (14, 230581, 2, 9)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (124, 240, 327)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 733)
+[M::mem_pestat] mean and std.dev: (235.62, 125.59)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 936)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (156, 195, 241)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 411)
+[M::mem_pestat] mean and std.dev: (200.37, 64.62)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 496)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 601836 reads in 109.522 CPU sec, 18.113 real sec
+[M::process] read 602082 sequences (60000187 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (11, 230709, 4, 4)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (290, 743, 1132)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 2816)
+[M::mem_pestat] mean and std.dev: (676.80, 491.29)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 3658)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (153, 191, 236)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 402)
+[M::mem_pestat] mean and std.dev: (196.37, 63.13)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 485)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 602154 reads in 110.585 CPU sec, 18.302 real sec
+[M::process] read 601820 sequences (60000166 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (12, 230200, 5, 8)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (189, 217, 553)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1281)
+[M::mem_pestat] mean and std.dev: (299.08, 194.76)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1645)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (154, 193, 238)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 406)
+[M::mem_pestat] mean and std.dev: (198.13, 63.90)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 490)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 602082 reads in 109.244 CPU sec, 18.124 real sec
+[M::process] read 601738 sequences (60000100 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (13, 229965, 4, 6)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (348, 712, 1973)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 5223)
+[M::mem_pestat] mean and std.dev: (950.50, 817.43)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 6848)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (155, 195, 240)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 410)
+[M::mem_pestat] mean and std.dev: (200.03, 64.63)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 495)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 601820 reads in 124.466 CPU sec, 20.701 real sec
+[M::process] read 601746 sequences (60000119 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (14, 230537, 4, 5)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (141, 270, 557)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1389)
+[M::mem_pestat] mean and std.dev: (340.92, 256.79)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1805)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (156, 196, 241)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 411)
+[M::mem_pestat] mean and std.dev: (200.69, 64.63)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 496)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_pestat] skip orientation FF
+[M::mem_process_seqs] Processed 601738 reads in 118.523 CPU sec, 19.642 real sec
+[M::process] read 601816 sequences (60000005 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (9, 230239, 3, 9)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (156, 196, 242)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 414)
+[M::mem_pestat] mean and std.dev: (201.17, 65.05)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 500)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 601746 reads in 111.916 CPU sec, 18.649 real sec
+[M::process] read 602234 sequences (60000061 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (9, 230348, 5, 7)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (155, 195, 240)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 410)
+[M::mem_pestat] mean and std.dev: (199.93, 64.56)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 495)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 601816 reads in 114.106 CPU sec, 19.047 real sec
+[M::process] read 602012 sequences (60000007 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (11, 230232, 2, 14)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (128, 137, 1883)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 5393)
+[M::mem_pestat] mean and std.dev: (797.91, 1093.74)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 7148)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (153, 192, 237)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 405)
+[M::mem_pestat] mean and std.dev: (197.03, 63.63)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 489)
+[M::mem_pestat] skip orientation RF as there are not enough pairs
+[M::mem_pestat] analyzing insert size distribution for orientation RR...
+[M::mem_pestat] (25, 50, 75) percentile: (155, 292, 524)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 1262)
+[M::mem_pestat] mean and std.dev: (267.58, 174.14)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 1631)
+[M::mem_pestat] skip orientation FF
+[M::mem_pestat] skip orientation RR
+[M::mem_process_seqs] Processed 602234 reads in 115.298 CPU sec, 19.108 real sec
+[M::process] read 601880 sequences (60000199 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (11, 230428, 5, 14)
+[M::mem_pestat] analyzing insert size distribution for orientation FF...
+[M::mem_pestat] (25, 50, 75) percentile: (266, 1359, 2200)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 6068)
+[M::mem_pestat] mean and std.dev: (1174.80, 912.60)
+[M::mem_pestat] low and high boundaries for proper pairs: (1, 8002)
+[M::mem_pestat] analyzing insert size distribution for orientation FR...
+[M::mem_pestat] (25, 50, 75) percentile: (154, 194, 239)
+[M::mem_pestat] low and high boundaries for computing mean and std.dev: (1, 409)
+
+============================================================
+3. DISCOVER TARGETED TEST PATHS
+============================================================
+tests/tep/test_vap_tep_execution_provenance.py
+tests/tep/test_vap_tep_genotype_entities.py
+tests/tep/test_vap_tep_genotype_lineage.py
+tests/tep/test_vap_tep_genotype_validation.py
+tests/tep/test_vap_tep_pipeline_orchestration.py
+tests/test_execution_provenance_annotation_environment.py
+tests/test_execution_provenance_config.py
+tests/test_execution_provenance_cross_surface_validation.py
+tests/test_execution_provenance_pipeline_integration.py
+tests/test_execution_provenance.py
+tests/test_execution_provenance_receipt.py
+tests/test_execution_provenance_resource_environment.py
+tests/test_execution_provenance_toolchain.py
+tests/test_genotype_pipeline_integration.py
+tests/test_genotype_projection_header_context.py
+tests/test_genotype_projection_policy.py
+tests/test_genotype_projection.py
+tests/test_genotype_projection_schema.py
+tests/test_genotype_projection_summary.py
+tests/test_stage07_execution_provenance.py
+
+============================================================
+4. TARGETED MODERN-SUBSTRATE TESTS
+============================================================
+Running 20 targeted test files.
+
+........................................................................ [ 64%]
+........................................                                 [100%]
+112 passed in 1.13s
+
+TARGETED_TEST_EXIT_STATUS=0
+
+============================================================
+5. COMPLETE VAP REGRESSION SUITE
+============================================================
+........................................................................ [ 45%]
+........................................................................ [ 90%]
+................                                                         [100%]
+160 passed in 1.23s
+
+FULL_SUITE_EXIT_STATUS=0
+
+============================================================
+6. FINAL PROBE C SUMMARY
+============================================================
+TARGETED_TEST_EXIT_STATUS=0
+FULL_SUITE_EXIT_STATUS=0
+PROBE_C_OVERALL=PASS
+============================================================
