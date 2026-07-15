@@ -2838,6 +2838,22 @@ def _numeric_or_text(value: str) -> float | str:
     return parsed if parsed is not None else value.strip()
 
 
+def _adapter_columns(
+    adapter: Mapping[str, Any],
+    key: str,
+) -> tuple[str, ...]:
+    value = adapter.get(key)
+
+    if not isinstance(value, (list, tuple)):
+        return ()
+
+    return tuple(
+        str(column)
+        for column in value
+        if isinstance(column, str) and column
+    )
+
+
 def _compare_adapter_rows(
     filename: str,
     historical_run_id: str,
@@ -2848,7 +2864,7 @@ def _compare_adapter_rows(
 ) -> list[dict[str, Any]]:
     comparisons: list[dict[str, Any]] = []
 
-    wide_columns = tuple(adapter.get("wide_value_columns", ()))
+    wide_columns = _adapter_columns(adapter, "wide_value_columns")
     if wide_columns:
         historical_row = historical_rows[0] if historical_rows else {}
         current_row = current_rows[0] if current_rows else {}
@@ -2904,8 +2920,8 @@ def _compare_adapter_rows(
             })
         return comparisons
 
-    key_columns = tuple(adapter.get("key_columns", ()))
-    value_columns = tuple(adapter.get("value_columns", ()))
+    key_columns = _adapter_columns(adapter, "key_columns")
+    value_columns = _adapter_columns(adapter, "value_columns")
     if not key_columns or not value_columns:
         return comparisons
 
