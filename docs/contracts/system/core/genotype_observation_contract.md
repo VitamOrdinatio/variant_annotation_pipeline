@@ -261,12 +261,40 @@ genotype_source_header_context_v1
 
 ## Variant Relationship Contract
 
-When `variant_relationship_status = direct`, VDB may construct direct
-relationships.
+When `variant_relationship_status = direct`, VDB may register the direct
+producer-declared genotype-to-variant relationship.
 
-When the status is `complex`, `deferred`, or `unresolved`, VDB shall
-preserve uncertainty and shall not fabricate allele-specific
-relationships.
+When the status is `complex`, `deferred`, or `unresolved`, VDB shall preserve
+the producer-declared relationship state and shall not represent any
+consumer-derived relationship as a direct producer relationship.
+
+VDB may construct additive, typed, policy-declared allele-specific brokerage
+relationships when those relationships are supported by preserved source
+evidence, including:
+
+```text
+source-record identity
+reference allele
+ordered alternate-allele list
+called allele indices
+raw genotype fields
+normalization policy
+identity-registration policy
+traceability receipts
+```
+
+Any VDB-derived relationship shall remain distinguishable from:
+
+```text
+the authoritative producer genotype observation
+a direct producer-declared biallelic relationship
+an independent producer genotype row
+```
+
+Ambiguous, unsupported, or unresolved relationships shall remain explicit and
+shall not be coerced into direct allele-specific identity.
+
+---
 
 ## Consumer Reliance
 
