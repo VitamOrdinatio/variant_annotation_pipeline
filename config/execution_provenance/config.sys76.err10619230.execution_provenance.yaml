@@ -1,0 +1,202 @@
+project:
+  name: variant_annotation_pipeline
+  pipeline_name: variant_annotation_pipeline
+  version: v1.0
+
+mode:
+  execution_mode: full_pipeline
+
+execution_provenance:
+  required: true
+  schema_version: "1.0.0"
+
+  toolchain:
+    bwa:
+      declared_version: "0.7.17-r1188"
+      version_policy: exact
+      configured_from: tools.bwa.executable
+
+    samtools:
+      declared_version: "1.19.2"
+      version_policy: exact
+      configured_from: tools.samtools.executable
+
+    gatk:
+      declared_version: "4.5.0.0"
+      version_policy: exact
+      configured_from: tools.gatk.executable
+
+    java:
+      declared_major_version: "21"
+      version_policy: major
+
+    vep:
+      declared_version: "115.2"
+      version_policy: exact
+      configured_from: tools.vep.executable
+
+    perl:
+      version_policy: record_only
+
+    python:
+      version_policy: record_only
+
+  annotation_environment:
+    engine: ensembl_vep
+    software_version: "115.2"
+    cache_release: "115"
+    cache_species: homo_sapiens
+    cache_assembly: GRCh38
+    cache_type: ensembl
+    execution_mode: offline
+
+  resource_environment:
+    reference_fasta:
+      configured_from: reference.fasta_path
+      checksum_policy: sha256
+
+    fasta_index:
+      configured_from: reference.fasta_index
+      checksum_policy: sha256
+
+    sequence_dictionary:
+      configured_from: reference.sequence_dictionary
+      checksum_policy: sha256
+
+    bwa_index:
+      configured_from: reference.bwa_index_prefix
+      checksum_policy: sha256_constituents
+
+    mitocarta:
+      configured_from: gene_sets.mitocarta_path
+      checksum_policy: sha256
+
+    genes4epilepsy:
+      configured_from: gene_sets.genes4epilepsy_path
+      checksum_policy: sha256
+
+figures:
+  auto_render: true
+  strict: false
+  figure_set_template: scripts/configs/figure_sets/vap_single_run_figures.yaml
+
+execution_profile:
+  name: sys76_err10619230_execution_provenance_validation
+  hardware_class: SYS76_I7_1165G7_4C8T_64GB
+  profile_purpose: cross_hardware_err10619230_full_pipeline_execution_provenance_and_deterministic_scientific_replication
+  allow_non_hg002: true
+
+input:
+  bioproject_accession: PRJEB57558
+  sample_id: ERR10619230
+  sample_alias: ERR10619230
+  sra_accession: ERR10619230
+  assay_type: WES
+  annotated_tsv: null
+  
+  fastq:
+    r1: /mnt/storage/fastq/ERR10619230_1.fastq.gz
+    r2: /mnt/storage/fastq/ERR10619230_2.fastq.gz
+    compressed: true
+    paired_end: true
+  
+  sra:
+    enabled: false
+    sra_dir: null
+    sra_file: null
+  
+  vcf:
+    input_vcf: null
+
+reference:
+  genome_build: GRCh38
+  fasta_path: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa
+  fasta_index: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.fa.fai
+  bwa_index_prefix: /mnt/storage/reference/grch38/bwa/GRCh38.primary_assembly.genome
+  sequence_dictionary: /mnt/storage/reference/grch38/GRCh38.primary_assembly.genome.dict
+
+validation:
+  enable_validation: true
+  giab_benchmark_vcf: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz
+  giab_benchmark_index: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.vcf.gz.tbi
+  giab_benchmark_bed: /mnt/storage/reference/giab/HG002_GRCh38_1_22_v4.2.1_benchmark.bed
+  require_benchmark_for_v1: false
+  enable_manual_igv_review_prep: true
+
+tools:
+  bwa:
+    executable: bwa
+    mode: mem
+    threads: 6
+
+  samtools:
+    executable: samtools
+    threads: 6
+
+  gatk:
+    executable: /home/steelsparrow/tools/gatk-4.5.0.0/gatk
+    java_options: -Xmx16g -Djava.io.tmpdir=/mnt/storage/vap_tmp/ERR10619230
+    haplotypecaller_emit_mode: discovery
+
+  vep:
+    executable: /home/steelsparrow/tools/vep/ensembl-vep-release-115.2/vep
+    cache_dir: /mnt/storage/reference/vep/cache
+    assembly: GRCh38
+    offline: true
+    fork: 4
+
+annotation:
+  engine: vep
+  include_clinvar: true
+  include_population_frequencies: true
+  population_sources:
+  - gnomAD
+  - ExAC
+  - 1000Genomes
+
+gene_sets:
+  mitocarta_path: /mnt/storage/gene_sets/MitoCarta3.0_human_genes.tsv
+  genes4epilepsy_path: /mnt/storage/gene_sets/Genes4Epilepsy.tsv
+  required_flags:
+  - mito_flag
+  - epilepsy_flag
+
+filtering:
+  max_af_gnomad: 0.01
+  max_af_exac: 0.01
+  max_af_1000genomes: 0.01
+  allowed_coding_consequences:
+  - missense_variant
+  - stop_gained
+  - frameshift_variant
+  - splice_donor_variant
+  - splice_acceptor_variant
+  noncoding_priority_terms:
+  - intron_variant
+  - regulatory_region_variant
+  - upstream_gene_variant
+  - downstream_gene_variant
+
+prioritization:
+  enable_gene_set_overlays: true
+  prioritize_clinvar_pathogenic: true
+  prioritize_high_impact_consequences: true
+  prioritize_mito_genes: true
+  prioritize_epilepsy_genes: true
+
+output:
+  base_results_dir: results
+  write_interim: true
+  write_processed: true
+  write_reports: true
+  compress_vcf_outputs: false
+
+logging:
+  level: INFO
+  log_to_file: true
+  log_filename: pipeline.log
+
+runtime:
+  fail_fast: true
+  record_tool_versions: true
+  deterministic_mode: true
