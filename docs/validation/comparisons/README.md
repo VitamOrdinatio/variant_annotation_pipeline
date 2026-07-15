@@ -1,0 +1,5 @@
+# Validation Comparisons
+
+This directory contains certification-grade comparison receipts used to validate major architectural or scientific changes to the Variant Annotation Pipeline (VAP). Unlike transient execution outputs under `results/`, these validation bundles constitute durable evidence supporting contract closure, scientific reproducibility, and ecosystem readiness. Each comparison directory captures the complete analytical receipt for a specific validation objective, including comparison manifests, validation summaries, genotype and provenance audits, semantic surface comparisons, variant delta analyses, and SAGE review materials.
+
+Comparison bundles are organized by the scientific validation objective rather than by individual pipeline run. The contained manifests preserve the originating run identities, script versions, and evidence lineage required for full auditability while allowing the validation directory itself to remain a stable, citable repository of certification evidence. These receipts support review of VAP contracts and downstream interoperability readiness for consumers such as VDB and RDGP.

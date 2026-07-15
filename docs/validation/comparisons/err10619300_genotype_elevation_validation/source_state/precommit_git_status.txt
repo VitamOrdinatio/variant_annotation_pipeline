@@ -1,0 +1,29 @@
+ M docs/contracts/system/core/genotype_observation_contract.md
+ M pipeline/stage_07_annotate_variants.py
+ M scripts/tep/build_vap_tep_entities.py
+ M scripts/tep/validate_vap_tep.py
+ M src/config_loader.py
+ M src/pipeline_runner.py
+ M tests/test_metadata_schema_contract.py
+?? config/execution_provenance/
+?? docs/contracts/system/validation/historical_run_reproducibility_comparison_contract.md
+?? docs/plans/infrastructure/active/historical_run_reproducibility_comparison_plan.md
+?? docs/validation/comparisons/
+?? scripts/analysis/historical_run_reproducibility_comparison.py
+?? scripts/validation/audit_sys76_err10619300_TEP_validation_receipts_inventory_lineage.sh
+?? scripts/validation/audit_sys76_err10619300_run_transport_byte_identity.sh
+?? scripts/validation/audit_sys76_err10619300_tracing_initialization_order_and_test_conformance.sh
+?? scripts/validation/preflight_sys76_err10619300.py
+?? scripts/validation/validate_execution_provenance.py
+?? src/execution_provenance.py
+?? tests/tep/test_vap_tep_execution_provenance.py
+?? tests/test_execution_provenance.py
+?? tests/test_execution_provenance_annotation_environment.py
+?? tests/test_execution_provenance_config.py
+?? tests/test_execution_provenance_cross_surface_validation.py
+?? tests/test_execution_provenance_pipeline_integration.py
+?? tests/test_execution_provenance_receipt.py
+?? tests/test_execution_provenance_resource_environment.py
+?? tests/test_execution_provenance_toolchain.py
+?? tests/test_stage07_execution_provenance.py
+?? tests/test_sys76_err10619300_preflight.py

@@ -1,0 +1,14 @@
+{
+  "artifact_record_count": 18,
+  "checksum_failure_count": 0,
+  "checksum_match_count": 18,
+  "entity_inventory_path": "tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/entity_inventory.json",
+  "inventory_traversal_policy": "recursive transport-path and sha256 discovery",
+  "lineage_manifest_path": "tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/lineage_manifest.json",
+  "missing_declared_sha256_count": 0,
+  "status": "pass",
+  "tep_id": "vap_tep_ERR10619300_run_2026_07_14_114546_v1",
+  "tep_root": "/home/steelsparrow/dev/portfolio_projects/variant_annotation_pipeline/results/run_2026_07_14_114546/tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1",
+  "validation_report_pass": true,
+  "validation_report_path": "tep/vap_tep_ERR10619300_run_2026_07_14_114546_v1/validation_report.md"
+}

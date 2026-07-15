@@ -1,0 +1,38 @@
+{
+  "column_count": 68,
+  "column_presence_is_distinct_from_semantic_value_presence": true,
+  "expected_absent_fields": [
+    "filter_status"
+  ],
+  "missingness_policy": {
+    "explicit_missing_sentinels": [
+      ".",
+      "missing",
+      "n/a",
+      "na",
+      "none",
+      "not provided",
+      "not_provided",
+      "null",
+      "unavailable"
+    ],
+    "explicit_not_applicable_sentinels": [
+      "not applicable",
+      "not-applicable",
+      "not_applicable"
+    ],
+    "lexical_nonempty_does_not_imply_semantic_presence": true,
+    "states": [
+      "EMPTY",
+      "EXPLICIT_MISSING",
+      "EXPLICIT_NOT_APPLICABLE",
+      "SEMANTIC_VALUE"
+    ],
+    "unknown_is_treated_as_semantic_state": true
+  },
+  "path": "processed/genotype_observations.tsv",
+  "resolved_canonical_field_count": 18,
+  "row_count": 736508,
+  "status": "pass",
+  "unresolved_summary_present_fields": []
+}

@@ -1,0 +1,37 @@
+table	column	metric	historical_value	current_value	delta	classification
+stage_09_coding_interpreted.tsv	annotation_version	maximum		115.0		UNDER_REVIEW
+stage_09_coding_interpreted.tsv	annotation_version	mean		115.0		UNDER_REVIEW
+stage_09_coding_interpreted.tsv	annotation_version	minimum		115.0		UNDER_REVIEW
+stage_09_coding_interpreted.tsv	annotation_version	missing_count	0	0	0.0	MATCH
+stage_09_coding_interpreted.tsv	annotation_version	numeric_count	0	26451	26451.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	annotation_version	row_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	chromosome	maximum	22.0	22.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	chromosome	mean	10.057625549641287	10.060837381448069	0.003211831806781973	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	chromosome	minimum	1.0	1.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	chromosome	missing_count	0	0	0.0	MATCH
+stage_09_coding_interpreted.tsv	chromosome	numeric_count	25926	25938	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	chromosome	row_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	gnomad_af	maximum	1.0	1.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	gnomad_af	mean	0.43370275694328614	0.43365792615222476	-4.483079106137877e-05	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	gnomad_af	minimum	0.0	0.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	gnomad_af	missing_count	224	225	1.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	gnomad_af	numeric_count	26215	26226	11.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	gnomad_af	row_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	population_frequency	maximum	1.0	1.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	population_frequency	mean	0.4772683644199219	0.4772230371108159	-4.532730910600247e-05	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	population_frequency	minimum	0.0	0.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	population_frequency	missing_count	224	225	1.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	population_frequency	numeric_count	26215	26226	11.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	population_frequency	row_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	position	maximum	248917420.0	248917420.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	position	mean	73638098.99383487	73641574.55075422	3475.55691935122	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	position	minimum	3847.0	3847.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	position	missing_count	0	0	0.0	MATCH
+stage_09_coding_interpreted.tsv	position	numeric_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	position	row_count	26439	26451	12.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	thousand_genomes_af	maximum	1.0	1.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	thousand_genomes_af	mean	0.43926543338863633	0.4393102681013217	4.4834712685348777e-05	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	thousand_genomes_af	minimum	0.0	0.0	0.0	MATCH
+stage_09_coding_interpreted.tsv	thousand_genomes_af	missing_count	4138	4146	8.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	thousand_genomes_af	numeric_count	22301	22305	4.0	UNDER_REVIEW
+stage_09_coding_interpreted.tsv	thousand_genomes_af	row_count	26439	26451	12.0	UNDER_REVIEW

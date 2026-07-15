@@ -1,0 +1,60 @@
+{
+  "closure_status": "PASS_WITH_BOUNDED_LIMITATIONS",
+  "coding_identity_delta": {
+    "current_only_count": 26,
+    "historical_only_count": 14,
+    "localized": true,
+    "net_current_minus_historical": 12
+  },
+  "delta_classification_counts": {
+    "CURRENT_ONLY_COMPLEX_MULTIALLELIC": 1,
+    "CURRENT_ONLY_DIRECT_BIALLELIC": 21,
+    "CURRENT_ONLY_REPRESENTATION_COMPATIBLE": 3,
+    "CURRENT_ONLY_SAME_LOCUS_DIFFERENT_ALLELE_UNRESOLVED": 1,
+    "HISTORICAL_ONLY_REPRESENTATION_COMPATIBLE": 3,
+    "HISTORICAL_ONLY_SAME_LOCUS_DIFFERENT_ALLELE_UNRESOLVED": 1,
+    "HISTORICAL_ONLY_UNEXPLAINED": 10
+  },
+  "genotype_enrichment": {
+    "allele_specific_relationship_resolution": {
+      "direct_exact_count": 23,
+      "source_record_context_only_count": 3,
+      "unresolved_count": 0
+    },
+    "current_only_count": 26,
+    "exact_variant_id_count": 23,
+    "locus_fallback_count": 3,
+    "source_path": "processed/genotype_observations.tsv",
+    "source_record_context_coverage_fraction": 1.0,
+    "unresolved_count": 0
+  },
+  "historical_noncoding_identity_evidence": {
+    "classification": "HISTORICAL_ARTIFACT_UNAVAILABLE",
+    "reason": "historical lightweight extraction does not retain stage_10_noncoding_interpreted.tsv",
+    "status": "unavailable"
+  },
+  "same_locus_comparison": {
+    "pair_count": 4,
+    "relationship_counts": {
+      "SAME_LOCUS_DIFFERENT_ALLELE_UNRESOLVED": 1,
+      "SAME_LOCUS_REPRESENTATION_COMPATIBLE": 3
+    }
+  },
+  "schema_version": "genotype_elevation_closure_summary_v2",
+  "script_version": "0.9.0",
+  "shared_coding_interpretation_invariance": {
+    "basis_source": "keyed_table_comparison_summary.tsv",
+    "scientific_changed_shared_field_count": 0,
+    "scientific_changed_shared_row_count": 0,
+    "shared_key_count": 26425,
+    "status": "pass"
+  },
+  "vdb_handoff_readiness": {
+    "current_complex_source_records_recovered": 3,
+    "current_direct_relationships_transportable": 23,
+    "current_relationships_requiring_vdb_mediation": 3,
+    "historical_comparison_only_pair_count": 4,
+    "same_locus_different_allele_unresolved_pair_count": 1,
+    "status": "ready_for_scientific_review"
+  }
+}

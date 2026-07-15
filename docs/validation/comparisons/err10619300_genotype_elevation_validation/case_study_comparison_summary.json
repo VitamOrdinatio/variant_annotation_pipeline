@@ -1,0 +1,13 @@
+{
+  "classification_counts": {
+    "MATCH": 83816,
+    "NOT_COMPARABLE": 17,
+    "UNDER_REVIEW": 184
+  },
+  "comparable_record_count": 84000,
+  "comparison_policy": "each certified historical run is compared independently; independent runs are never aggregated",
+  "implemented_adapter_count": 5,
+  "not_comparable_surface_count": 7,
+  "status": "complete",
+  "surface_count": 12
+}

@@ -1,0 +1,13 @@
+surface	historical_source	historical_run_count	historical_row_count	current_derived_row_count	adapter_status	adapter_key_columns	adapter_value_columns
+candidate_reviewability_readiness.tsv	tables/candidate_reviewability_readiness.tsv	2	14	7	IMPLEMENTED	('metric', 'category')	('count',)
+clinical_status_summary.tsv	tables/clinical_status_summary.tsv	2	14	0	NOT_IMPLEMENTED		
+coding_noncoding_consequence_summary.tsv	tables/coding_noncoding_consequence_summary.tsv	2	88	0	NOT_IMPLEMENTED		
+gene_burden_summary.tsv	tables/gene_burden_summary.tsv	2	83908	41954	IMPLEMENTED	('gene_id',)	('variant_count',)
+gene_list_overlay_intersections.tsv	tables/gene_list_overlay_intersections.tsv	2	2012	0	NOT_IMPLEMENTED		
+interpretation_label_summary.tsv	tables/interpretation_label_summary.tsv	2	18	0	NOT_IMPLEMENTED		
+priority_tier_summary.tsv	tables/priority_tier_summary.tsv	2	8	4	IMPLEMENTED	('priority_tier',)	('count',)
+provenance_summary.tsv	tables/provenance_summary.tsv	2	2	0	NOT_IMPLEMENTED		
+run_reproducibility_summary.tsv	tables/run_reproducibility_summary.tsv	1	1	0	NOT_IMPLEMENTED		
+runtime_stage_summary.tsv	tables/runtime_stage_summary.tsv	2	26	13	IMPLEMENTED	('stage',)	('elapsed_seconds', 'status')
+stage_funnel_summary.tsv	tables/stage_funnel_summary.tsv	2	2	1	IMPLEMENTED	()	('raw_variant_count', 'normalized_variant_count', 'annotated_variant_count', 'stage08_total_variants', 'coding_candidates', 'noncoding_candidates', 'splice_region_candidates', 'qc_flagged', 'stage09_coding_interpreted', 'stage10_noncoding_interpreted', 'stage11_prioritized_rows', 'stage12_validation_rows', 'rdgp_gene_evidence_seed_rows', 'unique_gene_ids')
+variant_consequence_summary.tsv	tables/variant_consequence_summary.tsv	2	24	0	NOT_IMPLEMENTED		

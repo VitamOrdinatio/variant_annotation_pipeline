@@ -1,0 +1,780 @@
+diff --git a/docs/contracts/system/core/genotype_observation_contract.md b/docs/contracts/system/core/genotype_observation_contract.md
+index 5b77473..6f29dd9 100644
+--- a/docs/contracts/system/core/genotype_observation_contract.md
++++ b/docs/contracts/system/core/genotype_observation_contract.md
+@@ -261,12 +261,40 @@ genotype_source_header_context_v1
+ 
+ ## Variant Relationship Contract
+ 
+-When `variant_relationship_status = direct`, VDB may construct direct
+-relationships.
++When `variant_relationship_status = direct`, VDB may register the direct
++producer-declared genotype-to-variant relationship.
+ 
+-When the status is `complex`, `deferred`, or `unresolved`, VDB shall
+-preserve uncertainty and shall not fabricate allele-specific
+-relationships.
++When the status is `complex`, `deferred`, or `unresolved`, VDB shall preserve
++the producer-declared relationship state and shall not represent any
++consumer-derived relationship as a direct producer relationship.
++
++VDB may construct additive, typed, policy-declared allele-specific brokerage
++relationships when those relationships are supported by preserved source
++evidence, including:
++
++```text
++source-record identity
++reference allele
++ordered alternate-allele list
++called allele indices
++raw genotype fields
++normalization policy
++identity-registration policy
++traceability receipts
++```
++
++Any VDB-derived relationship shall remain distinguishable from:
++
++```text
++the authoritative producer genotype observation
++a direct producer-declared biallelic relationship
++an independent producer genotype row
++```
++
++Ambiguous, unsupported, or unresolved relationships shall remain explicit and
++shall not be coerced into direct allele-specific identity.
++
++---
+ 
+ ## Consumer Reliance
+ 
+diff --git a/pipeline/stage_07_annotate_variants.py b/pipeline/stage_07_annotate_variants.py
+index 95c9b2c..9bb8d7e 100644
+--- a/pipeline/stage_07_annotate_variants.py
++++ b/pipeline/stage_07_annotate_variants.py
+@@ -39,6 +39,7 @@ from pathlib import Path
+ from typing import Any
+ 
+ from pipeline.variant_identity import build_variant_id
++from src.execution_provenance import require_annotation_environment
+ 
+ 
+ def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
+@@ -152,32 +153,6 @@ def _validate_annovar_runtime_requirements(config: dict[str, Any]) -> dict[str,
+         "annovar_humandb_dir": str(humandb_dir),
+     }
+ 
+-def _record_vep_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+-    vep_executable = config["tools"]["vep"]["executable"]
+-    try:
+-        result = subprocess.run(
+-            [vep_executable, "--help"],
+-            capture_output=True,
+-            text=True,
+-            check=False,
+-        )
+-        text = (result.stdout or result.stderr or "").strip().splitlines()
+-        first_version_line = None
+-        for line in text:
+-            if "variant effect predictor" in line.lower() or "ensembl" in line.lower():
+-                first_version_line = line.strip()
+-                break
+-        if first_version_line is None and text:
+-            first_version_line = text[0].strip()
+-        if first_version_line:
+-            state["run"].setdefault("tool_versions", {})
+-            state["run"]["tool_versions"]["vep"] = first_version_line
+-            logger.info(f"Recorded VEP version: {first_version_line}")
+-    except Exception as exc:
+-        state["warnings"].append(f"Unable to record VEP version: {exc}")
+-        logger.warning(f"Unable to record VEP version: {exc}")
+-
+-
+ def _load_gene_set_table(path: Path, label: str) -> tuple[set[str], dict[str, str]]:
+     """
+     Load a 2-column gene-set TSV with required columns:
+@@ -287,6 +262,37 @@ def _get_annotation_engine(config: dict[str, Any]) -> str:
+         )
+     return engine
+ 
++
++def _centralized_annotation_runtime(
++    config: dict[str, Any],
++    state: dict[str, Any],
++    annotation_engine: str,
++) -> dict[str, str] | None:
++    """
++    Consume centralized execution provenance when the config is migrated.
++    """
++    if annotation_engine != "vep":
++        return None
++
++    provenance = state.get("execution_provenance", {})
++    if provenance.get("contract_status") != "pass":
++        return None
++
++    annotation = require_annotation_environment(state)
++    return {
++        "vep_executable_resolved": annotation["software"][
++            "resolved_executable"
++        ],
++        "vep_cache_dir": annotation["cache"][
++            "configured_cache_directory"
++        ],
++        "vep_cache_resolved": annotation["cache"][
++            "resolved_cache_directory"
++        ],
++        "vep_assembly": annotation["cache"]["observed_assembly"],
++    }
++
++
+ def _validate_annotation_runtime_requirements(
+     config: dict[str, Any],
+     annotation_engine: str,
+@@ -304,23 +310,43 @@ def _build_annotation_command(
+     annotation_engine: str,
+     input_vcf: Path,
+     output_vcf: Path,
++    runtime_requirements: dict[str, str] | None = None,
+ ) -> list[str]:
+     if annotation_engine == "vep":
+-        return _build_vep_command(config, input_vcf, output_vcf)
++        return _build_vep_command(
++            config,
++            input_vcf,
++            output_vcf,
++            runtime_requirements=runtime_requirements,
++        )
+ 
+     if annotation_engine == "annovar":
+         return _build_annovar_command(config, input_vcf, output_vcf)
+ 
+     raise ValueError(f"Unsupported annotation engine for command build: {annotation_engine}")
+ 
+-def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path) -> list[str]:
++def _build_vep_command(
++    config: dict[str, Any],
++    input_vcf: Path,
++    output_vcf: Path,
++    runtime_requirements: dict[str, str] | None = None,
++) -> list[str]:
+     vep_cfg = config["tools"]["vep"]
+-    assembly = str(vep_cfg.get("assembly", "")).strip()
++    runtime_requirements = runtime_requirements or {}
++    assembly = str(
++        runtime_requirements.get(
++            "vep_assembly",
++            vep_cfg.get("assembly", ""),
++        )
++    ).strip()
+     if not assembly:
+         raise ValueError("VEP assembly missing in config.tools.vep.assembly")
+ 
+     command = [
+-        vep_cfg["executable"],
++        runtime_requirements.get(
++            "vep_executable_resolved",
++            vep_cfg["executable"],
++        ),
+         "--input_file",
+         str(input_vcf),
+         "--output_file",
+@@ -336,7 +362,10 @@ def _build_vep_command(config: dict[str, Any], input_vcf: Path, output_vcf: Path
+         "--cache",
+         "--offline",
+         "--dir_cache",
+-        vep_cfg["cache_dir"],
++        runtime_requirements.get(
++            "vep_cache_dir",
++            vep_cfg["cache_dir"],
++        ),
+         "--symbol",
+         "--biotype",
+         "--transcript_version",
+@@ -599,10 +628,24 @@ def run_stage(
+         "gene_sets.genes4epilepsy_path",
+     )
+ 
+-    runtime_requirements = _validate_annotation_runtime_requirements(
++    runtime_requirements = _centralized_annotation_runtime(
+         config,
++        state,
+         annotation_engine,
+     )
++    if runtime_requirements is None:
++        runtime_requirements = _validate_annotation_runtime_requirements(
++            config,
++            annotation_engine,
++        )
++        logger.warning(
++            "Stage 07 used legacy local annotation runtime validation "
++            "because centralized execution provenance was unavailable."
++        )
++    else:
++        logger.info(
++            "Stage 07 is consuming the centralized annotation environment."
++        )
+ 
+     if annotation_engine == "vep":
+         logger.info(
+@@ -630,6 +673,7 @@ def run_stage(
+         annotation_engine,
+         normalized_vcf,
+         annotated_vcf,
++        runtime_requirements=runtime_requirements,
+     )
+ 
+     _run_command(
+@@ -819,9 +863,6 @@ def run_stage(
+         "unresolved_symbol_count": unresolved_symbol_count,
+     }
+ 
+-    if config["runtime"]["record_tool_versions"] and annotation_engine == "vep":
+-        _record_vep_version(config, state, logger)
+-
+     logger.info(f"Annotated VCF written to: {annotated_vcf}")
+     logger.info(f"Annotated variant table written to: {annotated_table}")
+     logger.info(f"Annotated variant count: {annotated_variant_count}")
+diff --git a/scripts/tep/build_vap_tep_entities.py b/scripts/tep/build_vap_tep_entities.py
+index 393eca8..7e18a9e 100644
+--- a/scripts/tep/build_vap_tep_entities.py
++++ b/scripts/tep/build_vap_tep_entities.py
+@@ -205,6 +205,18 @@ BASE_ARTIFACT_SPECS = [
+     ),
+ ]
+ 
++EXECUTION_PROVENANCE_ARTIFACT_SPEC = ArtifactSpec(
++    entity_id="context_sidecar",
++    entity_role="context_sidecar",
++    source_stage="pipeline_initialization",
++    source_artifact_role="execution_provenance",
++    source_pattern="execution_provenance.json",
++    entity_subdir="context",
++    required=True,
++    source_root="metadata",
++)
++
++
+ GENOTYPE_ARTIFACT_SPECS = [
+     ArtifactSpec(
+         entity_id="genotype_observation_entity",
+@@ -241,7 +253,10 @@ GENOTYPE_SOURCE_FILENAMES = tuple(
+ )
+ 
+ 
+-def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
++def resolve_artifact_specs(
++    processed_dir: Path,
++    metadata_dir: Path | None = None,
++) -> list[ArtifactSpec]:
+     """
+     Select the artifact contract for this run.
+ 
+@@ -255,8 +270,18 @@ def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
+     }
+     present_count = sum(present.values())
+ 
++    provenance_specs = []
++    if (
++        metadata_dir is not None
++        and (metadata_dir / "execution_provenance.json").is_file()
++    ):
++        provenance_specs.append(EXECUTION_PROVENANCE_ARTIFACT_SPEC)
++
+     if present_count == 0:
+-        return list(BASE_ARTIFACT_SPECS)
++        return [
++            *BASE_ARTIFACT_SPECS,
++            *provenance_specs,
++        ]
+ 
+     if present_count != len(GENOTYPE_SOURCE_FILENAMES):
+         missing = sorted(
+@@ -277,6 +302,7 @@ def resolve_artifact_specs(processed_dir: Path) -> list[ArtifactSpec]:
+     return [
+         *BASE_ARTIFACT_SPECS,
+         *GENOTYPE_ARTIFACT_SPECS,
++        *provenance_specs,
+     ]
+ 
+ 
+@@ -562,7 +588,10 @@ def build_entities(
+         package_root.mkdir(parents=True, exist_ok=True)
+ 
+     records: list[ArtifactInventoryRecord] = []
+-    artifact_specs = resolve_artifact_specs(processed_dir)
++    artifact_specs = resolve_artifact_specs(
++        processed_dir,
++        metadata_dir,
++    )
+ 
+     for spec in artifact_specs:
+         if spec.source_root == "processed":
+@@ -623,6 +652,15 @@ def build_entities(
+                 )
+                 else "not_available"
+             ),
++            "execution_provenance_capability": (
++                "available"
++                if any(
++                    artifact.source_artifact_role == "execution_provenance"
++                    and artifact.source_artifact_exists
++                    for artifact in records
++                )
++                else "not_available"
++            ),
+         },
+         "entities": [asdict(record) for record in entity_records],
+         "artifacts": [asdict(record) for record in records],
+diff --git a/scripts/tep/validate_vap_tep.py b/scripts/tep/validate_vap_tep.py
+index 20e5693..e450261 100644
+--- a/scripts/tep/validate_vap_tep.py
++++ b/scripts/tep/validate_vap_tep.py
+@@ -921,6 +921,50 @@ def check_genotype_capability(manifest: dict[str, Any], package_root: Path) -> l
+     checks.append(fail_check("AC-058", "Genotype lineage branch is present", f"Missing edges: {missing}") if missing else pass_check("AC-058", "Genotype lineage branch is present"))
+     return checks
+ 
++def check_execution_provenance_transport(
++    manifest: dict[str, Any],
++    package_root: Path,
++) -> list[ValidationCheck]:
++    context_entities = entity_by_role(manifest).get("context_sidecar", [])
++    artifacts = []
++    for entity in context_entities:
++        for artifact in entity.get("source_artifacts", []):
++            if isinstance(artifact, dict) and artifact.get("source_artifact_role") == "execution_provenance":
++                artifacts.append(artifact)
++
++    if not artifacts:
++        return []
++    if len(artifacts) != 1:
++        return [fail_check("AC-059", "Exactly one execution provenance artifact is transported", f"Observed: {len(artifacts)}")]
++
++    checks = []
++    artifact = artifacts[0]
++    expected_path = "entities/context/execution_provenance.json"
++    observed_path = artifact.get("transport_path")
++    path = package_root / expected_path
++    if observed_path != expected_path or not path.is_file():
++        return [fail_check("AC-059", "Execution provenance transport path is canonical", f"expected={expected_path}; observed={observed_path}")]
++    checks.append(pass_check("AC-059", "Execution provenance transport path is canonical"))
++
++    observed_sha = sha256_file(path)
++    declared_sha = artifact.get("source_artifact_sha256")
++    checks.append(pass_check("AC-060", "Execution provenance checksum is preserved") if declared_sha == observed_sha else fail_check("AC-060", "Execution provenance checksum is preserved", f"inventory={declared_sha}; observed={observed_sha}"))
++
++    try:
++        payload = load_json(path)
++    except Exception as exc:
++        checks.append(fail_check("AC-061", "Execution provenance receipt is readable JSON", str(exc)))
++        return checks
++
++    required = {"contract_status", "resolution_mode"}
++    missing = sorted(required - set(payload))
++    checks.append(pass_check("AC-061", "Execution provenance receipt has required fields", f"schema_version={payload.get('schema_version')}; status={payload.get('contract_status')}; mode={payload.get('resolution_mode')}") if not missing else fail_check("AC-061", "Execution provenance receipt has required fields", f"Missing: {missing}"))
++
++    indexed_edge = ("context_sidecar", "lineage_manifest", "indexed_by")
++    checks.append(pass_check("AC-062", "Execution provenance context is lineage indexed") if indexed_edge in edge_set(manifest) else fail_check("AC-062", "Execution provenance context is lineage indexed", f"Missing edge: {indexed_edge}"))
++    return checks
++
++
+ def update_validation_summary(
+     manifest: dict[str, Any],
+     checks: list[ValidationCheck],
+@@ -981,6 +1025,7 @@ def validate_vap_tep(
+     checks.extend(check_semantic_surfaces(manifest))
+     checks.extend(check_preservation_context(manifest))
+     checks.extend(check_genotype_capability(manifest, package_root))
++    checks.extend(check_execution_provenance_transport(manifest, package_root))
+ 
+     update_validation_summary(manifest, checks)
+ 
+diff --git a/src/config_loader.py b/src/config_loader.py
+index 22c543d..24ed9bd 100644
+--- a/src/config_loader.py
++++ b/src/config_loader.py
+@@ -38,6 +38,213 @@ def _require_nested(config: dict[str, Any], path: list[str]) -> Any:
+     return current
+ 
+ 
++
++EXECUTION_PROVENANCE_SCHEMA_VERSION = "1.0.0"
++
++_ALLOWED_VERSION_POLICIES = {
++    "exact",
++    "major",
++    "record_only",
++}
++
++_REQUIRED_TOOLCHAIN_KEYS = {
++    "bwa",
++    "samtools",
++    "gatk",
++    "java",
++    "vep",
++    "perl",
++    "python",
++}
++
++_REQUIRED_RESOURCE_KEYS = {
++    "reference_fasta",
++    "fasta_index",
++    "sequence_dictionary",
++    "bwa_index",
++    "mitocarta",
++    "genes4epilepsy",
++}
++
++
++def _require_non_empty_string(value: Any, dotted: str) -> str:
++    if not isinstance(value, str) or not value.strip():
++        raise ValueError(f"{dotted} must be a non-empty string")
++    return value.strip()
++
++
++def _validate_toolchain_declaration(
++    tool_name: str,
++    declaration: Any,
++) -> None:
++    dotted = f"execution_provenance.toolchain.{tool_name}"
++    if not isinstance(declaration, dict):
++        raise ValueError(f"{dotted} must be a mapping")
++
++    policy = _require_non_empty_string(
++        declaration.get("version_policy"),
++        f"{dotted}.version_policy",
++    )
++    if policy not in _ALLOWED_VERSION_POLICIES:
++        raise ValueError(
++            f"{dotted}.version_policy must be one of: "
++            + ", ".join(sorted(_ALLOWED_VERSION_POLICIES))
++        )
++
++    if policy == "exact":
++        _require_non_empty_string(
++            declaration.get("declared_version"),
++            f"{dotted}.declared_version",
++        )
++    elif policy == "major":
++        _require_non_empty_string(
++            declaration.get("declared_major_version"),
++            f"{dotted}.declared_major_version",
++        )
++
++    configured_from = declaration.get("configured_from")
++    if tool_name in {"bwa", "samtools", "gatk", "vep"}:
++        _require_non_empty_string(
++            configured_from,
++            f"{dotted}.configured_from",
++        )
++
++
++def _validate_execution_provenance_config(
++    config: dict[str, Any],
++) -> None:
++    provenance = config.get("execution_provenance")
++    if provenance is None:
++        # Transitional compatibility: legacy configs remain valid until
++        # explicitly migrated to the provenance contract.
++        return
++
++    if not isinstance(provenance, dict):
++        raise ValueError("execution_provenance must be a mapping")
++
++    required = provenance.get("required")
++    if not isinstance(required, bool):
++        raise ValueError("execution_provenance.required must be a boolean")
++
++    schema_version = _require_non_empty_string(
++        provenance.get("schema_version"),
++        "execution_provenance.schema_version",
++    )
++    if schema_version != EXECUTION_PROVENANCE_SCHEMA_VERSION:
++        raise ValueError(
++            "execution_provenance.schema_version must be "
++            f"{EXECUTION_PROVENANCE_SCHEMA_VERSION}"
++        )
++
++    toolchain = provenance.get("toolchain")
++    if not isinstance(toolchain, dict):
++        raise ValueError("execution_provenance.toolchain must be a mapping")
++
++    missing_tools = sorted(_REQUIRED_TOOLCHAIN_KEYS - set(toolchain))
++    extra_tools = sorted(set(toolchain) - _REQUIRED_TOOLCHAIN_KEYS)
++    if missing_tools or extra_tools:
++        raise ValueError(
++            "execution_provenance.toolchain must contain exactly: "
++            + ", ".join(sorted(_REQUIRED_TOOLCHAIN_KEYS))
++            + f"; missing={missing_tools}; extra={extra_tools}"
++        )
++
++    for tool_name in sorted(_REQUIRED_TOOLCHAIN_KEYS):
++        _validate_toolchain_declaration(
++            tool_name,
++            toolchain[tool_name],
++        )
++
++    annotation = provenance.get("annotation_environment")
++    if not isinstance(annotation, dict):
++        raise ValueError(
++            "execution_provenance.annotation_environment must be a mapping"
++        )
++
++    expected_annotation = {
++        "engine": "ensembl_vep",
++        "cache_species": "homo_sapiens",
++        "cache_assembly": config["reference"]["genome_build"],
++        "cache_type": "ensembl",
++        "execution_mode": "offline",
++    }
++    for key, expected in expected_annotation.items():
++        observed = _require_non_empty_string(
++            annotation.get(key),
++            f"execution_provenance.annotation_environment.{key}",
++        )
++        if observed != expected:
++            raise ValueError(
++                "execution_provenance.annotation_environment."
++                f"{key} must be {expected!r}"
++            )
++
++    _require_non_empty_string(
++        annotation.get("software_version"),
++        "execution_provenance.annotation_environment.software_version",
++    )
++    _require_non_empty_string(
++        annotation.get("cache_release"),
++        "execution_provenance.annotation_environment.cache_release",
++    )
++
++    declared_vep = toolchain["vep"].get("declared_version")
++    if annotation["software_version"] != declared_vep:
++        raise ValueError(
++            "VEP software version declarations disagree between "
++            "execution_provenance.toolchain.vep.declared_version and "
++            "execution_provenance.annotation_environment.software_version"
++        )
++
++    resources = provenance.get("resource_environment")
++    if not isinstance(resources, dict):
++        raise ValueError(
++            "execution_provenance.resource_environment must be a mapping"
++        )
++
++    missing_resources = sorted(_REQUIRED_RESOURCE_KEYS - set(resources))
++    extra_resources = sorted(set(resources) - _REQUIRED_RESOURCE_KEYS)
++    if missing_resources or extra_resources:
++        raise ValueError(
++            "execution_provenance.resource_environment must contain exactly: "
++            + ", ".join(sorted(_REQUIRED_RESOURCE_KEYS))
++            + f"; missing={missing_resources}; extra={extra_resources}"
++        )
++
++    allowed_checksum_policies = {
++        "sha256",
++        "sha256_constituents",
++    }
++    for resource_name, declaration in resources.items():
++        dotted = (
++            "execution_provenance.resource_environment."
++            f"{resource_name}"
++        )
++        if not isinstance(declaration, dict):
++            raise ValueError(f"{dotted} must be a mapping")
++
++        _require_non_empty_string(
++            declaration.get("configured_from"),
++            f"{dotted}.configured_from",
++        )
++        policy = _require_non_empty_string(
++            declaration.get("checksum_policy"),
++            f"{dotted}.checksum_policy",
++        )
++        if policy not in allowed_checksum_policies:
++            raise ValueError(
++                f"{dotted}.checksum_policy must be one of: "
++                + ", ".join(sorted(allowed_checksum_policies))
++            )
++
++    if resources["bwa_index"]["checksum_policy"] != (
++        "sha256_constituents"
++    ):
++        raise ValueError(
++            "execution_provenance.resource_environment.bwa_index."
++            "checksum_policy must be 'sha256_constituents'"
++        )
++
+ def validate_config(config: dict[str, Any]) -> None:
+     required_keys = [
+         ["project", "name"],
+@@ -89,6 +296,8 @@ def validate_config(config: dict[str, Any]) -> None:
+     for key_path in required_keys:
+         _require_nested(config, key_path)
+ 
++    _validate_execution_provenance_config(config)
++
+     execution_mode = config["mode"]["execution_mode"]
+     if execution_mode not in {"full_pipeline", "annotation_only", "post_vep_fixture"}:
+         raise ValueError(
+diff --git a/src/pipeline_runner.py b/src/pipeline_runner.py
+index 2afbd6c..6ab09f3 100644
+--- a/src/pipeline_runner.py
++++ b/src/pipeline_runner.py
+@@ -30,6 +30,11 @@ from pathlib import Path
+ from typing import Any
+ 
+ from pipeline.genotype_projection import project_genotype_observations
++from src.execution_provenance import (
++    assert_contract_pass,
++    resolve_execution_provenance,
++    write_execution_provenance_receipt,
++)
+ from src.tep_orchestration import build_and_validate_fresh_vap_tep
+ from src.metrics.stage_metric_emitters import emit_metrics_for_stage
+ from src.metrics.metric_aggregation import (
+@@ -340,6 +345,10 @@ def initialize_state(
+             "attempted": False,
+             "status": "not_attempted",
+         },
++        "execution_provenance": {
++            "contract_status": "not_resolved",
++            "resolution_mode": "not_resolved",
++        },
+     }
+ 
+ 
+@@ -681,6 +690,24 @@ def write_run_metadata(state: dict[str, Any], run_metadata_path: str) -> None:
+                 },
+             )
+         ),
++        "execution_provenance": {
++            "contract_status": state.get(
++                "execution_provenance",
++                {},
++            ).get("contract_status", "not_recorded"),
++            "resolution_mode": state.get(
++                "execution_provenance",
++                {},
++            ).get("resolution_mode", "not_recorded"),
++            "provenance_completeness": state.get(
++                "execution_provenance",
++                {},
++            ).get("provenance_completeness"),
++            "receipt_path": state.get(
++                "execution_provenance",
++                {},
++            ).get("receipt_path"),
++        },
+         "artifacts": {
+             "run_summary_report": state.get("reports", {}).get("run_summary_report"),
+             "gene_summary_table": state.get("reports", {}).get("gene_summary_table"),
+@@ -1164,6 +1191,62 @@ def render_run_figures_if_enabled(config:dict[str,Any], run_paths:dict[str,str],
+         logger.warning(f"Optional figure auto-render failed but pipeline will continue: {message}")
+ 
+ 
++
++def resolve_execution_provenance_if_required(
++    *,
++    config: dict[str, Any],
++    state: dict[str, Any],
++    run_paths: dict[str, str],
++    logger,
++) -> dict[str, Any]:
++    """
++    Resolve and gate execution provenance before scientific stages begin.
++    """
++    declaration = config.get("execution_provenance")
++    execution_mode = config["mode"]["execution_mode"]
++
++    if declaration is None and execution_mode != "post_vep_fixture":
++        state["execution_provenance"] = {
++            "contract_status": "not_declared",
++            "resolution_mode": "legacy_unmigrated_config",
++            "provenance_completeness": "legacy_partial",
++        }
++        logger.warning(
++            "Execution provenance is not declared for this legacy config; "
++            "live provenance resolution was not performed."
++        )
++        receipt_path = write_execution_provenance_receipt(
++            provenance=state["execution_provenance"],
++            output_path=Path(run_paths["metadata_dir"])
++            / "execution_provenance.json",
++        )
++        state["execution_provenance"]["receipt_path"] = str(
++            receipt_path
++        )
++        return state
++
++    logger.info("Resolving execution provenance before Stage 01.")
++    provenance = resolve_execution_provenance(config)
++
++    if execution_mode != "post_vep_fixture":
++        assert_contract_pass(provenance)
++
++    receipt_path = write_execution_provenance_receipt(
++        provenance=provenance,
++        output_path=Path(run_paths["metadata_dir"])
++        / "execution_provenance.json",
++    )
++    provenance["receipt_path"] = str(receipt_path)
++    state["execution_provenance"] = provenance
++    logger.info(
++        "Execution provenance resolved: "
++        f"status={provenance['contract_status']}; "
++        f"mode={provenance['resolution_mode']}; "
++        f"receipt={receipt_path}"
++    )
++    return state
++
++
+ def run_pipeline(
+     config: dict[str, Any],
+     config_path: str,
+@@ -1215,6 +1298,13 @@ def run_pipeline(
+         state["artifacts"]["annotated_table"] = config["input"]["annotated_tsv"]
+         state["artifacts"]["annotated_vcf"] = config["input"]["vcf"]["input_vcf"]
+ 
++    state = resolve_execution_provenance_if_required(
++        config=config,
++        state=state,
++        run_paths=run_paths,
++        logger=logger,
++    )
++
+     state["run"]["status"] = "running"
+ 
+     logger.info("Pipeline run started.")
+@@ -1335,6 +1425,7 @@ def run_pipeline(
+                 "errors",
+                 "reports",
+                 "tep",
++                "execution_provenance",
+             ]:
+                 if required_key not in state:
+                     state = stage_state_before
+diff --git a/tests/test_metadata_schema_contract.py b/tests/test_metadata_schema_contract.py
+index ff2470a..24fd0fd 100644
+--- a/tests/test_metadata_schema_contract.py
++++ b/tests/test_metadata_schema_contract.py
+@@ -32,12 +32,20 @@ def test_run_metadata_schema_contract(tmp_path):
+ 
+     assert set(data.keys()) == {
+         "artifacts",
++        "execution_provenance",
+         "genotype_projection",
+         "run",
+         "summary",
+         "tep",
+     }
+ 
++    assert data["execution_provenance"] == {
++        "contract_status": "not_recorded",
++        "resolution_mode": "not_recorded",
++        "provenance_completeness": None,
++        "receipt_path": None,
++    }
++
+     assert set(data["run"].keys()) == {
+         "config_path",
+         "config_snapshot_path",

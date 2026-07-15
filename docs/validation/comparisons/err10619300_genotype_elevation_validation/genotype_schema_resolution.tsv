@@ -1,0 +1,20 @@
+canonical_field	resolved_column	resolution_status	observed_lexically_nonempty_count	observed_semantic_value_count	observed_explicit_missing_count	observed_explicit_not_applicable_count	observed_empty_count	scanned_row_count	projection_summary_present_count
+variant_id	variant_id	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	731444	5064	0	0	736508	
+chromosome	chromosome	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+position	position	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+reference	reference_allele	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+alternate	alternate_allele	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	731444	5064	0	0	736508	
+genotype	gt_raw	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+allele_depths	ad_raw	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	736508
+depth	dp_value	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	736508
+genotype_quality	gq_value	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	736508
+phred_likelihoods	pl_raw	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	736508
+filter_status	ft_raw	COLUMN_PRESENT_EXPLICIT_MISSING_EXPECTED	736508	0	736508	0	0	736508	0
+gt_arity	gt_arity	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+called_allele_indexes	called_allele_indices	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+genotype_call_state	genotype_call_state	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+phase_state	phase_state	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+relationship_status	variant_relationship_status	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	
+projection_status		COLUMN_NOT_FOUND	0	0	0	0	0	736508	
+projection_advisory	projection_advisory_codes	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	5064	731444	0	0	736508	
+record_parse_status	record_parse_status	RESOLVED_SEMANTIC_VALUES_PRESENT	736508	736508	0	0	0	736508	

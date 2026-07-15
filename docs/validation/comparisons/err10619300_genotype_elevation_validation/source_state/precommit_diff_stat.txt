@@ -1,0 +1,8 @@
+ .../system/core/genotype_observation_contract.md   |  38 +++-
+ pipeline/stage_07_annotate_variants.py             | 111 +++++++----
+ scripts/tep/build_vap_tep_entities.py              |  44 ++++-
+ scripts/tep/validate_vap_tep.py                    |  45 +++++
+ src/config_loader.py                               | 209 +++++++++++++++++++++
+ src/pipeline_runner.py                             |  91 +++++++++
+ tests/test_metadata_schema_contract.py             |   8 +
+ 7 files changed, 503 insertions(+), 43 deletions(-)
