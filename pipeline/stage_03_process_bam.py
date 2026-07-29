@@ -17,6 +17,11 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
+from src.execution_provenance import (
+    _run_probe,
+    parse_samtools_version,
+)
+
 
 def _run_command(command: list[str], logger, label: str) -> subprocess.CompletedProcess:
     """
@@ -95,26 +100,31 @@ def _validate_required_artifact(path_str: str | None, label: str) -> Path:
     return path
 
 
-def _record_samtools_version(config: dict[str, Any], state: dict[str, Any], logger) -> None:
+def _record_samtools_version(
+    config: dict[str, Any],
+    state: dict[str, Any],
+    logger,
+) -> None:
     """
-    Record samtools version string in run metadata if possible.
+    Record the parsed samtools version in run metadata if possible.
     """
     samtools_executable = config["tools"]["samtools"]["executable"]
+
     try:
-        result = subprocess.run(
+        probe_output = _run_probe(
             [samtools_executable, "--version"],
-            capture_output=True,
-            text=True,
-            check=False,
         )
-        version_text = (result.stdout or result.stderr or "").strip().splitlines()
-        if version_text:
-            state["run"].setdefault("tool_versions", {})
-            state["run"]["tool_versions"]["samtools"] = version_text[0]
-            logger.info(f"Recorded samtools version: {version_text[0]}")
+        observed_version = parse_samtools_version(probe_output)
+        version_text = f"samtools {observed_version}"
+
+        state["run"].setdefault("tool_versions", {})
+        state["run"]["tool_versions"]["samtools"] = version_text
+        logger.info(f"Recorded samtools version: {version_text}")
+
     except Exception as exc:  # pragma: no cover - defensive only
-        state["warnings"].append(f"Unable to record samtools version: {exc}")
-        logger.warning(f"Unable to record samtools version: {exc}")
+        warning = f"Unable to record samtools version: {exc}"
+        state["warnings"].append(warning)
+        logger.warning(warning)
 
 
 def run_stage(
