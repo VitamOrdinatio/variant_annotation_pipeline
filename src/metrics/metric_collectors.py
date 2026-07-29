@@ -3,6 +3,24 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+
+CSV_FIELD_SIZE_LIMIT = 10 * 1024 * 1024
+
+
+def configure_csv_field_size_limit() -> int:
+    """Configure the bounded CSV field ceiling used by metric collectors.
+
+    Preservation-oriented VAP TSV artifacts may legitimately contain fields
+    larger than Python's default 131,072-byte CSV parser limit. This raises the
+    ceiling without disabling bounds or truncating source data.
+    """
+    csv.field_size_limit(CSV_FIELD_SIZE_LIMIT)
+    return CSV_FIELD_SIZE_LIMIT
+
+
+configure_csv_field_size_limit()
+
+
 def artifact_exists(path:Path)->bool:
     return Path(path).exists()
 
