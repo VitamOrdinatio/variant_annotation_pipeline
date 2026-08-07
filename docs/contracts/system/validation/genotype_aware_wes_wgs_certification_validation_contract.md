@@ -2,16 +2,18 @@
 
 | Field | Value |
 |---|---|
-| Document status | Draft v0.1 |
+| Document status | Draft v0.2 — SAGE scientific conditions incorporated |
 | Contract class | System validation contract |
 | Producer system | Variant Annotation Pipeline (VAP) |
 | Transport product | TEP-VAP |
 | Scientific authority | SAGE-VAP |
 | Engineering and evidence-acquisition authority | DEX-VAP |
-| WES certification object | 12 genotype-aware epilepsy WES runs on sys76 |
+| WES certification object | 12 genotype-aware WES-designated PRJEB57558 runs on sys76 |
 | WGS certification object | 2 genotype-aware epilepsy WGS runs on MARK |
-| Comparative certification object | Independently certified 12-run WES corpus versus independently certified 2-run WGS corpus |
+| Comparative certification object | Preservation-centered and opportunity-qualified comparison of the independently certified 12-run WES and 2-run WGS corpora |
 | Existing certified exemplar | `ERR10619300 / run_2026_07_14_114546` |
+| Scientific review disposition | SAGE-VAP: APPROVE WITH SCIENTIFIC CONDITIONS |
+| Scientific conditions incorporated | 2026-08-06 |
 | Companion active implementation plan | `docs/plans/infrastructure/active/genotype_aware_wes_wgs_certification_implementation_plan.md` |
 | Clinical boundary | Research and portfolio validation only; not clinical validation |
 
@@ -29,7 +31,7 @@ It governs three separate certification objects:
 Certification A
     12 genotype-aware,
     execution-provenance-enabled
-    epilepsy WES runs on sys76
+    WES-designated PRJEB57558 runs on sys76
 
 Certification B
     2 genotype-aware,
@@ -42,6 +44,13 @@ Certification C
         versus
     the independently certified
     2-run WGS corpus
+
+    first for architecture, preservation,
+    provenance, genotype-observation integrity,
+    lineage, and semantic composition
+
+    and, only where denominators permit,
+    for opportunity-qualified biological comparison
 ```
 
 The contract exists to ensure that the three certification objects are built
@@ -68,6 +77,32 @@ The contract does not assign scientific certification outcomes. It defines the
 technical evidence system that must exist before SAGE-VAP may assign those
 outcomes.
 
+Certification A and Certification B are producer-preservation certifications.
+Their completion does not require every denominator needed for comparative
+biological interpretation.
+
+Certification C has two scientifically distinct claim layers:
+
+```text
+core comparative layer
+    architecture
+    preservation
+    provenance
+    genotype-observation integrity
+    lineage
+    semantic composition within the emitted observation universe
+
+opportunity-qualified layer
+    normalized density
+    common-territory recurrence
+    assay-associated expansion
+    biological yield relative to governed evaluable territory
+```
+
+The opportunity-qualified layer SHALL be omitted or explicitly limited when
+the required assay, coverage, callability, or common-territory substrate is not
+available.
+
 ---
 
 ## 2. Contract Scope
@@ -91,6 +126,13 @@ This contract governs:
 - corpus evidence freezing;
 - cross-modality compatibility gating;
 - controlled construction of Certification C evidence;
+- assay-design and opportunity-substrate discovery;
+- coverage and callability denominator evidence where governed and available;
+- common WES/WGS evaluable-territory construction;
+- exact compact gene- and variant-membership evidence;
+- emitted-observation-universe boundaries for genotype summaries;
+- governed rarity semantics;
+- publication-comparator claim scoping;
 - failure handling, restart behavior, versioning, and revalidation triggers.
 
 This contract does not redefine:
@@ -130,6 +172,10 @@ docs/validation/comparisons/
 
 shared/handoffs/vap/genotype/
     SAGE-VAP-v2_to_DEX-VAP-v3_genotype_aware_wes_wgs_certification_handoff.md
+
+SAGE-VAP scientific review determination
+    APPROVE WITH SCIENTIFIC CONDITIONS
+    dated 2026-08-06
 ```
 
 The governing precedence for this lifecycle is:
@@ -244,6 +290,23 @@ The q1, median, and q3 labels are project-specific, quartile-centered
 read-count strata. They SHALL NOT be represented as direct measured target
 coverage without supporting coverage evidence.
 
+Until a governed assay-design source resolves the library-preparation and
+target-territory discrepancy, the corpus SHALL be described as:
+
+```text
+WES-designated PRJEB57558 runs
+```
+
+The contract SHALL NOT silently assume that ENA `AMPLICON` metadata, repository
+WES designation, capture-based exome terminology, or a uniform bait design are
+interchangeable. The evidence package SHALL establish or explicitly leave
+unresolved:
+
+- library-preparation strategy;
+- target or bait-set identity;
+- governed target intervals;
+- whether one assay design applies to all 12 specimens.
+
 `ERR10619300 / run_2026_07_14_114546` is the existing certified production
 exemplar. Prior evidence MAY be incorporated by reference only when the run,
 TEP-VAP, governing schemas, and reviewed evidence remain unchanged and
@@ -278,6 +341,21 @@ a frozen, independently certified
 
 Certification C SHALL NOT begin from unreviewed run directories, regenerated
 summaries, or an uncertified corpus.
+
+A complete 12-versus-2 Certification C may consume only a WES and WGS corpus
+with one of the following SAGE-VAP outcomes:
+
+```text
+CORPUS CERTIFIED
+CORPUS CERTIFIED WITH NOTES
+```
+
+`CORPUS PARTIALLY CERTIFIED` MAY support only a newly bounded partial
+comparison whose membership and claims are explicitly narrowed. It SHALL NOT be
+represented as the complete 12-versus-2 comparison.
+
+`CORPUS INSUFFICIENT EVIDENCE` and `CORPUS NOT CERTIFIED` are not
+comparison-ready states.
 
 ### 6.4 Corpus identity changes
 
@@ -418,6 +496,112 @@ The Badshah et al. publication is an independent comparator. It is not:
 - independent validation of VAP;
 - a requirement that VAP reproduce only publication-filtered candidates.
 
+A targeted `CNTNAP2` trace supports a `CNTNAP2`-specific publication claim.
+Publication-wide candidate concordance requires bounded evidence for all
+reported candidate genes intended to support that claim:
+
+```text
+PDZD7
+ALG6
+RBM20
+CNTNAP2
+```
+
+Shared homozygous observations SHALL NOT be narrated as reconstruction of
+publication-reported regions of homozygosity unless an independently governed
+ROH substrate exists.
+
+### 7.10 Emitted-observation-universe authority
+
+Genotype-state proportions and related summaries describe genotype
+observations present in the VAP-emitted variant universe.
+
+They SHALL NOT be represented as:
+
+- genome-wide genotype proportions;
+- callable-locus genotype proportions;
+- homozygous-reference burden;
+- evidence of variant absence;
+- negative evidence;
+- assay opportunity.
+
+A larger proportion of a genotype state among emitted WGS variants does not,
+by itself, establish a larger genome-wide burden.
+
+### 7.11 Rarity authority
+
+The primary certification rarity definition SHALL use the governed VAP
+frequency classification produced consistently across the 14 runs.
+
+The publication-comparator threshold:
+
+```text
+MAF <= 0.001
+```
+
+MAY be used only to reconstruct or compare the Badshah et al. filtering logic.
+
+The following states SHALL remain distinct:
+
+```text
+VAP-governed rare
+publication-threshold rare
+frequency unknown
+frequency unavailable
+not rare
+```
+
+An unknown or unavailable population frequency SHALL NOT be converted into
+`rare`.
+
+### 7.12 Assay-opportunity authority
+
+Raw observation counts SHALL NOT be interpreted as variant density, biological
+yield, or modality-associated burden without a governed opportunity
+denominator.
+
+Where available, the certification substrate SHALL preserve:
+
+- assay or design identity;
+- target, interrogated, or callable territory identity;
+- interval or mask hash;
+- total opportunity bases;
+- depth and coverage-threshold summaries;
+- mapping and duplication context;
+- the callable definition used.
+
+Unavailable opportunity evidence SHALL remain explicit and SHALL narrow
+Certification C claims rather than be silently estimated.
+
+### 7.13 Observational-unit authority
+
+The 14 executions SHALL NOT be pooled as one homogeneous epilepsy cohort.
+
+Scientifically valid presentation SHALL preserve:
+
+```text
+12 individual unrelated WES-designated runs
+2 individual related WGS sibling runs
+```
+
+Certification C MAY present:
+
+- per-run values;
+- the 12-member WES distribution;
+- q1, median, and q3 WES summaries;
+- each WGS sibling separately;
+- a WGS family-level shared/private summary;
+- descriptive comparison of the certified corpus surfaces.
+
+The current design SHALL NOT support:
+
+- inferential WES-versus-WGS significance testing;
+- population-level effect estimates;
+- treatment of the siblings as independent replicates;
+- separation of modality effect from node effect;
+- one pooled 14-run epilepsy-corpus average presented as a uniform sampling
+  structure.
+
 ---
 
 ## 8. Certification-System Architecture
@@ -472,19 +656,43 @@ Calibration SHALL establish that the generalized system reproduces the prior
 technical conclusions or explicitly explains any difference introduced by a
 newer schema, implementation, or evidence definition.
 
-### 8.4 Two-pass evidence model
+### 8.4 Two-layer evidence model
 
 The system SHALL distinguish:
 
 ```text
-all-member lightweight evidence
+core all-member certification surface
     required for every one of the 14 runs
+    and sufficient to support Certifications A and B
 
-bounded high-cost probes
-    required for representatives, anomalies,
-    both WGS siblings, CNTNAP2 tracing,
-    or unresolved certification questions
+comparative-opportunity extension
+    gathered where governed and available
+    and required for opportunity-qualified Certification C claims
 ```
+
+The core all-member surface SHALL include complete foundational checks for:
+
+- observation-ID completeness;
+- exact within-run observation-ID uniqueness;
+- duplicate-identity detection;
+- called-allele-index validity;
+- missing and partial-call preservation;
+- processed-to-TEP identity;
+- Stage 07 preservation;
+- inventory closure;
+- lineage closure.
+
+These foundational properties SHALL NOT be representative-only.
+
+The system MAY additionally distinguish bounded high-cost biological or
+forensic probes for:
+
+- predetermined WES representatives;
+- detected outliers;
+- both WGS siblings;
+- publication-candidate tracing;
+- unresolved certification questions;
+- validation of the lightweight extractor itself.
 
 A high-cost probe SHALL be justified by a certification claim, anomaly, or
 representative audit requirement—not merely by technical possibility.
@@ -511,6 +719,10 @@ NEW_BOUNDED_PROBE_REQUIRED
 
 BLOCKED_PENDING_DISCOVERY
     source path, package identity, or governed evidence is unresolved
+
+UNAVAILABLE_WITH_EXPLICIT_LIMITATION
+    governed evidence is absent and the missing substrate narrows
+    the permissible certification claim
 
 NOT_APPLICABLE
     scientifically inapplicable to that certification object
@@ -660,6 +872,8 @@ The evidence SHALL include, where supported by the schema:
 - projected-record count;
 - genotype-observation count;
 - deterministic observation-ID completeness;
+- exact within-run observation-ID uniqueness;
+- duplicate observation-ID count and bounded exemplars;
 - source-record ordinal and hash completeness;
 - GT-state distribution;
 - missing and partial-call counts;
@@ -740,6 +954,85 @@ detect silent failure, including:
 These summaries are diagnostic evidence. They SHALL NOT be represented as
 truth-set benchmarks, diagnostic yield, disease prevalence, or clinical
 classification.
+
+Every genotype-distribution output SHALL carry an explicit
+`VAP_EMITTED_VARIANT_OBSERVATION_UNIVERSE` boundary or an equivalent
+machine-readable definition.
+
+Every rarity output SHALL record the rarity definition and SHALL distinguish
+frequency unknown from rare.
+
+### 10.8 Assay-opportunity and coverage evidence
+
+The common evidence model SHALL preserve the following where governed evidence
+exists.
+
+For each WES-designated run:
+
+- assay or capture-design identity;
+- library-preparation strategy;
+- target interval or bait-set identity;
+- target interval path and SHA-256;
+- total target bases;
+- mean and median target depth;
+- target bases covered at `>=10x`, `>=20x`, and `>=30x`;
+- mapping rate or equivalent mapping context;
+- duplication rate or equivalent duplication context;
+- callable target bases, when a governed callable definition exists;
+- the callable definition and tool identity.
+
+For each WGS run:
+
+- total interrogated genome territory;
+- callable-region or callable-mask identity;
+- callable mask path and SHA-256, where available;
+- total callable bases;
+- mean and median genome depth;
+- genome bases covered at `>=10x`, `>=20x`, and `>=30x`;
+- mapping rate or equivalent mapping context;
+- duplication rate or equivalent duplication context;
+- the callable definition and tool identity.
+
+The evidence system SHOULD prefer existing governed run artifacts over a new
+BAM-scale probe.
+
+A new BAM- or alignment-scale opportunity probe SHALL be authorized only when:
+
+1. the metric supports a defined scientific claim;
+2. no governed lightweight artifact supplies it;
+3. the implementation plan records I/O burden and node-safety controls;
+4. SAGE-VAP confirms the evidence is scientifically necessary.
+
+Missing denominator evidence SHALL use
+`UNAVAILABLE_WITH_EXPLICIT_LIMITATION`; it SHALL NOT be fabricated.
+
+### 10.9 Exact compact membership surfaces
+
+Each per-run package SHALL retain compact exact membership evidence sufficient
+to support any later recurrence, overlap, or expansion claim.
+
+The package SHALL preserve, as applicable:
+
+- governed gene identities represented;
+- observation count and evidence class per gene;
+- genes with VAP-governed rare evidence;
+- genes with high-impact evidence;
+- coding, splice, and noncoding gene membership;
+- coordinate-reference-alternate identities required for recurrence analysis;
+- genotype-observation identity for each retained compact variant member;
+- genomic-territory class where defined;
+- exact observations supporting any highlighted cross-run claim.
+
+The membership surfaces SHALL be compact, reviewable, and hash-bound. They
+SHALL NOT require transporting the complete genotype table.
+
+Aggregate counts alone SHALL NOT support certification claims about:
+
+- recurrent genes;
+- gene-surface overlap;
+- gene-surface expansion;
+- exact observation recurrence;
+- common-territory variant sharing.
 
 ---
 
@@ -848,7 +1141,9 @@ The following SHALL execute independently for each run:
 - Stage 07 preservation and downstream reconciliation;
 - TEP-VAP transport audit;
 - inventory and lineage audit;
-- scientific sanity summary.
+- scientific sanity summary;
+- exact compact gene- and variant-membership extraction;
+- assay-opportunity extraction where governed evidence is available.
 
 ### 12.3 Corpus-level probes
 
@@ -915,19 +1210,38 @@ and certification consequence.
 
 ### 13.4 Representative high-cost coverage
 
-The active implementation plan SHALL define a minimum representative set that
-spans:
+Absent a detected anomaly that requires additional coverage, the predetermined
+WES representative set SHALL be:
 
-```text
-q1
-median
-q3
-existing certified exemplar
-detected outlier, if any
-```
+| Role | Sample |
+|---|---|
+| q1 representative | `ERR10619212` |
+| median representative and certified exemplar | `ERR10619300` |
+| q3 representative | `ERR10619225` |
+
+Any detected outlier SHALL be added to, not substituted for, this set.
 
 Representative high-cost success SHALL supplement, not replace, all-member
-lightweight evidence.
+foundational evidence.
+
+### 13.5 WES assay identity and opportunity qualification
+
+Certification A MAY proceed as a producer-preservation certification while WES
+assay identity remains qualified, provided the uncertainty is explicit and does
+not undermine run or artifact identity.
+
+The WES corpus package SHALL establish or preserve as unresolved:
+
+- whether all 12 runs share one library-preparation strategy;
+- whether all 12 runs share one target design;
+- the governed target intervals;
+- the relationship between repository WES designation and ENA `AMPLICON`
+  metadata;
+- which coverage and callability denominators are available.
+
+Until resolved, biological-yield narration SHALL use
+`WES-designated PRJEB57558 runs` and SHALL NOT claim uniform exome-wide
+opportunity.
 
 ---
 
@@ -1000,6 +1314,25 @@ The trace SHALL NOT depend on one publication cDNA string because the
 publication contains inconsistent cDNA expressions for the reported
 p.Gly228Arg signal.
 
+The trace SHALL preserve a hierarchical concordance assessment:
+
+```text
+genomic concordance
+    same assembly and chromosome-position-reference-alternate identity
+
+gene/protein concordance
+    same CNTNAP2 identity and p.Gly228Arg consequence
+
+transcript concordance
+    compatible transcript-specific HGVS after normalization
+
+notation discordance
+    publication cDNA strings differ while genomic and protein identity agree
+```
+
+A cDNA-string discrepancy SHALL NOT defeat concordance when genomic and protein
+identities agree.
+
 The technical output SHALL support, but SHALL NOT itself assign, the scientific
 categories:
 
@@ -1011,6 +1344,10 @@ UNRESOLVED_NORMALIZATION_DIFFERENCE
 NOT_OBSERVED
 ```
 
+This trace supports only a `CNTNAP2`-specific publication claim. A broader
+publication-candidate claim requires bounded traces for `PDZD7`, `ALG6`,
+`RBM20`, and `CNTNAP2`.
+
 ### 14.5 Pedigree identity
 
 The evidence package SHALL record whether a governed source establishes:
@@ -1021,6 +1358,18 @@ SRR13573588 → V-2 or V-4
 ```
 
 If not established, both mappings SHALL remain `UNKNOWN`.
+
+The unresolved mapping does not block Certification B. It limits only
+person-specific publication narration.
+
+### 14.6 WGS opportunity denominator
+
+The WGS corpus package SHALL preserve available genome-depth, coverage,
+mapping, duplication, and callable-territory evidence under Section 10.8.
+
+Absence of an interval-level callable mask does not automatically block
+Certification B. It limits normalized density and exact common-territory claims
+in Certification C.
 
 ---
 
@@ -1043,6 +1392,8 @@ emit:
 - provenance compatibility;
 - configuration and resource differences;
 - genotype and preservation summaries;
+- exact gene- and variant-membership package identities;
+- opportunity-denominator availability and limitations;
 - anomaly and unresolved-question registers;
 - targeted-probe coverage;
 - evidence-package hashes.
@@ -1075,6 +1426,27 @@ A frozen package SHALL NOT be overwritten.
 
 Any regeneration SHALL create a new version and trigger review.
 
+### 15.5 Durable SAGE certification record
+
+Once SAGE-VAP issues a per-run, corpus, or comparative certification
+determination, that determination SHALL be codified as a durable repository
+validation record under the applicable `docs/validation/comparisons/`
+namespace.
+
+The committed certification record SHALL identify:
+
+- reviewed evidence-package version;
+- manifest and receipt hashes;
+- certified membership;
+- outcome;
+- scientific notes and limitations;
+- unresolved questions;
+- revalidation triggers;
+- SAGE-VAP review identity and date.
+
+A chat response or transient handoff alone SHALL NOT constitute the durable
+repository certification record.
+
 ---
 
 ## 16. Certification C — Cross-Modality Compatibility Contract
@@ -1104,7 +1476,12 @@ The compatibility audit SHALL compare:
 - TEP-VAP validator version;
 - execution-provenance schema;
 - node and operating-environment identities;
-- extractor and evidence-schema identities.
+- extractor and evidence-schema identities;
+- WES assay and target-design identity;
+- WGS callable-territory identity;
+- coverage and callability definitions;
+- opportunity-denominator availability;
+- compact membership-schema identity.
 
 ### 16.3 Compatibility classifications
 
@@ -1137,20 +1514,70 @@ The comparative evidence SHALL explicitly preserve that:
 The comparison SHALL NOT attribute every observed difference solely to assay
 modality.
 
-### 16.5 Valid comparative classes
+The primary observational unit SHALL remain the individual run. The two WGS
+siblings SHALL additionally receive a family-level shared/private summary but
+SHALL NOT be treated as independent replicates.
 
-The comparison MAY evaluate:
+Certification C SHALL be descriptive and preservation-centered. It SHALL NOT
+perform inferential WES-versus-WGS significance testing or estimate a modality
+effect separately from the node effect.
+
+### 16.5 Common evaluable territory
+
+The strongest opportunity-qualified comparison SHALL define a common evaluable
+territory as:
+
+```text
+governed WES target territory
+    intersected with
+WGS sufficiently interrogated or callable territory
+```
+
+The implementation SHALL preserve the interval identities, reference assembly,
+thresholds, tools, and hashes used to construct that intersection.
+
+Certification C SHOULD distinguish:
+
+```text
+common territory
+    WES and WGS evidence over approximately comparable genomic opportunity
+
+expanded territory
+    WGS evidence outside the governed WES target territory
+```
+
+If an interval-level WES target or WGS callable substrate is unavailable, exact
+common-territory recurrence and density claims SHALL be omitted or narrowed.
+
+Coverage summaries without interval-level territory MAY support descriptive
+context, but SHALL NOT substitute for exact common-territory membership.
+
+### 16.6 Valid comparative classes
+
+The core comparison MAY evaluate:
 
 - invariant architecture and preservation behavior;
 - execution-provenance completeness;
 - configuration and resource compatibility;
-- genotype evidence completeness and state distributions;
+- genotype evidence completeness and state distributions within the emitted
+  observation universe;
 - semantic-routing and preservation patterns;
-- normalized observation densities where scientifically defined;
-- WGS search-space expansion;
-- gene-surface overlap and expansion;
-- publication concordance, expansion, divergence, or unresolved normalization;
+- WES within-corpus stability;
+- WGS sibling shared/private structure;
 - node and modality limitations.
+
+The opportunity-qualified comparison MAY additionally evaluate, only where the
+required denominator exists:
+
+- normalized observation densities;
+- common-territory recurrence;
+- WGS expanded-territory evidence;
+- gene-surface overlap and expansion;
+- exact observation recurrence;
+- assay-associated biological differences.
+
+Publication comparison SHALL remain `CNTNAP2`-specific unless bounded evidence
+for all intended publication candidates is present.
 
 The comparison SHALL NOT estimate:
 
@@ -1160,9 +1587,11 @@ The comparison SHALL NOT estimate:
 - causal effect;
 - clinical validity;
 - clinical utility;
-- ACMG/AMP classification authority.
+- ACMG/AMP classification authority;
+- a population-level modality effect;
+- regions of homozygosity from shared homozygous variants alone.
 
-### 16.6 Frozen-input requirement
+### 16.7 Frozen-input requirement
 
 Comparative products SHALL be derived from frozen certified evidence packages.
 They SHALL NOT silently reopen canonical run directories or regenerate source
@@ -1186,6 +1615,15 @@ additive.
 An absent value SHALL be distinguishable from zero, false, not applicable, and
 not observed.
 
+Shared schemas SHALL include machine-readable fields for:
+
+- observation-universe definition;
+- rarity-definition identity;
+- assay-opportunity availability;
+- callable-definition identity;
+- common-territory eligibility;
+- exact membership-surface version.
+
 ### 17.2 Required technical states
 
 DEX-VAP MAY assign only technical states such as:
@@ -1207,6 +1645,10 @@ RECONCILED
 UNRECONCILED
 UNRESOLVED
 NOT_APPLICABLE
+BLOCKED_PENDING_DISCOVERY
+UNAVAILABLE_WITH_EXPLICIT_LIMITATION
+PACKAGE_VERIFIED
+PACKAGE_INVALID
 ```
 
 ### 17.3 Reserved scientific outcomes
@@ -1274,7 +1716,8 @@ Each namespace SHALL preserve, as applicable:
 - targeted-probe outputs;
 - corpus aggregation;
 - SAGE-VAP review materials;
-- final certification determination;
+- final SAGE-VAP certification determination committed as a durable validation
+  record;
 - frozen-package receipt.
 
 Large canonical run artifacts SHALL remain outside Git in their governed
@@ -1323,6 +1766,8 @@ Full SHA-256 SHALL be computed for:
 - execution provenance and configuration snapshots;
 - genotype artifact pairs requiring direct transport identity;
 - inventory and lineage manifests;
+- opportunity interval or callable-mask artifacts used for denominators;
+- compact exact membership surfaces;
 - frozen evidence archives;
 - other critical artifacts identified in the active implementation plan.
 
@@ -1426,7 +1871,14 @@ The implementation and evidence schema SHALL explicitly preserve or expose:
 - biological outliers;
 - expected WGS noncoding expansion;
 - publication notation inconsistencies;
-- unresolved pedigree mapping.
+- unresolved pedigree mapping;
+- unresolved WES assay identity;
+- absent or incompatible target intervals;
+- absent callable masks;
+- inconsistent coverage thresholds;
+- missing opportunity denominators;
+- frequency unknown versus rare;
+- emitted-observation versus callable-locus universe.
 
 An edge case SHALL NOT be silently coerced into an easier semantic category.
 
@@ -1487,9 +1939,32 @@ The active implementation plan SHALL:
 - define manifests, receipts, and hashes;
 - document mutation safeguards;
 - separate scientific questions from implementation decisions;
+- incorporate SAGE-VAP's resolved scientific conditions;
 - be reviewable by SAGE-VAP without access to large canonical artifacts.
 
-### Gate 2 — Extractor readiness
+### Gate 2 — Scientific substrate discovery
+
+Before broad extraction, DEX-VAP SHALL inventory the governed substrate for:
+
+- WES library-preparation and assay identity;
+- WES target or bait intervals;
+- consistency of design across the 12 WES-designated runs;
+- ENA `AMPLICON` metadata and repository WES designation;
+- WES target-depth and threshold-coverage evidence;
+- WGS depth and threshold-coverage evidence;
+- WGS callable masks or callable-region evidence;
+- mapping and duplication context;
+- exact compact gene- and variant-membership derivation;
+- common-territory feasibility.
+
+Every unavailable substrate SHALL receive
+`UNAVAILABLE_WITH_EXPLICIT_LIMITATION` or `BLOCKED_PENDING_DISCOVERY`.
+
+Gate 2 does not require every denominator to exist. It requires that
+availability and claim consequences are known before Certification C is
+constructed.
+
+### Gate 3 — Extractor readiness
 
 Before corpus execution, the common extractor SHALL:
 
@@ -1499,18 +1974,28 @@ Before corpus execution, the common extractor SHALL:
 - produce deterministic manifests and receipts;
 - enforce read-only source behavior;
 - expose partial failure;
-- record source and implementation identities.
+- record source and implementation identities;
+- prove exact observation-ID uniqueness;
+- emit the observation-universe and rarity definitions;
+- emit compact exact membership surfaces;
+- report opportunity-denominator availability without fabrication.
 
-### Gate 3 — Per-run technical completion
+### Gate 4 — Per-run technical completion
 
 A run reaches `EXTRACTION_COMPLETE` only when all required common evidence
 classes have either:
 
 - completed successfully;
-- been explicitly marked `NOT_APPLICABLE`; or
-- been marked `UNRESOLVED` with a recorded reason and SAGE-visible consequence.
+- been explicitly marked `NOT_APPLICABLE`;
+- been marked `UNRESOLVED` with a recorded reason and SAGE-visible consequence;
+  or
+- been marked `UNAVAILABLE_WITH_EXPLICIT_LIMITATION` where the absent evidence
+  narrows comparative claims without invalidating producer certification.
 
-### Gate 4 — Corpus technical completion
+Foundational identity, preservation, genotype, inventory, and lineage checks
+SHALL NOT be waived through the limitation state.
+
+### Gate 5 — Corpus technical completion
 
 A corpus reaches technical completion only when:
 
@@ -1518,29 +2003,41 @@ A corpus reaches technical completion only when:
 - no member is silently omitted;
 - all per-run package hashes reconcile;
 - corpus aggregation completes;
+- exact membership-package identities are recorded;
+- opportunity-denominator availability is summarized;
 - anomalies and unresolved questions are visible;
 - targeted-probe coverage is recorded;
 - SAGE-VAP has sufficient evidence to issue a corpus determination.
 
-### Gate 5 — Frozen corpus readiness
+### Gate 6 — Frozen corpus readiness
 
-A corpus is comparison-ready only after:
+A corpus is eligible for the complete 12-versus-2 comparison only after:
 
-- SAGE-VAP issues a usable corpus determination;
+- SAGE-VAP issues `CORPUS CERTIFIED` or `CORPUS CERTIFIED WITH NOTES`;
 - the reviewed package is frozen;
 - hashes and version identities are recorded;
+- the durable SAGE certification record is committed;
 - replacement and revalidation rules are active.
 
-### Gate 6 — Comparative readiness
+A partially certified corpus requires a separately bounded comparison object.
+
+### Gate 7 — Comparative readiness
 
 Certification C begins only when:
 
-- both corpus packages satisfy Gate 5;
+- both corpus packages satisfy Gate 6;
 - the compatibility audit completes;
+- the observational-unit structure is preserved;
+- observation-universe definitions are explicit;
+- rarity definitions reconcile;
 - comparison-limiting and blocking differences are visible;
 - comparative outputs derive from the frozen packages;
-- SAGE-VAP can distinguish architecture, modality, node, family structure, and
-  biological variation.
+- exact membership evidence supports every recurrence or overlap claim;
+- opportunity-denominator availability defines the permitted biological claims;
+- common-territory construction is either completed or explicitly unavailable;
+- publication claims are bounded to the candidates actually traced;
+- SAGE-VAP can distinguish architecture, modality, node, family structure,
+  assay opportunity, and biological variation.
 
 ---
 
@@ -1567,6 +2064,12 @@ following changes:
 - regeneration of a certified TEP-VAP;
 - extractor or probe semantics;
 - common output schema;
+- compact membership schema or derivation semantics;
+- WES assay or target design;
+- WGS callable mask or callable definition;
+- coverage thresholds or opportunity denominator;
+- common-territory construction;
+- rarity definition;
 - corpus membership;
 - governed pedigree mapping;
 - discovery of a material certification defect.
@@ -1593,13 +2096,24 @@ This contract does not establish:
 - a pure hardware effect;
 - a pure modality effect;
 - universal compatibility with every assay, caller, or schema;
-- universal cross-version determinism.
+- universal cross-version determinism;
+- inferential significance testing across the current WES and WGS corpora;
+- treatment of the two siblings as independent replicates;
+- pooling the 14 runs as one homogeneous cohort;
+- variant-density claims without governed opportunity denominators;
+- genome-wide genotype burden from emitted variant observations;
+- ROH reconstruction without an independently governed ROH substrate;
+- publication-wide concordance from a `CNTNAP2`-only trace.
 
-The program is observational, preservation-centered, and architecture-centered.
+The program is observational, preservation-centered, architecture-centered, and
+opportunity-qualified where denominator evidence permits.
 
 ---
 
 ## 27. Change Control
+
+This v0.2 revision incorporates SAGE-VAP's 2026-08-06
+`APPROVE WITH SCIENTIFIC CONDITIONS` determination.
 
 A contract change SHALL record:
 
@@ -1635,6 +2149,14 @@ and
 
 a controlled comparative evidence package
 constructed from those frozen certified corpora
+
+with:
+
+    explicit observation-universe boundaries
+    exact compact membership substrate
+    opportunity denominators where governed and available
+    a common evaluable territory where technically supportable
+    claims narrowed wherever those substrates are unavailable
 ```
 
 and when SAGE-VAP has sufficient evidence to issue:
@@ -1666,5 +2188,11 @@ SAGE-VAP SHALL determine what that evidence scientifically supports.
 The WES and WGS corpora SHALL be certified independently before comparison.
 
 The comparative certification SHALL consume frozen certified evidence packages
-and SHALL preserve modality, node, relatedness, uncertainty, lineage, and
-producer-authority boundaries.
+and SHALL preserve modality, node, relatedness, uncertainty, lineage,
+observation-universe, assay-opportunity, and producer-authority boundaries.
+
+Raw count differences SHALL remain descriptive until governed denominators
+support stronger interpretation.
+
+Exact recurrence, overlap, expansion, and publication claims SHALL be grounded
+in compact hash-bound membership evidence rather than aggregate counts alone.
